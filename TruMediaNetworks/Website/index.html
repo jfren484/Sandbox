@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Graphs for player</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="resources/css/bootswatch-united.min.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="container">
+            <form class="form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="playerId">Player</label>
+                            <select id="playerId" name="playerId">
+                                <option value="425783">Shin-Soo Choo</option>
+                                <option value="458731">Brett Gardner</option>
+                                <option value="592178">Kris Bryant</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        -->
+        <script>
+            var players = [
+                { 'id': '425783', 'name': 'Shin-Soo Choo' },
+                { 'id': '458731', 'name': 'Brett Gardner' },
+                { 'id': '592178', 'name': 'Kris Bryant' }
+            ];
+        </script>
+    </body>
+</html>
