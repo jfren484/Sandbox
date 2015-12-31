@@ -15,33 +15,46 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="player">Player</label>
-                            <select id="player" ng-model="player" ng-options="player.fullName for player in players"></select>
+                            <select id="player"></select>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="row">
                 <div class="col-xs-6 col-sm-2">
-                    <img class="player-image" ng-src="{{player.playerImage}}" alt="{{player.fullName}} mugshot"/>
+                    <img id="playerImage" class="player-image" src="" alt=""/>
                 </div>
                 <div class="col-xs-6 col-sm-10">
-                    <h3>{{player.fullName}}</h3>
+                    <h3 id="playerName"></h3>
                     <div>
-                        <img ng-src="{{player.teamImage}}" alt="{{player.team}} logo"/>
-                        {{player.team}}
+                        <img id="teamImage" src="" alt=""/>
+                        <span id="teamName"></span>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <highchart id="chart1" series="chart.series" config="lineChart"></highchart>
+                <div class="col-lg-12 chart-container">
+                    <div id="pctChart"></div>
+                </div>
+                <div class="col-md-12 col-lg-6 chart-container">
+                    <div id="countChart"></div>
+                </div>
+                <div class="col-md-12 col-lg-6 chart-container">
+                    <div id="countPie"></div>
+                </div>
+                <div class="col-md-12 col-lg-6 chart-container">
+                    <div id="valueChart"></div>
+                </div>
+                <div class="col-md-12 col-lg-6 chart-container">
+                    <div id="powerChart"></div>
                 </div>
             </div>
         </div>
 
-        <script src="resources/js/angular.min.js"></script>
+        <script src="resources/js/jquery.min.js"></script>
         <script src="resources/js/highcharts.min.js"></script>
-        <script src="resources/js/highcharts-ng.js"></script>
-        <script src="resources/js/controllers.js"></script>
+        <script src="resources/js/highcharts.drilldown.js"></script>
+        <script src="resources/js/helpers.js"></script>
+        <script src="resources/js/site.js"></script>
     </body>
 </html>
