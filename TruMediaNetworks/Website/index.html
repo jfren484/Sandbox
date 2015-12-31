@@ -22,19 +22,26 @@
             </form>
             <div class="row">
                 <div class="col-xs-6 col-sm-2">
-                    <img class="player-image" ng-src="{{player.playerImage}}" />
+                    <img class="player-image" ng-src="{{player.playerImage}}" alt="{{player.fullName}} mugshot"/>
                 </div>
                 <div class="col-xs-6 col-sm-10">
                     <h3>{{player.fullName}}</h3>
                     <div>
-                        <img ng-src="{{player.teamImage}}" />
+                        <img ng-src="{{player.teamImage}}" alt="{{player.team}} logo"/>
                         {{player.team}}
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <highchart id="chart1" series="chart.series" config="lineChart"></highchart>
                 </div>
             </div>
         </div>
 
         <script src="resources/js/angular.min.js"></script>
+        <script src="resources/js/highcharts.min.js"></script>
+        <script src="resources/js/highcharts-ng.js"></script>
         <script src="resources/js/controllers.js"></script>
     </body>
 </html>
