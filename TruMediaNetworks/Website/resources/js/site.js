@@ -8,15 +8,54 @@ var players = [
 ];
 
 var teams = {
-    'NYY': 'New York Yankees',
-    'CHC': 'Chicago Cubs',
-    'TEX': 'Texas Rangers'
+    'ATL': { 'name': 'Atlanta Braves', 'league': 'NL', 'div': 'NLE' },
+    'ARI': { 'name': 'Arizona Diamondbacks', 'league': 'NL', 'div': 'NLW' },
+    'BAL': { 'name': 'Baltimore Orioles', 'league': 'AL', 'div': 'ALE' },
+    'BOS': { 'name': 'Boston Red Sox', 'league': 'AL', 'div': 'ALE' },
+    'CHC': { 'name': 'Chicago Cubs', 'league': 'NL', 'div': 'NLC' },
+    'CIN': { 'name': 'Cincinnati Reds', 'league': 'NL', 'div': 'NLC' },
+    'CLE': { 'name': 'Cleveland Indians', 'league': 'AL', 'div': 'ALC' },
+    'COL': { 'name': 'Colorado Rockies', 'league': 'NL', 'div': 'NLW' },
+    'CWS': { 'name': 'Chicago White Sox', 'league': 'AL', 'div': 'ALC' },
+    'DET': { 'name': 'Detroit Tigers', 'league': 'AL', 'div': 'ALC' },
+    'HOU': { 'name': 'Houston Astros', 'league': 'AL', 'div': 'ALW' },
+    'KC': { 'name': 'Kansas City Royals', 'league': 'AL', 'div': 'ALC' },
+    'LAA': { 'name': 'Los Angeles Angels', 'league': 'AL', 'div': 'ALW' },
+    'LAD': { 'name': 'Los Angeles Dodgers', 'league': 'NL', 'div': 'NLW' },
+    'MIA': { 'name': 'Miami Marlins', 'league': 'NL', 'div': 'NLE' },
+    'MIL': { 'name': 'Milwaukee Brewers', 'league': 'NL', 'div': 'NLC' },
+    'MIN': { 'name': 'Minnesota Twins', 'league': 'AL', 'div': 'ALC' },
+    'NYM': { 'name': 'New York Mets', 'league': 'NL', 'div': 'NLE' },
+    'NYY': { 'name': 'New York Yankees', 'league': 'AL', 'div': 'ALE' },
+    'OAK': { 'name': 'Oakland A\'s', 'league': 'AL', 'div': 'ALW' },
+    'PHI': { 'name': 'Philadelphia Phillies', 'league': 'NL', 'div': 'NLE' },
+    'PIT': { 'name': 'Pittsburgh Pirates', 'league': 'NL', 'div': 'NLC' },
+    'SD': { 'name': 'San Diego Padres', 'league': 'NL', 'div': 'NLW' },
+    'SEA': { 'name': 'Seattle Mariners', 'league': 'AL', 'div': 'ALW' },
+    'SF': { 'name': 'San Francisco Giants', 'league': 'NL', 'div': 'NLW' },
+    'STL': { 'name': 'St. Louis Cardinals', 'league': 'NL', 'div': 'NLC' },
+    'TB': { 'name': 'Tampa Bay Rays', 'league': 'AL', 'div': 'ALE' },
+    'TEX': { 'name': 'Texas Rangers', 'league': 'AL', 'div': 'ALW' },
+    'TOR': { 'name': 'Toronto Blue Jays', 'league': 'AL', 'div': 'ALE' },
+    'WSH': { 'name': 'Washington Nationals', 'league': 'NL', 'div': 'NLE' }
 };
 
-var summaryColumns = ['PA', 'AB', 'H', 'BB', 'HBP', 'SF', 'TB', 'HR', 'K'];
+var summaryColumns = ['PA', 'AB', 'H', 'BB', 'HBP', 'SF', 'TB', 'HR', 'K', 'RBI'];
+
+var dateFormat = '%A, %b %e, %l:%M %p';
 
 var qsPlayerIndex = (queryString.p ? queryString.p[0] : 0) * 1;
 var player = players[qsPlayerIndex];
+
+Highcharts.setOptions({
+    lang: {
+        drillUpText: '< Back'
+    }
+});
+
+$('#filterOpp').add('#filterTime').on('change', function () {
+    updateCountCharts();
+});
 
 players.forEach(function (player, i) {
     readPlayerData(i);
@@ -30,15 +69,19 @@ function readPlayerData(playerIndex) {
             }
             var totals = {};
 
-            summaryColumns.forEach(function(col) {
+            summaryColumns.forEach(function (col) {
                 totals[col] = 0;
             });
 
             players[playerIndex].rows = data.rows.map(function (rowSource) {
                 var rowDest = {};
 
-                data.header.forEach(function(col, colIndex) {
+                data.header.forEach(function (col, colIndex) {
                     rowDest[col.label] = rowSource[colIndex];
+                    if (col.label === 'gameDate') {
+                        // The times in the data are in EDT, so I'm not sure why adding GMT+0000 makes them correct in Highcharts, but it does :P
+                        rowDest[col.label] += ' GMT+0000';
+                    }
                 });
 
                 rowDest.PA = rowDest.AB + rowDest.HBP + rowDest.BB + rowDest.SF;
@@ -72,6 +115,12 @@ function readPlayerData(playerIndex) {
 }
 
 function updatePage() {
+    updatePlayerData();
+    updatePercentageCharts();
+    updateCountCharts()
+}
+
+function updatePlayerData() {
     $('#playerName')
         .text(player.fullName);
 
@@ -80,48 +129,67 @@ function updatePage() {
         .attr('alt', player.fullName + ' mugshot');
 
     $('#teamName')
-        .text(teams[player.team]);
+        .text(teams[player.team].name);
 
     $('#teamImage')
         .attr('src', player.teamImage)
-        .attr('alt', player.team + ' logo');
+        .attr('alt', teams[player.team].name + ' logo');
 
-    Highcharts.setOptions({
-        lang: {
-            drillUpText: '< Back'
-        }
-    });
+    $('#opponentName')
+        .text(teams[player.opponent].name);
 
-    var avgSeriesData = player.rows.map(function(row) {
+    $('#opponentImage')
+        .attr('src', player.opponentImage)
+        .attr('alt', teams[player.opponent].name + ' logo');
+
+    $('#statAVG')
+        .text(player.AVG.toFixed(3));
+    $('#statH')
+        .text(player.totalH);
+    $('#statHR')
+        .text(player.totalHR);
+    $('#statRBI')
+        .text(player.totalRBI);
+    $('#statOPS')
+        .text(player.OPS.toFixed(3));
+
+    $('#gamePA')
+        .text(player.PA);
+    $('#gameH')
+        .text(player.H);
+    $('#gameBB')
+        .text(player.BB);
+    $('#gameHR')
+        .text(player.HR);
+    $('#gameRBI')
+        .text(player.RBI);
+
+    var gamelogRows = $('#gamelog table tbody');
+    gamelogRows.empty();
+
+    for (var i = 0; i < player.rows.length; ++i) {
+        var dataRow = player.rows[i];
+        var gameDate = moment(dataRow.gameDate).format('MMM D');
+
+        var tableRow = $('<tr>')
+            .append($('<td>').append(gameDate))
+            .append($('<td>').append('<img src="' + dataRow.opponentImage + '" alt="' + teams[dataRow.opponent].name + ' logo" class="mini-logo" /> ' + teams[dataRow.opponent].name))
+            .append($('<td>').append(dataRow.PA))
+            .append($('<td>').append(dataRow.H))
+            .append($('<td>').append(dataRow.BB))
+            .append($('<td>').append(dataRow.HR))
+            .append($('<td>').append(dataRow.RBI));
+        gamelogRows.append(tableRow);
+    }
+}
+
+function updatePercentageCharts() {
+    var avgSeriesData = player.rows.map(function (row) {
         return [new Date(row.gameDate).getTime(), row.AVG];
     });
 
     var opsSeriesData = player.rows.map(function (row) {
         return [new Date(row.gameDate).getTime(), row.OPS];
-    });
-
-    var hitSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), row.H];
-    });
-
-    var abSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), row.AB];
-    });
-
-    var tbSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), row.TB];
-    });
-
-    var hrSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), row.HR];
-    });
-
-    var kSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), -row.K];
-    });
-
-    var rbiSeriesData = player.rows.map(function (row) {
-        return [new Date(row.gameDate).getTime(), row.RBI];
     });
 
     $('#pctChart').highcharts({
@@ -142,22 +210,104 @@ function updatePage() {
                 enabled: false
             },
             labels: {
-                format: '{value:.3f}'
+                formatter: function () {
+                    return formatPercentage(this.value);
+                }
             }
         },
         tooltip: {
             dateTimeLabelFormats: {
-                minute: '%A, %b %e, %l:%M %p'
+                minute: dateFormat
             },
-            valueDecimals: 3
+            pointFormatter: function () {
+                return '<span style="color:' + this.color + '">\u25CF</span>' + this.series.name + ': <b>' + formatPercentage(this.y) + '</b><br />';
+            },
+            shared: true
         },
         series: [{
-            name: 'Batting Average (AVG)',
-            data: avgSeriesData
-        }, {
             name: 'On-base Plus Slugging (OPS)',
             data: opsSeriesData
+        }, {
+            name: 'Batting Average (AVG)',
+            data: avgSeriesData
         }]
+    });
+}
+
+function updateCountCharts() {
+    var filtered = false;
+    var rows = player.rows;
+    var totalH = player.totalH;
+    var totalAB = player.totalAB;
+    var totalPA = player.totalPA;
+    var totalHR = player.totalHR;
+    var totalBB = player.totalBB;
+    var totalK = player.totalK;
+    var totalSF = player.totalSF;
+    var totalHBP = player.totalHBP;
+
+    var filterOpp = $('#filterOpp').val();
+    if (filterOpp === 'div') {
+        filtered = true;
+        rows = rows.filter(function (row) {
+            return teams[row.team].div === teams[row.opponent].div;
+        });
+    } else if (filterOpp === 'int') {
+        filtered = true;
+        rows = rows.filter(function (row) {
+            return teams[row.team].league !== teams[row.opponent].league;
+        });
+    }
+
+    var filterTime = $('#filterTime').val();
+    if (filterTime === 'day') {
+        filtered = true;
+        rows = rows.filter(function (row) {
+            return moment(row.gameDate).hour() < 17;
+        });
+    } else if (filterTime === 'night') {
+        filtered = true;
+        rows = rows.filter(function (row) {
+            return moment(row.gameDate).hour() >= 17;
+        });
+    }
+
+    if (filtered) {
+        totalH = totalAB = totalPA = totalHR = totalBB = totalK = totalSF = totalHBP = 0;
+        rows.forEach(function (row) {
+            totalH += row['H'];
+            totalAB += row['AB'];
+            totalPA += row['PA'];
+            totalHR += row['HR'];
+            totalBB += row['BB'];
+            totalK += row['K'];
+            totalSF += row['SF'];
+            totalHBP += row['HBP'];
+        });
+    }
+
+    var hitSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': row.H, row: row };
+    });
+
+    var abSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': row.AB, row: row };
+    });
+
+    var tbSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': row.TB, row: row };
+    });
+
+    var hrSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': row.HR, row: row };
+    });
+
+    var kSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': -row.K, row: row };
+    });
+
+    var rbiSeriesData = rows.map(function (row) {
+        return { 'x': new Date(row.gameDate).getTime(), 'y': row.RBI, row: row };
     });
 
     $('#countChart').highcharts({
@@ -181,9 +331,21 @@ function updatePage() {
             allowDecimals: false
         },
         tooltip: {
-            dateTimeLabelFormats: {
-                minute: '%A, %b %e, %l:%M %p'
-            }
+            useHTML: true,
+            formatter: function () {
+                var tip = '<span style="font-size: 10px;">' + Highcharts.dateFormat(dateFormat, this.x) + '</span><br />vs ' +
+                    '<img class="mini-logo" src="' + this.points[0].point.row.opponentImage + '" /> ' +
+                    teams[this.points[0].point.row.opponent].name + '<br />';
+
+                if (this.points.length === 2) {
+                    tip += '<b>' + this.points[1].y + '-' + this.points[0].y + '</b>';
+                } else {
+                    tip += '<span style="color:' + this.points[0].color + '">\u25CF</span> ' + this.points[0].series.name + ': <b>' + this.points[0].y + '</b>';
+                }
+
+                return tip;
+            },
+            shared: true
         },
         series: [{
             name: 'At Bats (AB)',
@@ -216,8 +378,9 @@ function updatePage() {
         },
         tooltip: {
             dateTimeLabelFormats: {
-                minute: '%A, %b %e, %l:%M %p'
-            }
+                minute: dateFormat
+            },
+            shared: true
         },
         plotOptions: {
             area: {
@@ -253,25 +416,26 @@ function updatePage() {
             },
             allowDecimals: false,
             labels: {
-                formatter: function() {
+                formatter: function () {
                     return Math.abs(this.value);
                 }
             }
         },
         tooltip: {
             dateTimeLabelFormats: {
-                minute: '%A, %b %e, %l:%M %p'
+                minute: dateFormat
             },
             pointFormatter: function () {
-                return '<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name + ': <b>' + Math.abs(this.y) + '</b><br/>.';
-            }
+                return '<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name + ': <b>' + Math.abs(this.y) + '</b><br/>';
+            },
+            shared: true
         },
         series: [{
-            name: 'Strikeouts (K)',
-            data: kSeriesData
-        }, {
             name: 'Runs Batted In (RBI)',
             data: rbiSeriesData
+        }, {
+            name: 'Strikeouts (K)',
+            data: kSeriesData
         }]
     });
 
@@ -307,15 +471,15 @@ function updatePage() {
                 data: [
                     {
                         name: 'Hits',
-                        y: player.totalH,
+                        y: totalH,
                         drilldown: 'Hits'
                     }, {
                         name: 'Other At-bats',
-                        y: player.totalAB - player.totalH,
+                        y: totalAB - totalH,
                         drilldown: 'Other At-bats'
                     }, {
                         name: 'Non-at-bat Plate Appearances',
-                        y: player.totalPA - player.totalAB,
+                        y: totalPA - totalAB,
                         drilldown: 'Other Plate Appearnces'
                     }
                 ]
@@ -327,26 +491,26 @@ function updatePage() {
                     name: 'Hits',
                     id: 'Hits',
                     data: [
-                        ['Other Hits', player.totalH - player.totalHR],
-                        ['Home Runs (HR)', player.totalHR]
+                        ['Other Hits', totalH - totalHR],
+                        ['Home Runs (HR)', totalHR]
                     ]
                 },
                 {
                     name: 'Other At-bats',
                     id: 'Other At-bats',
                     data: [
-                        ['Other (e.g. reached by Error)', player.totalAB - player.totalH - player.totalK],
-                        ['Strikeouts (K)', player.totalK]
+                        ['Other (e.g. reached by Error)', totalAB - totalH - totalK],
+                        ['Strikeouts (K)', totalK]
                     ]
                 },
                 {
                     name: 'Other Plate Appearnces',
                     id: 'Other Plate Appearnces',
                     data: [
-                        ['Other (e.g. interference)', player.totalPA - player.totalAB - player.totalBB - player.totalSF - player.totalHBP],
-                        ['Walks (BB)', player.totalBB],
-                        ['Sacrifice Flies (SF)', player.totalSF],
-                        ['Hit by Pitch (HBP)', player.totalHBP]
+                        ['Other (e.g. interference)', totalPA - totalAB - totalBB - totalSF - totalHBP],
+                        ['Walks (BB)', totalBB],
+                        ['Sacrifice Flies (SF)', totalSF],
+                        ['Hit by Pitch (HBP)', totalHBP]
                     ]
                 }
             ]
@@ -357,7 +521,7 @@ function updatePage() {
 function updateSelect() {
     var $playerDropdown = $('#player');
 
-    players.forEach(function(player, playerIndex) {
+    players.forEach(function (player, playerIndex) {
         $playerDropdown.append($('<option>', {
             value: playerIndex,
             html: player.fullName,
@@ -367,7 +531,13 @@ function updateSelect() {
 
     $playerDropdown.selectedIndex = qsPlayerIndex;
 
-    $playerDropdown.on('change', function() {
+    $playerDropdown.on('change', function () {
         window.location.href = 'index.html?p=' + this.selectedOptions[0].value;
     });
+}
+
+function formatPercentage(val) {
+    return val < 1
+        ? val.toFixed(3).substring(1)
+        : val.toFixed(3);
 }

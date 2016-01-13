@@ -4,3 +4,51 @@
 .chart-container {
     margin-top: 20px;
 }
+.table-centered th, .table-centered td {
+    text-align: center;
+}
+.tab-pane {
+    border-left: solid 1px #dddddd;
+    border-right: solid 1px #dddddd;
+    border-bottom: solid 1px #dddddd;
+}
+.tab-pane table {
+    margin-bottom: 0;
+}
+#gamelog thead, #gamelog tbody { display: block; }
+#gamelog tbody {
+    height: 216px;
+    overflow-y: auto;
+}
+#gamelog th:nth-child(1), #gamelog td:nth-child(1) {
+    width: 75px;
+}
+#gamelog th:nth-child(2), #gamelog td:nth-child(2) {
+    width: 210px;
+}
+#gamelog th:nth-child(3), #gamelog td:nth-child(3),
+#gamelog th:nth-child(4), #gamelog td:nth-child(4),
+#gamelog th:nth-child(5), #gamelog td:nth-child(5),
+#gamelog th:nth-child(6), #gamelog td:nth-child(6),
+#gamelog th:nth-child(6), #gamelog td:nth-child(7) {
+    width: 50px;
+    text-align: center;
+}
+#gamelog th:nth-child(7) {
+    width: 68px;
+    padding-right: 25px;
+}
+
+.mini-logo {
+    width: 25px;
+}
+.navbar select {
+    margin-left: 1em;
+    margin-right: 3em;
+}
+.navbar label {
+    color: white;
+}
+h3.navbar-text {
+    margin: 12px;
+}
