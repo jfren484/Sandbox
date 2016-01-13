@@ -18,7 +18,10 @@ players.forEach(function (player, i) {
 
 function readPlayerData(playerIndex) {
     $.get('mlb-' + players[playerIndex].id + '.json')
-        .done(function(data) {
+        .done(function (data) {
+            if (typeof data !== 'object') {
+                data = JSON.parse(data);
+            }
             var totals = {};
 
             summaryColumns.forEach(function(col) {
