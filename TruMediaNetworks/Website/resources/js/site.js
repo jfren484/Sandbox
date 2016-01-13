@@ -7,6 +7,12 @@ var players = [
     { 'id': 592178 }
 ];
 
+var teams = {
+    'NYY': 'New York Yankees',
+    'CHC': 'Chicago Cubs',
+    'TEX': 'Texas Rangers'
+};
+
 var summaryColumns = ['PA', 'AB', 'H', 'BB', 'HBP', 'SF', 'TB', 'HR', 'K'];
 
 var qsPlayerIndex = (queryString.p ? queryString.p[0] : 0) * 1;
@@ -74,7 +80,7 @@ function updatePage() {
         .attr('alt', player.fullName + ' mugshot');
 
     $('#teamName')
-        .text(player.team);
+        .text(teams[player.team]);
 
     $('#teamImage')
         .attr('src', player.teamImage)
