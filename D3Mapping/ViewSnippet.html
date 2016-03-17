@@ -1,0 +1,124 @@
+<div class="panel panel-default" id="gadget_Panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Title Goes Here</h3>
+    </div>
+    <div class="panel-body">
+        <div data-bind="visible: retrievingData()">
+            <img src="/Content/img/ajaxLoaderLongBar.gif" alt="Loading..." />
+        </div>
+        <div data-bind="visible: !retrievingData() && Object.keys(data()).length == 0">
+            No Data found.
+        </div>
+        <div id="Gadget" data-bind="visible: !retrievingData() && Object.keys(data()).length > 0"></div>
+    </div>
+</div>
+<script>
+    var gadget_projection,
+        gadget_path,
+        gadget_svg,
+        gadget_g,
+        gadget_centered,
+        gadget_heatmap,
+        gadget_states,
+        gadget_labels,
+        gadget_width = 800,
+        gadget_height = 400;
+
+    function gadget_Resize() {
+        $('#Gadget').height($('#Gadget').width() * gadget_height / gadget_width);
+    }
+
+    function gadget_DrawMap(data) {
+        gadget_projection = d3.geo.albersUsa()
+            .scale(1000)
+            .translate([0, 0]);
+
+        gadget_path = d3.geo.path()
+            .projection(gadget_projection);
+
+        gadget_svg = d3.select("#gadget_")
+            .append("svg")
+            .attr("class", "map")
+            .attr("viewBox", "0 0 " + gadget_width + " " + gadget_height);
+
+        gadget_svg
+            .append("rect")
+            .attr("class", "background")
+            .attr("width", gadget_width)
+            .attr("height", gadget_height)
+            .on("click", gadget_click);
+
+        gadget_g = gadget_svg
+            .append("g")
+            .attr("transform", "translate(495, 230)")
+            .append("g")
+            .attr("class", "states");
+
+        d3.json('statePolygonData.js', function (json) {
+            gadget_heatmap = d3.scale.linear()
+                .domain([0, d3.max(json.features, function(d) { return data[d.properties.abbr]; })])
+                .interpolate(d3.interpolateRgb)
+                .range(["#ffffff", "#0068AD"]);
+            gadget_states = gadget_g.selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr("d", gadget_path)
+                .attr("name", function(d) { return "path-" + d.properties.abbr; })
+                .style("fill", function (d) { return gadget_heatmap(data[d.properties.abbr] || 0); })
+                .on("click", gadget_click);
+            gadget_labels = gadget_g.selectAll("text")
+                .data(json.features)
+                .enter()
+                .append("text")
+                .attr("transform", function (d) { return "translate(" + gadget_path.centroid(d) + ")"; })
+                .attr("name", function (d) { return 'label-' + d.properties.abbr; })
+                .attr("dx", function (d) { return d.properties.dx || "0"; })
+                .attr("dy", function (d) { return d.properties.dy || "0.35em"; })
+                .on("click", gadget_click)
+                .text(function (d) { return d.properties.abbr; });
+        });
+
+        // Fix for IE
+        gadget_Resize();
+    }
+
+    function  gadget_click(d) {
+        var x = 0,
+            y = 0,
+            scale = 1;
+
+        if (d && gadget_centered !== d) {
+            var bounds = gadget_path.bounds(d),
+                dx = bounds[1][0] - bounds[0][0],
+                dy = bounds[1][1] - bounds[0][1];
+
+            x = (bounds[0][0] + bounds[1][0]) / 2,
+            y = (bounds[0][1] + bounds[1][1]) / 2;
+            scale = Math.min(7, .8 / Math.max(dx / gadget_width, dy / gadget_height));
+
+            gadget_centered = d;
+        } else {
+            gadget_centered = null;
+        }
+
+        gadget_g.transition()
+            .duration(1000)
+            .style("stroke-width", 1.5 / scale + "px")
+            .attr("transform", "scale(" + scale + ")translate(" + -x + ", " + -y + ")");
+
+        gadget_g.selectAll("path")
+            .classed("active", gadget_centered && function (d2) { return d2 === gadget_centered; });
+        gadget_g.selectAll("text")
+            .text(function (d2) { return d2.properties.abbr; })
+            .classed("active", false);
+        if (gadget_centered) {
+            gadget_g.selectAll("text")
+                .text('')
+                .classed("active", false);
+            gadget_g.select("[name='label-" + gadget_centered.properties.abbr + "']")
+                .text(function(d2) { return d2.properties.name + ': ' + (gadget_viewModel.data()[d2.properties.abbr] || 0); })
+                .classed("active", gadget_centered && function (d2) { return d2 === gadget_centered; });
+        }
+    }
+</script>
