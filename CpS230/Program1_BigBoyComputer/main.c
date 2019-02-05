@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define RAMSIZE 4096
+#define ERRSIZE 1000
 #define DEBUG 0
 
 typedef unsigned char byte;  // (make "byte" an alias for "unsigned char")
@@ -12,7 +13,8 @@ byte RAM[RAMSIZE];
 word Acc;
 unsigned int PC;
 
-char errorTemp[1000];
+char errorTemp[ERRSIZE];
+char* help;
 
 void abortWithMessage(char* message) {
 	printf("ERROR: %s\n", message);
@@ -30,7 +32,7 @@ void store(unsigned int address, word value) {
 
 void setPC(int value) {
 	if (value < 0 || value > RAMSIZE - 2) {
-		sprintf_s(errorTemp, 1000, "PC set outside of allowed bounds [0 - %d]: %d", RAMSIZE - 2, value);
+		sprintf_s(errorTemp, ERRSIZE, "PC set outside of allowed bounds [0 - %d]: %d", RAMSIZE - 2, value);
 		abortWithMessage(errorTemp);
 	}
 
@@ -49,7 +51,7 @@ void write_stdio(word mode) {
 		printf("%c", Acc & 0x7F);
 		break;
 	default:
-		sprintf_s(errorTemp, 1000, "Invalid mode for output: %d", mode);
+		sprintf_s(errorTemp, ERRSIZE, "Invalid mode for output: %d", mode);
 		abortWithMessage(errorTemp);
 		break;
 	}
@@ -73,7 +75,7 @@ void read_stdio(word mode) {
 		Acc = c & 0x7F;
 		break;
 	default:
-		sprintf_s(errorTemp, 1000, "Invalid mode for input: %d", mode);
+		sprintf_s(errorTemp, ERRSIZE, "Invalid mode for input: %d", mode);
 		abortWithMessage(errorTemp);
 		break;
 	}
@@ -183,9 +185,9 @@ byte step() {
 
 void run() {
 	int i = 0;
-	while (step() && ++i < 1000);
+	while (step() && ++i < ERRSIZE);
 
-	if (i == 1000) {
+	if (i == ERRSIZE) {
 		abortWithMessage("stack overflow");
 	}
 }
@@ -207,6 +209,92 @@ void loadProgram(char* program) {
 	}
 }
 
+void dump(int start, int length) {
+	int end = start + length - 1;
+	int headerPrinted = 0;
+
+	for (int i = start; i <= end; i++) {
+		if (!headerPrinted) {
+			int buff = i % 16;
+			printf("%04x", i - buff);
+
+			if (buff != 0) {
+				for (int j = 0; j < buff; j++) {
+					printf("   ");
+				}
+			}
+
+			headerPrinted = 1;
+		}
+
+		printf(" %02x", RAM[i]);
+
+		if (i % 16 == 15) {
+			printf("\n");
+			headerPrinted = 0;
+		}
+	}
+
+	printf("\n");
+}
+
+int userAction() {
+	char action;
+	int x, y;
+
+	printf("> ");
+	scanf_s(" %c", &action);
+
+	switch (action) {
+	case 'd':
+		scanf_s(" %x %x", &x, &y);
+		x = x & 0x00000fff;
+		if (y < 1) y = 1;
+		if (y > 0x1000 - x) y = 0x1000 - x;
+		dump(x, y);
+		break;
+	case 'e':
+		scanf_s(" %x %x", &x, &y);
+		x = x & 0x00000fff;
+		y = y & 0x000000ff;
+		RAM[x] = y;
+		printf("\n");
+		break;
+	case 'a':
+		printf("PC: %04x\nAcc:  %02x\n", PC, Acc);
+		break;
+	case 's':
+		step();
+		printf("\n");
+		break;
+	case 'r':
+		run();
+		printf("\n");
+		break;
+	case 'q':
+		// Do nothing - return below
+		break;
+	case 'h':
+	default:
+		printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+			"Available commands:",
+			"    a             Display contents of PC and Acc",
+			"    d <X> <Y>     Dump a range of RAM",
+			"                      X : starting address, in hex[0 - fff]",
+			"                      Y : length, in hex[1 - 1000] (<= remaining number of bytes in RAM)",
+			"    e <X> <Y>     Edit a single byte of RAM",
+			"                      X : starting address, in hex[0 - fff]",
+			"                      Y : value, in hex[0 - ff]",
+			"    h             Display this help message",
+			"    q             Quit debugging",
+			"    r             Run program until hlt from current PC",
+			"    s             Run single(next) instruction in program");
+		break;
+	}
+
+	return action != 'q';
+}
+
 int main(int argc, char** argv) {
 	for (int i = 0; i < RAMSIZE; i++) {
 		RAM[i] = 0;
@@ -217,5 +305,6 @@ int main(int argc, char** argv) {
 	char* program = "1c801ec00690000020b0167002e01c8000401c90006000004142430018000080ff00";
 	loadProgram(program);
 
-	run();
+	// run();
+	while (userAction());
 }
