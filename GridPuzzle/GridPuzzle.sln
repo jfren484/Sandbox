@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridPuzzle", "GridPuzzle\GridPuzzle.csproj", "{F0A806AD-1719-4F15-B818-57A734AB6458}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridPuzzleLib", "GridPuzzleLib\GridPuzzleLib.csproj", "{EDD8B2A2-7F39-4A9D-B23D-873D9691AB74}"
@@ -22,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BD5B2E1-6BAE-4000-B523-3B54647E8CEE}
 	EndGlobalSection
 EndGlobal
