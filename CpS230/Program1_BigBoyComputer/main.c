@@ -296,6 +296,8 @@ int userAction() {
 }
 
 int main(int argc, char** argv) {
+	word a = 0xffee;
+	printf("word: 0x%x, << 8: 0x%x, >> 8: 0x%x, <<>>: 0x%x\n", a, a << 8, a >> 8, (word)(a << 8 | a >> 8));
 	for (int i = 0; i < RAMSIZE; i++) {
 		RAM[i] = 0;
 	}
