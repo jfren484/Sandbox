@@ -1,0 +1,115 @@
+Name:  Theme from "Jurassic Park"
+voices           |V 1
+time signature   |T 6 / 4
+size written in  |S 1 / 4
+beats per minute |B 75
+
+v1. |"Bb2-Eb3-Cb3-Bb3-   -    " |T 2 / 4 |"R       " |T 6 / 4
+
+v1. |"Bb2-Eb3-Cb3-Bb3-   -    " |T 2 / 4 |"R       "
+
+|T 3 / 4
+v1. |"Bb2 Eb3 Cb3 "
+
+|V 5
+|T 6 / 4
+|S 1 / 16
+v1. |"Fn4-   -   -   -   -   -   -   -   -   -   -    Bb4-   -   -   -   -   -   -   -Bb4-    Bb4 An4 "
+v2. |"Bb3-   -   -   -   -   -   -   -   -   -   -    Fn4-   -   -    An4-   -   -   -An4-    Bb4 An4 "
+v3. |"R               An3-   -   -   -   -   -   -    Bb3-   -   -    Cn4-   -   -   -   -    Cn4-    "
+v4. |"Fn3-   -   -    Eb3-   -   -   -   -   -   -    Fn3-   -   -    Gn3-   -   -   -   -    Gn3-    "
+v5. |"Dn3-   -   -    Cn3-   -   -   -   -   -   -    Dn3-   -   -    Eb3-   -   -   -   -    Eb3-    "
+
+|V 6
+v1. |"Bb4-   -   -    Cn5-   -   -   -   -    Bb4 Cn5 Cn5-   -   -   -   -   -   -   -Cn5-    Bb4 An4 "
+v2. |"Fn4-   -   -    Bb4-   -   -   -   -    Bb4 Cn5 Bb4-   -   -   -   -   -   -   -Bb4-    Bb4 An4 "
+v3. |"Cn4-   -   -    Fn4-   -   -   -   -    Fn4 Cn5 Gb4-   -   -    Ab4-   -   -   -   -    Bb4 An4 "
+v5. |"Fn3-   -   -    Bb3-   -   -   -   -    An3-    Bb3-   -   -    Bb3-   -   -   -   -    R       "
+v6. |"Fn3-   -   -    Eb3-   -   -   -   -    Fn3-    Gb3-   -   -    Ab3-   -   -   -   -    R       "
+v4. |"R                                               Eb4-   -   -    Cn4-   -   -   -   -    R       "
+
+|V 5
+|T 4 / 4
+|S 1 / 8
+v1. |"Bb4-   -   -   -   -   -   -    "
+v2. |"Fn4-   -    Fn4 Eb4 Bb3 Cn4-    "
+v3. |"Dn4-   -    R                   "
+v4. |"R   Fn2 Dn3 Cn3 Fn3-    Fn2 Eb3 "
+v5. |"Bb1-   -   -   -   -   -   -    "
+
+|S 1 / 16
+|T 2 / 4
+v1. |"Fn3-    Dn4 Eb4 Fn4-    Fn3-    "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"R       Fn2-    Cn3-    An2-    "
+v5. |"Bb1-   -   -   -   -   -   -    "
+
+|B 50
+v1. |"Eb3-    Bb3-    Gn3-    Cn3-    "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"Gn2-    Eb2 Dn2 Cn2-    Fn2-    "
+v5. |"R                               "
+
+|V 5
+|T 4 / 4
+|S 1 / 16
+|B 68
+(Here's where it really starts!)
+
+v1. |"Bb2-   -   -   -   -    Bb2 An2 Bb2-   -   -   -   -    Bb2 An2 "
+v2. |"Fn2-   -   -   -   -    Fn2 An2 Gn2-   -   -   -   -    Gn2 An2 "
+v3. |"R                                                               "
+v4. |"Dn2-   -   -   -   -    Dn2-    Eb2-   -   -   -   -    Eb2-    "
+v5. |"Bb1-   -   -   -   -   -   -    Eb1-   -   -   -   -   -   -    "
+
+v1. |"Bb2-   -    Cn3 Cn3-   -    Eb3 Eb3-   -   -   -   -    Dn3 Bb2 "
+v2. |"Fn2-   -   -    An2-   -   -    Bb2-   -   -   -   -    Bb2 Bb2 "
+v3. |"R                                                               "
+v4. |"Dn2-   -   -    Fn2-   -   -    Fn2-   -   -   -   -    Fn2-    "
+v5. |"Bb1-   -   -    Bb1-   -   -    Bb1-   -   -    Bb1-    Bb1-    "
+
+v1. |"Cn3-   -    An2 Fn2-    Dn3 Bb2 Cn3-   -   -   -   -    Fn3 Bb2 "
+v2. |"An2-   -    An2 Fn2-    Dn3 Bb2 An2-   -   -   -   -    Bb2 Bb2 "
+v3. |"R                                                       Fn2 Bb2 "
+v4. |"Fn2-   -   -    Fn1-    Fn2-    Fn2-   -   -   -   -    Dn2-    "
+v5. |"Fn1-   -   -    Fn1-    Bb1-    Fn1-   -   -   -   -    Dn1-    "
+
+|T 6 / 4
+v1. |"Eb3-   -    Dn3 Dn3-   -    Cn3 Cn3-   -   -   -   -   -   -    Cn3-   -   -   -        Bb3 An3 "
+v2. |"Bb2-   -    Bb2 Bb2-   -    An2 An2-   -   -   -   -   -   -    Bb2-   -   -    An2-    R       "
+v3. |"Gn2-   -    R                                                   Gn2-   -   -    Fn2-    R       "
+v4. |"Eb2-   -    Fn2 Fn2-   -    Fn2 Fn2-   -   -    Fn2-   -   -   -Fn2-    Fn2-   -   -    Fn2-    "
+v5. |"Eb1-   -    Fn1 Fn1-   -    Fn1 Fn1-   -   -    Fn1-   -   -   -Fn1-    Fn1-   -   -    Fn1-    "
+
+|T 4 / 4
+v1. |"Bb3-   -   -   -   -    Bb3 An3 Bb3-   -   -   -   -    Bb3 An3 "
+v2. |"Fn3-   -   -    Fn3-    Fn3-    Gn3-   -   -    Gn3-    Gn3 R   "
+v3. |"Dn3-   -   -    Dn3-    Dn3-    Eb3-   -   -    Eb3-    Eb3 R   "
+v4. |"Fn2-   -   -    Fn2-    Fn2-    Eb2-   -   -    Eb2-    Eb2-    "
+v5. |"Bb1-   -   -    Bb1-    Bb1-    Eb1-   -   -    Eb1-    Eb1-    "
+
+|V 6
+v1. |"Bb3-   -    Cn4 Cn4-   -    Eb4 Eb4-   -   -   -   -    Dn4 Bb3 "
+v2. |"Fn3-   -    An3 An3-   -    Bb3 Bb3-   -   -   -   -    Fn3 R   "
+v3. |"Dn3-   -    Fn3 Fn3-   -    Gn3 Gn3-   -   -   -   -    Dn3 R   "
+v4. |"Fn2-   -   -    Fn2-   -    Gn2 Gn2-   -   -   -   -    Fn2-    "
+v5. |"Bb1-   -   -    Bb1-   -    Gn2 Bb1-   -   -    Bb1-    Bb1-    "
+v6. |"Bb2-   -    Cn3 Cn3-   -    Eb3 Eb3-   -   -   -   -    R       "
+
+v1. |"Cn4-   -    An3 Fn3-    Dn4 Bb3 Cn4-   -   -   -   -    Fn4 Bb3 "
+v2. |"An3-   -    An3 Cn3-    Fn3 Bb3 An3-   -   -   -   -    Bb3 R   "
+v3. |"Fn3-   -    R   An2-    Dn3 R   Fn3-   -   -   -   -    Fn3 R   "
+v4. |"Fn2-   -   -    Fn2-    Bb2-    Fn2-   -   -    Fn2-    Dn2-    "
+v5. |"Fn1-   -   -    Fn2-    Fn2-    Fn1-   -   -    Fn1-    Dn2-    "
+v6. |"Cn3-   -    R                   Cn3-   -   -   -   -    R       "
+
+v1. |"Eb4-   -    Dn4 Dn4-   -    Cn4 Cn4-   -   -   -   -    Bb4 An4 "
+v2. |"Bb3-   -    Bb3 Bb3-   -    An3 An3-   -   -   -   -    Bb3 An3 "
+v3. |"Eb3-   -    Dn3 Dn3-   -    Fn3 Fn3-   -   -   -   -    R       "
+v4. |"Gn2-   -    Fn2 Fn2-   -    Fn2 Fn2-   -   -    R               "
+v5. |"Gn1-   -    Gn1 Gn1-   -    Gn1 Gn1-   -   -    Gn1-   -   -    "
+v6. |"R                           Cn3 Cn3-   -   -   -   -    R       "
+
+quit |Q

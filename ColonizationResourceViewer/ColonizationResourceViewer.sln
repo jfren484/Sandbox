@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColonizationResourceLib", "ColonizationResourceLib\ColonizationResourceLib.csproj", "{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColonizationResourceViewer", "ColonizationResourceViewer\ColonizationResourceViewer.csproj", "{C8C7A773-341E-4782-A0FA-12A1B8F63654}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadsPackLib", "..\MadsPack\MadsPackLib\MadsPackLib.csproj", "{4A98141F-BEB3-49F1-B476-055808C91557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "..\MadsPack\Extensions\Extensions.csproj", "{27681DF3-83CC-4905-A238-EED733381277}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A98141F-BEB3-49F1-B476-055808C91557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A98141F-BEB3-49F1-B476-055808C91557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A98141F-BEB3-49F1-B476-055808C91557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A98141F-BEB3-49F1-B476-055808C91557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27681DF3-83CC-4905-A238-EED733381277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27681DF3-83CC-4905-A238-EED733381277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27681DF3-83CC-4905-A238-EED733381277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27681DF3-83CC-4905-A238-EED733381277}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

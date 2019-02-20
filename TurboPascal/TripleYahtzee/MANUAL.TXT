@@ -1,0 +1,169 @@
+
+
+
+
+
+
+                                     TRIPLE YAHTZEE
+                                 for the IBMþ compatible
+
+
+
+
+
+
+
+
+                            A shareware product by Jay French
+
+
+
+                                    Table of Contents
+
+Table of Contents
+Shareware Information
+Necessary Hardware
+Rules of Yahtzee
+       Description
+       Rolling
+       Scoring
+       Wrapping Up
+Playing Triple Yahtzee on the PC
+       Getting Started
+       The Main Menu
+       Scoring
+       When You're Done
+Credits
+
+       This product may be freely copied and distributed.  No fee is required.  It may
+not be sold for profit for any cause.
+       A contribution of $10.00 or more from those who enjoy Triple Yahtzee and use
+it frequently would be appreciated.  Contributions, as well as any questions or helpful
+comments  and suggestions may be mailed to:
+                      þ      Jay French
+                             33 Ashlee Dr.
+                             Peterborough, NH  03458
+       Thank you for using Triple Yahtzee and adhering to the requirements above.
+                                  Necessary Hardware
+
+Processor: IBMþ compatible PC.
+Monitor: Color EGA.
+Memory: 256k.
+Disk: Hard or Floppy.  File size is about 75000 bytes.
+
+
+                             Rules of Yahtzee
+
+Description:
+       Yahtzee is a game for one or two players.  The players take turns 
+rolling a hand of five dice up to three times.  The dice are then scored 
+according to their values.  After all the scoring columns and rows are filled, 
+the winner may be determined by first adding up the ones column, the twos 
+column, and the threes column and then multiplying the three totals by their 
+column number and adding the new totals together.
+
+Rolling:
+       Each player has three rolls per turn.  The player must  determine which dice to
+keep and which to roll after each roll.  
+
+Scoring:
+       Their are many possible scoring combinations in Yahtzee.  They will be
+described in detail.  If the dice do not meet the qualifications for any of the scoring
+categories, a zero must be scored somewhere.  A zero may be                                
+scored in any category with less than three columns filled.
+These are the categories to chose from:
+þ      Aces:  All 1's are added and the total may be scored.
+þ      Twos, etc.:  Follow the same procedure as in Aces, adding the appropriate dice
+       together.
+þ      Three of a Kind:  If there are three or more dice of the same value, the total 
+       of all dice may be scored.
+þ      Four of a Kind:  If there are four or more dice of the same value, the total of 
+       all dice may be scored.
+þ      Full House:  A Full House is an array of five numbers with values such that 
+       three of the dice share one value, and the other two share another.  If this
+       qualification is met, 25 points may be scored.
+þ      Small Straight:  A small straight is an array of five numbers such that four of 
+       them are sequential.  If this qualification is met, 30 points may be scored.
+þ      Large Straight:  A large straight is an array of five numbers such that all of 
+       them are sequential.  If this qualification is met, 40 points may be scored.
+þ      YAHTZEE:  If all five dice have the same value, 50 points may be scored.
+þ      Chance:  In Chance, the total of all dice may be scored, regardless of their 
+       values.
+       Each category may be used three times.  If all three columns of a category are
+filled, the player must chose a different category.
+       If a player reaches a total of 63 in the upper section in a certain column, a
+bonus of 35 points will be added to the upper section total of that column.  The lower
+section is added as it appears on the scorecard, with no available bonuses.
+
+Wrapping Up:
+
+þ      Upper Section Total:  Each column is totaled and the bonus added, if
+       applicable.  The total is written at the bottom of the upper section, and under
+       the lower section total.
+þ      Lower Section Total:  The total of each column is written at the bottom of the
+       section.
+þ      Grand Total:  The grand total is found by (1) adding the upper section to the 
+       lower section for each column and (2) adding the Ones column,  the Twos
+       column doubled, and the Threes column tripled.Playing Triple Yahtzee on the PC
+
+Getting Started:
+       To begin, press a key after the opening screen comes up.  You will be
+prompted to enter the number of players.  Press a "1" for one player and a "2" for
+two players.  You do not need to press <Enter> after; the key itself is enough.  You
+will then be asked to enter the name(s) of the player(s).  A maximum of 12 characters
+is allowed, including letters, numbers, spaces, and most other ASCII characters.  If you
+make a mistake entering the names or in the number of players, press "N" at the
+prompt: "Is this correct?"  You may then reenter the information.
+
+The Main Menu:
+       At the beginning of the game and after each turn you will be brought to the
+main menu.  This is where you will roll the dice and select dice to keep or roll.  If
+you want to quit the game early, you must be in the main menu.  Help for the main
+menu is available by pressing F1.  Help on other topics in the main menu is available
+by pressing the correct key while holding the <Alt> key.  To exit any help screen you
+must press <Enter>.  There is no help available for the directional (arrow) keys. 
+Above the menus the current player's name (if there are two players) and the number
+of rolls left will be displayed.
+
+Scoring:
+       You may score your dice at any time, but you will be forced to score them
+after three rolls.  When you score your dice, you will be brought to the scoring menu. 
+Help for the scoring menu is available by pressing F1.  Help for other menu choices
+can be viewed by pressing the correct key while holding the <Alt> key.
+       Decide how to score the dice and press the appropriate key.  You will be
+shown what value will be scored and asked if that value is acceptable.  Press "Y" to
+score the shown value, or "N" to return to the scoring menu to make another choice. 
+If all three columns of the category chosen have been filled, you will receive an error
+message and a beep and will be forced to chose again.  A running total will be kept
+and displayed of the upper section so you may see how close you are to 63 points, the
+amount needed to earn the 35 point bonus.
+       Quit may only be chosen when you have not used all three rolls.  If you wish
+to quit the game after your third roll, score the dice and press "Q" to quit.
+
+When You're Done:
+       When you have completed a game or have chosen Quit from the menu, all of
+the totals will be computed and displayed.  The winning player's name will be
+displayed if there are two players and if the game does not end in a tie.  You will be
+prompted to press <Enter>, at which time the scoreboard, dice, and menus will be
+cleared and the ending screen displayed.  To leave the ending screen, press any key.
+
+                                         Credits
+
+       Yahtzee was written and compiled in Turbo
+Pascalþþ by Jay French.  French has received training
+in Pascal from Scott Pascoe and Dan Wooster at Bob
+Jones University in Greeneville, South Carolina.
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+þ Copyright þ 1990 Borland International.

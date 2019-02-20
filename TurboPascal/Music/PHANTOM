@@ -1,0 +1,48 @@
+voices           |V 6
+time signature   |T 4 / 4
+size written in  |S 1 / 8
+beats per minute |B 120
+middle C octave  |M 4
+v1. |"Dn5-   -   -   -   -   -   -   -"
+v2. |"An4-   -   -   -   -   -   -   -"
+v3. |"Fn4-   -   -   -   -   -   -   -"
+v4. |"Dn4-   -   -   -   -   -   -   -"
+v5. |"Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 "
+v6. |"Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 "
+
+v1. |"   -   -   -    Dn5 Db5 Cn5 Bn4 "
+v2. |"   -   -   -    An4 Ab4 Gn4 Gb4 "
+v3. |"   -   -   -    Fn4 En4 Eb4-    "
+v4. |"   -   -   -    Dn4 Db4 Cn4 Bn3 "
+v5. |"Dn1 Dn2 Dn1 Dn2 Dn2 Db2 Cn2 Bn1 "
+v6. |"Dn1 Dn2 Dn1 Dn2 Dn1 Db1 Cn1 Bn0 "
+
+v1. |"Bb4-   -   -   -   -   -   -   -"
+v2. |"Fn4-   -   -   -   -   -   -   -"
+v3. |"Dn4-   -   -   -   -   -   -   -"
+v4. |"Bb3-   -   -   -   -   -   -   -"
+v5. |"Bb0 Bb1 Bb0 Bb1 Bb0 Bb1 Bb0 Bb1 "
+v6. |"Bb0 Bb1 Bb0 Bb1 Bb0 Bb1 Bb0 Bb1 "
+
+v1. |"   -   -   -    Bb4 Bn4 Cn5 Db5 "
+v2. |"   -   -   -    Fn4 Gb4 Gn4 Ab4 "
+v3. |"   -   -   -    Dn4 Eb4-    En4 "
+v4. |"   -   -   -    Bb3 Bn3 Cn4 Db4 "
+v5. |"Bb0 Bb1 Bb0 Bb1 Bb1 Bn1 Cn2 Cb2 "
+v6. |"Bb0 Bb1 Bb0 Bb1 Bb0 Bn0 Cn1 Db1 "
+
+v1. |"Dn5-   -   -   -   -   -   -   -"
+v2. |"An4-   -   -   -   -   -   -   -"
+v3. |"Fn4-   -   -   -   -   -   -   -"
+v4. |"Dn4-   -   -   -   -   -   -   -"
+v5. |"Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 "
+v6. |"Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 Dn1 Dn2 "
+
+v1. |"   -   -   -    R               "
+v2. |"   -   -   -    R               "
+v3. |"   -   -   -    R               "
+v4. |"   -   -   -    R               "
+v5. |"Dn1 Dn2 Dn1 Dn2 R               "
+v6. |"Dn1 Dn2 Dn1 Dn2 R               "
+
+quit |Q

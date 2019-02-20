@@ -1,0 +1,73 @@
+voices           |V 9
+time signature   |T 4 / 4
+size written in  |S 1 / 8
+beats per minute |B 80
+
+v1. |"R                               "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"R                               "
+v5. |"Dn4-   -    An4 Bn4 An4 R       "
+v6. |"An3 Gn3 An3 F#4 Gn4 F#4 R       "
+v7. |"F#3 R       Dn4 Dn4-    R       "
+v8. |"Dn3-   -   -   -   -    R       "
+v9. |"Dn2 En2 F#2 Dn2 Gn2 Dn2 F#2 An2 "
+
+|V 10
+v1. |"R                               "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"R                               "
+v5. |"Dn5-   -    F#4 Gn4 F#4 R   An4 "
+v6. |"An4-   -    Dn4 C#4 Dn4 R   Dn4 "
+v7. |"F#4-   -    An3 Gn3 An3 R       "
+v8. |"Dn3-   -    R               An2 "
+v9. |"Dn2 En2 F#2 Dn2 En2 Dn2 R   F#2 "
+v10.|"Dn4-   -    R                   "
+
+|V 9
+v1. |"R                               "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"R                               "
+v5. |"Gn4 F#4 En4-    Dn4 An3 Bn3 C#4 "
+v6. |"C#4 Dn4-    C#4 F#3 F#3 Gn3 En3 "
+v7. |"Gn3 An3-    An3 R               "
+v8. |"Gn2 An2-   -    An2-    R       "
+v9. |"En2 Dn2 An2 An1 Dn2-    R       "
+
+v1. |"Dn4-   -    An3 Bn3 An3 R       "
+v2. |"An3-   -    An3 Gn3 F#3 R       "
+v3. |"F#3-   -    Dn3 Dn3 Dn3 R       "
+v4. |"Dn2-   -    F#2 Gn2 Dn2 R       "
+v5. |"Dn4-    R       Dn4-   -    An3 "
+v6. |"An3-    R       Bn3 An3-    F#3 "
+v7. |"F#3-    R       Gn3 F#3-    Dn3 "
+v8. |"Dn3-   -   -   -   -    R       "
+v9. |"Dn2 Dn2 En2 F#2 Gn2 Dn2 R       "
+
+|V 10
+|S 1 / 16
+v1. |"Dn4-   -   -   -   -    An3-    Bn3-    An3-    R       Dn4 Dn4 "
+v2. |"An3-   -   -   -   -    An3-    Gn3-    F#3-    R       An3 An3 "
+v3. |"F#3-   -   -   -   -    Dn3-    Dn3-    Dn3-    R       Dn3 Dn3 "
+v4. |"Dn2-   -   -   -   -    F#2-    Gn2-    Dn2-    R       F#2 F#2 "
+v5. |"F#3-    Dn3-    R               Dn5-   -   -   -   -    An4-    "
+v6. |"Dn3-    An2-    R               Bn4-    An4-   -   -    Dn4-    "
+v7. |"R                               Gn4-    F#4-   -   -    An3-    "
+v8. |"An2-    F#2-    R               Dn3-   -   -   -   -    Dn3-    "
+v9. |"Dn2-    Dn2-    En2-    F#2-    Gn2-    Dn2-    R       F#2-    "
+v10.|"R                               Dn4-    Dn4-   -    R           "
+{
+|V 9
+v1. |"R                               "
+v2. |"R                               "
+v3. |"R                               "
+v4. |"R                               "
+v5. |"Gn4 F#4 En4-    Dn4 An3 Bn3 C#4 "
+v6. |"C#4 Dn4-    C#4 F#3 F#3 Gn3 En3 "
+v7. |"Gn3 An3-    An3 R               "
+v8. |"Gn2 An2-   -    An2-    R       "
+v9. |"En2 Dn2 An2 An1 Dn2-    R       "
+}
+quit |Q
