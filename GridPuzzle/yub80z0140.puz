@@ -1,0 +1,52 @@
+<puzzle type="Yubotu" columns="7" rows="7">
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="1" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="2" />
+  <cell type="Container" state="Down" locked="True" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="1" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="3" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="0" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" state="Unknown" />
+  <cell type="Container" value="3" />
+  <cell type="Container" value="2" />
+  <cell type="Container" value="0" />
+  <cell type="Container" value="2" />
+  <cell type="Container" value="1" />
+  <cell type="Container" value="1" />
+  <cell type="Container" value="4" />
+  <cell type="Blank" />
+  <legend quantities="0,1,2,3" />
+</puzzle>

@@ -1,0 +1,198 @@
+<puzzle type="Kukuro" columns="14" rows="14">
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="26|" />
+  <cell type="Anchor" values="12|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="17|15" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="14|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="16|11" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|22" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="4|" />
+  <cell type="Anchor" values="25|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="10|" />
+  <cell type="Anchor" values="19|27" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="26|11" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="21|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="5|10" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="13|" />
+  <cell type="Anchor" values="23|25" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="19|" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|7" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="13|28" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="|11" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="|" />
+  <cell type="Anchor" values="|18" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="|9" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="14|24" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="|" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|7" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="3|27" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="4|3" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|10" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="6|" />
+  <cell type="Anchor" values="7|6" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|6" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Anchor" values="15|10" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|" />
+  <cell type="Anchor" values="|13" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|12" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Normal" values="||||||||" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Anchor" values="|" />
+  <cell type="Anchor" values="|" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+  <cell type="Blank" />
+</puzzle>

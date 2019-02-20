@@ -1,0 +1,180 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EDD8B2A2-7F39-4A9D-B23D-873D9691AB74}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GridPuzzleLib</RootNamespace>
+    <AssemblyName>GridPuzzleLib</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditableValue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditableValue.Designer.cs">
+      <DependentUpon>EditableValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Enum.cs" />
+    <Compile Include="GridCells\GridCellBlank.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellYubotu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellYubotuVal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellSimpleVal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellHitori.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellKukuroAnchor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellKukuroBlank.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellKukuroNormal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellNineVal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridCells\GridCellSudoku.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridSmallVal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridSudoku.Designer.cs">
+      <DependentUpon>GridSudoku.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grids\GridYubotu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\Grid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridHitori.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridKukuro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridKukuro.Designer.cs">
+      <DependentUpon>GridKukuro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grids\GridSudoku.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\GridYubotu.Designer.cs">
+      <DependentUpon>GridYubotu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grids\Legend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\Legend.Designer.cs">
+      <DependentUpon>Legend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grids\LegendYubotu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grids\LegendYubotu.Designer.cs">
+      <DependentUpon>LegendYubotu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelperFunctions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Strings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EditableValue.resx">
+      <DependentUpon>EditableValue.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grids\GridKukuro.resx">
+      <DependentUpon>GridKukuro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grids\GridSudoku.resx">
+      <DependentUpon>GridSudoku.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grids\GridYubotu.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GridYubotu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grids\Legend.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Legend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="YubotuImages\Circle.bmp" />
+    <Content Include="YubotuImages\Down.bmp" />
+    <Content Include="YubotuImages\Left.bmp" />
+    <Content Include="YubotuImages\Right.bmp" />
+    <Content Include="YubotuImages\Square.bmp" />
+    <Content Include="YubotuImages\Unknown.bmp" />
+    <Content Include="YubotuImages\Up.bmp" />
+    <Content Include="YubotuImages\Water.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
