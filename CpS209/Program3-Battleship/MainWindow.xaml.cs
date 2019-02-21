@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Battleship
 {
@@ -20,6 +8,8 @@ namespace Battleship
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool cheat;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,19 +17,19 @@ namespace Battleship
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            Game.Size = Convert.ToInt32(sldBoardSize.Value);
-            var gameWin = new GameWindow();
+            int size = Convert.ToInt32(sldBoardSize.Value);
+            GameWindow gameWin = new GameWindow(cheat, size);
             gameWin.Show();
         }
 
         private void ChkCheat_Checked(object sender, RoutedEventArgs e)
         {
-            Game.IsCheatOn = true;
+            cheat = true;
         }
 
         private void ChkCheat_Unchecked(object sender, RoutedEventArgs e)
         {
-            Game.IsCheatOn = false;
+            cheat = false;
         }
     }
 }

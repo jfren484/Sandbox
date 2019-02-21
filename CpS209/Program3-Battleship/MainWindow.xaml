@@ -44,7 +44,7 @@
                 Margin="10,0,30,0" Width="140">
             </TextBlock>
             <CheckBox
-                x:Name="chkCheat" Checked="ChkCheat_Checked" Unchecked="ChkCheat_Unchecked"
+                x:Name="chkCheat" IsChecked="True" Checked="ChkCheat_Checked" Unchecked="ChkCheat_Unchecked"
                 Width="200" Height="15" >
                 <CheckBox.LayoutTransform>
                     <ScaleTransform

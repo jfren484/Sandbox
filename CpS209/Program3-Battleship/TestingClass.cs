@@ -1,4 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Battleship
 {
@@ -8,14 +13,24 @@ namespace Battleship
         [Test]
         public void TestShipPlacement_VerifyCorrectNumberOfShips_SuccessfulOutcome()
         {
-            Game.Size = 5;
             for (int i = 0; i < 1000; i++)
             {
                 OceanGrid aiGrid = new OceanGrid(5);
 
                 aiGrid.PlaceShips();
 
-                Assert.AreEqual(aiGrid.NumOfShips, aiGrid.ShipsPlaced, "Number of ships did not match for iteration {0} ({1} vs {2})", i, aiGrid.NumOfShips, aiGrid.ShipsPlaced);
+                int number = 0;
+                for (int x = 0; x < aiGrid.NumOfShips; x++)
+                {
+                    for (int y = 0; y < 5; y++)
+                    {
+                        if (aiGrid.BoardState[x, y] == OceanGrid.WaterSpace.Ship)
+                        {
+                            number++;
+                        }
+                    }
+                }
+                Assert.IsTrue(number == aiGrid.NumOfShips);
             }
         }
 

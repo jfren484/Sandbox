@@ -66,6 +66,7 @@
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GridButton.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="TestingClass.cs" />
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>

@@ -1,5 +1,7 @@
-﻿using System.Windows;
+using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Battleship
 {
@@ -8,35 +10,78 @@ namespace Battleship
     /// </summary>
     public partial class GameWindow : Window
     {
-        OceanGrid aiGrid = new OceanGrid(Game.Size);
-        OceanGrid playerGrid = new OceanGrid(Game.Size);
+        Game game;
+        GridButton[,] aiButtons;
+        GridButton[,] playerButtons;
 
-        GridButton[,] aiButtons = new GridButton[Game.Size, Game.Size];
-        GridButton[,] playerButtons = new GridButton[Game.Size, Game.Size];
+        private int count4 = 0;
+        private const int max4 = 1;
+        private int count3 = 0;
+        private const int max3 = 1;
+        private int count2 = 0;
+        private const int max2 = 3;
 
-        public GameWindow()
+        public GameWindow(bool cheat, int size)
         {
             InitializeComponent();
+            game = new Game(cheat, size);
+            aiButtons = new GridButton[game.Size, game.Size];
+            playerButtons = new GridButton[game.Size, game.Size];
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SizeToContent = SizeToContent.Width;
-            GenerateAiGrid();
+            SizeToContent = SizeToContent.WidthAndHeight;
             GeneratePlayerGrid();
+            GenerateAiGrid();
         }
 
+        // When the player clicks on a button in the PlayerGrid, it is converted to a ship
         private void btnChooseShips_Click(object sender, RoutedEventArgs e)
         {
-            if (playerGrid.ShipsPlaced < 5)
+            if (game.PlayerGrid.ShipsPlaced < 5)
             {
                 GridButton btn = sender as GridButton;
-                if ((string)btn.Content == "~")
+
+                int length = Convert.ToInt32(((ComboBoxItem)cbxShip.SelectedValue).Tag);
+                bool orientationHorizontal = Convert.ToBoolean(((ComboBoxItem)cbxOrientation.SelectedValue).Tag);
+                Ship ship = new Ship(length, orientationHorizontal);
+                if (game.PlayerGrid.DetermineIfShipFits(ship, btn.X, btn.Y))
                 {
-                    btn.Content = "n";
-                    playerGrid.ShipsPlaced++;
-                    playerGrid.BoardState[btn.X, btn.Y] = OceanGrid.WaterSpace.Ship;
-                    if (playerGrid.ShipsPlaced == 5)
+                    if (ship.Length == 4)
+                    {
+                        if (max4 > count4)
+                        {
+                            game.PlayerGrid.PlaceShip(ship, btn.X, btn.Y);
+                            count4++;
+                            game.PlayerGrid.PlayerGridState();
+                            DrawShipsToGrid(game.PlayerGrid, playerButtons);
+                            cbxShip.SelectedIndex++;
+                        }
+                    }
+                    else if (ship.Length == 3)
+                    {
+                        if (max3 > count3)
+                        {
+                            game.PlayerGrid.PlaceShip(ship, btn.X, btn.Y);
+                            count3++;
+                            game.PlayerGrid.PlayerGridState();
+                            DrawShipsToGrid(game.PlayerGrid, playerButtons);
+                            cbxShip.SelectedIndex++;
+                        }
+                    }
+                    else
+                    {
+                        if (max2 > count2)
+                        {
+                            game.PlayerGrid.PlaceShip(ship, btn.X, btn.Y);
+                            count2++;
+                            game.PlayerGrid.PlayerGridState();
+                            DrawShipsToGrid(game.PlayerGrid, playerButtons);
+                        }
+                    }
+
+                    if (game.PlayerGrid.ShipsPlaced == 5)
                     {
                         AiShipPlace();
                     }
@@ -44,45 +89,54 @@ namespace Battleship
             }
         }
 
+        // Places five ships in the Ai Grid
         private void AiShipPlace()
         {
-            aiGrid.PlaceShips();
-            // TODO: Turn cells that ships were placed in from Empty to Ship
-            if (Game.IsCheatOn == true)
+            game.AiGrid.PlaceShips();
+            if (game.IsCheatOn == true)
             {
-                // TODO: This should probably be pulled out to a method called DrawGrid or something like that
-                for (int x = 0; x < Game.Size; x++)
+                DrawShipsToGrid(game.AiGrid, aiButtons);
+            }
+        }
+
+        // Converts the Ship WaterSpaces from light blue to dark gray (for Ai Grid)
+        private void DrawShipsToGrid(OceanGrid grid, GridButton[,] buttons)
+        {
+            for (int x = 0; x < game.Size; x++)
+            {
+                for (int y = 0; y < game.Size; y++)
                 {
-                    for (int y = 0; y < Game.Size; y++)
+                    if (grid.BoardState[x, y] == OceanGrid.WaterSpace.Ship)
                     {
-                        if (aiGrid.BoardState[x, y] == OceanGrid.WaterSpace.Ship)
-                        {
-                            aiButtons[x, y].Content = "n";
-                        }
+                        buttons[x, y].Background = Brushes.DarkGray;
                     }
                 }
             }
         }
 
+        // Creates a GridButton
         private GridButton ReturnButton(int x, int y)
         {
             var b = new GridButton
             {
-                Content = "~",
                 FontSize = 20,
-                Margin = new Thickness(4),
-                Padding = new Thickness
-                {
-                    Left = 15,
-                    Right = 15,
-                    Bottom = 5
-                },
-                X = x,
-                Y = y
+                Margin = new Thickness(2)
             };
+            var thickness = new Thickness
+            {
+                Top = 17,
+                Left = 17,
+                Right = 17,
+                Bottom = 17
+            };
+            b.Padding = thickness;
+            b.X = x;
+            b.Y = y;
+            b.Background = Brushes.LightBlue;
             return b;
         }
 
+        // Returns a horizontal Stack Panel (for the Generate methods)
         private StackPanel ReturnHorizontalStackPanel()
         {
             var horizontalPanel = new StackPanel
@@ -93,36 +147,43 @@ namespace Battleship
             return horizontalPanel;
         }
 
+        // Creates the Ai's Grid
         private void GenerateAiGrid()
         {
-            for (int row = 0; row < 5; ++row)
+            for (int y = 0; y < game.Size; ++y)
             {
                 StackPanel horizontalPanel = ReturnHorizontalStackPanel();
                 aiPanel.Children.Add(horizontalPanel);
 
-                for (int x = 0; x < aiGrid.NumOfShips; ++x)
+                for (int x = 0; x < game.Size; ++x)
                 {
-                    GridButton button = ReturnButton(x, row);
+                    GridButton button = ReturnButton(x, y);
                     horizontalPanel.Children.Add(button);
-                    aiButtons[x, row] = button;
+                    aiButtons[x, y] = button;
                 }
             }
         }
 
+        // Creates the Player's Grid
         private void GeneratePlayerGrid()
         {
-            for (int row = 0; row < 5; ++row)
+            for (int y = 0; y < game.Size; ++y)
             {
                 StackPanel horizontalPanel = ReturnHorizontalStackPanel();
                 playerPanel.Children.Add(horizontalPanel);
-                for (int x = 0; x < playerGrid.NumOfShips; ++x)
+                for (int x = 0; x < game.Size; ++x)
                 {
-                    GridButton button = ReturnButton(x, row);
+                    GridButton button = ReturnButton(x, y);
                     button.Click += btnChooseShips_Click;
                     horizontalPanel.Children.Add(button);
-                    playerButtons[x, row] = button;
+                    playerButtons[x, y] = button;
                 }
             }
+        }
+
+        private void CbxOrientation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

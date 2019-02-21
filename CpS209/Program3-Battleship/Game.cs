@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battleship
+﻿namespace Battleship
 {
-    public static class Game
+    public class Game
     {
-        public static int Size { get; set; }
-        public static bool IsCheatOn { get; set; }
-        public static int DifficultyLevel { get; set; }
-
+        public OceanGrid AiGrid { get; set; }
+        public OceanGrid PlayerGrid { get; set; }
+        public int Size { get; set; }
+        public bool IsCheatOn { get; set; }
+        public Game(bool cheat, int size)
+        {
+            IsCheatOn = cheat;
+            Size = size;
+            AiGrid = new OceanGrid(size);
+            PlayerGrid = new OceanGrid(size);
+        }
     }
 }
-
-
