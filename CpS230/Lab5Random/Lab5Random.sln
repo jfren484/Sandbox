@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5RandomAsm", "Lab5RandomAsm.vcxproj", "{12D66EC8-2A7A-4E2B-ABA6-2BA78D0DCB8F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5RandomAsm", "Asm\Lab5RandomAsm.vcxproj", "{12D66EC8-2A7A-4E2B-ABA6-2BA78D0DCB8F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5RandomC", "Lab5RandomC.vcxproj", "{6A263779-AFC6-4178-8F31-2184F3572EA3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5RandomC", "C\Lab5RandomC.vcxproj", "{6A263779-AFC6-4178-8F31-2184F3572EA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
