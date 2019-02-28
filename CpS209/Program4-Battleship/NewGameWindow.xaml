@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Battleship"
         mc:Ignorable="d"
-        Title="Battleship Game" Height="450" Width="400" SizeToContent="WidthAndHeight" Topmost="True">
+        Title="Battleship Game" Height="254" Width="245" SizeToContent="WidthAndHeight" Topmost="True">
     <Grid>
         <StackPanel Margin="10,10,10,10" Orientation="Horizontal">
-            <StackPanel x:Name="playerPanel" Margin="10">
+            <StackPanel Margin="10">
                 <TextBlock Text="Player" TextAlignment="Center" Margin="5"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
                 <Grid>
@@ -16,7 +16,7 @@
                 </Grid>
             </StackPanel>
             <Rectangle Height="Auto" Width="1" Stroke="Black" />
-            <StackPanel x:Name="aiPanel" Margin="10">
+            <StackPanel Margin="10">
                 <TextBlock Text="AI" TextAlignment="Center" Margin="5"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
                 <Grid>
@@ -26,8 +26,26 @@
         </StackPanel>
     </Grid>
     <Window.Resources>
+        <Image x:Key="ImageTemplate_Empty" Source="Images/Empty.png" />
+        <Image x:Key="ImageTemplate_Ship" Source="Images/Ship.png" />
+
+        <DataTemplate x:Key="DataTemplate_WaterSpace_Ship">
+            <Button Height="40" Width="40" Margin="4">
+                <Image Source="Images/Ship.png" />
+            </Button>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="DataTemplate_WaterSpace_Empty">
+            <Button Height="40" Width="40" Margin="4" />
+        </DataTemplate>
+        
         <DataTemplate x:Key="DataTemplate_WaterSpace">
-            <Button Content="{Binding}" Height="40" Width="40" Margin="4,4,4,4"/>
+            <Button Height="40" Width="40" Margin="4" ContentTemplate="{Binding StringFormat='ImageTemplate_{0}'}">
+                <!--<StackPanel>
+                    <Image Source="{Binding StringFormat='Images/{0}.png'}" />
+                    <TextBlock Text="{Binding StringFormat='Images/{0}.png'}"/>
+                </StackPanel>-->
+            </Button>
         </DataTemplate>
 
         <DataTemplate x:Key="DataTemplate_Grid">
