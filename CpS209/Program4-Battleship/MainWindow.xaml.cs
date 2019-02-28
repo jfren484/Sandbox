@@ -18,7 +18,8 @@ namespace Battleship
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             int size = Convert.ToInt32(sldBoardSize.Value);
-            GameWindow gameWin = new GameWindow(cheat ,size);
+            //GameWindow gameWin = new GameWindow(cheat ,size);
+            NewGameWindow gameWin = new NewGameWindow(cheat, size);
             gameWin.Show();
         }
 

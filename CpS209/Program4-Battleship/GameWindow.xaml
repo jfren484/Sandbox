@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Battleship"
         mc:Ignorable="d"
-        Title="GameWindow" Height="650"  Loaded="Window_Loaded">
+        Title="GameWindow" Height="650"  Loaded="Window_Loaded" SizeToContent="WidthAndHeight">
     <!--
     <StackPanel Orientation="Horizontal">
         <StackPanel Margin="10">

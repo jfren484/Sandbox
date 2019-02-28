@@ -65,7 +65,11 @@
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ref.cs" />
     <Compile Include="GridButton.cs" />
+    <Compile Include="NewGameWindow.xaml.cs">
+      <DependentUpon>NewGameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ship.cs" />
     <Compile Include="TestingClass.cs" />
     <Page Include="GameWindow.xaml">
@@ -85,6 +89,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OceanGrid.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Battleship
@@ -31,7 +32,7 @@ namespace Battleship
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SizeToContent = SizeToContent.WidthAndHeight;
+            //SizeToContent = SizeToContent.WidthAndHeight;
             GeneratePlayerGrid();
             GenerateAiGrid();
             ShipPlace();
@@ -83,6 +84,7 @@ namespace Battleship
             b.X = x;
             b.Y = y;
             b.Background = Brushes.LightBlue;
+            b.SetBinding(ContentProperty, new Binding() { Source = game.PlayerGrid.BoardState[x, y] });
             return b;
         }
 
