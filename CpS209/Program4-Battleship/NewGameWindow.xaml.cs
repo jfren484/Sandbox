@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Battleship
 {
@@ -14,36 +14,23 @@ namespace Battleship
         {
             InitializeComponent();
 
-            game = new Game(cheat, size);
+            game = new Game(size);
+
+            playerGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.PlayerGrid.BoardState, true);
+            aiGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.AiGrid.BoardState, cheat);
+
             game.PlayerGrid.PlaceShips();
+            game.AiGrid.PlaceShips();
+        }
 
-            List<List<OceanGrid.WaterSpace>> lsts = new List<List<OceanGrid.WaterSpace>>();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
 
-            for (int i = 0; i < size; i++)
-            {
-                lsts.Add(new List<OceanGrid.WaterSpace>());
+            var view = (WaterSpaceView)button.Tag;
+            game.AiGrid.Attack(view.X, view.Y);
 
-                for (int j = 0; j < size; j++)
-                {
-                    lsts[i].Add(OceanGrid.WaterSpace.Empty);
-                }
-            }
-
-            playerGrid.ItemsSource = game.PlayerGrid.BoardState.GetBindable2DArray();
-
-            lsts = new List<List<OceanGrid.WaterSpace>>();
-
-            for (int i = 0; i < size; i++)
-            {
-                lsts.Add(new List<OceanGrid.WaterSpace>());
-
-                for (int j = 0; j < size; j++)
-                {
-                    lsts[i].Add(OceanGrid.WaterSpace.Empty);
-                }
-            }
-
-            aiGrid.ItemsSource = lsts;
+            ((Image)button.Content).GetBindingExpression(Image.SourceProperty).UpdateTarget();
         }
     }
 }

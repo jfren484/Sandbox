@@ -12,7 +12,7 @@
                 <TextBlock Text="Player" TextAlignment="Center" Margin="5"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
                 <Grid>
-                    <ItemsControl x:Name="playerGrid" ItemTemplate="{DynamicResource DataTemplate_Grid}"/>
+                    <ItemsControl x:Name="playerGrid" ItemTemplate="{DynamicResource DataTemplate_Grid_Player}"/>
                 </Grid>
             </StackPanel>
             <Rectangle Height="Auto" Width="1" Stroke="Black" />
@@ -20,36 +20,37 @@
                 <TextBlock Text="AI" TextAlignment="Center" Margin="5"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
                 <Grid>
-                    <ItemsControl x:Name="aiGrid" ItemTemplate="{DynamicResource DataTemplate_Grid}"/>
+                    <ItemsControl x:Name="aiGrid" ItemTemplate="{DynamicResource DataTemplate_Grid_Ai}"/>
                 </Grid>
             </StackPanel>
         </StackPanel>
     </Grid>
+    
     <Window.Resources>
-        <Image x:Key="ImageTemplate_Empty" Source="Images/Empty.png" />
-        <Image x:Key="ImageTemplate_Ship" Source="Images/Ship.png" />
-
-        <DataTemplate x:Key="DataTemplate_WaterSpace_Ship">
-            <Button Height="40" Width="40" Margin="4">
-                <Image Source="Images/Ship.png" />
-            </Button>
-        </DataTemplate>
-        
-        <DataTemplate x:Key="DataTemplate_WaterSpace_Empty">
-            <Button Height="40" Width="40" Margin="4" />
-        </DataTemplate>
-        
-        <DataTemplate x:Key="DataTemplate_WaterSpace">
-            <Button Height="40" Width="40" Margin="4" ContentTemplate="{Binding StringFormat='ImageTemplate_{0}'}">
-                <!--<StackPanel>
-                    <Image Source="{Binding StringFormat='Images/{0}.png'}" />
-                    <TextBlock Text="{Binding StringFormat='Images/{0}.png'}"/>
-                </StackPanel>-->
+        <DataTemplate x:Key="DataTemplate_WaterSpaceView_Player">
+            <Button Height="40" Width="40" Margin="4" Tag="{Binding}">
+                <Image Source="{Binding ImageSource}" />
             </Button>
         </DataTemplate>
 
-        <DataTemplate x:Key="DataTemplate_Grid">
-            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_WaterSpace}">
+        <DataTemplate x:Key="DataTemplate_WaterSpaceView_Ai">
+            <Button Height="40" Width="40" Margin="4" Click="Button_Click" Tag="{Binding}">
+                <Image Source="{Binding ImageSource}" />
+            </Button>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Grid_Player">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_WaterSpaceView_Player}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Grid_Ai">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_WaterSpaceView_Ai}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>

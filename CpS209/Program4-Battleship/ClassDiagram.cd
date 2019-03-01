@@ -13,7 +13,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="Battleship.OceanGrid.WaterSpace">
+      <Enum Name="Battleship.WaterSpace">
         <TypeIdentifier>
           <NewMemberFileName>OceanGrid.cs</NewMemberFileName>
         </TypeIdentifier>

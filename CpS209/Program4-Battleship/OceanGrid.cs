@@ -5,20 +5,15 @@
 //----------------------------------------------------------- 
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Battleship
 {
     public class OceanGrid
     {
-        private readonly int numOfShips = 5;
-        private int shipsPlaced = 0;
-        public int NumOfShips { get { return numOfShips; } }
-        public int ShipsPlaced { get { return shipsPlaced; } set { shipsPlaced = value; } }
+        public int NumOfShips { get; } = 5;
+        public int ShipsPlaced { get; set; } = 0;
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
-        public enum WaterSpace { Empty = 0, Ship, Miss, HitShipNowDestroyed, AlreadyDestroyed};
         public WaterSpace[,] BoardState { get; set; }
 
         public OceanGrid(int size)
@@ -50,83 +45,20 @@ namespace Battleship
             return result;
         }
 
-        // 90% - Writes the current Grid State of the Player to the Debugging Output Window
-        public void PlayerGridState()
+        public bool Attack(int x, int y)
         {
-            Debug.WriteLine("Board:");
-            string temp = "";
-            for (int y = 0; y < Size; y++)
+            if (BoardState[x, y] == WaterSpace.Ship)
             {
-                for (int x = 0; x < Size; x++)
-                {
-                    if (BoardState[x, y] == WaterSpace.Ship)
-                    {
-                        temp += 'n';
-                        
-                    }
-                    else
-                    {
-                        temp += '~';
-                    }
-                }
-                Debug.WriteLine(temp);
-                temp = "";
+                BoardState[x, y] = WaterSpace.Hit;
+                return true;
             }
+
+            if (BoardState[x, y] == WaterSpace.Empty)
+            {
+                BoardState[x, y] = WaterSpace.Miss;
+            }
+
+            return false;
         }
-
-        //// 100% Program 3 - Tests to see if the location the user chose to place the ship in will fit the ship
-        //public bool DetermineIfShipFits(Ship ship, int x, int y)
-        //{
-        //    if (ship.OrientationHorizontal) // Testing Horizontal Placement
-        //    {
-        //        for (int i = x; i < (x + ship.Length); i++)
-        //        {
-        //            if (i >= Size)
-        //            {
-        //                return false;
-        //            }
-        //            else if (BoardState[i, y] != WaterSpace.Empty)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    else // Testing Vertical Placement
-        //    {
-        //        for (int i = y; i < (y + ship.Length); i++)
-        //        {
-        //            if (i >= Size)
-        //            {
-        //                return false;
-        //            }
-        //            else if (BoardState[x, i] != WaterSpace.Empty)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //// 100% Program 3 - Places the ship into the grid
-        //public void PlaceShip(Ship ship, int x, int y)
-        //{
-
-        //    if (ship.OrientationHorizontal)
-        //    {
-        //        for (int i = x; i < (x + ship.Length); i++)
-        //        {
-        //            BoardState[x, y] = WaterSpace.Ship;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        for (int i = y; i < (y + ship.Length); i++)
-        //        {
-        //            BoardState[x, y] = WaterSpace.Ship;
-        //        }
-        //    }
-        //    ShipsPlaced++;
-        //}
     }
 }
