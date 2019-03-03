@@ -62,14 +62,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="WaterSpace.cs" />
-    <Compile Include="WaterSpaceView.cs" />
-    <Compile Include="GridButton.cs" />
-    <Compile Include="NewGameWindow.xaml.cs">
-      <DependentUpon>NewGameWindow.xaml</DependentUpon>
+    <Compile Include="Ai.cs" />
+    <Compile Include="GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GridButton.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="TestingClass.cs" />
+    <Page Include="GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,10 +87,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NewGameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OceanGrid.cs" />
@@ -119,16 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="battleship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Ship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Empty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Hit.png" />
-    <Resource Include="Images\Miss.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

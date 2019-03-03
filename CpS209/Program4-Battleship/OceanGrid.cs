@@ -5,6 +5,8 @@
 //----------------------------------------------------------- 
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Battleship
 {
@@ -14,6 +16,7 @@ namespace Battleship
         public int ShipsPlaced { get; set; } = 0;
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
+        public enum WaterSpace { Empty = 0, Ship, Miss, Hit, AlreadyHit};
         public WaterSpace[,] BoardState { get; set; }
 
         public OceanGrid(int size)
@@ -23,7 +26,7 @@ namespace Battleship
         }
 
         // Automatically places 5 different ships in  Grid
-        public void PlaceShips()
+        public void AutoPlaceShips()
         {
             while (ShipsPlaced < NumOfShips)
             {
@@ -45,20 +48,43 @@ namespace Battleship
             return result;
         }
 
-        public bool Attack(int x, int y)
+        // 90% - Writes the current Grid State of the Player to the Debugging Output Window
+        public void PlayerGridState()
         {
-            if (BoardState[x, y] == WaterSpace.Ship)
+            Debug.WriteLine("Board:");
+            string temp = "";
+            for (int y = 0; y < Size; y++)
             {
-                BoardState[x, y] = WaterSpace.Hit;
-                return true;
+                for (int x = 0; x < Size; x++)
+                {
+                    if (BoardState[x, y] == WaterSpace.Ship)
+                    {
+                        temp += 'n';
+                        
+                    }
+                    else
+                    {
+                        temp += '~';
+                    }
+                }
+                Debug.WriteLine(temp);
+                temp = "";
+            }
+        }
+
+        public WaterSpace Attack(Location location)
+        {
+            if (BoardState[location.X, location.Y] == WaterSpace.Ship)
+            {
+                BoardState[location.X, location.Y] = WaterSpace.Hit;
             }
 
-            if (BoardState[x, y] == WaterSpace.Empty)
+            if (BoardState[location.X, location.Y] == WaterSpace.Empty)
             {
-                BoardState[x, y] = WaterSpace.Miss;
+                BoardState[location.X, location.Y] = WaterSpace.Miss;
             }
 
-            return false;
+            return BoardState[location.X, location.Y];
         }
     }
 }
