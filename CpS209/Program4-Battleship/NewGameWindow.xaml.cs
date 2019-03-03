@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Battleship
 {
@@ -16,8 +17,8 @@ namespace Battleship
 
             game = new Game(size);
 
-            playerGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.PlayerGrid.BoardState, true);
-            aiGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.AiGrid.BoardState, cheat);
+            playerGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.PlayerGrid.BoardState, false, true);
+            aiGrid.ItemsSource = WaterSpaceView.GetBindable2DArray(game.AiGrid.BoardState, true, cheat);
 
             game.PlayerGrid.PlaceShips();
             game.AiGrid.PlaceShips();
@@ -28,9 +29,13 @@ namespace Battleship
             var button = (Button)sender;
 
             var view = (WaterSpaceView)button.Tag;
-            game.AiGrid.Attack(view.X, view.Y);
 
-            ((Image)button.Content).GetBindingExpression(Image.SourceProperty).UpdateTarget();
+            if (view.IsAiGrid)
+            {
+                game.AiGrid.Attack(view.X, view.Y);
+
+                ((Image)button.Content).GetBindingExpression(Image.SourceProperty).UpdateTarget();
+            }
         }
     }
 }

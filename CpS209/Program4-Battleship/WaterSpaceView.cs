@@ -8,13 +8,14 @@ namespace Battleship
         private readonly Func<WaterSpace> _getter;
         private readonly bool _showUnHitShips;
 
-        public WaterSpaceView(Func<WaterSpace> getter, int x, int y, bool showUnHitShips)
+        public WaterSpaceView(Func<WaterSpace> getter, int x, int y, bool isAiGrid, bool showUnHitShips)
         {
             _getter = getter;
             _showUnHitShips = showUnHitShips;
 
             X = x;
             Y = y;
+            IsAiGrid = isAiGrid;
         }
 
         public WaterSpace WaterSpace
@@ -33,6 +34,8 @@ namespace Battleship
         public int X { get; set; }
         public int Y { get; set; }
 
+        public bool IsAiGrid { get; set; }
+
         public string ImageSource => $"Images/{WaterSpace}.png";
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace Battleship
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
-        public static List<List<WaterSpaceView>> GetBindable2DArray(WaterSpace[,] array, bool showUnHitShips)
+        public static List<List<WaterSpaceView>> GetBindable2DArray(WaterSpace[,] array, bool isAiGrid, bool showUnHitShips)
         {
             List<List<WaterSpaceView>> listOfLists = new List<List<WaterSpaceView>>();
 
@@ -53,7 +56,7 @@ namespace Battleship
                     // Copy x and y to avoid closure
                     int x1 = x;
                     int y1 = y;
-                    WaterSpaceView view = new WaterSpaceView(() => array[x1, y1], x1, y1, showUnHitShips);
+                    WaterSpaceView view = new WaterSpaceView(() => array[x1, y1], x1, y1, isAiGrid, showUnHitShips);
 
                     list.Add(view);
                 }
