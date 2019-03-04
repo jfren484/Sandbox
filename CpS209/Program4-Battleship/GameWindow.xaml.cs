@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Battleship
 {
@@ -17,6 +18,10 @@ namespace Battleship
         GridButton[,] playerButtons;
         Ai ai;
 
+        bool isAiTurn;
+        DispatcherTimer dispatcherTimer;
+        DateTime timerDeadline = DateTime.Now + TimeSpan.FromSeconds(5);
+
         public GameWindow(bool cheat, int size)
         {
             InitializeComponent();
@@ -25,6 +30,10 @@ namespace Battleship
             playerButtons = new GridButton[game.Size, game.Size];
             ai = new Ai(size) { Thinking = "" };
             lblThinking.DataContext = ai;
+
+            dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,16 +50,44 @@ namespace Battleship
             DrawShipsToGrid(game.AiGrid, aiButtons);
         }
 
+        private async void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (isAiTurn)
+            {
+                return;
+            }
+
+            // Our timer might have gone off a few milliseconds past the 5 second mark, but we don't want a negative time, so use Math.Max to make sure
+            double remainingTime = Math.Max((timerDeadline - DateTime.Now).TotalSeconds, 0);
+
+            string formattedTimeRemaining = Math.Round(remainingTime, 1).ToString("0.0");
+            lblTimer.Text = formattedTimeRemaining;
+
+            if (remainingTime == 0)
+            {
+                // Too long - let the AI attack
+                await AiAttackAsync();
+            }
+        }
+
         private async void btnAttackClick_Click(object sender, RoutedEventArgs e)
         {
+            if (isAiTurn)
+            {
+                // No cheating!
+                return;
+            }
+
             var btn = sender as GridButton;
             btn.Click -= btnAttackClick_Click;
+
             OceanSpace result = game.AiGrid.Attack(btn.Location);
             if (result.Type == OceanSpaceType.Hit)
             {
                 game.AiGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
                 if (game.AiGrid.NumOfShips == 0)
                 {
+                    StopTimer();
                     DisplayPlayerWinner();
                 }
                 else
@@ -66,7 +103,10 @@ namespace Battleship
 
         private async Task AiAttackAsync()
         {
-            ai.Thinking = " - Thinking...";
+            isAiTurn = true;
+            lblTimer.Text = "";
+
+            lblThinking.Text = "Thinking...";
             await Task.Run(() => Thread.Sleep(1000)); // Make Ai appear as if it's thinking
             Location location = ai.DetermineNextAttack();
             game.PlayerGrid.lastAttackedLocation = location;
@@ -76,10 +116,19 @@ namespace Battleship
                 game.PlayerGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
                 if (game.PlayerGrid.NumOfShips == 0)
                 {
+                    StopTimer();
                     DisplayAiWinner();
                 }
             }
-            ai.Thinking = "";
+
+            lblThinking.Text = "";
+            // If the game is still going, reset the timer
+            if (game.PlayerGrid.NumOfShips > 0)
+            {
+                lblTimer.Text = "5.0";
+                timerDeadline = DateTime.Now + TimeSpan.FromSeconds(5);
+            }
+            isAiTurn = false;
         }
 
         private void DisplayPlayerWinner()
@@ -92,6 +141,12 @@ namespace Battleship
         {
             AiVictory aiVictory = new AiVictory();
             aiVictory.Show();
+        }
+
+        private void StopTimer()
+        {
+            lblTimer.Text = "";
+            dispatcherTimer.Stop();
         }
 
         // Places five ships in the Grid

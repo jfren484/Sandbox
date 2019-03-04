@@ -8,18 +8,18 @@
         Title="GameWindow" Height="650"  Loaded="Window_Loaded">
     <StackPanel HorizontalAlignment="Center">
         <StackPanel x:Name="playerPanel" Margin="10">
-            <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center" Margin="5"
-                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
+            <DockPanel>
+                <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center"
+                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold" />
+                <TextBlock x:Name="lblTimer" Text="5.0" FontFamily="Century Gothic" FontSize="25" HorizontalAlignment="Right"></TextBlock>
+            </DockPanel>
         </StackPanel>
-        <Rectangle Height="1" Width="Auto" Stroke="Black"
-                Margin="30,10,30,0" VerticalAlignment="Bottom"/>
+        <Rectangle Height="1" Width="Auto" Stroke="Black" Margin="30,10,30,0" VerticalAlignment="Bottom"/>
         <StackPanel x:Name="aiPanel" Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="txtAi" Text="AI" TextAlignment="Center" HorizontalAlignment="Center"
-                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
-                <TextBlock x:Name="lblThinking" Margin="0,0,0,0" HorizontalAlignment="Right" Text="{Binding Path=Thinking}" FontSize="15"></TextBlock>
-            </StackPanel>
-            
+            <DockPanel>
+                <TextBlock x:Name="txtAi" Text="AI" FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
+                <TextBlock x:Name="lblThinking" Text="" FontFamily="Century Gothic" FontSize="25" HorizontalAlignment="Right"></TextBlock>
+            </DockPanel>
         </StackPanel>
     </StackPanel>
 </Window>
