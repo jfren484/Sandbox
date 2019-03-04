@@ -5,23 +5,21 @@
 //----------------------------------------------------------- 
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Battleship
 {
     public class OceanGrid
     {
-        public int NumOfShips { get; } = 5;
+        public int NumOfShips { get; set;  } = 5;
         public int ShipsPlaced { get; set; } = 0;
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
-        public enum WaterSpace { Empty = 0, Ship, Miss, Hit, AlreadyHit};
-        public WaterSpace[,] BoardState { get; set; }
+        public OceanSpace[,] BoardState { get; set; }
 
         public OceanGrid(int size)
         {
-            BoardState = new WaterSpace[size, size];
+            BoardState = new OceanSpace[size, size];
             Size = size;
         }
 
@@ -33,9 +31,9 @@ namespace Battleship
                 int x = GetRandomCoordinate();
                 int y = GetRandomCoordinate();
 
-                if (BoardState[x, y] != WaterSpace.Ship)
+                if (BoardState[x, y].OceanSpaceType != OceanSpaceType.Ship)
                 {
-                    BoardState[x, y] = WaterSpace.Ship;
+                    BoardState[x, y].OceanSpaceType = OceanSpaceType.Ship;
                     ShipsPlaced++;
                 }
             }
@@ -57,7 +55,7 @@ namespace Battleship
             {
                 for (int x = 0; x < Size; x++)
                 {
-                    if (BoardState[x, y] == WaterSpace.Ship)
+                    if (BoardState[x, y].OceanSpaceType == OceanSpaceType.Ship)
                     {
                         temp += 'n';
                         
@@ -72,19 +70,19 @@ namespace Battleship
             }
         }
 
-        public WaterSpace Attack(Location location)
+        public OceanSpaceType Attack(Location location)
         {
-            if (BoardState[location.X, location.Y] == WaterSpace.Ship)
+            if (BoardState[location.X, location.Y].OceanSpaceType == OceanSpaceType.Ship)
             {
-                BoardState[location.X, location.Y] = WaterSpace.Hit;
+                BoardState[location.X, location.Y].OceanSpaceType = OceanSpaceType.Hit;
             }
 
-            if (BoardState[location.X, location.Y] == WaterSpace.Empty)
+            if (BoardState[location.X, location.Y].OceanSpaceType == OceanSpaceType.Empty)
             {
-                BoardState[location.X, location.Y] = WaterSpace.Miss;
+                BoardState[location.X, location.Y].OceanSpaceType = OceanSpaceType.Miss;
             }
 
-            return BoardState[location.X, location.Y];
+            return BoardState[location.X, location.Y].OceanSpaceType;
         }
     }
 }

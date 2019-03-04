@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,18 +9,27 @@ namespace Battleship
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>
-    public partial class GameWindow : Window
+    public partial class GameWindow : Window, IGameObserver
     {
         Game game;
         GridButton[,] aiButtons;
         GridButton[,] playerButtons;
+        Ai ai;
 
         public GameWindow(bool cheat, int size)
         {
             InitializeComponent();
-            game = new Game(cheat, size);
+            game = new Game(this, cheat, size);
             aiButtons = new GridButton[game.Size, game.Size];
             playerButtons = new GridButton[game.Size, game.Size];
+            ai = new Ai(size) { Thinking = "" };
+            lblThinking.DataContext = ai;
+        }
+
+        public void NotifySpaceChanged()
+        {
+            DrawShipsToGrid(game.PlayerGrid, playerButtons);
+            DrawShipsToGrid(game.AiGrid, aiButtons);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,20 +40,55 @@ namespace Battleship
             AutoShipPlace();
         }
 
-        private void btnAttackClick_Click(object sender, RoutedEventArgs e)
+        private async void btnAttackClick_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as GridButton;
-
-            OceanGrid.WaterSpace result = game.AiGrid.Attack(btn.Location);
-
-            if (result == OceanGrid.WaterSpace.Hit)
+            OceanSpaceType result = game.AiGrid.Attack(btn.Location);
+            if (result == OceanSpaceType.Hit)
             {
                 btn.Background = Brushes.Red;
+                game.AiGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
+                if (game.AiGrid.NumOfShips == 0)
+                {
+                    DisplayWinner();
+                }
+                else
+                {
+                    await AiAttackAsync();
+                }
             }
-            else if (result == OceanGrid.WaterSpace.Miss)
+            else if (result == OceanSpaceType.Miss)
             {
-                btn.Background = Brushes.DarkBlue;
+                btn.Background = Brushes.Blue;
+                await AiAttackAsync();
             }
+        }
+
+        private async Task AiAttackAsync()
+        {
+            ai.Thinking = " - Thinking...";
+            await Task.Run(() => Thread.Sleep(1000)); // Make Ai appear as if it's thinking
+            Location location = ai.DetermineNextAttack();
+            var aiResult = game.PlayerGrid.Attack(location);
+            if (aiResult == OceanSpaceType.Hit)
+            {
+                playerButtons[location.X, location.Y].Background = Brushes.Red;
+                game.PlayerGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
+                if (game.PlayerGrid.NumOfShips == 0)
+                {
+                    DisplayWinner();
+                }
+            }
+            else if (aiResult == OceanSpaceType.Miss)
+            {
+                playerButtons[location.X, location.Y].Background = Brushes.Blue;
+            }
+            ai.Thinking = "";
+        }
+
+        private void DisplayWinner()
+        {
+            // TODO
         }
 
         // Places five ships in the Grid
@@ -65,10 +110,21 @@ namespace Battleship
             {
                 for (int y = 0; y < game.Size; y++)
                 {
-                    if (grid.BoardState[x, y] == OceanGrid.WaterSpace.Ship)
+                    Brush brush = Brushes.LightBlue;
+                    switch (grid.BoardState[x, y].OceanSpaceType)
                     {
-                        Buttons[x, y].Background = Brushes.DarkGray;
+                        case OceanSpaceType.Ship:
+                            brush = Brushes.DarkGray;
+                            break;
+                        case OceanSpaceType.Hit:
+                            brush = Brushes.Red;
+                            break;
+                        case OceanSpaceType.Miss:
+                            brush = Brushes.Blue;
+                            break;
                     }
+
+                    Buttons[x, y].Background = brush;
                 }
             }
         }
@@ -88,8 +144,8 @@ namespace Battleship
                 Right = 17,
                 Bottom = 17
             };
-            b.Padding = thickness;
             b.Location = new Location(x, y);
+            b.Padding = thickness;
             b.Background = Brushes.LightBlue;
             return b;
         }
@@ -116,6 +172,7 @@ namespace Battleship
                 for (int x = 0; x < game.Size; ++x)
                 {
                     GridButton button = ReturnButton(x, y);
+                    game.AiGrid.BoardState[x, y] = new OceanSpace(this, OceanSpaceType.Empty);
                     button.Click += btnAttackClick_Click;
                     horizontalPanel.Children.Add(button);
                     aiButtons[x, y] = button;
@@ -134,6 +191,7 @@ namespace Battleship
                 for (int x = 0; x < game.Size; ++x)
                 {
                     GridButton button = ReturnButton(x, y);
+                    game.PlayerGrid.BoardState[x, y] = new OceanSpace(this, OceanSpaceType.Empty);
                     horizontalPanel.Children.Add(button);
                     playerButtons[x, y] = button;
                     //playerButtons[x, y].isAiGrid = false;

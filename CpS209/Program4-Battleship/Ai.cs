@@ -5,29 +5,34 @@ namespace Battleship
 {
     public class Ai
     {
-        private readonly Random random = new Random();
-
-        private readonly List<Location> RemainingGuesses = new List<Location>();
-
+        Random random = new Random();
+        List<Location> attackList = new List<Location>();
         public Ai(int size)
         {
             for (int x = 0; x < size; x++)
             {
                 for (int y = 0; y < size; y++)
                 {
-                    RemainingGuesses.Add(new Location(x, y));
+                    attackList.Add( new Location(x, y) );
                 }
             }
         }
 
-        public Location GetNextAttack()
+        public Location DetermineNextAttack()
         {
-            int index = random.Next(RemainingGuesses.Count);
-
-            Location nextAttack = RemainingGuesses[index];
-            RemainingGuesses.RemoveAt(index);
-
-            return nextAttack;
+            int result = GetRandomLocationToAttack();
+            Location location = attackList[result];
+            attackList.Remove(location);
+            return location;
         }
+
+        // Grabs a random number for x or y value
+        public int GetRandomLocationToAttack()
+        {
+            int result = random.Next(0, attackList.Count);
+            return result;
+        }
+
+        public string Thinking { get; set; }
     }
 }

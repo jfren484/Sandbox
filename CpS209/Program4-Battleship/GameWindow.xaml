@@ -6,51 +6,6 @@
         xmlns:local="clr-namespace:Battleship"
         mc:Ignorable="d"
         Title="GameWindow" Height="650"  Loaded="Window_Loaded">
-    <!--
-    <StackPanel Orientation="Horizontal">
-        <StackPanel Margin="10">
-            <TextBlock Text="Guide" Margin ="5" TextAlignment="Center" FontSize="25"
-                       FontFamily="Century Gothic" FontWeight="Bold"/>
-            <Rectangle Height="1" Width="Auto" Stroke="Black"
-                   Margin="30,10,30,0" VerticalAlignment="Bottom"/>
-            <TextBlock Text="Ships:" FontSize="15" TextAlignment="Center"/>
-            <TextBlock Text="- One four-long ship" FontSize="15" TextAlignment="Center"/>
-            <TextBlock Text="- One three-long ship" FontSize="15" TextAlignment="Center"/>
-            <TextBlock Text="- Three two-long ships" FontSize="15" TextAlignment="Center"/>
-            <TextBlock Text="Length:" FontSize="15" TextAlignment="Center" Margin="0,5,0,0"/>
-            <ComboBox x:Name="cbxShip">
-                <ComboBoxItem Tag="4" x:Name="cbiFourLength" IsSelected="True">Four Length</ComboBoxItem>
-                <ComboBoxItem Tag="3" x:Name="cbiThreeLength">Three Length</ComboBoxItem>
-                <ComboBoxItem Tag="2" x:Name="cbiTwoLength">Two Length</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Text="Horizontal" Margin="0,20,0,0" TextAlignment="Center"
-                       FontSize="20" FontWeight="Bold" FontFamily="Century Gothic"/>
-            <TextBlock Text="Select the leftmost space."
-                       TextAlignment="Center" FontSize="15" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Background="DarkGray" Width="40" Height="40"
-                        Margin="5" Content="X" FontSize="20"/>
-                <Button Background="DarkGray" Width="40" Height="40"/>
-            </StackPanel>
-            <TextBlock Text="Vertical" TextAlignment="Center" 
-                       FontSize="20" FontWeight="Bold" FontFamily="Century Gothic"/>
-            <TextBlock Text="Select the topmost space."
-                       TextAlignment="Center" FontSize="15"/>
-            <StackPanel HorizontalAlignment="Center">
-                <Button Background="DarkGray" Width="40" Height="40"
-                        Margin="5" HorizontalAlignment="Left" Content="X" FontSize="20"/>
-                <Button Background="DarkGray" Width="40" Height="40"
-                        Margin="5,0,0,0" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Margin="0,20,0,0">
-                <TextBlock Text="Ship Orientation:" FontSize="15"></TextBlock>
-                <ComboBox x:Name="cbxOrientation">
-                    <ComboBoxItem Tag="true"  x:Name="cbiHorizontal" IsSelected="True">Horizontal</ComboBoxItem>
-                    <ComboBoxItem Tag="false" x:Name="cbiVertical">Vertical</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-        </StackPanel>
-        -->
     <StackPanel HorizontalAlignment="Center">
         <StackPanel x:Name="playerPanel" Margin="10">
             <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center" Margin="5"
@@ -59,8 +14,12 @@
         <Rectangle Height="1" Width="Auto" Stroke="Black"
                 Margin="30,10,30,0" VerticalAlignment="Bottom"/>
         <StackPanel x:Name="aiPanel" Margin="10">
-            <TextBlock x:Name="txtAi" Text="AI" TextAlignment="Center" Margin="5"
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="txtAi" Text="AI" TextAlignment="Center" HorizontalAlignment="Center" Margin="30,5,0,0"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
+                <TextBlock x:Name="lblThinking" Margin="20,0,0,0" Text="{Binding Path=Thinking}" FontSize="15"></TextBlock>
+            </StackPanel>
+
         </StackPanel>
     </StackPanel>
 </Window>
