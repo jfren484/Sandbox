@@ -15,11 +15,11 @@
                 Margin="30,10,30,0" VerticalAlignment="Bottom"/>
         <StackPanel x:Name="aiPanel" Margin="10">
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="txtAi" Text="AI" TextAlignment="Center" HorizontalAlignment="Center" Margin="30,5,0,0"
+                <TextBlock x:Name="txtAi" Text="AI" TextAlignment="Center" HorizontalAlignment="Center"
                     FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
-                <TextBlock x:Name="lblThinking" Margin="20,0,0,0" Text="{Binding Path=Thinking}" FontSize="15"></TextBlock>
+                <TextBlock x:Name="lblThinking" Margin="0,0,0,0" HorizontalAlignment="Right" Text="{Binding Path=Thinking}" FontSize="15"></TextBlock>
             </StackPanel>
-
+            
         </StackPanel>
     </StackPanel>
 </Window>

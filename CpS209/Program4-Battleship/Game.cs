@@ -12,13 +12,14 @@ namespace Battleship
         public OceanGrid PlayerGrid { get; set; }
         public int Size { get; set; }
         public bool IsCheatOn { get; set; }
-
-        public Game(IGameObserver observer, bool cheat, int size)
+        public IObserver Observer { get; set; }
+        public Game(bool cheat, int size, IObserver observer)
         {
             IsCheatOn = cheat;
             Size = size;
-            AiGrid = new OceanGrid(size);
-            PlayerGrid = new OceanGrid(size);
+            AiGrid = new OceanGrid(observer, size);
+            PlayerGrid = new OceanGrid(observer, size);
+            Observer = observer;
         }
     }
 }

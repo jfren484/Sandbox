@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    public enum OceanSpaceType
+    public interface IObserver
     {
-        Empty = 0,
-        Ship,
-        Miss,
-        Hit,
-        AlreadyHit
+        void NotifySpaceChanged();
     }
 }

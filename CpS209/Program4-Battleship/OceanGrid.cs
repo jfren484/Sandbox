@@ -5,6 +5,7 @@
 //----------------------------------------------------------- 
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Battleship
@@ -15,11 +16,21 @@ namespace Battleship
         public int ShipsPlaced { get; set; } = 0;
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
+        public Location lastAttackedLocation { get; set; }
+        //public enum WaterSpace { Empty = 0, Ship, Miss, Hit, AlreadyHit};
         public OceanSpace[,] BoardState { get; set; }
 
-        public OceanGrid(int size)
+        public OceanGrid(IObserver observer, int size)
         {
             BoardState = new OceanSpace[size, size];
+            for (var x = 0; x < size; x++)
+            {
+                for (var y = 0; y < size; y++)
+                {
+                    BoardState[x, y] = new OceanSpace(observer, OceanSpaceType.Empty);
+                }
+            }
+
             Size = size;
         }
 
@@ -31,9 +42,9 @@ namespace Battleship
                 int x = GetRandomCoordinate();
                 int y = GetRandomCoordinate();
 
-                if (BoardState[x, y].OceanSpaceType != OceanSpaceType.Ship)
+                if (BoardState[x, y].Type != OceanSpaceType.Ship)
                 {
-                    BoardState[x, y].OceanSpaceType = OceanSpaceType.Ship;
+                    BoardState[x, y].Type = OceanSpaceType.Ship;
                     ShipsPlaced++;
                 }
             }
@@ -55,7 +66,7 @@ namespace Battleship
             {
                 for (int x = 0; x < Size; x++)
                 {
-                    if (BoardState[x, y].OceanSpaceType == OceanSpaceType.Ship)
+                    if (BoardState[x, y].Type == OceanSpaceType.Ship)
                     {
                         temp += 'n';
                         
@@ -70,19 +81,20 @@ namespace Battleship
             }
         }
 
-        public OceanSpaceType Attack(Location location)
+        public OceanSpace Attack(Location location)
         {
-            if (BoardState[location.X, location.Y].OceanSpaceType == OceanSpaceType.Ship)
+            if (BoardState[location.X, location.Y].Type == OceanSpaceType.Ship)
             {
-                BoardState[location.X, location.Y].OceanSpaceType = OceanSpaceType.Hit;
+                BoardState[location.X, location.Y].Type = OceanSpaceType.Hit;
             }
 
-            if (BoardState[location.X, location.Y].OceanSpaceType == OceanSpaceType.Empty)
+            if (BoardState[location.X, location.Y].Type == OceanSpaceType.Empty)
             {
-                BoardState[location.X, location.Y].OceanSpaceType = OceanSpaceType.Miss;
+                BoardState[location.X, location.Y].Type = OceanSpaceType.Miss;
+                
             }
 
-            return BoardState[location.X, location.Y].OceanSpaceType;
+            return BoardState[location.X, location.Y];
         }
     }
 }

@@ -6,7 +6,6 @@
 
 using Battleship;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 // Inherits from Button and gives it X and Y coordinate properties
 public class GridButton : Button

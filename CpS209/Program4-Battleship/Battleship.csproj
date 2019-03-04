@@ -63,16 +63,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Ai.cs" />
+    <Compile Include="AiVictory.xaml.cs">
+      <DependentUpon>AiVictory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GridButton.cs" />
-    <Compile Include="IGameObserver.cs" />
+    <Compile Include="IObserver.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="OceanSpace.cs" />
-    <Compile Include="OceanSpaceType.cs" />
+    <Compile Include="PlayerVictory.xaml.cs">
+      <DependentUpon>PlayerVictory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ship.cs" />
+    <Compile Include="Sounds.cs" />
     <Compile Include="TestingClass.cs" />
+    <Compile Include="OceanSpaceType.cs" />
+    <Page Include="AiVictory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +101,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PlayerVictory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OceanGrid.cs" />
@@ -122,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="battleship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BOTW_Fanfare_HeartContainer.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

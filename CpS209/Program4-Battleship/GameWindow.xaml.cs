@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace Battleship
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>
-    public partial class GameWindow : Window, IGameObserver
+    public partial class GameWindow : Window, IObserver
     {
         Game game;
         GridButton[,] aiButtons;
@@ -19,17 +20,11 @@ namespace Battleship
         public GameWindow(bool cheat, int size)
         {
             InitializeComponent();
-            game = new Game(this, cheat, size);
+            game = new Game(cheat, size, this);
             aiButtons = new GridButton[game.Size, game.Size];
             playerButtons = new GridButton[game.Size, game.Size];
             ai = new Ai(size) { Thinking = "" };
             lblThinking.DataContext = ai;
-        }
-
-        public void NotifySpaceChanged()
-        {
-            DrawShipsToGrid(game.PlayerGrid, playerButtons);
-            DrawShipsToGrid(game.AiGrid, aiButtons);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -40,26 +35,31 @@ namespace Battleship
             AutoShipPlace();
         }
 
+        public void NotifySpaceChanged()
+        {
+            DrawShipsToGrid(game.PlayerGrid, playerButtons);
+            DrawShipsToGrid(game.AiGrid, aiButtons);
+        }
+
         private async void btnAttackClick_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as GridButton;
-            OceanSpaceType result = game.AiGrid.Attack(btn.Location);
-            if (result == OceanSpaceType.Hit)
+            btn.Click -= btnAttackClick_Click;
+            OceanSpace result = game.AiGrid.Attack(btn.Location);
+            if (result.Type == OceanSpaceType.Hit)
             {
-                btn.Background = Brushes.Red;
                 game.AiGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
                 if (game.AiGrid.NumOfShips == 0)
                 {
-                    DisplayWinner();
+                    DisplayPlayerWinner();
                 }
                 else
                 {
                     await AiAttackAsync();
                 }
             }
-            else if (result == OceanSpaceType.Miss)
+            else if (result.Type == OceanSpaceType.Miss)
             {
-                btn.Background = Brushes.Blue;
                 await AiAttackAsync();
             }
         }
@@ -69,26 +69,29 @@ namespace Battleship
             ai.Thinking = " - Thinking...";
             await Task.Run(() => Thread.Sleep(1000)); // Make Ai appear as if it's thinking
             Location location = ai.DetermineNextAttack();
+            game.PlayerGrid.lastAttackedLocation = location;
             var aiResult = game.PlayerGrid.Attack(location);
-            if (aiResult == OceanSpaceType.Hit)
+            if (aiResult.Type == OceanSpaceType.Hit)
             {
-                playerButtons[location.X, location.Y].Background = Brushes.Red;
                 game.PlayerGrid.NumOfShips--; // Should be fine editing this now since the ship placement has finished already.
                 if (game.PlayerGrid.NumOfShips == 0)
                 {
-                    DisplayWinner();
+                    DisplayAiWinner();
                 }
-            }
-            else if (aiResult == OceanSpaceType.Miss)
-            {
-                playerButtons[location.X, location.Y].Background = Brushes.Blue;
             }
             ai.Thinking = "";
         }
 
-        private void DisplayWinner()
+        private void DisplayPlayerWinner()
         {
-            // TODO
+            PlayerVictory playerVictory = new PlayerVictory();
+            playerVictory.Show();
+        }
+
+        private void DisplayAiWinner()
+        {
+            AiVictory aiVictory = new AiVictory();
+            aiVictory.Show();
         }
 
         // Places five ships in the Grid
@@ -111,7 +114,7 @@ namespace Battleship
                 for (int y = 0; y < game.Size; y++)
                 {
                     Brush brush = Brushes.LightBlue;
-                    switch (grid.BoardState[x, y].OceanSpaceType)
+                    switch (grid.BoardState[x, y].Type)
                     {
                         case OceanSpaceType.Ship:
                             brush = Brushes.DarkGray;
@@ -123,9 +126,13 @@ namespace Battleship
                             brush = Brushes.Blue;
                             break;
                     }
-
                     Buttons[x, y].Background = brush;
+                    Buttons[x, y].BorderBrush = brush;
                 }
+            }
+            if (grid.lastAttackedLocation != null)
+            {
+                Buttons[grid.lastAttackedLocation.X, grid.lastAttackedLocation.Y].BorderBrush = Brushes.Gold;
             }
         }
 
@@ -147,6 +154,7 @@ namespace Battleship
             b.Location = new Location(x, y);
             b.Padding = thickness;
             b.Background = Brushes.LightBlue;
+            b.BorderThickness = new Thickness(3);
             return b;
         }
 
@@ -172,7 +180,6 @@ namespace Battleship
                 for (int x = 0; x < game.Size; ++x)
                 {
                     GridButton button = ReturnButton(x, y);
-                    game.AiGrid.BoardState[x, y] = new OceanSpace(this, OceanSpaceType.Empty);
                     button.Click += btnAttackClick_Click;
                     horizontalPanel.Children.Add(button);
                     aiButtons[x, y] = button;
@@ -191,7 +198,6 @@ namespace Battleship
                 for (int x = 0; x < game.Size; ++x)
                 {
                     GridButton button = ReturnButton(x, y);
-                    game.PlayerGrid.BoardState[x, y] = new OceanSpace(this, OceanSpaceType.Empty);
                     horizontalPanel.Children.Add(button);
                     playerButtons[x, y] = button;
                     //playerButtons[x, y].isAiGrid = false;

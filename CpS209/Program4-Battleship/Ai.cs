@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Battleship
 {
     public class Ai
     {
+        public string Thinking { get; set; }
         Random random = new Random();
         List<Location> attackList = new List<Location>();
         public Ai(int size)
@@ -32,7 +36,5 @@ namespace Battleship
             int result = random.Next(0, attackList.Count);
             return result;
         }
-
-        public string Thinking { get; set; }
     }
 }
