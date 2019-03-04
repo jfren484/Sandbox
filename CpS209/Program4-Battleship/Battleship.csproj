@@ -139,7 +139,9 @@
     <Resource Include="battleship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BOTW_Fanfare_HeartContainer.wav" />
+    <Content Include="BOTW_Fanfare_HeartContainer.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
