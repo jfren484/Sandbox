@@ -1,7 +1,7 @@
 ﻿//-----------------------------------------------------------
 //File:   Game.cs
-//Desc:   Declares the Ai and Player Grids and holds the current
-//        Size and Cheat values.
+//Desc:   Declares the Ai and Player Grids and holds the
+//        current Size and Cheat values.
 //----------------------------------------------------------- 
 
 namespace Battleship

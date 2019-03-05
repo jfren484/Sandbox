@@ -1,7 +1,6 @@
 ﻿//-----------------------------------------------------------
 //File:   GridButton.cs
-//Desc:   Inherits from Button and gives it X and Y
-//        properties.
+//Desc:   Inherits from Button and contains a Location property.
 //----------------------------------------------------------- 
 
 using Battleship;

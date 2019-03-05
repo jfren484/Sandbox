@@ -34,7 +34,6 @@
                 Text="{Binding ElementName=sldBoardSize,Path=Value}"
                 FontSize="25" Margin="20,0,0,0">
             </TextBlock>
-            <!-- Binding code found here: https://stackoverflow.com/questions/9109114/how-to-make-textblock-text-slider-value-on-slider-value-change -->
         </StackPanel>
         <StackPanel
             Orientation="Horizontal" Margin="0,10,0,0">

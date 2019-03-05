@@ -21,7 +21,6 @@ namespace Battleship
     public partial class PlayerVictory : Window
     {
         public SoundPlayer playerVictorySound = new SoundPlayer("BOTW_Fanfare_HeartContainer.wav");
-        //Sounds sounds = new Sounds();
         public PlayerVictory()
         {
             InitializeComponent();

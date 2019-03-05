@@ -6,20 +6,24 @@
         xmlns:local="clr-namespace:Battleship"
         mc:Ignorable="d"
         Title="GameWindow" Height="650"  Loaded="Window_Loaded">
-    <StackPanel HorizontalAlignment="Center">
-        <StackPanel x:Name="playerPanel" Margin="10">
-            <DockPanel>
-                <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center"
-                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold" />
-                <TextBlock x:Name="lblTimer" Text="5.0" FontFamily="Century Gothic" FontSize="25" HorizontalAlignment="Right"></TextBlock>
-            </DockPanel>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Left" Text="Time:" FontSize="25" Margin="5"></TextBlock>
+            <TextBlock x:Name="lblTimer" HorizontalAlignment="Left" FontSize="25" Margin="5"></TextBlock>
         </StackPanel>
-        <Rectangle Height="1" Width="Auto" Stroke="Black" Margin="30,10,30,0" VerticalAlignment="Bottom"/>
+        <StackPanel x:Name="playerPanel" Margin="10">
+            <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center" Margin="5"
+                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
+        </StackPanel>
+        <Rectangle Height="1" Width="Auto" Stroke="Black"
+                Margin="30,10,30,0" VerticalAlignment="Bottom"/>
         <StackPanel x:Name="aiPanel" Margin="10">
-            <DockPanel>
-                <TextBlock x:Name="txtAi" Text="AI" FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
-                <TextBlock x:Name="lblThinking" Text="" FontFamily="Century Gothic" FontSize="25" HorizontalAlignment="Right"></TextBlock>
-            </DockPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="txtAi" Text="AI" HorizontalAlignment="Center"
+                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold" Margin="0,0,0,0"/>
+                <TextBlock x:Name="lblThinking" Margin="5,0,0,0" HorizontalAlignment="Center" Text="" FontSize="15"></TextBlock>
+            </StackPanel>
+            
         </StackPanel>
     </StackPanel>
 </Window>

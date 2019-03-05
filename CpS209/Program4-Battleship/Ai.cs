@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------
+//File:   Ai.cs
+//Desc:   This class "thinks" for the Ai, deciding where it
+//        wants to attack the playerGrid at random.
+//----------------------------------------------------------- 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

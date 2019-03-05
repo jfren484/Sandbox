@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------
+//File:   OceanSpace.cs
+//Desc:   Represents a single space on the grid, contains
+//        contains the type of grid.
+//----------------------------------------------------------- 
 
 namespace Battleship
 {

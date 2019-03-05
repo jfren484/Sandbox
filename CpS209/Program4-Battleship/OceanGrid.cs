@@ -5,7 +5,6 @@
 //----------------------------------------------------------- 
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Battleship
@@ -16,7 +15,7 @@ namespace Battleship
         public int ShipsPlaced { get; set; } = 0;
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
-        public Location lastAttackedLocation { get; set; }
+        public Location LastAttackedLocation { get; set; }
         //public enum WaterSpace { Empty = 0, Ship, Miss, Hit, AlreadyHit};
         public OceanSpace[,] BoardState { get; set; }
 
@@ -34,7 +33,7 @@ namespace Battleship
             Size = size;
         }
 
-        // Automatically places 5 different ships in  Grid
+        // Automatically places 5 different ships in Grid
         public void AutoPlaceShips()
         {
             while (ShipsPlaced < NumOfShips)
@@ -81,6 +80,8 @@ namespace Battleship
             }
         }
 
+        // Determines whether the OceanSpace's Type in question is a Ship or Empty, and either changes the OceanSpaceType to either Hit or Miss.
+        // Returns the OceanSpace.
         public OceanSpace Attack(Location location)
         {
             if (BoardState[location.X, location.Y].Type == OceanSpaceType.Ship)

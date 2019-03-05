@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,9 +20,11 @@ namespace Battleship
     /// </summary>
     public partial class AiVictory : Window
     {
+        public SoundPlayer aiVictorySound = new SoundPlayer("Game Over - The Legend of Zelda Twilight Princess.wav");
         public AiVictory()
         {
             InitializeComponent();
+            aiVictorySound.Play();
         }
     }
 }
