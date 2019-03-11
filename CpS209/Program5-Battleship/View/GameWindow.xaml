@@ -1,0 +1,29 @@
+﻿<Window x:Class="Battleship.GameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Battleship"
+        mc:Ignorable="d"
+        Title="GameWindow" Height="650"  Loaded="Window_Loaded">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Left" Text="Time:" FontSize="25" Margin="5"></TextBlock>
+            <TextBlock x:Name="lblTimer" HorizontalAlignment="Left" FontSize="25" Margin="5"></TextBlock>
+        </StackPanel>
+        <StackPanel x:Name="playerPanel" Margin="10">
+            <TextBlock x:Name="txtPlayer" Text="Player" TextAlignment="Center" Margin="5"
+                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold"/>
+        </StackPanel>
+        <Rectangle Height="1" Width="Auto" Stroke="Black"
+                Margin="30,10,30,0" VerticalAlignment="Bottom"/>
+        <StackPanel x:Name="aiPanel" Margin="10">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="txtAi" Text="AI" HorizontalAlignment="Center"
+                    FontSize="25" FontFamily="Century Gothic" FontWeight="Bold" Margin="0,0,0,0"/>
+                <TextBlock x:Name="lblThinking" Margin="5,0,0,0" HorizontalAlignment="Center" Text="" FontSize="15"></TextBlock>
+            </StackPanel>
+            
+        </StackPanel>
+    </StackPanel>
+</Window>
