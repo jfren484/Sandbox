@@ -5,6 +5,7 @@
 //----------------------------------------------------------- 
 
 using System;
+using System.Text;
 
 namespace Battleship.Model
 {
@@ -56,20 +57,42 @@ namespace Battleship.Model
 
         // Determines whether the OceanSpace's Type in question is a Ship or Empty, and either changes the OceanSpaceType to either Hit or Miss.
         // Returns the OceanSpace.
-        public OceanSpace Attack(Location location)
+        public AttackResponseType Attack(Location location)
         {
-            if (BoardState[location.X, location.Y].Type == OceanSpaceType.Ship)
+            if (location.X < 0 || location.X >= Size || location.Y < 0 || location.Y >= Size)
             {
-                BoardState[location.X, location.Y].Type = OceanSpaceType.Hit;
+                return AttackResponseType.Invalid;
             }
 
-            if (BoardState[location.X, location.Y].Type == OceanSpaceType.Empty)
+            switch (BoardState[location.X, location.Y].Type)
             {
-                BoardState[location.X, location.Y].Type = OceanSpaceType.Miss;
-                
-            }
+                case OceanSpaceType.Ship:
+                    BoardState[location.X, location.Y].Type = OceanSpaceType.Hit;
+                    // TODO: handle ships of length > 1
+                    ShipsPlaced--;
+                    return AttackResponseType.Sink;
 
-            return BoardState[location.X, location.Y];
+                case OceanSpaceType.Hit:
+                case OceanSpaceType.Miss:
+                    return AttackResponseType.Dup;
+
+                case OceanSpaceType.Empty:
+                default:
+                    BoardState[location.X, location.Y].Type = OceanSpaceType.Miss;
+                    return AttackResponseType.Miss;
+            }
+        }
+
+        public void Serialize(StringBuilder sb)
+        {
+            for (var y = 0; y < Size; y++)
+            {
+                for (var x = 0; x < Size; x++)
+                {
+                    sb.Append(BoardState[x, y]);
+                }
+                sb.AppendLine();
+            }
         }
     }
 }

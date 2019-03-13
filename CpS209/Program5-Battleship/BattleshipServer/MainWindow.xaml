@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:BattleshipServer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <ScrollViewer Margin="50" Height="325" Width="700" VerticalScrollBarVisibility="Auto">
+    <Grid>
+        <ScrollViewer x:Name="scrollMessages" Margin="5" VerticalScrollBarVisibility="Auto">
             <TextBlock x:Name="lblLogMessages">
                 
             </TextBlock>
         </ScrollViewer>
-    </StackPanel>
+    </Grid>
 </Window>

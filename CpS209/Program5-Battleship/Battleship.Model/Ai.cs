@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Battleship.Model.Model
+namespace Battleship.Model
 {
     public class Ai
     {

@@ -10,7 +10,6 @@ namespace Battleship.Model
         Empty = 0,
         Ship,
         Miss,
-        Hit,
-        AlreadyHit
+        Hit
     }
 }
