@@ -71,56 +71,56 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="View\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ai.cs" />
-    <Compile Include="AiVictory.xaml.cs">
+    <Compile Include="Model\Ai.cs" />
+    <Compile Include="View\AiVictory.xaml.cs">
       <DependentUpon>AiVictory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameWindow.xaml.cs">
+    <Compile Include="View\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GridButton.cs" />
-    <Compile Include="IObserver.cs" />
-    <Compile Include="Location.cs" />
-    <Compile Include="OceanSpace.cs" />
-    <Compile Include="PlayerVictory.xaml.cs">
+    <Compile Include="Model\GridButton.cs" />
+    <Compile Include="Model\IObserver.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\OceanSpace.cs" />
+    <Compile Include="View\PlayerVictory.xaml.cs">
       <DependentUpon>PlayerVictory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ship.cs" />
-    <Compile Include="Sounds.cs" />
-    <Compile Include="TestingClass.cs" />
-    <Compile Include="OceanSpaceType.cs" />
-    <Page Include="AiVictory.xaml">
+    <Compile Include="Model\Ship.cs" />
+    <Compile Include="Model\Sounds.cs" />
+    <Compile Include="Model\TestingClass.cs" />
+    <Compile Include="Model\OceanSpaceType.cs" />
+    <Page Include="View\AiVictory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameWindow.xaml">
+    <Page Include="View\GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Game.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Model\Game.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PlayerVictory.xaml">
+    <Page Include="View\PlayerVictory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OceanGrid.cs" />
+    <Compile Include="Model\OceanGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -138,24 +138,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram.cd" />
-    <None Include="packages.config" />
+    <None Include="Model\ClassDiagram.cd" />
+    <None Include="View\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="View\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="battleship.png" />
+    <Resource Include="Images\battleship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BOTW_Fanfare_HeartContainer.wav">
+    <Content Include="Sounds\BOTW_Fanfare_HeartContainer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Game Over - The Legend of Zelda Twilight Princess.wav">
+    <Content Include="Sounds\Game Over - The Legend of Zelda Twilight Princess.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

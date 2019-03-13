@@ -4,10 +4,13 @@
 //        current Size and Cheat values.
 //----------------------------------------------------------- 
 
+using System.Collections.Generic;
+
 namespace Battleship
 {
     public class Game
     {
+        public List<Game> Games;
         public OceanGrid AiGrid { get; set; }
         public OceanGrid PlayerGrid { get; set; }
         public int Size { get; set; }
