@@ -1,11 +1,8 @@
 ﻿using Battleship.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BattleshipServer
 {
@@ -14,7 +11,7 @@ namespace BattleshipServer
         public const int Port = 6500;
         private TcpListener listener;
         private Action<string> logMsgAction;
-        private GameList gameList;
+        private Dictionary<string, Game> games;
 
         public CommunicationController(Action<string> logMsgAction)
         {
@@ -27,7 +24,5 @@ namespace BattleshipServer
         {
             return listener.AcceptTcpClient();
         }
-
-
     }
 }

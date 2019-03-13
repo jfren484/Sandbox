@@ -95,5 +95,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Battleship.Model\Battleship.Model.csproj">
+      <Project>{73008bf8-744c-4942-9783-061f6f8f5eed}</Project>
+      <Name>Battleship.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

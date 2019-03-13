@@ -5,9 +5,8 @@
 //----------------------------------------------------------- 
 
 using System;
-using System.Diagnostics;
 
-namespace Battleship
+namespace Battleship.Model
 {
     public class OceanGrid
     {
@@ -16,17 +15,16 @@ namespace Battleship
         public int Size { get; set; }
         public static Random randomNumGenerator = new Random();
         public Location LastAttackedLocation { get; set; }
-        //public enum WaterSpace { Empty = 0, Ship, Miss, Hit, AlreadyHit};
         public OceanSpace[,] BoardState { get; set; }
 
-        public OceanGrid(IObserver observer, int size)
+        public OceanGrid(int size)
         {
             BoardState = new OceanSpace[size, size];
             for (var x = 0; x < size; x++)
             {
                 for (var y = 0; y < size; y++)
                 {
-                    BoardState[x, y] = new OceanSpace(observer, OceanSpaceType.Empty);
+                    BoardState[x, y] = new OceanSpace(OceanSpaceType.Empty);
                 }
             }
 
@@ -54,30 +52,6 @@ namespace Battleship
         {
             int result = randomNumGenerator.Next(0, Size);
             return result;
-        }
-
-        // 90% - Writes the current Grid State of the Player to the Debugging Output Window
-        public void PlayerGridState()
-        {
-            Debug.WriteLine("Board:");
-            string temp = "";
-            for (int y = 0; y < Size; y++)
-            {
-                for (int x = 0; x < Size; x++)
-                {
-                    if (BoardState[x, y].Type == OceanSpaceType.Ship)
-                    {
-                        temp += 'n';
-                        
-                    }
-                    else
-                    {
-                        temp += '~';
-                    }
-                }
-                Debug.WriteLine(temp);
-                temp = "";
-            }
         }
 
         // Determines whether the OceanSpace's Type in question is a Ship or Empty, and either changes the OceanSpaceType to either Hit or Miss.
