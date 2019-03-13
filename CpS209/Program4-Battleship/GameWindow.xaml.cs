@@ -166,7 +166,10 @@ namespace Battleship
                     switch (grid.BoardState[x, y].Type)
                     {
                         case OceanSpaceType.Ship:
-                            brush = Brushes.DarkGray;
+                            if (grid == game.PlayerGrid || game.IsCheatOn)
+                            {
+                                brush = Brushes.DarkGray;
+                            }
                             break;
                         case OceanSpaceType.Hit:
                             brush = Brushes.Red;
