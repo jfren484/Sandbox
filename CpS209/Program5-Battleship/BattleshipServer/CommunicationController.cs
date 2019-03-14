@@ -64,7 +64,10 @@ namespace BattleshipServer
                             logMsgAction("Received data: " + requestStr);
 
                             var requestMsg = RequestMessage.Deserialize(requestStr);
-                            responseMsg = requestMsg.Execute(game);
+                            lock (game)
+                            {
+                                responseMsg = requestMsg.Execute(game);
+                            }
                             string responseStr = responseMsg.Serialize();
 
                             WriteToClient(writer, responseStr);
