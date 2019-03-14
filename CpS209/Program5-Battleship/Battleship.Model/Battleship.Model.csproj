@@ -45,6 +45,12 @@
     <Compile Include="AttackResponseType.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Messaging\AttackResponseMessage.cs" />
+    <Compile Include="Messaging\AttackRequestMessage.cs" />
+    <Compile Include="Messaging\GameStateRequestMessage.cs" />
+    <Compile Include="Messaging\GameStateResponseMessage.cs" />
+    <Compile Include="Messaging\RequestMessage.cs" />
+    <Compile Include="Messaging\ResponseMessage.cs" />
     <Compile Include="OceanGrid.cs" />
     <Compile Include="OceanSpace.cs" />
     <Compile Include="OceanSpaceType.cs" />

@@ -5,7 +5,6 @@
 //----------------------------------------------------------- 
 
 using System;
-using System.Text;
 
 namespace Battleship.Model
 {
@@ -80,18 +79,6 @@ namespace Battleship.Model
                 default:
                     BoardState[location.X, location.Y].Type = OceanSpaceType.Miss;
                     return AttackResponseType.Miss;
-            }
-        }
-
-        public void Serialize(StringBuilder sb)
-        {
-            for (var y = 0; y < Size; y++)
-            {
-                for (var x = 0; x < Size; x++)
-                {
-                    sb.Append(BoardState[x, y]);
-                }
-                sb.AppendLine();
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using Battleship.Model;
+using Battleship.Model.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BattleshipServer
@@ -12,9 +12,8 @@ namespace BattleshipServer
     class CommunicationController
     {
         public const int Port = 6500;
-        private TcpListener listener;
-        private Action<string> logMsgAction;
-
+        private readonly TcpListener listener;
+        private readonly Action<string> logMsgAction;
         private readonly Dictionary<string, Game> games;
 
         public CommunicationController(Dictionary<string, Game> games, Action<string> logMsgAction)
@@ -56,40 +55,24 @@ namespace BattleshipServer
                         logMsgAction("Received data: " + gameName);
 
                         Game game = GetGameAndCreateIfDoesNotExist(gameName);
-                        WriteToClient(writer, game.Serialize());
+                        ResponseMessage responseMsg = new GameStateResponseMessage(game);
+                        WriteToClient(writer, responseMsg.Serialize());
 
                         string requestStr = reader.ReadLine();
-                        while (requestStr != null)
+                        while (!string.IsNullOrWhiteSpace(requestStr))
                         {
                             logMsgAction("Received data: " + requestStr);
 
-                            if (requestStr == "GameState")
-                            {
-                                WriteToClient(writer, game.Serialize());
-                            }
-                            else if (requestStr.Length == 10 && requestStr.StartsWith("Attack ") && char.IsDigit(requestStr[7]) && requestStr[8] == ' ' && char.IsDigit(requestStr[9]))
-                            {
-                                int y = requestStr[7] - '0';
-                                int x = requestStr[9] - '0';
+                            var requestMsg = RequestMessage.Deserialize(requestStr);
+                            responseMsg = requestMsg.Execute(game);
+                            string responseStr = responseMsg.Serialize();
 
-                                AttackResponseType result = game.IsEnded ? AttackResponseType.Invalid : game.AiGrid.Attack(new Location(x, y));
-                                if (result == AttackResponseType.Dup || result == AttackResponseType.Invalid)
-                                {
-                                    WriteToClient(writer, $"AttackResponse {result.ToString().ToLower()}");
-                                }
-                                else
-                                {
-                                    Location playerLocation = game.Ai.DetermineNextAttack();
-                                    game.PlayerGrid.Attack(playerLocation);
-                                    WriteToClient(writer, $"AttackResponse {result.ToString().ToLower()} {playerLocation.Y} {playerLocation.X}\n");
-                                }
-                            }
+                            WriteToClient(writer, responseStr);
 
                             requestStr = reader.ReadLine();
                         }
                     }
 
-                    // Client closed connection
                     logMsgAction("Client closed connection.");
                 }
                 catch (Exception ex)

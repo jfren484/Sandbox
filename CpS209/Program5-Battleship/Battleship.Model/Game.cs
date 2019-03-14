@@ -4,8 +4,6 @@
 //        current Size and Cheat values.
 //----------------------------------------------------------- 
 
-using System.Text;
-
 namespace Battleship.Model
 {
     public class Game
@@ -26,22 +24,6 @@ namespace Battleship.Model
             AiGrid = new OceanGrid(size);
             PlayerGrid = new OceanGrid(size);
             Ai = new Ai(size);
-        }
-
-        public string Serialize()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            string status = IsEnded ? $"ended {Winner}" : "active";
-            sb.AppendLine($"GameStateResponse {status}");
-
-            PlayerGrid.Serialize(sb);
-
-            sb.AppendLine("---");
-
-            AiGrid.Serialize(sb);
-
-            return sb.ToString();
         }
 
         public static Game CreateDemoState()
