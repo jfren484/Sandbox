@@ -1,9 +1,8 @@
 default rel
+bits 64
  
 extern gets
 extern printf
-extern malloc
-extern strcmp
 extern strlen
  
 SECTION .data
@@ -12,14 +11,20 @@ SECTION .data
     inputString: db "01234567890123456789012345678901234567890123456789012345678901234567890123456789", 0
     ; allocate 160 bytes (40 32-bit numbers) for stack
     stack: db "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", 0
-    stackPointer: db 0,0,0,0
+    stackPointer: dq 0
     quitString: db "Thank you for visiting Earth.  We hope you make it home safely.", 13, 10, 0
     newLine: db 13, 10, 0
+    charString: db "Char", 13, 10, 0
+	stringIndex: dq 0
+	returnVal: db "%d", 13, 10, 0
 
 SECTION .text
 
 global main
 main:
+	mov r9, inputString
+	mov r8, r9
+
 .whileNotEmptyString:
     lea rcx, [inputString]
     call gets
@@ -31,37 +36,49 @@ main:
     lea rcx, [inputString]
     call strlen
 
-    mov rdx, rax    ; x = strlen result
+    mov [stringIndex], rax    ; x = strlen result
+
 .whileNotZero:
-    movzx rcx, byte [inputString + rdx] ; move inputString[x] to rcx
+	lea rbx, [rel inputString]
+    mov rdx, [stringIndex]	    ; x = strlen result
+    movzx r8, byte [rbx + rdx] ; move inputString[x] to r8
 
     ; - 23H +-3B 45 + 4 76
 
-    cmp rcx, '+'
+    cmp r8, '+'
     je .plusOperator
 
-    cmp rcx, '-'
+    cmp r8, '-'
     je .minusOperator
 
-    cmp rcx, '~'
+    cmp r8, '~'
     je .negOperator
 
-    cmp rcx, '0'
+    cmp r8, '0'
     jl .endOfCharacterLoop
-    cmp rcx, '9'
+    cmp r8, '9'
     jle .digitOperator
 
-    cmp rcx, 'A'
+    cmp r8, 'A'
     jl .endOfCharacterLoop
-    cmp rcx, 'I'
-    jle .digitOperator
+    cmp r8, 'I'
+    jle .charOperator
+
+	lea rcx, [charString]
+	call printf
 
 .endOfCharacterLoop:
 
-    dec rdx     ; x--
-    
-    cmp rdx, 0  ; if x >= 0, loop
+    dec qword [stringIndex]     ; x--
+
+    cmp qword [stringIndex], 0  ; if x >= 0, loop
     jge .whileNotZero
+
+	call popMethod
+	mov rdx, rax
+	lea rcx, [returnVal]
+	xor rax, rax
+	call printf
 
     jmp .whileNotEmptyString
 
@@ -79,13 +96,27 @@ main:
 
 .negOperator:
 
-    ;todo: neg
+	call popMethod
+
+    neg eax
+	mov ecx, eax
+
+	call pushMethod
 
     jmp .endOfCharacterLoop
 
 .digitOperator:
 
-    ;todo: store 
+    mov rcx, r8
+	sub rcx, '0'
+	call pushMethod
+
+    jmp .endOfCharacterLoop
+
+.charOperator:
+
+    mov rcx, r8
+	call pushMethod
 
     jmp .endOfCharacterLoop
 
@@ -98,16 +129,21 @@ main:
 global pushMethod:
 pushMethod:
 
-    mov rcx, stackPointer
-    inc rcx
-    mov stackPointer, rcx
+	lea rbx, [rel stack]
+	mov rdx, [stackPointer]
+    mov dword [rbx + rdx], ecx
+
+    inc qword [stackPointer]
+
     ret
 
 global popMethod:
 popMethod:
 
-    dec stackPointer
-    mov rcx, [stack]
-    add rcx, stackPointer
-    mov rax, qword [rcx]
+    dec qword [stackPointer]
+
+	lea rbx, [rel stack]
+	mov [stackPointer], rdx
+    mov eax, dword [rbx + rdx]
+
     ret
