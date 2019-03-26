@@ -13,8 +13,6 @@ SECTION .data
     stack: db "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", 0
     stackPointer: dq 0
     quitString: db "Thank you for visiting Earth.  We hope you make it home safely.", 13, 10, 0
-    newLine: db 13, 10, 0
-    charString: db "Char", 13, 10, 0
 	stringIndex: dq 0
 	returnVal: db "%d", 13, 10, 0
 
@@ -63,9 +61,6 @@ main:
     jl .endOfCharacterLoop
     cmp r8, 'I'
     jle .charOperator
-
-	lea rcx, [charString]
-	call printf
 
 .endOfCharacterLoop:
 
@@ -134,12 +129,18 @@ pushMethod:
     mov dword [rbx + rdx], ecx
 
     inc qword [stackPointer]
+    inc qword [stackPointer]
+    inc qword [stackPointer]
+    inc qword [stackPointer]
 
     ret
 
 global popMethod:
 popMethod:
 
+    dec qword [stackPointer]
+    dec qword [stackPointer]
+    dec qword [stackPointer]
     dec qword [stackPointer]
 
 	lea rbx, [rel stack]
