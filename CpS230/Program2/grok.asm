@@ -17,13 +17,19 @@ SECTION .data
     returnVal: db "%s", 13, 10, 0
     base19: db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
+SECTION .rdata
+
+    underflowError: db "STACK UNDERFLOW!!", 13, 10, 0
+
 SECTION .text
 
 global main
 main:
     mov rbp, rsp; for correct debugging
 
-.whileNotEmptyString:
+whileNotEmptyString:
+    mov qword [stackPointer], 0
+
     lea rcx, [inputString]
     call gets
 
@@ -86,7 +92,7 @@ main:
     xor rax, rax
     call printf
 
-    jmp .whileNotEmptyString
+    jmp whileNotEmptyString
 
 .plusOperator:
 
@@ -200,22 +206,20 @@ popMethod:
     sub qword [stackPointer], 8
 
     cmp qword [stackPointer], 0
-    jge .spOkay
-
-    mov rbx, -1     ; exception
-
-    jmp .popDone
-
-.spOkay:
+    jl .underflow
 
     lea rbx, [rel stack]
     mov rdx, [stackPointer]
     mov rax, qword [rbx + rdx]
-    xor rbx, rbx
-
-.popDone:
 
     ret
+
+.underflow:
+
+    lea rcx, [underflowError]
+    call printf
+
+    jmp whileNotEmptyString
 
 global toBase19:
 toBase19:
