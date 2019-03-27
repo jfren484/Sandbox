@@ -10,18 +10,17 @@ SECTION .data
     ; allocate 80 bytes for the input string
     inputString: db "01234567890123456789012345678901234567890123456789012345678901234567890123456789", 0
     ; allocate 160 bytes (40 32-bit numbers) for stack
-    stack: db "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", 0
+    stack: dq 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
     stackPointer: dq 0
     quitString: db "Thank you for visiting Earth.  We hope you make it home safely.", 13, 10, 0
-	stringIndex: dq 0
-	returnVal: db "%d", 13, 10, 0
+    stringIndex: dq 0
+    returnVal: db "%d", 13, 10, 0
 
 SECTION .text
 
 global main
 main:
-	mov r9, inputString
-	mov r8, r9
+    mov rbp, rsp; for correct debugging
 
 .whileNotEmptyString:
     lea rcx, [inputString]
@@ -35,10 +34,11 @@ main:
     call strlen
 
     mov [stringIndex], rax    ; x = strlen result
+    dec qword [stringIndex]
 
 .whileNotZero:
-	lea rbx, [rel inputString]
-    mov rdx, [stringIndex]	    ; x = strlen result
+    lea rbx, [rel inputString]
+    mov rdx, [stringIndex]        ; x = strlen result
     movzx r8, byte [rbx + rdx] ; move inputString[x] to r8
 
     ; - 23H +-3B 45 + 4 76
@@ -69,49 +69,67 @@ main:
     cmp qword [stringIndex], 0  ; if x >= 0, loop
     jge .whileNotZero
 
-	call popMethod
-	mov rdx, rax
-	lea rcx, [returnVal]
-	xor rax, rax
-	call printf
+    call popMethod
+    mov rdx, rax
+    lea rcx, [returnVal]
+    xor rax, rax
+    call printf
 
     jmp .whileNotEmptyString
 
 .plusOperator:
 
-    ;todo: add
+    call popMethod
+
+    mov rcx, rax
+
+    call popMethod
+
+    add rcx, rax
+
+    call pushMethod
 
     jmp .endOfCharacterLoop
 
 .minusOperator:
 
-    ;todo: subtract
+    call popMethod
+
+    mov rcx, rax
+
+    call popMethod
+
+    sub rcx, rax
+
+    call pushMethod
 
     jmp .endOfCharacterLoop
 
 .negOperator:
 
-	call popMethod
+    call popMethod
 
-    neg eax
-	mov ecx, eax
+    neg rax
+    mov rcx, rax
 
-	call pushMethod
+    call pushMethod
 
     jmp .endOfCharacterLoop
 
 .digitOperator:
 
     mov rcx, r8
-	sub rcx, '0'
-	call pushMethod
+    sub rcx, '0'
+    call pushMethod
 
     jmp .endOfCharacterLoop
 
 .charOperator:
 
     mov rcx, r8
-	call pushMethod
+    sub rcx, 'A'
+    add rcx, 10
+    call pushMethod
 
     jmp .endOfCharacterLoop
 
@@ -124,9 +142,9 @@ main:
 global pushMethod:
 pushMethod:
 
-	lea rbx, [rel stack]
-	mov rdx, [stackPointer]
-    mov dword [rbx + rdx], ecx
+    lea rbx, [rel stack]
+    mov rdx, [stackPointer]
+    mov qword [rbx + rdx], rcx
 
     inc qword [stackPointer]
     inc qword [stackPointer]
@@ -143,8 +161,8 @@ popMethod:
     dec qword [stackPointer]
     dec qword [stackPointer]
 
-	lea rbx, [rel stack]
-	mov [stackPointer], rdx
-    mov eax, dword [rbx + rdx]
+    lea rbx, [rel stack]
+    mov rdx, [stackPointer]
+    mov rax, qword [rbx + rdx]
 
     ret
