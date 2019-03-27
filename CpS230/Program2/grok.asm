@@ -56,6 +56,9 @@ main:
     cmp r8, '*'
     je .multiplyOperator
 
+    cmp r8, '/'
+    je .divisionOperator
+
     cmp r8, '0'
     jl .endOfCharacterLoop
     cmp r8, '9'
@@ -139,6 +142,24 @@ main:
 
     jmp .endOfCharacterLoop
 
+.divisionOperator:
+
+    call popMethod
+
+    mov rcx, rax
+
+    call popMethod
+
+    mov r8, rax
+    mov rax, rcx
+    xor rdx, rdx
+    idiv r8
+
+    mov rcx, rax
+    call pushMethod
+
+    jmp .endOfCharacterLoop
+
 .digitOperator:
 
     mov rcx, r8
@@ -178,9 +199,21 @@ popMethod:
 
     sub qword [stackPointer], 8
 
+    cmp qword [stackPointer], 0
+    jge .spOkay
+
+    mov rbx, -1     ; exception
+
+    jmp .popDone
+
+.spOkay:
+
     lea rbx, [rel stack]
     mov rdx, [stackPointer]
     mov rax, qword [rbx + rdx]
+    xor rbx, rbx
+
+.popDone:
 
     ret
 
