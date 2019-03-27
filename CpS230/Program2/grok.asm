@@ -53,6 +53,9 @@ main:
     cmp r8, '~'
     je .negOperator
 
+    cmp r8, '*'
+    je .multiplyOperator
+
     cmp r8, '0'
     jl .endOfCharacterLoop
     cmp r8, '9'
@@ -117,6 +120,21 @@ main:
     neg rax
     mov rcx, rax
 
+    call pushMethod
+
+    jmp .endOfCharacterLoop
+
+.multiplyOperator:
+
+    call popMethod
+
+    mov rcx, rax
+
+    call popMethod
+
+    imul rcx
+
+    mov rcx, rax
     call pushMethod
 
     jmp .endOfCharacterLoop
