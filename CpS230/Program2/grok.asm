@@ -14,7 +14,8 @@ SECTION .data
     stackPointer: dq 0
     quitString: db "Thank you for visiting Earth.  We hope you make it home safely.", 13, 10, 0
     stringIndex: dq 0
-    returnVal: db "%d", 13, 10, 0
+    returnVal: db "%s", 13, 10, 0
+    base19: db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 SECTION .text
 
@@ -70,7 +71,11 @@ main:
     jge .whileNotZero
 
     call popMethod
-    mov rdx, rax
+
+    mov rcx, rax
+    call toBase19
+
+    lea rdx, [base19]
     lea rcx, [returnVal]
     xor rax, rax
     call printf
@@ -146,23 +151,77 @@ pushMethod:
     mov rdx, [stackPointer]
     mov qword [rbx + rdx], rcx
 
-    inc qword [stackPointer]
-    inc qword [stackPointer]
-    inc qword [stackPointer]
-    inc qword [stackPointer]
+    add qword [stackPointer], 8
 
     ret
 
 global popMethod:
 popMethod:
 
-    dec qword [stackPointer]
-    dec qword [stackPointer]
-    dec qword [stackPointer]
-    dec qword [stackPointer]
+    sub qword [stackPointer], 8
 
     lea rbx, [rel stack]
     mov rdx, [stackPointer]
     mov rax, qword [rbx + rdx]
+
+    ret
+
+global toBase19:
+toBase19:
+
+    mov rax, rcx            ; dividing variable
+    lea rbx, [rel base19]   ; string to append to
+    mov r8, rbx             ; save beginning of string
+
+    cmp rax, 0
+    jge .loopDigit
+
+    mov byte [rbx], '-'
+    inc rbx
+    inc r8                  ; update saved beginning to not include '-' sign
+    neg rax
+
+.loopDigit:
+
+    xor rdx, rdx
+    mov rcx, 19
+    div rcx                 ; div result in rax, remainder in rdx
+
+    cmp rdx, 10
+    jl .decDigit
+
+    sub rdx, 10
+    add rdx, 'A'
+
+    jmp .haveChar
+
+.decDigit:
+
+    add rdx, '0'
+
+.haveChar:
+
+    mov byte [rbx], dl
+    inc rbx
+
+    cmp rax, 0
+    jne .loopDigit
+
+    mov byte [rbx], 0       ; null-terminate string
+
+    mov r9, rbx             ; end position of string
+    sub r9, 1
+
+.reversing:
+
+    cmp r8, r9
+    jge .reversed
+
+    mov cl, byte [r8]
+    mov dl, byte [r9]
+    mov byte [r8], dl
+    mov byte [r9], cl
+
+.reversed:
 
     ret
