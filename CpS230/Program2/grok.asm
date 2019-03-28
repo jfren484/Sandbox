@@ -16,6 +16,7 @@ SECTION .data
     stringIndex: dq 0
     returnVal: db "%s", 13, 10, 0
     base19: db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    base19Index: dq 0
 
 SECTION .rdata
 
@@ -29,7 +30,7 @@ main:
 
 whileNotEmptyString:
     mov qword [stackPointer], 0
-    mov byte [base19], 0
+    mov qword [base19Index], 0
 
     lea rcx, [inputString]
     call gets
@@ -46,7 +47,7 @@ whileNotEmptyString:
 
 .whileNotZero:
     lea rbx, [rel inputString]
-    mov rdx, [stringIndex]     ; x = strlen result
+    mov rdx, [stringIndex]
     movzx r8, byte [rbx + rdx] ; move inputString[x] to r8
 
     cmp r8, '+'
@@ -75,7 +76,7 @@ whileNotEmptyString:
     cmp r8, 'A'
     jl .endOfCharacterLoop
     cmp r8, 'I'
-    jle .charOperator
+    jle .digitOperator
 
 .endOfCharacterLoop:
 
@@ -98,6 +99,8 @@ whileNotEmptyString:
 
 .plusOperator:
 
+    call multiDigitHandler
+
     call popMethod
 
     mov rcx, rax
@@ -111,6 +114,8 @@ whileNotEmptyString:
     jmp .endOfCharacterLoop
 
 .minusOperator:
+
+    call multiDigitHandler
 
     call popMethod
 
@@ -126,6 +131,8 @@ whileNotEmptyString:
 
 .negOperator:
 
+    call multiDigitHandler
+
     call popMethod
 
     neg rax
@@ -136,6 +143,8 @@ whileNotEmptyString:
     jmp .endOfCharacterLoop
 
 .multiplyOperator:
+
+    call multiDigitHandler
 
     call popMethod
 
@@ -151,6 +160,8 @@ whileNotEmptyString:
     jmp .endOfCharacterLoop
 
 .divisionOperator:
+
+    call multiDigitHandler
 
     call popMethod
 
@@ -170,13 +181,16 @@ whileNotEmptyString:
 
 .spaceOperator:
 
+    call multiDigitHandler
+
     jmp .endOfCharacterLoop
 
 .digitOperator:
 
-    mov rcx, r8
-    sub rcx, '0'
-    call pushMethod
+    lea rbx, [rel base19]
+    mov rdx, [base19Index]
+    mov byte [rbx + rdx], r8b
+    inc qword [base19Index]
 
     jmp .endOfCharacterLoop
 
@@ -287,8 +301,48 @@ toBase19:
 
     ret
 
-global commitBase19:
-commitBase19:
+global multiDigitHandler:
+multiDigitHandler:
 
+    cmp qword [base19Index], 0
+    je .end
+
+    xor rax, rax
+
+.loop:
+
+    mov rcx, 19
+    imul rcx
+
+    dec qword [base19Index]
+    lea rbx, [rel base19]
+    mov rdx, [base19Index]
+    movzx r8, byte [rbx + rdx] ; move base19[base19Index] to r8
+
+    cmp r8, '9'
+    jle .decimal
+    
+    sub r8, 'A'
+    add r8, 10
+    
+    jmp .add
+
+.decimal:
+
+    sub r8, '0'
+
+.add:
+
+    add rax, r8
+
+    cmp qword [base19Index], 0
+    jne .loop
+
+    mov rcx, rax
+    call pushMethod
+    
+    mov qword [base19Index], 0
+
+.end:
 
     ret
