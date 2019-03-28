@@ -29,6 +29,7 @@ main:
 
 whileNotEmptyString:
     mov qword [stackPointer], 0
+    mov byte [base19], 0
 
     lea rcx, [inputString]
     call gets
@@ -40,15 +41,13 @@ whileNotEmptyString:
     lea rcx, [inputString]
     call strlen
 
-    mov [stringIndex], rax    ; x = strlen result
+    mov [stringIndex], rax     ; x = strlen result
     dec qword [stringIndex]
 
 .whileNotZero:
     lea rbx, [rel inputString]
-    mov rdx, [stringIndex]        ; x = strlen result
+    mov rdx, [stringIndex]     ; x = strlen result
     movzx r8, byte [rbx + rdx] ; move inputString[x] to r8
-
-    ; - 23H +-3B 45 + 4 76
 
     cmp r8, '+'
     je .plusOperator
@@ -64,6 +63,9 @@ whileNotEmptyString:
 
     cmp r8, '/'
     je .divisionOperator
+
+    cmp r8, ' '
+    je .spaceOperator
 
     cmp r8, '0'
     jl .endOfCharacterLoop
@@ -163,6 +165,10 @@ whileNotEmptyString:
 
     mov rcx, rax
     call pushMethod
+
+    jmp .endOfCharacterLoop
+
+.spaceOperator:
 
     jmp .endOfCharacterLoop
 
@@ -278,5 +284,11 @@ toBase19:
     mov byte [r9], cl
 
 .reversed:
+
+    ret
+
+global commitBase19:
+commitBase19:
+
 
     ret
