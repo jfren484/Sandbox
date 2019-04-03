@@ -27,10 +27,16 @@ global uprintf
 ;	%d := 64-bit DWORD to print in [signed] decimal
 ;	%b := 64-bit DWORD to print in [unsigned] binary
 uprintf:
+    mov     [rsp + 32], r9
+    mov     [rsp + 24], r8
+    mov     [rsp + 16], rdx
+    mov     [rsp + 8], rcx
 	push	rbp					; Standard prologue
 	mov		rbp, rsp
-	push	rsi					; No locals needed, but we need to save ESI
+	push	rsi					; No locals needed, but we need to save RSI
+    push    rdi
 	
+    lea     rdi, [rbp + 24]
 	mov		rsi, rcx			; %rsi = fmt
 	
 	; For each char in <fmt>
@@ -71,7 +77,8 @@ uprintf:
 	jmp		.fmtLoop			; back to top of loop without doing anything with the char
 
 .printCharParam:
-	; TODO: move char param into rax so .printChar prints the param and not the 'c'
+	mov		rax, [rdi]
+	add		rdi, 8
 	
 .printChar:
 	mov		rcx, rax
@@ -105,6 +112,7 @@ uprintf:
 	jmp		.fmtLoop			; back to top of loop
 
 .breakOut:
+	pop		rdi					; restore original RDI value
 	pop		rsi					; restore original RSI value
 	pop		rbp					; standard epilogue
 	ret
