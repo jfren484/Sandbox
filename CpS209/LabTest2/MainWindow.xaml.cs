@@ -1,60 +1,88 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
-namespace LabTest2
+namespace labtest2practice
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ViewModel viewModel = new ViewModel();
-        private Label lblLookAtMe;
-
+        private double calc;
+        private DispatcherTimer timer;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = viewModel;
+            lblLabel.Content = calc;
+
+            timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromMilliseconds(100);
+            //timer.Tick += Timer_Tick;
+            //timer.IsEnabled = false;
         }
 
-        private void BtnCalc_Click(object sender, RoutedEventArgs e)
+        private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
-            if (double.TryParse(txtNumber.Text, out double val))
+            try
             {
-                txtNumber.Text = "";
-                viewModel.CalculatedValue += val;
+                calc += Convert.ToInt32(txtBox.Text);
+                lblLabel.Content = calc;
+                txtBox.Text = null;
+                txtBox.Focus();
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show($"'{txtNumber.Text}' is not a valid number!");
+                MessageBox.Show("Please enter an integer.");
+                txtBox.Text = null;
+                txtBox.Focus();
             }
 
-            txtNumber.Focus();
         }
 
-        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            btnCreate.IsEnabled = false;
-
-            lblLookAtMe = new Label
-            {
-                Content = "Look at me",
-                Margin = new Thickness(0, gridMain.ActualHeight - lblTotal.ActualHeight, 0, 0)
-            };
-
-            gridMain.Children.Add(lblLookAtMe);
+            //btnCreate.IsEnabled = false;
+            //lblLookAtMe.Content = "Look at me";
+            //lblLookAtMe.HorizontalAlignment = HorizontalAlignment.Left;
+            //lblLookAtMe.VerticalAlignment = VerticalAlignment.Bottom;
+            //grdGrid.Children.Add(lblLookAtMe);
         }
+
+        private void btnAnimate_Click(object sender, RoutedEventArgs e)
+        {
+            btnAnimate.IsEnabled = false;
+            timer.IsEnabled = true;
+            timer.Start();
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            if (timer.Interval == TimeSpan.FromSeconds(3))
+            {
+                timer.Stop();
+            }
+
+            Dispatcher.Invoke(() =>
+            {
+                double move = grdGrid.ActualWidth / 30;
+                //var margin = lblLookAtMe.Margin;
+                //margin.Left += move;
+                //lblLookAtMe.Margin = margin;
+            });
+        }
+
+        //private void lblLabel_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    if ((string)lblLookAtMe.Content == "Look at me")
+        //    {
+        //        lblLookAtMe.Content = "Ha!";
+        //    }
+        //    else
+        //    {
+        //        lblLookAtMe.Content = "Look at me";
+        //    }
+        //}
     }
 }

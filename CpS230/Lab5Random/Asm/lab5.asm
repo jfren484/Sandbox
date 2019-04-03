@@ -55,7 +55,7 @@ main:
   call    printf
 
   mov     rax, 0
-  pop	  	rbp
+  pop	  rbp
   ret
 
 section .data
