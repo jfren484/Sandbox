@@ -3,7 +3,7 @@
   <Class Name="Symphony_Sprint.Game_Model.GameController">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAACAAAAAgAAAAAAAAACAAAEAAAABAAAAAQAAIAA=</HashCode>
+      <HashCode>AAAggICAAAAAgAAAAAAAAACAAAEAAAABAAAAAQAAIAA=</HashCode>
       <FileName>Game Model\GameController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,66 +31,8 @@
   <Class Name="Symphony_Sprint.Game_Model.GameObject">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAwAIBAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\GameObject.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Enemies.Flat">
-    <Position X="6.25" Y="3" Width="1.5" />
-    <InheritanceLine Type="Symphony_Sprint.Game_Model.GameObject" ManuallyRouted="true" FixedToPoint="true">
-      <Path>
-        <Point X="8" Y="2.824" />
-        <Point X="8" Y="2.906" />
-        <Point X="6.875" Y="2.906" />
-        <Point X="6.875" Y="3" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAgICAAAAAgAAAAAAAwAIBAAACAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Enemies\Flat.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Notes.WholeNote">
-    <Position X="8.25" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAwgIBAAICAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Notes\WholeNote.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Notes.EighthNote">
-    <Position X="10" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAwgIBAAICAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Notes\EighthNote.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Notes.HalfNote">
-    <Position X="11.75" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAwgIBAAICAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Notes\HalfNote.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Enemies.Sharp">
-    <Position X="4.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgICAAAAAgAAAAAAAwAIBAAACAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Enemies\Sharp.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Symphony_Sprint.Game_Model.World_Objects.Notes.QuarterNote">
-    <Position X="13.5" Y="3" Width="1.5" />
-    <InheritanceLine Type="Symphony_Sprint.Game_Model.GameObject" FixedToPoint="true">
-      <Path>
-        <Point X="8" Y="2.824" />
-        <Point X="8" Y="2.906" />
-        <Point X="14.312" Y="2.906" />
-        <Point X="14.312" Y="3" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAwgIBAAICAQAAAAAAwAAAAAA=</HashCode>
-      <FileName>Game Model\World Objects\Notes\QuarterNote.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAwAIBACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game Model\GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

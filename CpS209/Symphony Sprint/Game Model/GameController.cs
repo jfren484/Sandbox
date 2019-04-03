@@ -1,7 +1,6 @@
 ﻿using Symphony_Sprint.Game_Model.World_Objects;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +23,7 @@ namespace Symphony_Sprint.Game_Model
 
         public void Load(string filename)
         {
-            using (StreamReader rd = new StreamReader(filename))
-            {
-                rd.ReadLine();
-                throw new NotImplementedException();
-            }
-            
+            throw new NotImplementedException();
         }
 
         public string Save()
