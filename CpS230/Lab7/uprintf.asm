@@ -87,27 +87,37 @@ uprintf:
 	jmp		.fmtLoop			; back to top of loop
 	
 .printStringParam:
-	; TODO: implement
+    mov     rcx, [rdi]
+    call    uprintf_puts
+    add     rdi, 8
 	
 	jmp		.fmtLoop			; back to top of loop
 
 .printHexParam:
-	; TODO: implement
+    mov     rcx, [rdi]
+    call    uprintf_putx
+    add     rdi, 8
 	
 	jmp		.fmtLoop			; back to top of loop
 
 .printUnsignedParam:
-	; TODO: implement
-	
+    mov	    rcx, [rdi]
+    call    uprintf_putu
+    add     rdi, 8
+		
 	jmp		.fmtLoop			; back to top of loop
 
 .printSignedParam:
-	; TODO: implement
+    mov     rcx, [rdi]
+    call    uprintf_putd
+    add     rdi, 8
 	
 	jmp		.fmtLoop			; back to top of loop
 
 .printBinaryParam:
-	; TODO: implement
+    mov     rcx, [rdi]
+    call    uprintf_putb
+    add     rdi, 8
 	
 	jmp		.fmtLoop			; back to top of loop
 
