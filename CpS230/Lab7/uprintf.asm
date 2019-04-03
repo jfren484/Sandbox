@@ -33,7 +33,6 @@ uprintf:
 	
 	mov		rsi, rcx			; %rsi = fmt
 	
-	
 	; For each char in <fmt>
 .fmtLoop:
 	movzx	rax, byte [rsi]		; rax = fmt[rsi]
@@ -42,13 +41,66 @@ uprintf:
 	cmp		rax, 0				; if char was NUL...
 	je		.breakOut			; ...break out of the loop
 	
-	;**********************************
-	; TODO: actually implement printf!
-	;**********************************
+	cmp		rax, '%'			; if char is not %...
+	jne		.printChar			; ...jump to the print
+
+	movzx	rax, byte [rsi]		; rax = fmt[rsi]
+	inc		rsi					; ++rsi
 	
-	; FORNOW: just print all the chars
+	cmp		rax, '%'			; if char is %...
+	je		.printChar			; ...jump to the print
+
+	cmp		rax, 's'
+	je		.printStringParam
+
+	cmp		rax, 'c'
+	je		.printCharParam
+
+	cmp		rax, 'x'
+	je		.printHexParam
+
+	cmp		rax, 'u'
+	je		.printUnsignedParam
+
+	cmp		rax, 'd'
+	je		.printSignedParam
+
+	cmp		rax, 'b'
+	je		.printBinaryParam
+
+	jmp		.fmtLoop			; back to top of loop without doing anything with the char
+
+.printCharParam:
+	; TODO: move char param into rax so .printChar prints the param and not the 'c'
+	
+.printChar:
 	mov		rcx, rax
 	call	putchar
+	
+	jmp		.fmtLoop			; back to top of loop
+	
+.printStringParam:
+	; TODO: implement
+	
+	jmp		.fmtLoop			; back to top of loop
+
+.printHexParam:
+	; TODO: implement
+	
+	jmp		.fmtLoop			; back to top of loop
+
+.printUnsignedParam:
+	; TODO: implement
+	
+	jmp		.fmtLoop			; back to top of loop
+
+.printSignedParam:
+	; TODO: implement
+	
+	jmp		.fmtLoop			; back to top of loop
+
+.printBinaryParam:
+	; TODO: implement
 	
 	jmp		.fmtLoop			; back to top of loop
 
