@@ -34,7 +34,7 @@ void uprintf_putx(unsigned long long int number) {
 // E.g., uprintf_putu(42) --> 42
 void uprintf_putu(unsigned long long int number) {
 	int lowestDigit = number % 10;
-	int restOfDigits = number / 10;
+	unsigned long long int restOfDigits = number / 10;
 
 	if (restOfDigits > 0) {
 		uprintf_putu(restOfDigits);
@@ -45,13 +45,13 @@ void uprintf_putu(unsigned long long int number) {
 
 // Print <number> in decimal (assuming signed semantics)
 // E.g., uprintf_putd(-42) --> -42
-void uprintf_putd(long int number) {
+void uprintf_putd(long long int number) {
 	if (number < 0) {
 		putchar('-');
-		number = 0 - number; // For MINLONG this won't work -4294967296
+		uprintf_putu(-number);
+	} else {
+		uprintf_putu(number);
 	}
-
-	uprintf_putu(number);
 }
 
 // Print <number> as 32 binary digits ('0' or '1')

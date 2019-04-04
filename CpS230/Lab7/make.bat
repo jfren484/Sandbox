@@ -1,6 +1,6 @@
 @echo off
 
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\%VSEdition%\VC\Auxiliary\Build\vcvars64.bat"
+rem all "C:\Program Files (x86)\Microsoft Visual Studio\2017\%VSEdition%\VC\Auxiliary\Build\vcvars64.bat"
 
 nasm -g -f win64 -g uprintf.asm || goto :eof
 
