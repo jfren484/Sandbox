@@ -3,9 +3,10 @@
   <Class Name="Symphony_Sprint.Game_Model.GameController">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAggICAAAAAgAAAAAAAAACAAAEAAAABAAAAAQAAIAA=</HashCode>
+      <HashCode>AAQggICAAAAAgAAAIAAAAACAACFAAAABQAAAAQAAIAA=</HashCode>
       <FileName>Game Model\GameController.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Symphony_Sprint.Game_Model.Level">
     <Position X="2.5" Y="0.5" Width="1.5" />
@@ -17,21 +18,21 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAQAAEAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Game Model\Level.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Symphony_Sprint.Game_Model.World_Objects.Player">
     <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAAEAAAAAAAAIAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>Game Model\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Symphony_Sprint.Game_Model.GameObject">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAwAIBACBAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIBACBAAAAAAAAAwAAAAAA=</HashCode>
       <FileName>Game Model\GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>

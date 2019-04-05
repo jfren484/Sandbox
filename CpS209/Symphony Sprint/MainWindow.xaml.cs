@@ -14,18 +14,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Resources;
 
 namespace Symphony_Sprint
 {
   
     public partial class MainWindow : Window
     {
-        Player player;
         public MainWindow()
         {
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(player.KeyIsDown);
-            this.KeyUp += new KeyEventHandler(player.KeyIsUp);
+            this.KeyDown += new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
+            this.KeyUp += new KeyEventHandler(GameController.Instance.Player.KeyIsUp);
+            GameWindow gwin = new GameWindow();
+            gwin.Show();
         }
     }
 }
