@@ -82,7 +82,32 @@ namespace Symphony_Sprint.Game_Model.World_Objects
 
         public void Deserialize(string data)
         {
-            throw new System.NotImplementedException();
+            string[] properties = data.Split(',');
+            foreach (string property in properties)
+            {
+                string[] propertyParts = property.Split('=');
+                string name = propertyParts[0];
+                string value = propertyParts[1];
+
+                switch (name)
+                {
+                    case "Lives":
+                        Lives = int.Parse(value);
+                        break;
+                    case "Height":
+                        Height = int.Parse(value);
+                        break;
+                    case "PosX":
+                        PosX = int.Parse(value);
+                        break;
+                    case "PosY":
+                        PosY = int.Parse(value);
+                        break;
+                    case "ImgPath":
+                        ImgPath = value;
+                        break;
+                }
+            }
         }
     }
 }

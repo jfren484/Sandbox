@@ -93,7 +93,38 @@ namespace Symphony_Sprint.Game_Model
 
         public void Deserialize(string data)
         {
-            throw new NotImplementedException();
+            // Normalize line endings
+            data = data.Replace("\r", "");
+
+            // Level is more than one line, so handle that one differently than the rest of the properties
+            int levelIndex = data.IndexOf("\nLevel:");
+            string levelSerialized = data.Substring(levelIndex + 7);
+            Level = new Level();
+            Level.Deserialize(levelSerialized);
+
+            // Handle all the single-line properties
+            string otherProperties = data.Substring(0, levelIndex);
+            string[] lines = otherProperties.Split('\n');
+            foreach (string line in lines)
+            {
+                string[] lineParts = line.Split(':');
+                string name = lineParts[0];
+                string value = lineParts[1];
+
+                switch (name)
+                {
+                    case "Points":
+                        Points = int.Parse(value);
+                        break;
+                    case "Notes":
+                        Notes = int.Parse(value);
+                        break;
+                    case "Player":
+                        Player = new Player(null);
+                        Player.Deserialize(value);
+                        break;
+                }
+            }
         }
     }
 }
