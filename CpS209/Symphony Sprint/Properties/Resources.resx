@@ -121,9 +121,6 @@
   <data name="about_1_png__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\about-1.png (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dr__schaub_avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Graphics\dr._schaub_avatar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="eigthNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\eigthNote.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -195,5 +192,8 @@
   </data>
   <data name="_400_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\400-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="robin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\robin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

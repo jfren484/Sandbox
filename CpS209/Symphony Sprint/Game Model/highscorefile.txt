@@ -1,0 +1,4 @@
+player1......4000
+player2......400
+player3......40
+player4......4

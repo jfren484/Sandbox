@@ -32,10 +32,10 @@ namespace Symphony_Sprint
 
         public void Window_Loaded(object sender, EventArgs e)
         {
-            gameTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1) };
+            gameTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 200) };
             gameTimer.Tick += GameTimer_Tick;
 
-            GameController.Instance.Largo();
+            GameController.Instance.LargoLevel();
             //SetupGame();
             UpdateScreen();
       
@@ -56,23 +56,7 @@ namespace Symphony_Sprint
             
             
         }
-
-        //public void SetupGame()
-        //{
-            
-        //    foreach(GameObject obj in GameController.Instance.Level.GameObjects)
-        //    {
-        //        var source = new BitmapImage(new Uri(String.Format("/Graphics/{0}", obj.ImgPath), UriKind.Relative));
-        //        var img = new Image();
-                
-
-        //        ImageBehavior.SetAnimatedSource(img, source);
-
-        //        GameCanvas.Children.Add(img);
-
-                
-        //    }
-        //}
+        
 
         private void UpdateScreen()
         {
@@ -81,19 +65,57 @@ namespace Symphony_Sprint
             //Update NoteObjective
             //Update Level when needed.
             GameCanvas.Children.Clear();
-            
+
+
+            //Player
+            var playerSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", GameController.Instance.Player.ImgPath), UriKind.Relative));
+            var playerImg = new Image();
+            playerImg.Height = 60;
+            GameController.Instance.Player.PosX = 100;
+            GameController.Instance.Player.PosY = 50;
+
+            Canvas.SetLeft(playerImg, GameController.Instance.Player.PosX);
+
+
+            ImageBehavior.SetAnimatedSource(playerImg, playerSource);
+            GameCanvas.Children.Add(playerImg);
+
+
+            //Sets the players position depeding on its state. 
+            if (GameController.Instance.Player.State == Game_Model.World_Objects.Player.movementState.running)
+            {
+                Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY);
+            }
+            else if (GameController.Instance.Player.State == Game_Model.World_Objects.Player.movementState.jumping)
+            {
+                Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY + 20);
+            }
+            //End of player code
+
+
+            //Game Object Code
+            //Loops through each game object and sets there custom position.
             foreach (GameObject obj in GameController.Instance.Level.GameObjects)
             {
-                var source = new BitmapImage(new Uri(String.Format("/Graphics/{0}", obj.ImgPath), UriKind.Relative));
+                var objectSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", obj.ImgPath), UriKind.Relative));
                 var img = new Image();
-                
 
-                ImageBehavior.SetAnimatedSource(img, source);
+                ImageBehavior.SetAnimatedSource(img, objectSource);
 
+                if (obj.posX > 1190 || obj.posX < 10)
+                {
+                    img.Visibility = Visibility.Hidden;
+                }
+
+               
+     
                 img.Height = 40;
                 GameCanvas.Children.Add(img);
                 obj.posX -= obj.Speed;
+
                 Canvas.SetLeft(img, obj.posX);
+                Canvas.SetBottom(img, obj.posY);
+                //End of Game Object Code
                 
             }
         }

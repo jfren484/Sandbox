@@ -123,16 +123,6 @@ namespace Symphony_Sprint.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dr__schaub_avatar {
-            get {
-                object obj = ResourceManager.GetObject("dr__schaub_avatar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap eigthNote {
             get {
                 object obj = ResourceManager.GetObject("eigthNote", resourceCulture);
@@ -256,6 +246,16 @@ namespace Symphony_Sprint.Properties {
         internal static System.Drawing.Bitmap quarterNote {
             get {
                 object obj = ResourceManager.GetObject("quarterNote", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap robin {
+            get {
+                object obj = ResourceManager.GetObject("robin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

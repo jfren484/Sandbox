@@ -16,17 +16,18 @@ namespace Symphony_Sprint.Game_Model
         public int posX { get; set; }
         public int posY { get; set; }
 
+
         public GameObject(string imgPath, int speed, int x, int y)
         {
             this.posX = x;
             this.posY = y;
             this.ImgPath = imgPath;
-            this.Speed = speed;
+            this.Speed = speed; 
         }
 
         public string Serialize()
         {
-            return $"Speed={Speed},PosX={posX},PosY={posY},ImgPath={ImgPath}";
+             return $"Speed={Speed},PosX={posX},PosY={posY},ImgPath={ImgPath}";
         }
 
         public void Deserialize(string data)

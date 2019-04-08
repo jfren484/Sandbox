@@ -17,6 +17,10 @@ namespace Symphony_Sprint.Game_Model
         public int notes;
         public bool isGameOver = false;
 
+        public string[] images = { "wholeNote.gif", "quarterNote.gif", "eigthNote.gif", "trebleClef.gif", "flat.gif", "sharp.gif", "halfNote.gif" };
+
+        Random rand = new Random();
+
         private static GameController instance = new GameController();
 
         public static GameController Instance
@@ -34,7 +38,7 @@ namespace Symphony_Sprint.Game_Model
 
         public GameController()
         {
-            Player = new Player("/Graphics/stone.png");
+            Player = new Player("robin.png");
             level = new Level();
         }
 
@@ -43,11 +47,29 @@ namespace Symphony_Sprint.Game_Model
 
         }
 
-        public void Largo()
+        //Sets up Level One
+        public void LargoLevel()
         {
-            GameObject wholeNote = new GameObject("wholeNote.gif", 20, 800, 5);
+            var usedPos = new List<int>();
 
-            Level.GameObjects.Add(wholeNote);
+            var positions = new HashSet<int>();
+
+            for (int i = 0; i < 50; i++)
+            {
+                int img = rand.Next(0, 6);
+                int posX = rand.Next(1200, 15000);
+                int posY = rand.Next(150, 250);
+
+                //Protects against duplicate random numbers.
+                positions.Add(posX);
+                var posList = positions.ToList();
+                posX = posList[i];
+
+                GameObject obj = new GameObject(images[img], 20, posX, posY);
+                Level.GameObjects.Add(obj);
+            }
+
+            
         }
 
         public void Save(string filename)
@@ -66,7 +88,7 @@ namespace Symphony_Sprint.Game_Model
 
         public string Serialize()
         {
-            return $"Points:{Points}|Notes:{Notes}|Player:{Player.Serialize()}|Level:{Level.Serialize()}";
+            return $"Points:{Points}\r\nNotes:{Notes}\r\nPlayer:{Player.Serialize()}\r\nLevel:{Level.Serialize()}";
         }
 
         public void Deserialize(string data)

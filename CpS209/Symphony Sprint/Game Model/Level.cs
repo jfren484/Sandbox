@@ -1,23 +1,24 @@
-﻿
-
-using Symphony_Sprint.Game_Model.World_Objects;
+﻿using Symphony_Sprint.Game_Model.World_Objects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Symphony_Sprint.Game_Model
 {
     public class Level : ISerialize
     {
-        public enum Difficulty { EASY, MEDIUM, HARD}
+        public enum DifficultyEnum { EASY, MEDIUM, HARD}
+        public DifficultyEnum Difficulty { get; set; }
         public List<GameObject> gameObjs = new List<GameObject>();
         public int noteObjective;
 
-        //Gets and sets the note objective for each level in order to proceed to the next level.
+        // Gets and sets the note objective for each level in order to proceed to the next level.
         public int NoteObjective { get { return noteObjective; } set { noteObjective = value; } }
         public List<GameObject> GameObjects { get { return gameObjs; } }
 
         public string Serialize()
         {
-            throw new System.NotImplementedException();
+            var gameObjs = GameObjects.Select(go => go.Serialize());
+            return $"Difficulty={Difficulty},NoteObjective={NoteObjective}\r\nGameObjects:\r\n{gameObjs}";
         }
 
         public void Deserialize(string data)

@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Symphony_Sprint</RootNamespace>
     <AssemblyName>Symphony Sprint</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -18,6 +18,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,12 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.10.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>packages\Moq.4.10.1\lib\net45\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.11.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -52,11 +47,11 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +88,7 @@
     </Compile>
     <Compile Include="Game Model\GameController.cs" />
     <Compile Include="Game Model\GameControllerTest.cs" />
+    <Compile Include="Game Model\HighScoreManager.cs" />
     <Compile Include="Game Model\HighScoreUnitTest.cs" />
     <Compile Include="Game Model\ISerialize.cs" />
     <Compile Include="Game Model\Level.cs" />
@@ -148,7 +144,7 @@
     <None Include="Graphics\time-1.png.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\trebleClef.gif" />
+    <Resource Include="Graphics\trebleClef.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\wholeNote.gif" />
@@ -172,13 +168,10 @@
     <None Include="Graphics\about-1.png %282%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\dr._schaub_avatar.png" />
+    <Resource Include="Graphics\eigthNote.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\eigthNote.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Graphics\flat.gif" />
+    <Resource Include="Graphics\flat.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\halfNote.gif" />
@@ -208,13 +201,19 @@
     <None Include="Graphics\piano.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\quarterNote.gif" />
+    <Resource Include="Graphics\quarterNote.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\score-1.png.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\sharp.gif" />
+    <Resource Include="Graphics\sharp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Dr. Schaub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\robin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
