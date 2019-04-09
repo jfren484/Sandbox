@@ -14,15 +14,29 @@ section	.text
 ; (to indicate this, I'm putting a "start:" label here)
 start:
 	; Prompt the user to enter a string
-	mov	    dx, prompt
+	mov	dx, prompt
 	call	puts
 	
-	; TODO: read an ASCII char from the keyboard using BIOS keyboard services (int 0x16)
-	
-	; TODO: check to see if the character is an ASCII letter (A-Z, a-z); if not, re-prompt
+	; read an ASCII char from the keyboard using BIOS keyboard services (int 0x16)
+    	mov     ah, 0
+        int     0x16
 
-	; TODO: fill the screen with the user's favorite letter (hint: screen is 80x25 characters)
-	
+	; check to see if the character is an ASCII letter (A-Z, a-z); if not, re-prompt
+        cmp     al, 'A'
+        jl      start
+        cmp     al, 'Z'
+        jg      start
+
+	; fill the screen with the user's favorite letter (hint: screen is 80x25 characters)
+        mov     cx, 0
+        mov     ah, 0x0e
+.loop:
+        int     0x10
+        inc     cx
+        cmp     cx, 2000
+        je      .end
+        jmp     .loop
+.end:	
 	; Tell DOS to unload us and go back to the command prompt
 	mov	    ah, 0x4c	; DOS function number (0x4c == exit program)
 	mov	    al, 0		; Exit status code (0 == success)
