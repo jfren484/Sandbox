@@ -118,6 +118,10 @@
   <ItemGroup>
     <ClCompile Include="mkfloppy.c" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="lab9_mbr.asm" />
+    <None Include="lab9_payload.asm" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -49,4 +49,5 @@ puts:
 	ret
 
 section .data
-success_msg	db	"Yahoo, you booted successfully!", 13, 10, 0
+success_msg	db	"Yahoo, you booted successfully!", 13, 10
+			db	"You're a rock star!", 13, 10, 0

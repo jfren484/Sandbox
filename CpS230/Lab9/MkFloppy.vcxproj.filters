@@ -19,4 +19,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="lab9_mbr.asm">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lab9_payload.asm">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

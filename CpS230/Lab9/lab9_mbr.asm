@@ -14,7 +14,8 @@ section	.text
 org	0x7C00
 
 ; First instruction: jump over initial data and start executing code
-start:	jmp	main
+start:
+	jmp		main
 
 ; Embedded data
 boot_msg	db	"CpS 230 Bootloading Lab", 13, 10
@@ -24,13 +25,15 @@ retry_msg	db	"Error reading payload from disk; retrying...", 13, 10, 0
 
 main:
 	; Set DS == CS (so data addressing is normal/easy)
-	mov		ds, cs
+	mov		ax, cs
+	mov		ds, ax
 
-	; TODO: Save the boot disk number (we get it in register DL)
-	mov		boot_disk, dl
+	; Save the boot disk number (we get it in register DL)
+	mov		[boot_disk], dl
 
 	; Set SS == 0x0800 (which will be the segment we load everything into later)
-	mov		ss, 0x0800
+	mov		ax, 0x0800
+	mov		ss, ax
 
 	; Set SP == 0x0000 (stack pointer starts at the TOP of segment; first push decrements by 2, to 0xFFFE)
 	xor		sp, sp
@@ -39,8 +42,29 @@ main:
 	mov		dx, boot_msg
 	call	puts
 
-	; TODO: use BIOS raw disk I/O to load sector 2 from disk number <boot_disk> into memory at 0800:0000h (retry on failure)
+	; Use BIOS raw disk I/O to load sector 2 from disk number <boot_disk> into memory at 0800:0000h (retry on failure)
+	mov		ax, ds ; you might have to use another segment if ds doesn't contain the address you need
+	mov		es, ax
+	mov		ah, 2
+	mov		al, 1 ; size of your payload in bytes divided by sector size (512)
+	mov		ch, 0 ; floppies only have 1 track so easy to determine
+	mov		cl, 2 ; mbr is in sector 1 so payload starts at 2
+	mov		dh, 0 ; floppies only have 1 head so easy to determine
+	mov		dl, [boot_disk]   ; this is going to vary, remember that dl is probably the current disk, check the helppc reference if you need a different disk
+	mov		bx, 0x0800
+	mov		es, bx
+	mov		bx, 0x0000 ; whatever offset you want to load
+	; we've used literally every general purpose register for parameters!
+.readLoop:
+	int		0x13
+	; the carry flag will be 0 if this worked, note disks are finicky and you may have to execute this a couple of times before it works
+	jae		.continue ; JAE jumps if CF = 0
 
+    mov     dx, retry_msg
+    call    puts
+	jmp		.readLoop
+
+.continue:
 	; Finally, jump to address 0800h:0000h (sets CS == 0x0800 and IP == 0x0000)
 	jmp		0x0800:0x0000
 
@@ -53,20 +77,21 @@ puts:
 	push	cx
 	push	si
 	
-	mov	ah, 0x0e
-	mov	cx, 1		; no repetition of chars
+	mov		ah, 0x0e
+	mov		cx, 1		; no repetition of chars
 	
-	mov	si, dx
-.loop:	mov	al, [si]
-	inc	si
-	cmp	al, 0
-	jz	.end
-	int	0x10
-	jmp	.loop
+	mov		si, dx
+.loop:
+	mov		al, [si]
+	inc		si
+	cmp		al, 0
+	jz		.end
+	int		0x10
+	jmp		.loop
 .end:
-	pop	si
-	pop	cx
-	pop	ax
+	pop		si
+	pop		cx
+	pop		ax
 	ret
 
 ; NASM mumbo-jumbo to make sure the boot sector signature starts 510 bytes from our origin
@@ -77,4 +102,4 @@ puts:
 	times	510 - ($ - $$)	db	0
 
 ; MAGIC BOOT SECTOR SIGNATURE (*must* be the last 2 bytes of the 512 byte boot sector)
-	dw	0xaa55
+	dw		0xaa55
