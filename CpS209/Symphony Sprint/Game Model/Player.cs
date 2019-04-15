@@ -140,7 +140,7 @@ namespace Symphony_Sprint.Game_Model.World_Objects
 
         public string Serialize()
         {
-            return $"Lives={Lives},PosX={PosX},PosY={PosY},ImgPath={ImgPath}";
+            return $"Lives={Lives},PosX={PosX},PosY={PosY},JumpCeiling1={jumpceiling1},JumpCeiling2={jumpceiling2},ImgPath={ImgPath}";
         }
 
         public void Deserialize(string data)

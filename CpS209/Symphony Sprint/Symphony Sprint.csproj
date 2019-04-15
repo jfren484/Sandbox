@@ -237,7 +237,7 @@
     <Resource Include="Graphics\quarterNote.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\score-1.png.png" />
+    <Resource Include="Graphics\score-1.png.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\sharp.gif" />
