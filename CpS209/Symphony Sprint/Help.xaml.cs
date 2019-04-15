@@ -13,16 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Symphony_Sprint.Game_Model
+namespace Symphony_Sprint.Properties
 {
     /// <summary>
     /// Interaction logic for Help.xaml
     /// </summary>
-    public partial class Help : Page
+    public partial class Help : Window
     {
+        public string helpM;
         public Help()
         {
             InitializeComponent();
+            //helpM = "";
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtHelp.Text = helpM;
         }
     }
 }

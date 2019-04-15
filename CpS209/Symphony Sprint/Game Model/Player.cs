@@ -1,27 +1,37 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace Symphony_Sprint.Game_Model.World_Objects
 {
     public class Player : ISerialize
     {
 
-        public enum movementState { running, jumping, doublejump }
+        
+
+        public enum movementState { running, jumping, doublejump, decending, decending2 }
         public movementState State { get; set; }
         //public bool isJumping;
+        private OpenFileDialog loadDialog = new OpenFileDialog();
+        private SaveFileDialog saveDialog = new SaveFileDialog();
 
         public string ImgPath { get; set; }
         public int Lives { get; set; }
-        public int Height { get; set; }
-
         public int PosX { get; set; }
         public int PosY { get; set; }
+        public int jumpceiling1 { get; set; }
+        public int jumpceiling2 { get; set; }
 
 
         public Player(string img)
         {
             ImgPath = img;
             State = movementState.running;
-            Height = 0;
+            Lives = 5;
+            jumpceiling1 = 200;
+            jumpceiling2 = 200;
         }
 
         //Events are registered in MainWindow.xaml.cs
@@ -29,50 +39,103 @@ namespace Symphony_Sprint.Game_Model.World_Objects
         {
             if (e.Key == Key.Space)
             {
-                if (this.State == movementState.doublejump)
+
+                if (this.State == movementState.running)
                 {
-                    return;
+                    this.State = movementState.jumping;
                 }
-                else
+                else if (this.State == movementState.jumping || this.State == movementState.decending)
                 {
-                    if (this.State == movementState.jumping)
-                    {
-                        this.State = movementState.doublejump;
-                    }
-                    Jump();
+                    jumpceiling2 = this.PosY + 100;
+                    this.State = movementState.doublejump;
                 }
-                
+                else if (this.State == movementState.doublejump || this.State == movementState.decending2)
+                {
+                    //Do nothing
+                }
+            }
+            else if (e.Key == Key.S)
+            {
+                keyS_press();
+            }
+            else if (e.Key == Key.L)
+            {
+                keyL_press();
             }
         }
 
-        public void KeyIsUp(object sender, KeyEventArgs e)
+        private void keyS_press()
         {
-            if (e.Key == Key.Space)
+            // gameTimer.Stop();
+
+            saveDialog.InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameSaves");
+            // TODO: set properties on saveDialog (OR set them in the constructor of Player
+            if (saveDialog.ShowDialog() == true)
             {
-                //isJumping = false;
+                GameController.Instance.Save(saveDialog.FileName);
+                loadDialog.FileName = saveDialog.FileName;
             }
+
+            // gameTimer.Resume();
         }
 
-        public void Jump()
+        private void keyL_press()
         {
-            this.State = movementState.jumping;
+            // gameTimer.Stop();
 
-            int currentY = this.Height; // say 10
-            int maxY = currentY + 30; // 30 = jump max height
-
-            while (currentY < maxY) // make sure doesn't go over max
+            loadDialog.InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameSaves");
+            // TODO: set properties on saveDialog (OR set them in the constructor of Player
+            if (loadDialog.ShowDialog() == true)
             {
-                currentY += 1;
+                GameController.Instance.Load(loadDialog.FileName);
+                //loadDialog.FileName = saveDialog.FileName;
             }
 
-            while (currentY > 10) // 10 = base coordinate on piano keys
+            // gameTimer.Resume();
+        }
+
+        public void UpdatePosition()
+        {
+            if (this.State == movementState.jumping)
             {
-                currentY -= 1;
+                this.PosY += 10;
             }
-            if (currentY == 10)
+            else if (this.State == movementState.doublejump && this.PosY <= jumpceiling2)
             {
+                this.PosY += 10;
+            }
+            //decending assignment. make sure not in double jump, or wont get past first ceiling on second jump.
+            if (this.PosY >= jumpceiling1 && this.State != movementState.doublejump && this.State != movementState.decending2)
+            {
+                this.State = movementState.decending;
+            }
+
+            //decending logic
+            if (this.State == movementState.decending && this.PosY > 60)
+            {
+                this.PosY -= 10;
+            }
+            else if (this.State == movementState.decending && this.PosY == 60)
+            {
+                this.PosY = 50;
                 this.State = movementState.running;
-            }       
+            }
+            //decending2 assignment
+            if (this.PosY == jumpceiling2)
+            {
+                this.State = movementState.decending2;
+            }
+            // decending2 logic
+            if (this.State == movementState.decending2 && this.PosY > 60)
+            {
+                this.PosY -= 10;
+            }
+            else if (this.State == movementState.decending2 && this.PosY == 60)
+            {
+                this.PosY = 50;
+                this.State = movementState.running;
+            }
+            
         }
 
         public string Serialize()
@@ -82,30 +145,32 @@ namespace Symphony_Sprint.Game_Model.World_Objects
 
         public void Deserialize(string data)
         {
-            string[] properties = data.Split(',');
-            foreach (string property in properties)
             {
-                string[] propertyParts = property.Split('=');
-                string name = propertyParts[0];
-                string value = propertyParts[1];
-
-                switch (name)
+                string[] properties = data.Split(',');
+                foreach (string property in properties)
                 {
-                    case "Lives":
-                        Lives = int.Parse(value);
-                        break;
-                    case "Height":
-                        Height = int.Parse(value);
-                        break;
-                    case "PosX":
-                        PosX = int.Parse(value);
-                        break;
-                    case "PosY":
-                        PosY = int.Parse(value);
-                        break;
-                    case "ImgPath":
-                        ImgPath = value;
-                        break;
+                    string[] propertyParts = property.Split('=');
+                    string name = propertyParts[0];
+                    string value = propertyParts[1];
+
+                    switch (name)
+                    {
+                        case "Lives":
+                            Lives = int.Parse(value);
+                            break;
+                        case "Height":
+                            jumpceiling1 = int.Parse(value);
+                            break;
+                        case "PosX":
+                            PosX = int.Parse(value);
+                            break;
+                        case "PosY":
+                            PosY = int.Parse(value);
+                            break;
+                        case "ImgPath":
+                            ImgPath = value;
+                            break;
+                    }
                 }
             }
         }

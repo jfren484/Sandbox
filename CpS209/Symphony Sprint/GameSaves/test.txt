@@ -1,1 +1,6 @@
-Points:52|Notes:99|Player:Lives=3,Height=0,PosX=20,PoxY=20,ImgPath=p2.png|Level:Difficulty=>EASY&NoteObjective=>90&GameObjects=>Speed=3,PosX=20,PoxY=20,ImgPath=o1.png;Speed=2,PosX=5,PoxY=10,ImgPath=o2.png
+Points:52
+Notes:99
+Player:Lives=3,PosX=20,PosY=20,ImgPath=p2.png
+Level:Difficulty=EASY,NoteObjective=90
+GameObjects:Speed=3,PosX=20,PosY=20,ImgPath=o1.png
+Speed=2,PosX=5,PosY=10,ImgPath=o2.png

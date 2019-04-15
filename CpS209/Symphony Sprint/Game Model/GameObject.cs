@@ -8,6 +8,8 @@ namespace Symphony_Sprint.Game_Model
 {
     public class GameObject : ISerialize
     {
+        
+
         public  string ImgPath { get;  set; }
         public  int Speed { get; set; }
 
@@ -54,5 +56,6 @@ namespace Symphony_Sprint.Game_Model
                 }
             }
         }
+
     }
 }

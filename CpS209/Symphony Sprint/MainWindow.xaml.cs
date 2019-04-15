@@ -15,19 +15,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Resources;
+using Symphony_Sprint.Properties;
 
 namespace Symphony_Sprint
 {
   
     public partial class MainWindow : Window
     {
+        System.Media.SoundPlayer sPlayerMW;
         public MainWindow()
         {
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
-            this.KeyUp += new KeyEventHandler(GameController.Instance.Player.KeyIsUp);
+            sPlayerMW = new System.Media.SoundPlayer(Properties.Resources.musical_symphony_orchestra_warming_up_before_concert);
+            sPlayerMW.Play();
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
             GameWindow gwin = new GameWindow();
             gwin.Show();
+        }
+
+        private void HighScores_Click(object sender, RoutedEventArgs e)
+        {
+            HighScoreWindow highScoreWindow = new HighScoreWindow();
+            highScoreWindow.Show();
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            Help helpWindow = new Help();
+            helpWindow.Show();
         }
     }
 }

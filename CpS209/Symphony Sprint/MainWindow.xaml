@@ -8,7 +8,26 @@
         Title="Symphony Sprint" Height="450" Width="800">
     <Canvas Background="Black">
         <StackPanel HorizontalAlignment="Center" Width="800">
-            <Image Source="Graphics/mainTitle.png" Width="400" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Graphics/Dr. Schaub.png" Width="100" Margin="50"/>
+                <Image Source="Graphics/mainTitle.png" Width="400" HorizontalAlignment="Center" Margin="20, 50, 20,20"/>
+                <Image Source="Graphics/trebleClef.gif" Width="50" Margin="50"/>
+            </StackPanel>
+            <Button x:Name="Start" Width="180" Margin="20" Click="Start_Click" BorderBrush="Black">
+                <Image Source="Graphics/start-1.png.png"/>
+            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Height="35" Background="Black" Margin="20" BorderBrush="Black">
+                    <Image Source="Graphics/about-1.png (2).png"/>
+                </Button>
+                <Button x:Name="HighScores" Height="35" Background="Black" Margin="20" Click="HighScores_Click" BorderBrush="Black">
+                    <Image Source="Graphics/highScores-1.png.png"/>
+                </Button>
+                <Button x:Name="btnHelp" Click="btnHelp_Click" Height="35" Background="Black" Margin="20" BorderBrush="Black">
+                    <Image Source="Graphics/help-1.png.png" RenderTransformOrigin="0.5,0.512"/>
+                </Button>
+            </StackPanel>
+
         </StackPanel>
     </Canvas>
 </Window>

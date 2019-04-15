@@ -1,6 +1,8 @@
-﻿using Symphony_Sprint.Game_Model;
+﻿using Microsoft.Win32;
+using Symphony_Sprint.Game_Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,43 +22,72 @@ namespace Symphony_Sprint
     
     public partial class GameWindow : Window
     {
-
         public static DispatcherTimer gameTimer;
-        public int time = 100;
+        public static DispatcherTimer displayTimer;
+        public int seconds = 0;
+        int min = 0;
+        public int livesLeft = 3;
+        public int noteNum = 50;
 
+        BitmapImage source1;
+        BitmapImage source2;
+        BitmapImage source3;
 
         public GameWindow()
         {
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
+            GameController.Instance.Player.PosX = 200;
+            GameController.Instance.Player.PosY = 50;
         }
 
         public void Window_Loaded(object sender, EventArgs e)
         {
-            gameTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 200) };
+            //Load images on screen
+            
+
+            source1 = new BitmapImage(new Uri("/Graphics/heart-1.png.png", UriKind.Relative));
+            source2 = new BitmapImage(new Uri("/Graphics/heart-1.png.png", UriKind.Relative));
+            source3 = new BitmapImage(new Uri("/Graphics/heart-1.png.png", UriKind.Relative));
+
+            //time.Source = new BitmapImage(new Uri("/Graphics/time-1.png.png", UriKind.Relative));
+            lives.Source = new BitmapImage(new Uri("/Graphics/lives-1.png.png", UriKind.Relative));
+            time.Source = new BitmapImage(new Uri("/Graphics/time-1.png.png", UriKind.Relative));
+            heart1.Source = source1;
+            heart2.Source = source2;
+            heart3.Source = source3;
+
+
+            gameTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 5) };
             gameTimer.Tick += GameTimer_Tick;
 
+            displayTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 1) };
+            displayTimer.Tick += DisplayTimer_Tick;
             GameController.Instance.LargoLevel();
             //SetupGame();
             UpdateScreen();
       
             gameTimer.Start();
+            displayTimer.Start();
+        }
+
+        private void DisplayTimer_Tick(object sender, EventArgs e)
+        {
+            
+            seconds++;
+            
+            
         }
 
         //Check if the game is over or not..
         //If is not over then update screen...
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            --time;
-            Console.WriteLine("Working");
-
             if (GameController.Instance.isGameOver == false)
             {
                 UpdateScreen();
             }
-            
-            
         }
-        
 
         private void UpdateScreen()
         {
@@ -64,62 +95,165 @@ namespace Symphony_Sprint
             //Update Health
             //Update NoteObjective
             //Update Level when needed.
+
+            if (livesLeft == 2)
+            {
+                heart1.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
+            } else if (livesLeft == 1)
+            {
+                heart2.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
+            } else if (livesLeft == 0)
+            {
+                heart3.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
+                MessageBox.Show("Game Over");
+                GameController.Instance.isGameOver = true;
+                this.Close();
+            }
+
+            
+            
+            if (seconds < 10)
+            {
+                timeNum.Content = min + ":0" + seconds;
+            }
+            else if (seconds > 60)
+            {
+                min++;
+                seconds = 0;
+                timeNum.Content = min + ":" + seconds;
+            }
+            else
+            {
+                timeNum.Content = min + ":" + seconds;
+            }
+
+
             GameCanvas.Children.Clear();
 
+            //Piano
+            var piano = new Image();
+            piano.Source = new BitmapImage(new Uri("/Graphics/pianoDouble-1.png.png", UriKind.Relative));
+            piano.Height = 54;
+            piano.Stretch = Stretch.UniformToFill;
+            Canvas.SetBottom(piano, 0);
+            GameCanvas.Children.Add(piano);
 
             //Player
             var playerSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", GameController.Instance.Player.ImgPath), UriKind.Relative));
             var playerImg = new Image();
-            playerImg.Height = 60;
-            GameController.Instance.Player.PosX = 100;
-            GameController.Instance.Player.PosY = 50;
-
-            Canvas.SetLeft(playerImg, GameController.Instance.Player.PosX);
-
-
+            playerImg.Height = 50;
+            playerImg.Width = 45;
+            playerImg.Stretch = Stretch.Fill;
             ImageBehavior.SetAnimatedSource(playerImg, playerSource);
             GameCanvas.Children.Add(playerImg);
 
 
-            //Sets the players position depeding on its state. 
-            if (GameController.Instance.Player.State == Game_Model.World_Objects.Player.movementState.running)
-            {
-                Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY);
-            }
-            else if (GameController.Instance.Player.State == Game_Model.World_Objects.Player.movementState.jumping)
-            {
-                Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY + 20);
-            }
+            //Sets the players position depending on its state. 
+            GameController.Instance.Player.UpdatePosition();
+            Canvas.SetLeft(playerImg, GameController.Instance.Player.PosX);
+            Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY);
             //End of player code
 
-
+            //Sparkle Image
+            var sparkle = new Image();
+            var sparkleSource = new BitmapImage(new Uri("/Graphics/sparkle.gif", UriKind.Relative));
+            ImageBehavior.SetAnimatedSource(sparkle, sparkleSource);
+            //End of Sparkle
             //Game Object Code
             //Loops through each game object and sets there custom position.
-            foreach (GameObject obj in GameController.Instance.Level.GameObjects)
+            foreach (GameObject obj in GameController.Instance.Level.GameObjects.ToList())
             {
                 var objectSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", obj.ImgPath), UriKind.Relative));
-                var img = new Image();
+                Image objImg = new Image();
+                objImg.Source = objectSource;
 
-                ImageBehavior.SetAnimatedSource(img, objectSource);
-
-                if (obj.posX > 1190 || obj.posX < 10)
+                if (obj.posX > 1190)
                 {
-                    img.Visibility = Visibility.Hidden;
+                    objImg.Visibility = Visibility.Hidden;
                 }
 
+                if(obj.posX < 10)
+                {
+                    //objImg.Visibility = Visibility.Hidden;
+                    GameController.Instance.Level.GameObjects.Remove(obj);
+                }
                
-     
-                img.Height = 40;
-                GameCanvas.Children.Add(img);
+                if (obj.ImgPath == "trebleClef-7.png.png")
+                {
+                    objImg.Height = 60;
+                    objImg.Width = 100;
+                }
+                else
+                {
+                    objImg.Height = 40;
+                    objImg.Width = 60;
+                }
+
+                
+                
+                objImg.Uid = "GameObject";
+                GameCanvas.Children.Add(objImg);
                 obj.posX -= obj.Speed;
 
-                Canvas.SetLeft(img, obj.posX);
-                Canvas.SetBottom(img, obj.posY);
+                Canvas.SetLeft(objImg, obj.posX);
+                Canvas.SetBottom(objImg, obj.posY);
                 //End of Game Object Code
+
+                //Collision Code Start
+                var objects = new Rect(
+
+                    Convert.ToDouble(Canvas.GetLeft(objImg)),
+                        Convert.ToDouble(Canvas.GetBottom(objImg)),
+                        Convert.ToDouble(objImg.Width),
+                        Convert.ToDouble(objImg.Height)
+
+                    );
+
                 
+
+                var player = new Rect(
+                        Convert.ToDouble(Canvas.GetLeft(playerImg)),
+                        Convert.ToDouble(Canvas.GetBottom(playerImg)),
+                        Convert.ToDouble(playerImg.Width),
+                        Convert.ToDouble(playerImg.Height)
+                    );
+
+
+                
+
+
+                
+                if(objects.Left <= player.Right && objects.Right >= player.Left && objects.Bottom >= player.Top && objects.Top <= player.Bottom)
+
+                {
+                    
+                    if (obj.ImgPath == "flat-1.png.png" || obj.ImgPath == "sharp-1.png.png")
+                    {
+                        Debug.WriteLine(obj.posX + " and " + obj.posY + " player: x: " + GameController.Instance.Player.PosX + " y: " + GameController.Instance.Player.PosY);
+                        Debug.WriteLine("Rect: Object X: " + objects.X + " and " + objects.Y + " Player: " + player.X + " and " + player.Y);
+                        Debug.WriteLine(obj.ImgPath);
+                        livesLeft--;
+                        GameController.Instance.Level.GameObjects.Remove(obj);
+                        GameCanvas.Children.Remove(objImg);
+                    }
+                    else
+                    {
+                        GameCanvas.Children.Remove(objImg);
+                        GameController.Instance.Level.GameObjects.Remove(obj);
+                        Debug.WriteLine("Collision: " + "Rect: Object X: " + objects.X + " and " + objects.Y + " Player: " + player.X + " and " + player.Y);
+                        noteNum--;
+                        noteObj.Content = noteNum;
+                    }
+                    
+                }
+
+                
+                //Collision code end
             }
+
         }
 
         
+
     }
 }

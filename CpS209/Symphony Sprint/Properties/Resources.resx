@@ -154,9 +154,6 @@
   <data name="mainTitle1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\mainTitle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="piano" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Graphics\piano.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="quarterNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\quarterNote.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -195,5 +192,47 @@
   </data>
   <data name="robin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\robin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="help_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\help-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollingBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\scrollingBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="start_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\start-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="submit_1_png__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\submit-1.png (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eigthNote_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\eigthNote-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flat_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\flat-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="halfNote_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\halfNote-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="quarterNote_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\quarterNote-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sharp_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\sharp-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trebleClef_7_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\trebleClef-7.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wholeNote_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\wholeNote-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pianoDouble_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\pianoDouble-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="audio_hero_On_The_Ball_SIPML_K_04_25_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\game play music\audio_hero_On-The-Ball_SIPML_K-04-25-01.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="musical_symphony_orchestra_warming_up_before_concert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\title screen music\musical_symphony_orchestra_warming_up_before_concert.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

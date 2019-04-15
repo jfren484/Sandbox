@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Symphony_Sprint.Game_Model
+namespace Symphony_Sprint.Properties
 {
     /// <summary>
     /// Interaction logic for About.xaml
