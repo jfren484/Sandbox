@@ -10,9 +10,9 @@
       Loaded="Window_Loaded">
 
     <Canvas Background="Black" Height="450" Margin="0,0,0,-0.4" VerticalAlignment="Bottom">
-        <StackPanel HorizontalAlignment="Center" Width="800">
+        <StackPanel x:Name="vPanel" HorizontalAlignment="Center" Width="800">
             <Image Source="Graphics/help-1.png.png" Height="90" Margin="0,10,0,0"/>
-            <TextBlock x:Name="txtHelp" Height="315"/>
+            <TextBlock x:Name="txtHelp" Height="330" FontSize="20" TextAlignment="Left" Margin="25,5,25,10" Foreground="WHite"/>
         </StackPanel>
     </Canvas>
 </Window>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using NUnit.Framework;
 
 namespace Symphony_Sprint.Game_Model
@@ -27,8 +22,8 @@ namespace Symphony_Sprint.Game_Model
             string name = "billybobbybillbob";
             int highscore = 3000;
             HighScoreManager.AddNameAndScore(name, highscore);
-            HighScoreManager.SaveScore();
-            HighScoreManager.LoadScore();
+            HighScoreManager.SaveScore(TestContext.CurrentContext.TestDirectory);
+            HighScoreManager.LoadScore(TestContext.CurrentContext.TestDirectory);
             Assert.IsTrue(HighScoreManager.HighScoreList.Count > 0);
         }
 
@@ -38,9 +33,8 @@ namespace Symphony_Sprint.Game_Model
             string name = "billybobbybillbob";
             int highscore = 3000;
             HighScoreManager.AddNameAndScore(name, highscore);
-            HighScoreManager.SaveScore();
-            Assert.IsTrue(File.Exists(Directory.GetCurrentDirectory() + "/SymphonySprintHighScores.txt"));
+            HighScoreManager.SaveScore(TestContext.CurrentContext.TestDirectory);
+            Assert.IsTrue(File.Exists(TestContext.CurrentContext.TestDirectory + "SymphonySprintHighScores.txt"));
         }
-
     }
 }

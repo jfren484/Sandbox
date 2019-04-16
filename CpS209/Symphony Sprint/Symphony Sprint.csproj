@@ -154,6 +154,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Font\sh-pinscher\SHPinscher-Regular.otf" />
     <None Include="Game Model\ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

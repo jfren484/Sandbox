@@ -18,7 +18,7 @@ namespace Symphony_Sprint
     /// <summary>
     /// Interaction logic for HighScoreEnter.xaml
     /// </summary>
-    public partial class HighScoreEnter : Page
+    public partial class HighScoreEnter : Window
     {
         public HighScoreEnter()
         {
@@ -28,6 +28,7 @@ namespace Symphony_Sprint
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             HighScoreManager.AddNameAndScore(playerName.Text, Convert.ToInt32(gameScore.Text));
+            this.Close();
         }
     }
 }

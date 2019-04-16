@@ -24,6 +24,7 @@ namespace Symphony_Sprint
         {
             InitializeComponent();
             HighScoreManager.CreateStringOfScoresAndNames();
+            //hsText.Text = HighScoreManager.HighScoreText;
         }
 
     }

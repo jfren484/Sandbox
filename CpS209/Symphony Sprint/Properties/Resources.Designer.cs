@@ -369,6 +369,16 @@ namespace Symphony_Sprint.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SHPinscher_Regular {
+            get {
+                object obj = ResourceManager.GetObject("SHPinscher_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap sparkle {

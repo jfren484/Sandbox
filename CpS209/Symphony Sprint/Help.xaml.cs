@@ -24,11 +24,15 @@ namespace Symphony_Sprint.Properties
         public Help()
         {
             InitializeComponent();
-            //helpM = "";
+            helpM = "Click start to start the game. Press the space key to jump to collect notes or avoid accidentals. Press space key while still jumping to double jump.";
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            helpM.PadRight(20);
             txtHelp.Text = helpM;
+            txtHelp.Padding = new Thickness(20);
+            txtHelp.FontFamily = new FontFamily("SH Pinscher");
         }
+        //GameControle.Instance.Points
     }
 }

@@ -10,9 +10,22 @@
 
     <Canvas Background="Black">
         <StackPanel HorizontalAlignment="Center" Width="800">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                 <Image Source="Graphics/highScores-1.png.png" Width="600" Margin="30"/>
-                <TextBlock Text="{Binding Path=HighScoreText}" FontFamily="SH Pinscher" FontSize="25" Foreground="White"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Text="Rank"  FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
+                        <TextBlock x:Name="Rank"/>
+                    </StackPanel >
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Text="Name"  FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
+                        <TextBlock x:Name="Name"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Text="Score" FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
+                        <TextBlock x:Name="Score"/>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Canvas>

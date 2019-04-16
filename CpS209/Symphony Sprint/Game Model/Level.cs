@@ -18,7 +18,6 @@ namespace Symphony_Sprint.Game_Model
 
         public string Serialize()
         {
-    
             string gameObjs = string.Join("\r\n", GameObjects.Select(go => go.Serialize()));
             return $"Difficulty={Difficulty},NoteObjective={NoteObjective}\r\nGameObjects:\r\n{gameObjs}";
         }

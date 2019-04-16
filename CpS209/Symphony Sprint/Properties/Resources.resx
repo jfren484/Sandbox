@@ -235,4 +235,7 @@
   <data name="musical_symphony_orchestra_warming_up_before_concert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\sounds\title screen music\musical_symphony_orchestra_warming_up_before_concert.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="SHPinscher_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Font\sh-pinscher\SHPinscher-Regular.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

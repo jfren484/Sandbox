@@ -13,7 +13,7 @@ namespace Symphony_Sprint.Game_Model
 
     public class TestSerialize
     {
-        private const string serializedPlayer = "Lives=3,PosX=20,PosY=20,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png";
+        private const string serializedPlayer = "Lives=3,PosX=20,PosY=20,State=running,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png";
         private const string serializedGameObject1 = "Speed=3,PosX=20,PosY=20,ImgPath=o1.png";
         private static readonly string serializedLevel = $@"Difficulty=EASY,NoteObjective=90
 GameObjects:
@@ -90,6 +90,7 @@ Level:{serializedLevel}";
                     Lives = 3,
                     PosX = 20,
                     PosY = 20,
+                    State = Player.movementState.running,
                     jumpceiling1 = 200,
                     jumpceiling2 = 100
                 },
@@ -109,7 +110,7 @@ Level:{serializedLevel}";
 
             string expectedData = @"Points:52
 Notes:99
-Player:Lives=3,PosX=20,PosY=20,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png
+Player:Lives=3,PosX=20,PosY=20,State=running,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png
 Level:Difficulty=EASY,NoteObjective=90
 GameObjects:
 Speed=3,PosX=20,PosY=20,ImgPath=o1.png
@@ -123,7 +124,7 @@ Speed=2,PosX=5,PosY=10,ImgPath=o2.png";
         {
             var serializedData = @"Points:52
 Notes:99
-Player:Lives=3,PosX=20,PosY=20,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png
+Player:Lives=3,PosX=20,PosY=20,State=running,JumpCeiling1=200,JumpCeiling2=100,ImgPath=p2.png
 Level:Difficulty=EASY,NoteObjective=90
 GameObjects:
 Speed=3,PosX=20,PosY=20,ImgPath=o1.png
