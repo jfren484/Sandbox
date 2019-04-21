@@ -5,25 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Symphony_Sprint"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="470" d:DesignWidth="800"
       Title="HighScorePage">
 
     <Canvas Background="Black">
         <StackPanel HorizontalAlignment="Center" Width="800">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                 <Image Source="Graphics/highScores-1.png.png" Width="600" Margin="30"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="286">
                     <StackPanel Orientation="Vertical" Margin="20">
                         <TextBlock Text="Rank"  FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
-                        <TextBlock x:Name="Rank"/>
+                        <TextBlock Text="1." FontSize="20" TextAlignment="Center" Foreground="White" Padding="5" Margin="0,5,0,0" Height="33" FontFamily="SH Pinscher"/>
+                        <TextBlock Text="2." FontSize="20" TextAlignment="Center" Foreground="White" Padding="5" Margin="0,5,0,0" Height="33" FontFamily="SH Pinscher"/>
+                        <TextBlock Text="3." FontSize="20" TextAlignment="Center" Foreground="White" Padding="5" Margin="0,5,0,0" Height="33" FontFamily="SH Pinscher"/>
+                        <TextBlock Text="4." FontSize="20" TextAlignment="Center" Foreground="White" Padding="5" Margin="0,5,0,0" Height="33" FontFamily="SH Pinscher"/>
+                        <TextBlock Text="5." FontSize="20" TextAlignment="Center" Foreground="White" Padding="5" Margin="0,5,0,0" Height="33" FontFamily="SH Pinscher"/>
                     </StackPanel >
-                    <StackPanel Orientation="Vertical" Margin="20">
+                    <StackPanel x:Name="namePanel" Orientation="Vertical" Margin="20">
                         <TextBlock Text="Name"  FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
-                        <TextBlock x:Name="Name"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="20">
+                    <StackPanel x:Name="scorePanel" Orientation="Vertical" Margin="20">
                         <TextBlock Text="Score" FontFamily="SH Pinscher" FontSize="40" Foreground="White"/>
-                        <TextBlock x:Name="Score"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

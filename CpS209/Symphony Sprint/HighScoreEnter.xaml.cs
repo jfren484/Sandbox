@@ -27,8 +27,20 @@ namespace Symphony_Sprint
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HighScoreManager.AddNameAndScore(playerName.Text, Convert.ToInt32(gameScore.Text));
-            this.Close();
+            if (playerName.Text.Length > 15)
+            {
+                MessageBox.Show("Please only use up to 15 characters. -Love, Robin");
+            }
+            else if (String.IsNullOrWhiteSpace(playerName.Text))
+            {
+                MessageBox.Show("Please enter a name. Any name.");
+            }
+            else
+            {
+                HighScoreManager.AddNameAndScore(playerName.Text, Convert.ToInt32(gameScore.Text));
+                HighScoreManager.SaveScore("HighScoresFile.txt");
+                this.Close();
+            }
         }
     }
 }

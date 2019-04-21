@@ -69,7 +69,7 @@ namespace Symphony_Sprint.Game_Model.World_Objects
             //decending logic
             if (this.State == movementState.decending && this.PosY > 60)
             {
-                this.PosY -= 10;
+                this.PosY -= 5;
             }
             else if (this.State == movementState.decending && this.PosY == 60)
             {
@@ -84,7 +84,7 @@ namespace Symphony_Sprint.Game_Model.World_Objects
             // decending2 logic
             if (this.State == movementState.decending2 && this.PosY > 60)
             {
-                this.PosY -= 10;
+                this.PosY -= 5;
             }
             else if (this.State == movementState.decending2 && this.PosY == 60)
             {

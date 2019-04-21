@@ -1,26 +1,9 @@
-﻿using Symphony_Sprint.Game_Model;
-using Symphony_Sprint.Game_Model.World_Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Symphony_Sprint.Properties;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Resources;
-using Symphony_Sprint.Properties;
-using Microsoft.Win32;
 
 namespace Symphony_Sprint
 {
-  
+
     public partial class MainWindow : Window
     {
         System.Media.SoundPlayer sPlayerMW;
@@ -33,8 +16,10 @@ namespace Symphony_Sprint
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            GameWindow gwin = new GameWindow();
-            gwin.Show();
+            ChooseDifficulty dWin = new ChooseDifficulty();
+            dWin.Show();
+            //GameWindow gwin = new GameWindow();
+            //gwin.Show();
         }
 
         private void HighScores_Click(object sender, RoutedEventArgs e)
@@ -47,6 +32,12 @@ namespace Symphony_Sprint
         {
             Help helpWindow = new Help();
             helpWindow.Show();
+        }       
+
+        private void btnAbout_CLick(object sender, RoutedEventArgs e)
+        {
+            About aboutWin = new About();
+            aboutWin.Show();
         }
     }
 }

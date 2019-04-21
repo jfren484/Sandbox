@@ -1,4 +1,4 @@
-﻿<Page x:Class="Symphony_Sprint.Properties.About"
+﻿<Window x:Class="Symphony_Sprint.Properties.About"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="About">
 
-    <Grid>
+    <Canvas Background="black">
+        <StackPanel HorizontalAlignment="Center">
+            <Image Source="Graphics/about-1.png (2).png" Width="790" Height="100"/>
+
+        </StackPanel>
         
-    </Grid>
-</Page>
+    </Canvas>
+</Window>

@@ -79,6 +79,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ChooseDifficulty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameOverWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +107,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ChooseDifficulty.xaml.cs">
+      <DependentUpon>ChooseDifficulty.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game Model\GameController.cs" />
     <Compile Include="Game Model\GameControllerTest.cs" />
     <Compile Include="Game Model\HighScore.cs" />
@@ -108,6 +119,9 @@
     <Compile Include="Game Model\Player.cs" />
     <Compile Include="Game Model\GameObject.cs" />
     <Compile Include="Game Model\HighScoreManager.cs" />
+    <Compile Include="GameOverWindow.xaml.cs">
+      <DependentUpon>GameOverWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -295,6 +309,21 @@
     <Resource Include="Graphics\pianoDouble-1.png.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="High Scores Archive\HighScoresFile.txt" />
+    <None Include="Resources\Dr. McGee.bmp" />
+    <Resource Include="Graphics\Dr. McGee Avatar.png" />
+    <Resource Include="Graphics\Dr. Knisely Avatar 2.png" />
+    <Resource Include="Graphics\ana.png" />
+    <Resource Include="Graphics\Dr. Huges Avatar.png" />
+    <Resource Include="Graphics\jason.png" />
+    <Resource Include="Graphics\stone.png" />
+    <Resource Include="Graphics\easy-1.png.png" />
+    <Resource Include="Graphics\difficulty-1.png.png" />
+    <Resource Include="Graphics\hard-1.png.png" />
+    <Resource Include="Graphics\insane-1.png.png" />
+    <Resource Include="Graphics\medium-1.png.png" />
+    <Resource Include="Graphics\notes-1.png" />
+    <Resource Include="Graphics\organ-1.png.png" />
     <Content Include="sounds\bad note sounds\zapsplat_cartoon_impact_strings_slight_ascend_001_17952.mp3" />
     <Content Include="sounds\bad note sounds\zapsplat_musical_karimba_tine_pluck_004_15326.mp3" />
     <Content Include="sounds\bad note sounds\zapsplat_musical_karimba_tine_pluck_005_15327.mp3" />
@@ -311,6 +340,7 @@
     <Content Include="sounds\title screen music\musical_symphony_orchestra_warming_up_before_concert.mp3" />
     <None Include="sounds\title screen music\musical_symphony_orchestra_warming_up_before_concert.wav" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

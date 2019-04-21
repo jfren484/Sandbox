@@ -18,7 +18,7 @@ namespace Symphony_Sprint.Properties
     /// <summary>
     /// Interaction logic for About.xaml
     /// </summary>
-    public partial class About : Page
+    public partial class About : Window
     {
         public About()
         {

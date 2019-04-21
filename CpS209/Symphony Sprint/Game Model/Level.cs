@@ -7,19 +7,26 @@ namespace Symphony_Sprint.Game_Model
 {
     public class Level : ISerialize
     {
-        public enum DifficultyEnum { EASY, MEDIUM, HARD}
-        public DifficultyEnum Difficulty { get; set; }
+        public enum DifficultyEnum { EASY, MEDIUM, HARD, INSANE}
+        public static DifficultyEnum Difficulty { get; set; }
         public List<GameObject> gameObjs = new List<GameObject>();
         public int noteObjective;
 
+        //public int seconds = 0;
+        //int min = 0;
+
+        public string levelName = "largo";
         // Gets and sets the note objective for each level in order to proceed to the next level.
+
+        public int Seconds { get; set; }
+        public int Min { get; set; }
         public int NoteObjective { get { return noteObjective; } set { noteObjective = value; } }
         public List<GameObject> GameObjects { get { return gameObjs; } }
 
         public string Serialize()
         {
             string gameObjs = string.Join("\r\n", GameObjects.Select(go => go.Serialize()));
-            return $"Difficulty={Difficulty},NoteObjective={NoteObjective}\r\nGameObjects:\r\n{gameObjs}";
+            return $"Difficulty={Difficulty},Minutes={Min},Seconds={Seconds},NoteObjective={NoteObjective}\r\nGameObjects:\r\n{gameObjs}";
         }
 
         public void Deserialize(string data)
@@ -49,6 +56,12 @@ namespace Symphony_Sprint.Game_Model
                         break;
                     case "NoteObjective":
                         NoteObjective = int.Parse(value);
+                        break;
+                    case "Minutes":
+                        Min = int.Parse(value);
+                        break;
+                    case "Seconds":
+                        Seconds = int.Parse(value);
                         break;
                 }
             }

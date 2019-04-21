@@ -238,4 +238,46 @@
   <data name="SHPinscher_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Font\sh-pinscher\SHPinscher-Regular.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\ana.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dr__Huges_Avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\Dr. Huges Avatar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dr__Knisely_Avatar_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\Dr. Knisely Avatar 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dr__McGee_Avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\Dr. McGee Avatar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="jason" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\jason.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\stone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="difficulty_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\difficulty-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="easy_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\easy-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hard_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\hard-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="insane_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\insane-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="medium_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\medium-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="notes_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\notes-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="organ_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\organ-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zapsplat_cartoon_fail_negative_descending_musical_tuba_marimba_oboe_18126" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zapsplat_cartoon_fail_negative_descending_musical_tuba_marimba_oboe_18126.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

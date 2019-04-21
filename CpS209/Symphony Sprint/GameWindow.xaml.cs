@@ -15,12 +15,13 @@ namespace Symphony_Sprint
 {
     public partial class GameWindow : Window
     {
+        GameController gc;
+
         public static DispatcherTimer gameTimer;
         public static DispatcherTimer displayTimer;
-        public int seconds = 0;
-        int min = 0;
-        public int noteNum = 20;
-        // public int livesLeft = 3;
+        
+        
+        //public int livesLeft = 3;
         private OpenFileDialog loadDialog = new OpenFileDialog();
         private SaveFileDialog saveDialog = new SaveFileDialog();
 
@@ -29,15 +30,35 @@ namespace Symphony_Sprint
         BitmapImage source3;
 
         System.Media.SoundPlayer sPlayer;
+        System.Media.SoundPlayer GOPlayer;
 
         public GameWindow()
         {
+            gc = new GameController();
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
+            DataContext = gc.Level;
+
+            this.KeyDown += new KeyEventHandler(gc.Player.KeyIsDown);
             this.KeyDown += new KeyEventHandler(this.KeyIsDown);
-            GameController.Instance.Player.PosX = 200;
-            GameController.Instance.Player.PosY = 50;
-            GameController.Instance.Player.Lives = 3;
+            gc.Player.PosX = 200;
+            gc.Player.PosY = 50;
+            gc.Player.Lives = 3;
+
+            //if (gc.Level.levelName == "largo")
+            //{
+            gc.Level.NoteObjective = 20;
+            //}
+            //else if (gc.Level.levelName == "andante")
+            //{
+            //    gc.Level.NoteObjective = 30;
+            //}
+            //else if (gc.Level.levelName == "allegro")
+            //{
+            //    gc.Level.NoteObjective = 40;
+            //}
+
+            GOPlayer = new System.Media.SoundPlayer(Properties.Resources.zapsplat_cartoon_fail_negative_descending_musical_tuba_marimba_oboe_18126);
+
             sPlayer = new System.Media.SoundPlayer(Properties.Resources.audio_hero_On_The_Ball_SIPML_K_04_25_01);
             sPlayer.Play();
             this.Closing += GameWindow_Closing;
@@ -45,6 +66,8 @@ namespace Symphony_Sprint
 
         private void GameWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            gameTimer.Stop();
+            displayTimer.Stop();
             sPlayer.Stop();
         }
 
@@ -55,21 +78,23 @@ namespace Symphony_Sprint
             source2 = new BitmapImage(new Uri("/Graphics/heart-1.png.png", UriKind.Relative));
             source3 = new BitmapImage(new Uri("/Graphics/heart-1.png.png", UriKind.Relative));
 
-            //time.Source = new BitmapImage(new Uri("/Graphics/time-1.png.png", UriKind.Relative));
+            noteImg.Source = new BitmapImage(new Uri("/Graphics/notes-1.png", UriKind.Relative));
+            
             lives.Source = new BitmapImage(new Uri("/Graphics/lives-1.png.png", UriKind.Relative));
             time.Source = new BitmapImage(new Uri("/Graphics/time-1.png.png", UriKind.Relative));
             heart1.Source = source1;
             heart2.Source = source2;
             heart3.Source = source3;
             scoreImg.Source = new BitmapImage(new Uri("/Graphics/score-1.png.png", UriKind.Relative));
-
+            //noteImg.Source = new BitmapImage(new Uri("/Graphics/notes-1.png.png", UriKind.Relative));
             gameTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 5) };
             gameTimer.Tick += GameTimer_Tick;
 
             displayTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 1) };
             displayTimer.Tick += DisplayTimer_Tick;
-            GameController.Instance.LargoLevel();
-            //SetupGame();
+            UpdateScreen();
+            
+            gc.LargoLevel();
             UpdateScreen();
       
             gameTimer.Start();
@@ -78,14 +103,14 @@ namespace Symphony_Sprint
 
         private void DisplayTimer_Tick(object sender, EventArgs e)
         {           
-            seconds++;
+            gc.Level.Seconds++;
         }
 
         //Check if the game is over or not..
         //If is not over then update screen...
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (GameController.Instance.isGameOver == false)
+            if (gc.isGameOver == false)
             {
                 UpdateScreen();
             }
@@ -98,41 +123,41 @@ namespace Symphony_Sprint
             //Update NoteObjective
             //Update Level when needed.
 
-            if (GameController.Instance.Player.Lives == 2)
+            if (gc.Player.Lives == 2)
             {
                 heart1.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
-            } else if (GameController.Instance.Player.Lives == 1)
+            } else if (gc.Player.Lives == 1)
             {
+                heart1.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
                 heart2.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
-            } else if (GameController.Instance.Player.Lives == 0)
+            } else if (gc.Player.Lives == 0)
             {
+                heart1.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
+                heart2.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
                 heart3.Source = new BitmapImage(new Uri("/Graphics/heartDead-1.png.png", UriKind.Relative));
-                MessageBox.Show("Game Over");
-                GameController.Instance.isGameOver = true;
+                GameOverWindow GOWin = new GameOverWindow(Convert.ToInt32(scoreNum.Content));
+                gc.isGameOver = true;
                 this.Close();
-                if (HighScoreManager.IsHighScore(Convert.ToInt32(scoreNum.Content)))
-                {
-                    HighScoreEnter HSEnter = new HighScoreEnter();
-                    HSEnter.gameScore.Text = Convert.ToString(scoreNum.Content);
-                    HSEnter.Show();
-                }
+                GOWin.Show();
+                GOPlayer.Play();
             }
             
-            if (seconds < 10)
+            if (gc.Level.Seconds < 10)
             {
-                timeNum.Content = min + ":0" + seconds;
+                timeNum.Content = gc.Level.Min + ":0" + gc.Level.Seconds;
             }
-            else if (seconds > 60)
+            else if (gc.Level.Seconds > 60)
             {
-                min++;
-                seconds = 0;
-                timeNum.Content = min + ":" + seconds;
+                gc.Level.Min++;
+                gc.Level.Seconds = 0;
+                timeNum.Content = gc.Level.Min + ":" + gc.Level.Seconds;
             }
             else
             {
-                timeNum.Content = min + ":" + seconds;
+                timeNum.Content = gc.Level.Min + ":" + gc.Level.Seconds;
             }
 
+            CheckGameState();
             GameCanvas.Children.Clear();
 
             //Piano
@@ -144,7 +169,7 @@ namespace Symphony_Sprint
             GameCanvas.Children.Add(piano);
 
             //Player
-            var playerSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", GameController.Instance.Player.ImgPath), UriKind.Relative));
+            var playerSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", gc.Player.ImgPath), UriKind.Relative));
             var playerImg = new Image();
             playerImg.Height = 50;
             playerImg.Width = 45;
@@ -153,9 +178,9 @@ namespace Symphony_Sprint
             GameCanvas.Children.Add(playerImg);
 
             //Sets the players position depending on its state. 
-            GameController.Instance.Player.UpdatePosition();
-            Canvas.SetLeft(playerImg, GameController.Instance.Player.PosX);
-            Canvas.SetBottom(playerImg, GameController.Instance.Player.PosY);
+            gc.Player.UpdatePosition();
+            Canvas.SetLeft(playerImg, gc.Player.PosX);
+            Canvas.SetBottom(playerImg, gc.Player.PosY);
             //End of player code
 
             //Sparkle Image
@@ -165,7 +190,7 @@ namespace Symphony_Sprint
             //End of Sparkle
             //Game Object Code
             //Loops through each game object and sets there custom position.
-            foreach (GameObject obj in GameController.Instance.Level.GameObjects.ToList())
+            foreach (GameObject obj in gc.Level.GameObjects.ToList())
             {
                 var objectSource = new BitmapImage(new Uri(String.Format("/Graphics/{0}", obj.ImgPath), UriKind.Relative));
                 Image objImg = new Image();
@@ -179,7 +204,7 @@ namespace Symphony_Sprint
                 if(obj.posX < 10)
                 {
                     //objImg.Visibility = Visibility.Hidden;
-                    GameController.Instance.Level.GameObjects.Remove(obj);
+                    gc.Level.GameObjects.Remove(obj);
                 }
                
                 if (obj.ImgPath == "trebleClef-7.png.png")
@@ -222,43 +247,69 @@ namespace Symphony_Sprint
                     if (obj.ImgPath == "flat-1.png.png" || obj.ImgPath == "sharp-1.png.png")
                     {
                         //Checks if cheat mode is enabled.
-                        if (GameController.Instance.isCheatEnabled == true)
+                        if (gc.isCheatEnabled == true)
                         {
                             return;
                         }
                         //Takes a life and removes enemy from game.
-                        Debug.WriteLine(obj.posX + " and " + obj.posY + " player: x: " + GameController.Instance.Player.PosX + " y: " + GameController.Instance.Player.PosY);
+                        Debug.WriteLine(obj.posX + " and " + obj.posY + " player: x: " + gc.Player.PosX + " y: " + gc.Player.PosY);
                         Debug.WriteLine("Rect: Object X: " + objects.X + " and " + objects.Y + " Player: " + player.X + " and " + player.Y);
                         Debug.WriteLine(obj.ImgPath);
-                        GameController.Instance.Player.Lives--;
-                        GameController.Instance.Level.GameObjects.Remove(obj);
+                        gc.Player.Lives--;
+                        gc.Level.GameObjects.Remove(obj);
                         GameCanvas.Children.Remove(objImg);
                     }
                     else
                     {
                         GameCanvas.Children.Remove(objImg);
-                        GameController.Instance.Level.GameObjects.Remove(obj);
+                        gc.Level.GameObjects.Remove(obj);
                         Debug.WriteLine("Collision: " + "Rect: Object X: " + objects.X + " and " + objects.Y + " Player: " + player.X + " and " + player.Y);
-                        noteNum--;
-                        GameController.Instance.Points += 200;
-                        scoreNum.Content = GameController.Instance.Points;
-                        noteObj.Content = noteNum;
+                        gc.Level.NoteObjective--;
+                        if(obj.ImgPath == "wholeNote-1.png.png")
+                        {
+                            gc.Points += 400;
+                        }
+                        else if (obj.ImgPath == "halfNote-1.png.png")
+                        {
+                            gc.Points += 300;
+                        }
+                        else if (obj.ImgPath == "quarterNote-1.png.png")
+                        {
+                            gc.Points += 200;
+                        }
+                        if (obj.ImgPath == "eigthNote-1.png.png")
+                        {
+                            gc.Points += 100;
+                        }
+                        if (obj.ImgPath == "trebleClef-7.png.png")
+                        {
+                            gc.Points += gc.Points * 2;
+                        }
+                        scoreNum.Content = gc.Points;
+                        noteObj.Content = gc.Level.NoteObjective;
                     } 
                 }
                 //Collision code end
             }
         }
 
+        public void CheckGameState()
+        {
+            scoreNum.Content = gc.Points;
+            noteObj.Content = gc.Level.NoteObjective;
+            gc.Player.Lives = gc.Player.Lives;
+        }
+
         public void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C)
             {
-                if (GameController.Instance.isCheatEnabled == false)
+                if (gc.isCheatEnabled == false)
                 {
-                    GameController.Instance.isCheatEnabled = true;
+                    gc.isCheatEnabled = true;
                 } else
                 {
-                    GameController.Instance.isCheatEnabled = false;
+                    gc.isCheatEnabled = false;
                 }
             }
             else if (e.Key == Key.S)
@@ -274,32 +325,36 @@ namespace Symphony_Sprint
         private void keyS_press()
         {
             gameTimer.Stop();
+            displayTimer.Stop();
 
             saveDialog.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameSaves");
             if (saveDialog.ShowDialog() == true)
             {
-                GameController.Instance.Save(saveDialog.FileName);
+                gc.Save(saveDialog.FileName);
                 loadDialog.FileName = saveDialog.FileName;
             }
 
             gameTimer.Start();
+            displayTimer.Start();
         }
 
         private void keyL_press()
         {
             gameTimer.Stop();
+            displayTimer.Stop();
 
-            this.KeyDown -= new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
+            this.KeyDown -= new KeyEventHandler(gc.Player.KeyIsDown);
 
             loadDialog.InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameSaves");
             if (loadDialog.ShowDialog() == true)
             {
-                GameController.Instance.Load(loadDialog.FileName);
+                gc.Load(loadDialog.FileName);
             }
 
-            this.KeyDown += new KeyEventHandler(GameController.Instance.Player.KeyIsDown);
+            this.KeyDown += new KeyEventHandler(gc.Player.KeyIsDown);
 
             gameTimer.Start();
+            displayTimer.Start();
         }
     }
 }

@@ -3,14 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Symphony_Sprint.Game_Model
 {
     public class GameController : ISerialize
     {
-
         public Level level;
         public Player player;
         public int points = 0;
@@ -18,19 +15,13 @@ namespace Symphony_Sprint.Game_Model
         public bool isGameOver = false;
         public bool isCheatEnabled = false;
 
-        public string[] images = { "wholeNote-1.png.png", "quarterNote-1.png.png", "eigthNote-1.png.png", "trebleClef-7.png.png", "flat-1.png.png", "sharp-1.png.png", "halfNote-1.png.png" };
-
+        public string[] easyImages = { "wholeNote-1.png.png", "quarterNote-1.png.png", "eigthNote-1.png.png", "trebleClef-7.png.png", "flat-1.png.png", "sharp-1.png.png", "halfNote-1.png.png" };
+        public string[] mediumImages = { "quarterNote-1.png.png", "eigthNote-1.png.png", "trebleClef-7.png.png", "halfNote-1.png.png", "flat-1.png.png", "flat-1.png.png", "sharp-1.png.png" };
+        public string[] hardImages = { "quarterNote-1.png.png", "eigthNote-1.png.png", "trebleClef-7.png.png", "flat-1.png.png", "sharp-1.png.png", "flat-1.png.png", "sharp-1.png.png" };
+        public string[] insaneImages = { "trebleClef-7.png.png", "flat-1.png.png", "flat-1.png.png", "flat-1.png.png", "sharp-1.png.png", "sharp-1.png.png", "sharp-1.png.png" };
         Random rand = new Random();
 
-        private static GameController instance = new GameController();
-
-        public static GameController Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+       
 
         public Level Level { get { return level; } set { level = value; } }
         public Player Player { get { return player; } set { player = value; } }
@@ -51,6 +42,27 @@ namespace Symphony_Sprint.Game_Model
         //Sets up Level One
         public void LargoLevel()
         {
+            this.Level.levelName = "largo";
+            //NoteObjective = 20
+            CreateLevel();
+        }
+
+        public void AndanteLevel()
+        {
+            this.Level.levelName = "andante";
+            //NoteObjective = 30
+            CreateLevel();
+        }
+
+        public void AllegroLevel()
+        {
+            this.Level.levelName = "allegro";
+            //NoteObjective = 40
+            CreateLevel();
+        }
+
+        public void CreateLevel()
+        {
             var usedPos = new List<int>();
 
             var positions = new HashSet<int>(); //HashSets cannot contain duplicate items.
@@ -59,7 +71,7 @@ namespace Symphony_Sprint.Game_Model
             for (int i = 0; i < 50; i++)
             {
                 //Sets our random numbers each time the loop goes through.
-                int img = rand.Next(0, 6);
+                int img = rand.Next(0, 7);
                 int posX = rand.Next(1100, 15000);
                 int posY = rand.Next(50, 250);
 
@@ -74,17 +86,34 @@ namespace Symphony_Sprint.Game_Model
                     int newposX = posX + 1000;
                     positions.Add(newposX);
                 }
-                 
+
                 var posList = positions.ToList(); //Change our hashset to a list so we can index it.
-                
-                
 
-                GameObject obj = new GameObject(images[img], 3, posX, posY);
-                Level.GameObjects.Add(obj);
-                
+                DetermineDifficulty(img, posX, posY);
             }
+        }
 
-            
+        public void DetermineDifficulty(int img, int posX, int posY)
+        {
+            switch (Level.Difficulty)
+            {
+                case Level.DifficultyEnum.EASY:
+                    GameObject easyObj = new GameObject(easyImages[img], 3, posX, posY);
+                    Level.GameObjects.Add(easyObj);
+                    break;
+                case Level.DifficultyEnum.MEDIUM:
+                    GameObject mediumObj = new GameObject(mediumImages[img], 3, posX, posY);
+                    Level.GameObjects.Add(mediumObj);
+                    break;
+                case Level.DifficultyEnum.HARD:
+                    GameObject hardObj = new GameObject(hardImages[img], 3, posX, posY);
+                    Level.GameObjects.Add(hardObj);
+                    break;
+                case Level.DifficultyEnum.INSANE:
+                    GameObject insaneObj = new GameObject(insaneImages[img], 3, posX, posY);
+                    Level.GameObjects.Add(insaneObj);
+                    break;
+            }
         }
 
         public void Save(string filename)

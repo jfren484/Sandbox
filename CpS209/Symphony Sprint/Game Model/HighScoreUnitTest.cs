@@ -12,7 +12,7 @@ namespace Symphony_Sprint.Game_Model
             string name = "billybobbybillbob";
             int highscore = 3000;
             HighScoreManager.AddNameAndScore(name, highscore);
-            HighScoreManager.CreateStringOfScoresAndNames();
+            //HighScoreManager.CreateStringOfScoresAndNames();
             Assert.IsTrue(HighScoreManager.HighScoreText == "billybobbybillbob......3000 /n");
         }
 

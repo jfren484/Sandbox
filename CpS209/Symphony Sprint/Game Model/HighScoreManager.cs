@@ -25,6 +25,7 @@ namespace Symphony_Sprint
                     HighScoreList.RemoveAt(HighScoreList.Count - 1);
                 }
                 HighScoreList.Add(newHS);
+                HighScoreList.Sort();
 
             }
         }
@@ -32,7 +33,8 @@ namespace Symphony_Sprint
         //saves all highscores to a text file
         public static void SaveScore(string dir)
         {
-            using (StreamWriter sw = new StreamWriter(dir + "SymphonySprintHighScores.txt"))
+
+            using (StreamWriter sw = new StreamWriter(dir))
             {
                 foreach (HighScore hs in HighScoreList)
                 {
@@ -45,35 +47,25 @@ namespace Symphony_Sprint
         public static void LoadScore(string dir)
         {
             HighScoreList = new List<HighScore> { };
-            string line;
-            using (StreamReader sr = new StreamReader(dir + "SymphonySprintHighScores.txt"))
+            if (! File.Exists(dir))
             {
-                while ((line = sr.ReadLine()) != null)
+                return;
+            }
+            else
+            {
+                string line;
+                using (StreamReader sr = new StreamReader(dir))
                 {
-                    string[] list = line.Split(',');
-                    AddNameAndScore(list[0], Convert.ToInt32(list[1]));
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] list = line.Split(',');
+                        AddNameAndScore(list[0], Convert.ToInt32(list[1]));
+                    }
                 }
             }
-
         }
 
-        //takes scores and names and makes string to be displayed on the window
-        public static void CreateStringOfScoresAndNames()
-        {
-            if (HighScoreList == null)
-            {
-                HighScoreList = new List<HighScore> { };
-            }
-            for (int i = 0; i < HighScoreList.Count; ++i)
-            {
-                string name = Convert.ToString(HighScoreList[i].Name);
-                string score = Convert.ToString(HighScoreList[i].Score);
-                //string finalString = name + "......" + score + " /n";
-                //HighScoreText = HighScoreText + finalString;
-            }
-
-        }
-
+        //checks if new score is greater than lowest score. returns bool. 
         public static bool IsHighScore(int score)
         {
             HighScoreList.Sort();

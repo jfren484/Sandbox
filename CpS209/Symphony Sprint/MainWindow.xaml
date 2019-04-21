@@ -17,7 +17,7 @@
                 <Image Source="Graphics/start-1.png.png"/>
             </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Height="35" Background="Black" Margin="20" BorderBrush="Black">
+                <Button x:Name="btnAbout" Click="btnAbout_CLick" Height="35" Background="Black" Margin="20" BorderBrush="Black">
                     <Image Source="Graphics/about-1.png (2).png"/>
                 </Button>
                 <Button x:Name="HighScores" Height="35" Background="Black" Margin="20" Click="HighScores_Click" BorderBrush="Black">

@@ -5,14 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Symphony_Sprint.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Help"
-      Loaded="Window_Loaded">
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="Help">
 
-    <Canvas Background="Black" Height="450" Margin="0,0,0,-0.4" VerticalAlignment="Bottom">
+    <Canvas Background="Black" Height="452" Margin="0,0,0,0" VerticalAlignment="Bottom">
         <StackPanel x:Name="vPanel" HorizontalAlignment="Center" Width="800">
-            <Image Source="Graphics/help-1.png.png" Height="90" Margin="0,10,0,0"/>
-            <TextBlock x:Name="txtHelp" Height="330" FontSize="20" TextAlignment="Left" Margin="25,5,25,10" Foreground="WHite"/>
+            <Image Source="Graphics/help-1.png.png" Height="90" Margin="0,0,0,0"/>
+            <TextBlock Height="195" FontSize="30" TextAlignment="Left" Margin="25,0,25,0" Foreground="WHite" FontFamily="SH Pinscher" TextWrapping="Wrap"
+             Text="Click start to start the game. Press the space key to jump to collect notes or avoid accidentals. Press space key while still jumping to double jump. Press S during game play to save the game. Press L to load the game you saved. Press C to turn cheat mode on or off. Objective: collect all the notes to get points. Avoid accedentals."/>
+            <TextBlock  Padding="5" Height="155" FontSize="30" TextAlignment="Left" Margin="25,0,25,0" Foreground="WHite" FontFamily="SH Pinscher" TextWrapping="WrapWithOverflow"
+                        Text="Whole notes: 400 pts&#13;Half notes: 300 pts&#13;Quarter notes: 200 pts&#13;Eigth notes: 100 pts"/>
         </StackPanel>
     </Canvas>
 </Window>
