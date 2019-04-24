@@ -8,7 +8,7 @@ jmp play_music
 
 ; si - note to play (frequency)
 ; di - length
-play_note:
+.play_note:
     mov     al, 182         ; Prepare the speaker for the
     out     43h, al         ;  note.
     mov     ax, si          ; Frequency number (in decimal)
@@ -21,8 +21,11 @@ play_note:
     or      al, 00000011b   ; Set bits 1 and 0.
     out     61h, al         ; Send new value.
 
-    mov     cx, 10
-    mov     dx, di
+    mov     ax, di          ; length in milliseconds
+    mov     cx, 1000
+    mul     cx              ; convert to microseconds
+    mov     cx, dx          ; mov dx:ax
+    mov     dx, ax          ; to cx:dx
     mov     ah, 0x86
     int     0x15
 
@@ -32,24 +35,24 @@ play_note:
     out     61h, al         ; Send new value.
     ret
 
-play_music:
+.play_music:
     lea     di, [lengths]
     lea     si, [notes]
-.play_note:
+.actually.play_note:
     push    di
     push    si
     mov     di, [di]
     mov     si, [si]
-    call    play_note
+    call    .play_note
     pop     si
     pop     di
     add     di, 2
     add     si, 2
     cmp     word [di], 0
-    je      play_music
-    jmp     .play_note
+    je      .play_music
+    jmp     .actually.play_note
 
 section .data
 
-    notes: dw 4560, 4560, 4063, 4560, 3416, 3619, 0
-    lengths: dw 500, 500, 500, 500, 500, 500, 0
+    notes: dw	3616,4831,4554,4058,3616,4058,4554,4831,5424,1,5424,4554,3616,4058,4554,4831,1,4831,4554,4058,3616,4554,5424,1,5424,1,1,4058,4058,3419,2712,3044,3419,3616,3616,4554,3616,4058,4554,4831,1,4831,4554,4058,3616,4554,5424,1,5424,1,0
+    lengths: dw	414,207,207,207,103,103,207,207,414,10,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,103,207,207,207,414,207,207,414,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,0
