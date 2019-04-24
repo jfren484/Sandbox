@@ -20,14 +20,14 @@ _start:
 
     mov     word [task_status], 1               ; spawns main task that does nothing but loop forever
 
-	lea     di, [move_block_1]                  ; spawns task 1
-	call    spawn_new_task
+    lea     di, [move_block_1]                  ; spawns task 1
+    call    spawn_new_task
 
     lea     di, [move_block_2]                  ; spawns task 2
-	call    spawn_new_task
+    call    spawn_new_task
 
     lea     di, [move_block_3]                  ; spawns task 3
-	call    spawn_new_task
+    call    spawn_new_task
 
     lea     di, [move_block_4]                  ; spawns task 4
     call    spawn_new_task
@@ -51,8 +51,8 @@ _start:
     call    spawn_new_task
 
 .loop_forever:                                  ; main task that loops forever
-    call 	yield
-	jmp		.loop_forever
+    call     yield
+    jmp        .loop_forever
 
 draw_top_line:
     mov     ax, 0                               ; left x value
@@ -83,67 +83,67 @@ draw_bottom_line:
 
 ; di should contain the address of the function to run for a task
 spawn_new_task:
-	lea     bx, [stack_pointers]                ; get the location of the stack pointers
+    lea     bx, [stack_pointers]                ; get the location of the stack pointers
     add     bx, [current_task]                  ; get the location of the current stack pointer
-	mov     [bx], sp                            ; save current stack so we can switch back
-	mov     cx, [current_task]                  ; look for a new task 
-	add     cx, 2                               ; start searching at the next one though
+    mov     [bx], sp                            ; save current stack so we can switch back
+    mov     cx, [current_task]                  ; look for a new task 
+    add     cx, 2                               ; start searching at the next one though
 .sp_loop_for_available_stack:
-	cmp     cx, [current_task]                  ; we are done when we get back to the original
-	jne     .sp_check_if_available
-	jmp     .sp_no_available_stack
+    cmp     cx, [current_task]                  ; we are done when we get back to the original
+    jne     .sp_check_if_available
+    jmp     .sp_no_available_stack
 .sp_check_if_available:
-	lea     bx, [task_status]                   ; get status of this stack
-	add     bx, cx                              
-	cmp     word [bx], 0
-	je      .sp_is_available
-	add     cx, 2                               ; next stack to search
+    lea     bx, [task_status]                   ; get status of this stack
+    add     bx, cx                              
+    cmp     word [bx], 0
+    je      .sp_is_available
+    add     cx, 2                               ; next stack to search
     and     cx, 0x1F                            ; make sure stack to search is always less 2 * # of tasks
-	jmp     .sp_loop_for_available_stack
+    jmp     .sp_loop_for_available_stack
 .sp_is_available:
-	lea     bx, [task_status]                   ; we found a stack, set it to active
-	add     bx, cx
-	mov     word [bx], 1
-	lea     bx, [stack_pointers]                ; switch to the fake stack so we can do stuff with it
-	add     bx, cx
-	mov     sp, [bx]                            ; swap stacks
-	push    di                                  ; push address of function to run
-	pusha                                       ; push registers
-	pushf                                       ; push flags
-	lea     bx, [stack_pointers]                ; update top of this stack
-	add     bx, cx
-	mov     [bx], sp
+    lea     bx, [task_status]                   ; we found a stack, set it to active
+    add     bx, cx
+    mov     word [bx], 1
+    lea     bx, [stack_pointers]                ; switch to the fake stack so we can do stuff with it
+    add     bx, cx
+    mov     sp, [bx]                            ; swap stacks
+    push    di                                  ; push address of function to run
+    pusha                                       ; push registers
+    pushf                                       ; push flags
+    lea     bx, [stack_pointers]                ; update top of this stack
+    add     bx, cx
+    mov     [bx], sp
 .sp_no_available_stack:                         ; restore to original stack
-	lea     bx, [stack_pointers]
-	add     bx, [current_task]
-	mov     sp, [bx]
-	ret
+    lea     bx, [stack_pointers]
+    add     bx, [current_task]
+    mov     sp, [bx]
+    ret
 
 yield:
-	pusha                                       ; push registers
-	pushf                                       ; push flags
-	lea     bx, [stack_pointers]                ; save current stack pointer
-	add     bx, [current_task]
-	mov     [bx], sp
-	mov     cx, [current_task]                  ; look for a new task 
-	add     cx, 2                               ; start searching at the next one though
+    pusha                                       ; push registers
+    pushf                                       ; push flags
+    lea     bx, [stack_pointers]                ; save current stack pointer
+    add     bx, [current_task]
+    mov     [bx], sp
+    mov     cx, [current_task]                  ; look for a new task 
+    add     cx, 2                               ; start searching at the next one though
 .y_check_if_enabled:
-	lea     bx, [task_status]
-	add     bx, cx
-	cmp     word [bx], 1
-	je      .y_task_available
-	add     cx, 2                               ; next stack to search
+    lea     bx, [task_status]
+    add     bx, cx
+    cmp     word [bx], 1
+    je      .y_task_available
+    add     cx, 2                               ; next stack to search
     and     cx, 0x1F                            ; make sure stack to search is always less than 2 * # of tasks
-	jmp     .y_check_if_enabled
+    jmp     .y_check_if_enabled
 .y_task_available:
-	mov     bx, cx
-	mov     [current_task], bx
-	mov     bx, stack_pointers                  ; update stack pointer
-	add     bx, [current_task]
-	mov     sp, [bx]
-	popf
-	popa
-	ret
+    mov     bx, cx
+    mov     [current_task], bx
+    mov     bx, stack_pointers                  ; update stack pointer
+    add     bx, [current_task]
+    mov     sp, [bx]
+    popf
+    popa
+    ret
 
 ; Courtesy of the Great and Fabulous Dr. McGee
 dontDrawDuringRefresh:
@@ -514,8 +514,8 @@ music_task:
 
 SEGMENT _DATA PUBLIC CLASS=DATA
 
-    notes: dw	3616,4831,4554,4058,3616,0,4058,4554,4831,5424,1,0,5424,4554,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,5424,1,0,5424,1,1,4058,4058,0,3419,2712,3044,3419,3616,3616,4554,0,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,0,5424,1,5424,1,0
-    lengths: dw	414,207,207,207,103,103,207,207,414,10,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,103,207,207,207,414,207,207,414,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,0
+    notes: dw    3616,4831,4554,4058,3616,0,4058,4554,4831,5424,1,0,5424,4554,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,5424,1,0,5424,1,1,4058,4058,0,3419,2712,3044,3419,3616,3616,4554,0,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,0,5424,1,5424,1,0
+    lengths: dw    414,207,207,207,103,103,207,207,414,10,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,103,207,207,207,414,207,207,414,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,0
 
     ; determine data for first block when it is initially created
     task_1_block_x              dw   0          ; x value at start - left of screen
@@ -562,15 +562,15 @@ SEGMENT _DATA PUBLIC CLASS=DATA
     task_9_block_y              dw   167        ; y value at start - bottom/4
     task_9_block_color          dw   0x03       ; color is aqua
 
-	current_task            dw  0               ; variable to holds the current task
-	stacks times (256 * 16) db  0               ; fake stack that holds as many fake stack frames as there are tasks
-	task_status    times 16 dw  0               ; the status of each task
-	stack_pointers:         dw  0               ; pointers on the fake stack of each task
-					%assign i 1
-                	%rep    16
-                    		dw stacks + (256 * i)
-                	%assign i i+1
-                	%endrep
+    current_task            dw  0               ; variable to holds the current task
+    stacks times (256 * 16) db  0               ; fake stack that holds as many fake stack frames as there are tasks
+    task_status    times 16 dw  0               ; the status of each task
+    stack_pointers:         dw  0               ; pointers on the fake stack of each task
+                    %assign i 1
+                    %rep    16
+                            dw stacks + (256 * i)
+                    %assign i i+1
+                    %endrep
 
 ; SEGMENT _BSS PUBLIC CLASS=BSS 
 
