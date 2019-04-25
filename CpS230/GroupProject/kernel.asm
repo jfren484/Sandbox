@@ -47,7 +47,7 @@ _start:
     lea     di, [move_block_9]                  ; spawns task 9
     call    spawn_new_task
 
-    lea     di, [music_task]                    ; spawns music task
+    lea     di, [music_task2]                    ; spawns music task
     call    spawn_new_task
 
 .loop_forever:                                  ; main task that loops forever
@@ -465,6 +465,8 @@ move_block_9:   ; prints aqua block moving in rightward direction
     jmp     .while
 
 music_task:
+    jmp     .play_music
+    
 .play_note:
     mov     al, 182         ; Prepare the speaker for the
     out     43h, al         ;  note.
@@ -486,10 +488,10 @@ music_task:
     mov     ah, 0x86
     int     0x15
 
-    in      al, 61h         ; Turn off note (get value from
+    ;in      al, 61h         ; Turn off note (get value from
                             ;  port 61h).
-    and     al, 11111100b   ; Reset bits 1 and 0.
-    out     61h, al         ; Send new value.
+    ;and     al, 11111100b   ; Reset bits 1 and 0.
+    ;out     61h, al         ; Send new value.
     ret
 
 .play_music:
@@ -505,17 +507,37 @@ music_task:
     pop     di
     add     di, 2
     add     si, 2
-    cmp     word [si], 0
     call    yield
+    cmp     word [si], 0
     cmp     word [di], 0
     je      .play_music
     jmp     .actually.play_note
 
+music_task2:
+    cmp     word [music_task_2_note_index], 0
+    jz      .inc_note
+    dec     word [music_task_2_note_index]
+    jmp     .play_note2
+
+.inc_note:
+    inc     word [music_task_2_note_index]
+
+.play_note2:
+    lea     si, [notes]
+    add     si, word [music_task_2_note_index]
+    mov     si, [si]
+
+    call    yield
+    jmp     music_task2
+
 
 SEGMENT _DATA PUBLIC CLASS=DATA
 
-    notes: dw    3616,4831,4554,4058,3616,0,4058,4554,4831,5424,1,0,5424,4554,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,5424,1,0,5424,1,1,4058,4058,0,3419,2712,3044,3419,3616,3616,4554,0,3616,4058,4554,4831,1,0,4831,4554,4058,3616,4554,0,5424,1,5424,1,0
-    lengths: dw    414,207,207,207,103,103,207,207,414,10,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,103,207,207,207,414,207,207,414,207,207,414,207,207,414,10,207,207,414,414,414,414,10,828,10,0
+    music_task_2_note_index:    dw  0
+    music_task_2_notes:         dw  3616,4831
+
+    notes: dw	3616,3616,3616,3616,4831,4831,4554,4554,4058,4058,3616,4058,4554,4554,4831,4831,5424,5424,5424,5424,1,5424,5424,4554,4554,3616,3616,3616,3616,4058,4058,4554,4554,4831,4831,4831,4831,1,4831,4831,4554,4554,4058,4058,4058,4058,3616,3616,3616,3616,4554,4554,4554,4554,5424,5424,5424,5424,1,5424,5424,5424,5424,5424,5424,5424,5424,1,1,4058,4058,4058,4058,3419,3419,2712,2712,2712,2712,3044,3044,3419,3419,3616,3616,3616,3616,3616,3616,4554,4554,3616,3616,3616,3616,4058,4058,4554,4554,4831,4831,4831,4831,1,4831,4831,4554,4554,4058,4058,4058,4058,3616,3616,3616,3616,4554,4554,4554,4554,5424,5424,5424,5424,1,5424,5424,5424,5424,5424,5424,5424,5424,1,0
+    lengths: dw	80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,10,80,80,80,80,80,80,80,80,10,0
 
     ; determine data for first block when it is initially created
     task_1_block_x              dw   0          ; x value at start - left of screen
