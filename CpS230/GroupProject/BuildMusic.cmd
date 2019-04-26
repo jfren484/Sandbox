@@ -1,1 +1,1 @@
-nasm -g -fbin -omusicexample.com musicexample.asm
+nasm -g -fbin -omusic.com music.asm
