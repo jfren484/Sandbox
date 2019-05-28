@@ -1,151 +1,151 @@
-/**
- * Admin Widgets
- *
- * Appearance > Widgets and Customizer's widget controls both use these styles.
- */
-
-/* Field Container */
-
-.widget-content {
-	margin-top: 12px;
-}
-
-/* Fields */
-
-.ctfw-widget-field {
-	margin-bottom: 12px;
-}
-
-	.ctfw-widget-field.ctfw-widget-no-bottom-margin {
-		margin-bottom: 0;
-	}
-
-	.ctfw-widget-name {
-		margin-top: 3px;
-	}
-
-		.ctfw-widget-name span { /* (Optional) or (Required) */
-			color: #595959;
-			font-weight: normal;
-		}
-
-
-	.ctfw-widget-value input[type=text], /* can also use widefat class for 100% */
-	.ctfw-widget-value input[type=url],
-	.ctfw-widget-value textarea {
-		width: 100%;
-	}
-
-	.ctfw-widget-value textarea {
-		height: 56px;
-	}
-
-	.ctfw-widget-value textarea.ctfw-widget-medium {
-		height: 100px;
-	}
-
-	.ctfw-widget-value textarea.ctfw-widget-large {
-		height: 200px;
-	}
-
-	.ctfw-widget-value select {
-		max-width: 99%;
-	}
-
-	input[type=text].ctfw-widget-small,
-	input[type=url].ctfw-widget-small,
-	textarea.ctfw-widget-small {
-		width: 100px;
-	}
-
-	input[type=text].ctfw-widget-tiny,
-	input[type=url].ctfw-widget-tiny,
-	textarea.ctfw-widget-tiny {
-		width: 40px;
-	}
-
-	.ctfw-widget-radio-inline {
-		display: inline-block;
-		margin: 2px 12px 0 0;
-	}
-
-		.ctfw-widget-radio-inline:last-child {
-			margin-right: 0;
-		}
-
-	.ctfw-widget-value .description {
-		margin-top: 6px !important;
-		padding: 0 !important;
-	}
-
-/* Hidden Fields */
-
-.ctfw-widget-hidden {
-	display: none;
-}
-
-/* Image Field */
-
-.ctfw-widget-image-preview img {
-	max-width: 100%;
-	height: auto;
-	margin-top: 4px;
-}
-
-.ctfw-widget-image-choose,
-.ctfw-widget-image-remove {
-	display: inline-block;
-	margin-top: 4px !important;
-}
-
-.ctfw-widget-image-choose {
-	margin-right: 5px !important;
-}
-
-.ctfw-widget-image-unset .ctfw-widget-image-preview,
-.ctfw-widget-image-unset .ctfw-widget-image-remove {
-	display: none;
-}
-
-/* Upload Button */
-
-.ctfw-widget-upload-file {
-	margin-top: 4px !important;
-}
-
-/* Widget/Sidebar Restrictions */
-
-.ctfw-widget-incompatible {
-	display: none; /* initially */
-	margin: 12px 0;
-	color: #a8010b;
-}
-
-/**
- * Customizer Dashicons
- *
- * http://melchoyce.github.io/dashicons/
- *
- * WordPress does some of this automatically in wp-admin/css/customize-widgets
- * Here we're filling in the blanks or improving
- */
-
-#available-widgets [class*="ctfw-highlight"] .widget-title:before {
-	content: "\f128"; /* dashicon-format-image */
-}
-
-#available-widgets [class*="ctfw-sermons"] .widget-title:before {
-	content: "\f236"; /* dashicon-video-alt3 */
-}
-
-#available-widgets [class*="ctfw-people"] .widget-title:before {
-	content: "\f307"; /* dashicon-groups */
-}
-
-#available-widgets [class*="ctfw-gallery"] .widget-title:before {
-	content: "\f232"; /* dashicon-images-alt */
-}
-
-#available-widgets [class*="ctfw-giving"] .widget-title:before {
-	content: "\f174"; /* dashicon-cart */
-}
+/**
+ * Admin Widgets
+ *
+ * Appearance > Widgets and Customizer's widget controls both use these styles.
+ */
+
+/* Field Container */
+
+.widget-content {
+	margin-top: 12px;
+}
+
+/* Fields */
+
+.ctfw-widget-field {
+	margin-bottom: 12px;
+}
+
+	.ctfw-widget-field.ctfw-widget-no-bottom-margin {
+		margin-bottom: 0;
+	}
+
+	.ctfw-widget-name {
+		margin-top: 3px;
+	}
+
+		.ctfw-widget-name span { /* (Optional) or (Required) */
+			color: #595959;
+			font-weight: normal;
+		}
+
+
+	.ctfw-widget-value input[type=text], /* can also use widefat class for 100% */
+	.ctfw-widget-value input[type=url],
+	.ctfw-widget-value textarea {
+		width: 100%;
+	}
+
+	.ctfw-widget-value textarea {
+		height: 56px;
+	}
+
+	.ctfw-widget-value textarea.ctfw-widget-medium {
+		height: 100px;
+	}
+
+	.ctfw-widget-value textarea.ctfw-widget-large {
+		height: 200px;
+	}
+
+	.ctfw-widget-value select {
+		max-width: 99%;
+	}
+
+	input[type=text].ctfw-widget-small,
+	input[type=url].ctfw-widget-small,
+	textarea.ctfw-widget-small {
+		width: 100px;
+	}
+
+	input[type=text].ctfw-widget-tiny,
+	input[type=url].ctfw-widget-tiny,
+	textarea.ctfw-widget-tiny {
+		width: 40px;
+	}
+
+	.ctfw-widget-radio-inline {
+		display: inline-block;
+		margin: 2px 12px 0 0;
+	}
+
+		.ctfw-widget-radio-inline:last-child {
+			margin-right: 0;
+		}
+
+	.ctfw-widget-value .description {
+		margin-top: 6px !important;
+		padding: 0 !important;
+	}
+
+/* Hidden Fields */
+
+.ctfw-widget-hidden {
+	display: none;
+}
+
+/* Image Field */
+
+.ctfw-widget-image-preview img {
+	max-width: 100%;
+	height: auto;
+	margin-top: 4px;
+}
+
+.ctfw-widget-image-choose,
+.ctfw-widget-image-remove {
+	display: inline-block;
+	margin-top: 4px !important;
+}
+
+.ctfw-widget-image-choose {
+	margin-right: 5px !important;
+}
+
+.ctfw-widget-image-unset .ctfw-widget-image-preview,
+.ctfw-widget-image-unset .ctfw-widget-image-remove {
+	display: none;
+}
+
+/* Upload Button */
+
+.ctfw-widget-upload-file {
+	margin-top: 4px !important;
+}
+
+/* Widget/Sidebar Restrictions */
+
+.ctfw-widget-incompatible {
+	display: none; /* initially */
+	margin: 12px 0;
+	color: #a8010b;
+}
+
+/**
+ * Customizer Dashicons
+ *
+ * http://melchoyce.github.io/dashicons/
+ *
+ * WordPress does some of this automatically in wp-admin/css/customize-widgets
+ * Here we're filling in the blanks or improving
+ */
+
+#available-widgets [class*="ctfw-highlight"] .widget-title:before {
+	content: "\f128"; /* dashicon-format-image */
+}
+
+#available-widgets [class*="ctfw-sermons"] .widget-title:before {
+	content: "\f236"; /* dashicon-video-alt3 */
+}
+
+#available-widgets [class*="ctfw-people"] .widget-title:before {
+	content: "\f307"; /* dashicon-groups */
+}
+
+#available-widgets [class*="ctfw-gallery"] .widget-title:before {
+	content: "\f232"; /* dashicon-images-alt */
+}
+
+#available-widgets [class*="ctfw-giving"] .widget-title:before {
+	content: "\f174"; /* dashicon-cart */
+}

@@ -1,23 +1,23 @@
-/**
- * Theme License
- */
-
-/* Status */
-
-.ctfw-license-active {
-	color: #1ba31b;
-	font-weight: bold;
-}
-
-.ctfw-license-inactive,
-.ctfw-license-expired,
-.ctfw-license-expiring-soon {
-	color: #d52121;
-	font-weight: bold;
-}
-
-/* Buttons */
-
-.ctfw-license-button {
-	margin-right: 10px !important;
+/**
+ * Theme License
+ */
+
+/* Status */
+
+.ctfw-license-active {
+	color: #1ba31b;
+	font-weight: bold;
+}
+
+.ctfw-license-inactive,
+.ctfw-license-expired,
+.ctfw-license-expiring-soon {
+	color: #d52121;
+	font-weight: bold;
+}
+
+/* Buttons */
+
+.ctfw-license-button {
+	margin-right: 10px !important;
 }
