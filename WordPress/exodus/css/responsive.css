@@ -1,0 +1,2250 @@
+/**
+ * Responsive Styles
+ *
+ * Adjusts elements and layout for mobile devices (small screens).
+ */
+
+/**********************************************
+ * BASE STYLES
+ **********************************************/
+
+/******************* FORMS ********************/
+
+input,
+select,
+textarea {
+	max-width: 100%;
+}
+
+/**********************************************
+ * CUSTOM STYLES
+ **********************************************/
+
+/*************** GOOGLE MAPS JS ***************/
+
+/* Shrink map height for mobile */
+/* padding-bottom: 50% method in style.css stopped working w/Google change September 7, 2016 */
+
+@media only screen and (max-width: 1024px) {
+
+	.exodus-has-sidebar .ctfw-google-map {
+		height: 300px;
+	}
+
+}
+
+@media only screen and (max-width: 768px) {
+
+	.ctfw-google-map,
+	.exodus-has-sidebar .ctfw-google-map {
+		height: 300px;
+	}
+
+}
+
+@media only screen and (max-width: 640px) {
+
+	.ctfw-google-map,
+	.exodus-has-sidebar .ctfw-google-map {
+		height: 250px;
+	}
+
+}
+
+
+@media only screen and (max-width: 560px) {
+
+	.ctfw-google-map,
+	.exodus-has-sidebar .ctfw-google-map {
+		height: 200px;
+	}
+
+}
+
+/**********************************************
+ * LAYOUT
+ **********************************************/
+
+/************** RESPONSIVE MENU ***************/
+
+/*
+MeanMenu - https://github.com/meanthemes/meanMenu
+GPL License, Copyright (c) 2013 Chris Wharton
+A responsive menu appears at the top and the regular menu disappears on small devices
+*/
+
+/* Hide until small screen triggered */
+
+a.meanmenu-reveal {
+	display: none;
+}
+
+/* When under viewport size, .mean-container is added to target */
+
+.mean-container .mean-bar {
+	float: left;
+	width: 100%;
+	position: relative;
+	padding: 0;
+	min-height: 50px;
+	z-index: 999999;
+}
+
+/* Open / Close Button */
+
+.mean-container a.meanmenu-reveal {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 22px;
+	height: 22px;
+	padding: 15px 0 17px 11px;
+	cursor: pointer;
+	font-size: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	line-height: 22px;
+	text-decoration: none;
+	text-indent: -9999em;
+}
+
+	.mean-container a.meanmenu-reveal span {
+		display: block;
+		margin-top: 3px;
+		height: 3px;
+	}
+
+/* Menu Items */
+
+.mean-container .mean-nav {
+	width: 100%;
+	margin-top: 50px;
+	float: left;
+	font-size: 0.9em;
+	line-height: 1.6em;
+}
+
+	/* List */
+
+	.mean-container .mean-nav ul {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+		/* Item */
+
+		.mean-container .mean-nav ul li {
+			position: relative;
+			width: 100%;
+			float: left;
+			overflow: hidden; /* keep expand from overflowing bounds */
+		}
+
+			/* Links */
+
+			.mean-container .mean-nav ul li a {
+				display: block;
+				width: 75%; /* leave space on right for Expand */
+				padding: 0.9em 5%;
+				float: left;
+				font-weight: bold;
+				text-align: left;
+				text-decoration: none;
+			}
+
+				/* Sub Links */
+
+				.mean-container .mean-nav ul li li a {
+					width: 70%; /* leave space on right for Expand */
+					padding: 0.9em 10%;
+					font-weight: normal;
+					text-shadow: none !important;
+					visibility: visible;
+				}
+
+					.mean-container .mean-nav ul li li li a {
+						width: 65%;
+						padding: 0.9em 15%;
+					}
+
+						.mean-container .mean-nav ul li li li li a {
+							width: 60%;
+							padding: 0.9em 20%;
+						}
+
+							.mean-container .mean-nav ul li li li li li a {
+								width: 55%;
+								padding: 0.9em 25%;
+							}
+
+	/* Last Item */
+
+	.mean-container .mean-nav ul li.mean-last a {
+		margin-bottom: 0;
+		border-bottom: none;
+	}
+
+	/* Expand Button */
+
+	.mean-container .mean-nav ul li a.mean-expand {
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 2;
+		width: 22px;
+		height: 22px;
+		padding: 14px !important;
+		border: none !important;
+		font-weight: bold;
+		text-align: center;
+	}
+
+.mean-container .mean-push {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	float: left;
+	clear: both;
+}
+
+.mean-nav .wrapper {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Box sizing */
+
+.mean-container .mean-bar, .mean-container .mean-bar * {
+	-webkit-box-sizing:	content-box;
+	-moz-box-sizing:	content-box;
+	box-sizing:			content-box;
+}
+
+/* Hide */
+
+.mean-remove {
+	display: none !important;
+}
+
+/****************** LOGO BAR ******************/
+
+/* Responsive Logo */
+
+#exodus-logo-image img {
+	max-width: 100%;
+	height: auto;
+}
+
+/**********************************************
+ * HOMEPAGE
+ **********************************************/
+
+/****************** SLIDER ********************/
+
+/* Slider Video */
+
+.exodus-slide-video-wrapper { /* <li> */
+	position: relative;
+	padding-bottom: 29.3%; /* 1700x500 (500 / 1700 * 100) */
+	height: 0;
+}
+
+	.exodus-slide-video-wrapper iframe { /* YouTube, Vimeo */
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+/**********************************************
+ * 1280px - Modern Display
+ **********************************************/
+
+@media only screen and (max-width: 1280px) {
+
+	/******************* LAYOUT *******************/
+
+	/* Create margins for content */
+
+	.exodus-centered-content {
+		width: 90%;
+	}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Slider Shrink */
+
+	#exodus-slider {
+		height: 444px; /* proportional to width using same ratio as original 1700x500 (0.294) */
+	}
+
+		#exodus-slider-inner {
+			width: 1512px; /* 20% larger than screen width */
+			margin-left: -756px; /* half of width */
+		}
+
+}
+
+/**********************************************
+ * 1180px - Big Tablet, Laptop (Uncommon)
+ **********************************************/
+
+@media only screen and (max-width: 1180px) {
+
+	/*************** CUSTOM STYLES ****************/
+
+	/* Caption Image - Homepage Highlights and Sidebar (not Home Bottom) */
+
+	#ctcom-home-highlights .exodus-caption-image-title, /* Homepage Highlight */
+	.exodus-caption-image-title { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 10px 13px;
+		font-size: 1.2em;
+		line-height: 1.2em;
+	}
+
+		/* Font Adjustments */
+
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-caption-image-title {
+			padding-top: 11px;
+			padding-bottom: 9px;
+		}
+
+	#ctcom-home-highlights .exodus-caption-image-description, /* Homepage Highlight */
+	.exodus-caption-image-description { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 7px 13px;
+	}
+
+	/******************* LAYOUT *******************/
+
+	.exodus-has-sidebar #exodus-content-inner  {
+		margin-right: 330px; /* sidebar width + desired margin */
+	}
+
+	/* Sidebar */
+
+	#exodus-sidebar-right {
+		width: 260px;
+		margin-left: -260px; /* width + border */
+	}
+
+	/* Banner */
+
+	#exodus-banner-inner {
+		min-height: 300px; /* less height */
+	}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Note: Change all 30px values together for even spacing */
+
+	/* Reduce Margin */
+
+	#ctcom-home-highlights {
+		margin-left: -30px;
+	}
+
+		#ctcom-home-highlights-inner {
+			margin: -30px -30px 0 0;
+		}
+
+		#ctcom-home-highlights .exodus-highlight {
+			margin: 30px -30px 0 30px;
+		}
+
+			#ctcom-home-highlights .exodus-highlight .exodus-caption-image-inner {
+				margin-right: 30px;
+			}
+
+	/****************** SERMONS *******************/
+
+	/* Sermon Index List - Three Columns to Two (Has Sidebar) */
+
+	.exodus-has-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-three-columns { /* <ul> */
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+
+	/* Books - reduce to 1 column per testament (Has Sidebar) */
+
+	.exodus-has-sidebar .exodus-sermon-books-testament ul {
+		-moz-column-count: 1;
+		-webkit-column-count: 1;
+		column-count: 1;
+	}
+
+}
+
+/**********************************************
+ * 1179px to 799px
+ **********************************************/
+
+@media only screen and (max-width: 1179px) and (min-width: 801px) {
+
+	/************** EVENT CALENDAR ****************/
+
+	/* NOTE: These are prefixed with .exodus-has-sidebar and copied from 759px below */
+	/* This uses mobile view of calendar for a range of widths when sidebar is present */
+
+	/* Show list container */
+
+	.exodus-has-sidebar #exodus-calendar-list {
+		display: block;
+	}
+
+	/* Day of week header abbreviated */
+
+	.exodus-has-sidebar .exodus-calendar-table-header-full {
+		display: none;
+	}
+
+	.exodus-has-sidebar .exodus-calendar-table-header-short {
+		display: inline-block;
+	}
+
+	/* Hide day label (Today, Oct, etc.) */
+
+	.exodus-has-sidebar .exodus-calendar-table-day-label {
+		display: none;
+	}
+
+	/* Show linked day number if has events (unless in past) */
+
+	.exodus-has-sidebar .exodus-calendar-table-day-has-events:not(.exodus-calendar-table-day-past) span.exodus-calendar-table-day-number {
+		display: none;
+	}
+
+	.exodus-has-sidebar .exodus-calendar-table-day-has-events:not(.exodus-calendar-table-day-past) a.exodus-calendar-table-day-number {
+		display: inline-block;
+	}
+
+	/* Hide event links */
+
+	.exodus-has-sidebar .exodus-calendar-table-day-events {
+		display: none;
+	}
+
+	/* Enlarge and center day */
+
+	.exodus-has-sidebar .exodus-calendar-table-day-content-container {
+		padding: 15px 0; /* vertical centering and height */
+		min-height: 0 !important;
+	}
+
+		.exodus-has-sidebar .exodus-calendar-table-day-heading {
+			font-size: 1.2em;
+			text-align: center;
+		}
+
+}
+
+/**********************************************
+ * 1024px - Big Tablet, Small Laptop or Less
+ **********************************************/
+
+@media only screen and (max-width: 1024px) {
+
+	/*************** CUSTOM STYLES ****************/
+
+	/* Caption Image - Homepage Highlights and Sidebar (not Home Bottom) */
+
+	#ctcom-home-highlights .exodus-caption-image-title, /* Homepage Highlight */
+	.exodus-sidebar-widget .exodus-caption-image-title { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 8px 10px;
+		font-size: 1em;
+		line-height: 1.3em;
+	}
+
+		/* Font Adjustments */
+
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-sidebar-widget .exodus-caption-image-title {
+			padding-top: 9px;
+			padding-bottom: 7px;
+		}
+
+	#ctcom-home-highlights .exodus-caption-image-description, /* Homepage Highlight */
+	.exodus-sidebar-widget .exodus-caption-image-description { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 6px 10px;
+		font-size: 0.8em;
+	}
+
+	/****************** LAYOUT ********************/
+
+	/* Logo Text */
+
+	#exodus-logo-text-inner {
+		font-size: 0.9em;
+		letter-spacing: -1px;
+		line-height: 1.1em; /* maintain it */
+	}
+
+	/* Banner */
+
+	#exodus-banner-inner {
+		min-height: 250px; /* less height */
+	}
+
+	/****************** FOOTER ********************/
+
+	/* NOTE: This is copied in style.css for when .exodus-footer-no-map to center it */
+
+	/* Map + Contact Info */
+
+	#exodus-footer-top-content {
+		margin-bottom: -60px; /* match #exodus-footer-top-content > div:first/second-child */
+		padding: 0 3%;
+		border: 1px solid transparent; /* render fix */
+	}
+
+		#exodus-footer-top-content > div {
+			margin: 0;
+		}
+
+			#exodus-footer-top-content > div:first-child,
+			#exodus-footer-top-content > div:last-child {
+				max-width: 100%;
+				margin-bottom: 60px; /* match #exodus-footer-top-content */
+				text-align: center;
+			}
+
+
+		#exodus-footer-top-map img {
+			max-width: 90%;
+		}
+
+	/* Show "View Full Site" as soon as go responsive */
+
+	#exodus-footer-responsive-toggle {
+		display: block;
+	}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Slider Shrink */
+
+	#exodus-slider {
+		height: 376px; /* proportional to width using same ratio as original 1700x500 (0.294) */
+	}
+
+		#exodus-slider-inner {
+			width: 1280px; /* 25% larger than screen width */
+			margin-left: -640px; /* half of width */
+		}
+
+			/* Video play icon */
+
+			.exodus-slide-play-icon {
+				margin-top: -55px; /* half font size */
+				font-size: 110px;
+			}
+
+	/************* GALLERY (SINGLE) ***************/
+
+	/* Smaller caption for small thumbnails */
+
+	.gallery-columns-2 .gallery-caption,
+	.gallery-columns-3 .gallery-caption {
+		font-size: 0.9em;
+	}
+
+	/*********** GALLERIES (MULTIPLE) *************/
+
+	/* Galleries Template - Show caption thumbs in 2 columns */
+
+	.exodus-galleries-list .gallery-item { /* duplicate in style.css for 2 columns */
+		max-width: 44%; /* Opera Mobile, Android 4 don't like anything greater */
+		max-width: -webkit-calc(50% - 14px);
+		max-width:         calc(50% - 14px);
+	}
+
+	.exodus-galleries-list .gallery-item {
+		margin-right: 7px !important; /* reset to original */
+	}
+
+	.exodus-galleries-list .gallery-item:nth-of-type(2n) {
+		margin-right: 0;
+	}
+
+	/*************** EVENT CALENDAR ***************/
+
+	/* Reduce day cell height */
+
+	.exodus-no-sidebar .exodus-calendar-table-day-content-container {
+		min-height: 100px;
+	}
+
+}
+
+/**********************************************
+ * 1023px - Right under 1024 -- probably mobile
+ **********************************************/
+
+@media only screen and (max-width: 1023px) {
+
+	/*************** CUSTOM STYLES ****************/
+
+	/* Author Box */
+
+	.exodus-author-box-archive {
+		display: none; /* hide "More" link */
+	}
+
+	.exodus-author-avatar img {
+		width: 75px;
+		height: 75px;
+	}
+
+	.exodus-author-content {
+		margin-left: 105px;
+		font-size: 0.95em;
+	}
+
+	/******************* SIDEBAR ******************/
+
+	/* Reduce sidebar width */
+
+	.exodus-has-sidebar #exodus-content-inner  {
+		margin-right: 270px; /* sidebar width + desired margin */
+	}
+
+	#exodus-sidebar-right {
+		width: 220px;
+		margin-left: -220px; /* width + border */
+	}
+
+		/* Reduce font size */
+
+		.exodus-sidebar-widget:not(.widget_ctfw-highlight) { /* don't affect highlight widget title */
+			font-size: 0.95em; /* smaller than main content */
+		}
+
+	/******************* FOOTER *******************/
+
+	/* Full site toggle since responsive changes becming more drastic */
+
+	#exodus-footer-responsive-toggle {
+		margin-bottom: 35px;
+	}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Widget entry thumbnail regular size (like sidebar) */
+
+	.exodus-home-widget .exodus-widget-entry.exodus-widget-entry-has-image {
+		min-height: 66px; /* match .exodus-widget-entry-thumb + padding top/bottom */
+		padding-top: 3px; /* make up for lack of line height effect on image, so spacing between entries is even */
+		padding-bottom: 3px; /* on both ends */
+	}
+
+		/* Header */
+
+		.exodus-home-widget .exodus-widget-entry.exodus-widget-entry-has-image header {
+			min-height: 60px; /* Make at least height of image or iamge will cover excerpt */
+		}
+
+		/* Thumbnail Container */
+
+		.exodus-home-widget .exodus-widget-entry-thumb {
+			width: 60px; /* match .exodus-widget-entry.exodus-widget-entry-has-image min-height */
+			height: 60px;
+			margin-top: 3px;
+		}
+
+		/* Title and meta right of thumbnail */
+
+		.exodus-home-widget .exodus-widget-entry-has-image .exodus-widget-entry-title,
+		.exodus-home-widget .exodus-widget-entry-has-image .exodus-widget-entry-meta {
+			margin-left: 80px;
+		}
+
+	/* Widget sizing like sidebar */
+
+	.exodus-home-widget {
+		margin-top: 60px;
+	}
+
+	.exodus-home-widget:not(.widget_ctfw-highlight) { /* don't affect highlight widget title */
+		font-size: 0.95em; /* smaller than main content */
+		line-height: 1.7em;
+	}
+
+		/* Widget Title */
+
+		.exodus-home-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+			font-size: 1.5em; /* equal to H2, considering downsizing above */
+			line-height: 1.5em;
+			margin-bottom: 35px;
+		}
+
+		/* Paragraphs and margin below title */
+
+		.exodus-home-widget p {
+			margin: 15px 0;
+		}
+
+		/* Meta inline like sidebar */
+
+		.exodus-home-widget .exodus-widget-entry-meta > li {
+			display: inline-block;
+			margin: 15px 20px 0 0;
+		}
+
+	/******************* SERMONS ******************/
+
+	/* Books - reduce to 1 column per testament */
+
+	.exodus-sermon-books-testament ul {
+		-moz-column-count: 1;
+		-webkit-column-count: 1;
+		column-count: 1;
+	}
+
+}
+
+/**********************************************
+ * 1023px to 800px
+ **********************************************/
+
+@media only screen and (max-width: 1023px) and (min-width: 800px) {
+
+	/******************* SIDEBAR ******************/
+
+	/* Reduce margin and padding */
+
+	.exodus-sidebar-widget:not(.widget_ctfw-highlight) { /* <aside> */
+		margin-top: 40px;
+		padding: 25px;
+	}
+
+	/* Hide widget entry thumbnail on narrowest sidebar (1023px) */
+	/* Reshow it when sidebar goes to bottom (800px) */
+
+	.exodus-sidebar-widget .exodus-widget-entry.exodus-widget-entry-has-image {
+		min-height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+		.exodus-sidebar-widget .exodus-widget-entry-thumb {
+			display: none;
+		}
+
+		.exodus-sidebar-widget .exodus-widget-entry-has-image .exodus-widget-entry-title,
+		.exodus-sidebar-widget .exodus-widget-entry-has-image .exodus-widget-entry-meta {
+			margin-left: 0
+		}
+
+	/************* WP TAG CLOUD WIDGET ************/
+
+	.widget_tag_cloud {
+		line-height: 2.4em !important;
+	}
+
+		.widget_tag_cloud a {
+			font-size: 0.9em !important; /* single size */
+			padding: 0 8px;
+		}
+
+}
+
+/**********************************************
+ * 800px - Tablet, Small Netbook or Less
+ **********************************************/
+
+@media only screen and (max-width: 800px) {
+
+	/**************** BASE STYLES *****************/
+
+	/* Blockquote */
+
+	blockquote {
+		padding-left: 55px !important;
+		font-size: 1.1em; /* a little bigger */
+	}
+
+		/* Quote mark */
+
+		blockquote:before {
+			top: 18px;
+		}
+
+		blockquote.is-style-large:before {
+			top: 25px;
+		}
+
+		/* <cite> in blockquote */
+
+		blockquote cite {
+			margin-top: 20px;
+			font-size: 0.9em;
+		}
+
+	/*************** CUSTOM STYLES ****************/
+
+	/* Shrink buttons */
+
+	a.exodus-button,
+	.exodus-list-buttons a,
+	a.comment-reply-link,
+	a.comment-edit-link,
+	a.post-edit-link,
+	.exodus-nav-left-right a,
+	.page-numbers a,
+	.page-numbers.current,
+	.widget_tag_cloud a,
+	input[type=submit],
+	.more-link {
+		font-size: 0.95em;
+	}
+
+	/* Gutenberg */
+
+	.has-huge-font-size {
+		font-size: 1.6em !important;
+		line-height: 1.4;
+	}
+
+	.has-large-font-size {
+		font-size: 1.4em !important;
+		line-height: 1.4;
+	}
+
+	.has-regular-font-size {
+		font-size: 1em !important;
+		line-height: 1.6;
+	}
+
+	.has-small-font-size {
+		font-size: 0.85em !important;
+		line-height: 1.6;
+	}
+
+	.wp-block-cover {
+		font-size: 0.8em;
+	}
+
+	/****************** LAYOUT ********************/
+
+	#exodus-middle-content {
+		padding-bottom: 60px;
+	}
+
+	/* Less margin, more space for content/menu */
+
+	.exodus-centered-content {
+		width: 93%;
+	}
+
+	/* Content */
+
+	#exodus-content {
+		float: none;
+		width: 100%;
+	}
+
+	/***************** TOP BAR ********************/
+
+	/* Top Bar: Float Menu Right */
+
+	#exodus-top-bar-menu {
+		float: right;
+		margin-right: 0;
+	}
+
+	/* Top Bar: Hide Right Content */
+
+	.exodus-top-bar-right-content {
+		display: none;
+	}
+
+	/****************** LOGO BAR *******************/
+
+	/* Logo Text */
+
+	#exodus-logo-text-inner {
+		font-size: 0.75em;
+		letter-spacing: 0;
+	}
+
+	/* Tagline Below / Right */
+
+	#exodus-logo-tagline,
+	#exodus-logo-bar-right-tagline {
+		font-size: 1em;
+	}
+
+	/* Tagline Below Logo */
+
+	#exodus-logo-tagline {
+		margin-top: 6px;
+	}
+
+	/***************** MENU BAR *******************/
+
+	/* Menu Items (squeeze more in) */
+
+	#exodus-header-menu-content { /* <ul> */
+		margin: 0 -10px; /* negative match of margin on #exodus-header-menu-content > li */
+	}
+
+		/* Top Level */
+
+		#exodus-header-menu-content > li {
+			margin-left: 10px; /* match below and #exodus-header-menu-content */
+			margin-right: 10px;
+		}
+
+			/* Smaller Font */
+
+			#exodus-header-menu-content > li > a {
+				font-size: 1.1em;
+				position: relative;
+				top: 1px; /* move down a little */
+			}
+
+	/****************** BANNER ********************/
+
+	#exodus-banner-inner {
+		min-height: 200px; /* less height */
+		font-size: 0.9em;
+	}
+
+	/******************* SIDEBAR ******************/
+
+	/* Move sidebar to bottom */
+
+	.exodus-has-sidebar #exodus-content-inner {
+		margin-right: 0;
+		border: 1px solid transparent; /* render hack */
+	}
+
+	#exodus-sidebar-right {
+		float: none;
+		width: 100%;
+		padding: 0;
+		margin: 80px 0 0 0;
+		font-size: 1em;
+		border-top: 1px solid transparent; /* hack to make margin snap into place */
+	}
+
+	/* Highlight widget - restore original caption size */
+
+	.exodus-sidebar-widget .exodus-caption-image-title {
+		padding: 10px 15px;
+		font-size: 1.5em;
+	}
+
+		/* Font Adjustments */
+
+		.exodus-heading-font-nothing-you-could-do .exodus-sidebar-widget .exodus-caption-image-title {
+			padding-top: 11px;
+			padding-bottom: 9px;
+		}
+
+	.exodus-sidebar-widget .exodus-caption-image-description {
+		display: inline-block; /* show again */
+		padding: 9px 15px;
+		font-size: 0.9em;
+		line-height: 1.4em;
+	}
+
+	/****************** CONTENT *******************/
+
+	/* Shrink all content text size (posts and comments) */
+
+	.exodus-entry-meta,
+	.exodus-entry-content,
+	.exodus-entry-footer {
+		font-size: 0.95em;
+	}
+
+	/****************** FOOTER ********************/
+
+	/* Footer Bottom - one element per line, centered, less margin */
+
+	#exodus-footer-bottom {
+		padding: 25px 0 50px 0;
+	}
+
+		#exodus-footer-bottom-left,
+		#exodus-footer-bottom-right {
+			width: 100%;
+			float: none;
+			text-align: center;
+		}
+
+			#exodus-footer-menu-links { /* <ul> */
+				left: 0; /* offset item margin */
+			}
+
+		/* Shrink font size */
+
+		#exodus-footer {
+			font-size: 0.95em;
+		}
+
+	/***************** HOMEPAGE *******************/
+
+	/* Slider Shrink */
+
+	#exodus-slider {
+		height: 294px; /* proportional to width using same ratio as original 1700x500 (0.294) */
+	}
+
+		#exodus-slider-inner {
+			width: 1000px; /* 25% larger than screen width */
+			margin-left: -500px; /* half of width */
+		}
+
+			/* Reduce font size */
+
+			.exodus-slide-caption-content {
+				font-size: 0.9em;
+			}
+
+			/* Video play icon */
+
+			.exodus-slide-play-icon {
+				margin-top: -45px; /* half font size */
+				font-size: 90px;
+			}
+
+	/* Homepage Intro */
+
+	#exodus-intro {
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+
+		#exodus-intro-heading {
+			font-size: 2em;
+		}
+
+		#exodus-intro-content {
+			font-size: 1.5em;
+		}
+
+			#exodus-intro-content p {
+				margin: 25px 0 0 0;
+			}
+
+		/* No content top margin unless have heading */
+
+		.exodus-intro-has-heading #exodus-intro-content {
+			margin-top: 30px;
+		}
+
+	/* Homepage Highlights - Reduce Margin */
+
+	#ctcom-home-highlights {
+		margin: 70px 0 70px -20px;
+	}
+
+		#ctcom-home-highlights-inner {
+			margin: -20px -20px 0 0;
+		}
+
+		#ctcom-home-highlights .exodus-highlight {
+			margin: 20px -20px 0 20px;
+		}
+
+			#ctcom-home-highlights .exodus-highlight .exodus-caption-image-inner {
+				margin-right: 20px;
+			}
+
+				/* Remove description (if it has title and description) */
+
+				#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title {
+					padding: 6px 10px;
+					font-size: 0.95em;
+					line-height: 1.4em;
+				}
+
+					/* Font Adjustments */
+
+					.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title {
+						padding-top: 7px;
+						padding-bottom: 5px;
+					}
+
+				#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-description {
+					display: none;
+				}
+
+	/* Homepage Bottom Highlight Widgets - shrink caption */
+
+	#exodus-home-bottom-widgets {
+		margin: 70px 0;
+	}
+
+		.exodus-home-widget .exodus-caption-image-title {
+			padding: 10px 13px;
+			font-size: 1.2em;
+			line-height: 1.2em;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do .exodus-home-widget .exodus-caption-image-title {
+				padding-top: 11px;
+				padding-bottom: 9px;
+			}
+
+		.exodus-home-widget .exodus-caption-image-description {
+			padding: 7px 13px;
+		}
+
+}
+
+/**********************************************
+ * 759px - Small Tablet (just under 760px)
+ **********************************************/
+
+@media only screen and (max-width: 759px) {
+
+	/****************** SERMONS *******************/
+
+	/* Sermon Index List - Three Columns to Two (No Sidebar) */
+
+	.exodus-no-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-three-columns { /* <ul> */
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+
+	/************** EVENT CALENDAR ****************/
+
+	/* NOTE: These are copied and prefixed for no sidebar in 1179px to 799px above */
+	/* This is original so make changes here and move up, then re-prefix */
+
+	/* Show list container */
+
+	#exodus-calendar-list {
+		display: block;
+	}
+
+	/* Day of week header abbreviated */
+
+	.exodus-calendar-table-header-full {
+		display: none;
+	}
+
+	.exodus-calendar-table-header-short {
+		display: inline-block;
+	}
+
+	/* Hide day label (Today, Oct, etc.) */
+
+	.exodus-calendar-table-day-label {
+		display: none;
+	}
+
+	/* Show linked day number if has events (unless in past) */
+
+	.exodus-calendar-table-day-has-events:not(.exodus-calendar-table-day-past) span.exodus-calendar-table-day-number {
+		display: none;
+	}
+
+	.exodus-calendar-table-day-has-events:not(.exodus-calendar-table-day-past) a.exodus-calendar-table-day-number {
+		display: inline-block;
+	}
+
+	/* Hide event links */
+
+	.exodus-calendar-table-day-events {
+		display: none;
+	}
+
+	/* Enlarge and center day */
+
+	.exodus-calendar-table-day-content-container {
+		padding: 15px 0; /* vertical centering and height */
+		min-height: 0 !important;
+	}
+
+		.exodus-calendar-table-day-heading {
+			font-size: 1.2em;
+			text-align: center;
+		}
+
+}
+
+/**********************************************
+ * 640px - Big Phone, Small Tablet or Less
+ **********************************************/
+
+@media only screen and (max-width: 640px) {
+
+	/************** CUSTOM ELEMENTS ***************/
+
+	/* Reduce blockquote */
+
+	blockquote {
+		font-size: 1.2em !important; /* a little bigger */
+		padding-right: ct-em(30) !important;
+	}
+
+	.wp-block-pullquote blockquote,
+	.wp-block-pullquote blockquote p {
+		font-size: 1.1em !important;
+	}
+
+	blockquote.is-style-large,
+	blockquote.is-style-large p {
+		font-size: 1.4em !important;
+	}
+
+	/* Gutenberg */
+
+	.wp-block-separator {
+		margin: 50px auto !important;
+	}
+
+	.wp-block-column {
+	  margin-right: 0 !important;
+	  margin-bottom: 2.5em !important;
+	}
+
+	.wp-block-column:last-child {
+	  margin-bottom: 0 !important;
+	}
+
+	/*************** REDUCE MARGINS ***************/
+
+	/* Basically reduce any vertical greater than 30px to 75% */
+
+	/* Middle Content */
+
+	#exodus-middle-content {
+		margin-top: 50px; /* 70px */
+		padding-bottom: 80px;
+	}
+
+	/* Sidebar */
+
+	#exodus-sidebar-right {
+		margin: 60px 0 0 0; /* 80px */
+	}
+
+	/* Content Blocks */
+
+	.exodus-content-block {
+		margin-top: 60px; /* 80px */
+	}
+
+	/* Headings */
+
+	.exodus-entry-content h1:not(.exodus-entry-title),
+	.exodus-entry-content h2:not(.exodus-entry-title),
+	.exodus-entry-content h3:not(.exodus-entry-title) {
+		margin-top: 30px; /* 40px */
+	}
+
+	/* Paragraph */
+
+	p,
+	h4,
+	h5,
+	h6,
+	ul,
+	ol,
+	dl,
+	table,
+	form,
+	[class^=wp-block]:not(.wp-block-cover-text) {
+		margin-top: 20px; /* 30px */
+		margin-bottom: 20px; /* 30px */
+	}
+
+	/* Comments */
+
+	.exodus-comment {
+		margin: 40px 0 0 0; /* 50px */
+	}
+
+	#respond { /* hard coded by WP */
+		position: relative;
+		margin: 40px 0 45px 0; /* 50px / 60px */
+	}
+
+	/* Widgets (Home + Sidebar) */
+
+	.exodus-sidebar-widget,
+	.exodus-home-widget,
+	.exodus-home-bottom-widgets-both .exodus-home-bottom-widgets-column:not(:first-child) { /* make second column have same margin top as widgets */
+		margin-top: 45px; /* 60px / 70px */
+	}
+
+	.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title,
+	.exodus-home-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+		margin-bottom: 25px; /* 35px / 40px */
+	}
+
+	.exodus-home-widget .exodus-widget-entry { /* <article> */
+		margin: 30px 0; /* 35px */
+	}
+
+	/* Homepage Bottom Widgets */
+
+	#exodus-home-bottom-widgets {
+		margin: 60px 0;
+	}
+
+	/* Full Entries */
+
+	.exodus-entry-full > *,
+	.exodus-entry-footer-item {
+		margin-top: 45px; /* 60px */
+	}
+
+	/* Galleries */
+
+	.gallery { /* see .exodus-clearfix */
+		margin-top: 35px;
+		margin-bottom: 21px; /* above value minus 14 */
+	}
+
+	/****************** LAYOUT ********************/
+
+	/*
+	Remove display: table / table-cell / table-row
+	in Firefox and Opera these interfere with image scaling (logo centered on mobile)
+	Sticky footer and vertical centering are lost, but not needed at this size
+	*/
+
+	#exodus-container,
+	#exodus-header,
+	#exodus-middle, /* this fixed homepage highlight scaling in Firefox and Opera, but recall this may have caused issue elsewhere? */
+	#exodus-footer,
+	#exodus-logo-bar-content,
+	#exodus-logo {
+		display: block;
+		width: 100%;
+	}
+
+	/* Return header/footer height to auto */
+
+	#exodus-header,
+	#exodus-footer {
+		height: auto;
+	}
+
+	/***************** TOP BAR ********************/
+
+	/* Top Bar Hidden */
+
+	#exodus-top-bar {
+		/* display: none interferes with slider */
+		visibility: hidden;
+		height: 0;
+	}
+
+	/***************** LOGO BAR *******************/
+
+	/* Logo Text */
+
+	#exodus-logo-text-inner {
+		font-size: 0.65em;
+	}
+
+		/* Remove vertical adjustment */
+
+		#exodus-logo-text {
+			top: 0;
+		}
+
+	/* Center Logo / Below Tagline */
+
+	#exodus-logo-bar-content,
+	.exodus-has-logo-image #exodus-logo-bar-content {
+		padding: 35px 0; /* less vertical margin */
+	}
+
+		#exodus-logo,
+		#exodus-logo-tagline {
+			text-align: center;
+		}
+
+		#exodus-logo-content {
+			width: 100%;
+		}
+
+		.exodus-no-logo-image #exodus-logo-image, /* default */
+		#exodus-logo-image,
+		#exodus-logo-tagline {
+			left: 0 !important; /* override any offsets set in <head> via options */
+			margin-left: auto; /* center */
+			margin-right: auto; /* center */
+		}
+
+	#exodus-logo-image {
+		max-width: 100% !important;
+	}
+
+		#exodus-logo-image img {
+			max-width: 90% !important;
+		}
+
+	/* Show tagline from right under logo if exists */
+
+	.exodus-has-tagline-right.exodus-no-tagline-under-logo #exodus-logo-tagline {
+		display: block;
+	}
+
+	/* Hide Header Right Content */
+
+	#exodus-logo-bar-right {
+		display: none;
+	}
+
+	/***************** MENU BAR *******************/
+
+	/* Header Menu */
+
+	.js #exodus-header-menu { /* when MeanMenu used */
+		min-height: 50px; /* reduce menu bar height to match MeanMenu */
+	}
+
+		/* Center if JavaScript is off - otherwise MeanMenu is used) */
+
+		.no-js #exodus-header-menu-content {
+			float: none;
+			text-align: center;
+		}
+
+			.no-js #exodus-header-menu-content li li {
+				text-align: left;
+			}
+
+	/* Hide regular menu before MeanMenu loads -- avoid flicker */
+
+	.js #exodus-header-menu-inner,
+	.js .sf-menu {
+		visibility: hidden; /* instead display: none or dropdowns go narrow on size up */
+		height: 1px;
+		overflow: hidden;
+	}
+
+	/****************** BANNER ********************/
+
+	/* Banner */
+
+	#exodus-banner-inner {
+		min-height: 150px; /* less height */
+		font-size: 0.6em;
+	}
+
+	/***************** BREADCRUMBS *****************/
+
+	/* Breadcrumbs */
+
+	.ctfw-breadcrumbs {
+		display: none;
+	}
+
+	/****************** FOOTER ********************/
+
+	/* Footer Top */
+
+	#exodus-footer-top-inner {
+		padding: 50px 0;
+	}
+
+		#exodus-footer-top-content {
+			margin-bottom: -40px; /* match #exodus-footer-top-content > div:first/second-child */
+		}
+
+			#exodus-footer-top-content > div:first-child,
+			#exodus-footer-top-content > div:last-child {
+				margin-bottom: 40px; /* match #exodus-footer-top-content */
+			}
+
+		/* Social icons when there is no location */
+
+		#exodus-footer-social-icons-no-location {
+			font-size: 1.2em;
+		}
+
+			#exodus-footer-social-icons-no-location li {
+				margin: 5px;
+			}
+
+	/***************** HOMEPAGE *******************/
+
+	/* Slider Shrink */
+
+	#exodus-slider {
+		height: 235px; /* proportional to width using same ratio as original 1700x500 (0.294) */
+	}
+
+		#exodus-slider-inner {
+			width: 800px; /* 25% larger than screen width */
+			margin-left: -400px; /* half of width */
+		}
+
+			/* Reduce font size */
+
+			.exodus-slide-caption-content {
+				font-size: 0.6em;
+			}
+
+				/* Hide description */
+
+				.exodus-slide-description {
+					display: none !important;
+				}
+
+			/* Video play icon */
+
+			.exodus-slide-play-icon {
+				margin-top: -35px; /* half font size */
+				font-size: 70px;
+			}
+
+	/* Homepage Intro */
+
+	#exodus-intro {
+		margin-top: 60px;
+		margin-bottom: 50px;
+	}
+
+		#exodus-intro-heading {
+			font-size: 1.8em;
+		}
+
+		#exodus-intro-content {
+			font-size: 1.4em;
+		}
+
+			#exodus-intro-content p {
+				margin: 20px 0 0 0;
+			}
+
+		/* No content top margin unless have heading */
+
+		.exodus-intro-has-heading #exodus-intro-content {
+			margin-top: 25px;
+		}
+
+	/* Homepage Highlights */
+
+	#ctcom-home-highlights {
+		margin: 60px 0;
+	}
+
+		#ctcom-home-highlights-inner {
+			margin: 0;
+		}
+
+		#ctcom-home-highlights .exodus-highlight {
+			display: block;
+			width: 100%;
+			margin: 40px 0 0 0;
+		}
+
+			#ctcom-home-highlights .exodus-highlight:first-child {
+				margin-top: 0;
+			}
+
+			#ctcom-home-highlights .exodus-highlight .exodus-caption-image-inner {
+				margin-right: 0;
+			}
+
+			/* Restore original caption size */
+
+			#ctcom-home-highlights .exodus-caption-image-title,
+			#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title {
+				padding: 10px 15px;
+				font-size: 1.5em;
+			}
+
+				/* Font Adjustments */
+
+				.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-caption-image-title,
+				.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title {
+					padding-top: 11px;
+					padding-bottom: 9px;
+				}
+
+			#ctcom-home-highlights .exodus-caption-image-description,
+			#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-description {
+				display: inline-block; /* show again */
+				padding: 9px 15px;
+				font-size: 0.9em;
+				line-height: 1.4em;
+			}
+
+	/* Homepage Widgets - Single Column */
+
+	.exodus-home-bottom-widgets-both #exodus-home-bottom-widgets-left,
+	.exodus-home-bottom-widgets-both #exodus-home-bottom-widgets-right {
+		float: none;
+		width: 100%;
+	}
+
+		/* Homepage Bottom Highlight Widgets - Restore original caption size */
+
+		.exodus-home-widget .exodus-caption-image-title {
+			padding: 10px 15px;
+			font-size: 1.5em;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do .exodus-home-widget .exodus-caption-image-title {
+				padding-top: 11px;
+				padding-bottom: 9px;
+			}
+
+		.exodus-home-widget .exodus-caption-image-description {
+			display: inline-block; /* show again */
+			padding: 9px 15px;
+			font-size: 0.9em;
+			line-height: 1.4em;
+		}
+
+	/************* GALLERY (SINGLE) ***************/
+
+	/* Hide all gallery captions */
+
+	.gallery-caption {
+		display: none;
+	}
+
+	/* Make 6+ columns show as 5 columns */
+
+	.gallery-columns-6 .gallery-item,
+	.gallery-columns-7 .gallery-item,
+	.gallery-columns-8 .gallery-item,
+	.gallery-columns-9 .gallery-item { /* duplicate in style.css for 5 columns */
+		max-width: 17%;
+		max-width: -webkit-calc(20% - 14px);
+		max-width:         calc(20% - 14px);
+	}
+
+	.gallery-item {
+		margin-right: 7px !important; /* reset to original */
+	}
+
+	.gallery-columns-6 .gallery-item:nth-of-type(5n),
+	.gallery-columns-7 .gallery-item:nth-of-type(5n),
+	.gallery-columns-8 .gallery-item:nth-of-type(5n),
+	.gallery-columns-9 .gallery-item:nth-of-type(5n) {
+		margin-right: 0;
+	}
+
+	/*********** GALLERIES (MULTIPLE) *************/
+
+	/* Galleries Template - Show caption thumbs in 1 column */
+
+	.exodus-galleries-list {
+		margin: 40px -14px 26px 0;
+	}
+
+	.exodus-galleries-list .gallery-item { /* duplicate in style.css */
+		max-width: 96%; /* old Android -- in widget in particular */
+		max-width: -webkit-calc(100% - 14px);
+		max-width:         calc(100% - 14px);
+	}
+
+	.exodus-galleries-list .gallery-item {
+		margin: 14px 0;
+	}
+
+		.exodus-galleries-list .gallery-item:first-child {
+			margin-top: 0;
+		}
+
+	/****************** COMMENTS ******************/
+
+	.exodus-comment-meta time .exodus-comment-time { /* hide the "at 8:00 AM" part of date */
+		display: none;
+	}
+
+	#respond input[type=text],
+	#respond input[type=email],
+	#respond input[type=url] { /* move inputs below labels */
+		position: relative;
+		left: 0;
+		width: 95%;
+	}
+
+	.comment-form-author label.error, /* comment error messages */
+	.comment-form-email label.error,
+	.comment-form-url label.error {
+		display: block;
+		width: 95%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		text-align: right;
+	}
+
+	/************** EVENT CALENDAR ****************/
+
+	/* Center title and controls */
+
+	#event-calendar-header-left,
+	#event-calendar-header-right {
+		float: none;
+		text-align: center;
+	}
+
+	#event-calendar-header-left {
+		margin: 0 12px 10px 12px;
+	}
+
+		#event-calendar-title span {
+			margin: 0 12px;
+		}
+
+	/* Reduce day height */
+
+	.exodus-calendar-table-day-content-container {
+		padding: 8px 0; /* vertical centering and height */
+	}
+
+	/* Center list heading */
+
+	#exodus-calendar-list-heading {
+		text-align: center;
+	}
+
+}
+
+/**********************************************
+ * 480px - Phone, Very Small Tablet or Less
+ **********************************************/
+
+@media only screen and (max-width: 480px) {
+
+	/**************** BASE STYLES *****************/
+
+	/* Headings */
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		line-height: 1.4em;
+	}
+
+	h1 {
+		font-size: 1.6em;
+	}
+
+	h2,
+	.exodus-entry-short h1,
+	#reply-title,
+	.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title,
+	.exodus-home-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* comment form title */
+		font-size: 1.4em;
+		line-height: 1.6em;
+	}
+
+	h3 {
+		font-size: 1.2em;
+		line-height: 1.5em;
+	}
+
+	h4 {
+		font-size: 1.1em;
+		line-height: 1.8em;
+	}
+
+	h5 {
+		font-size: 1em;
+		line-height: 1.9em;
+	}
+
+	h6 {
+		font-size: 0.9em;
+		line-height: 2em;
+	}
+
+	/* Lists */
+
+	ul,
+	ol { /* more comfortable margins */
+		margin-left: 20px;
+	}
+
+	dl { /* definition list */
+		margin-left: 0;
+	}
+
+	/* Blockquote */
+
+	blockquote,
+	.quote-caption {
+		margin-left: 0;
+	}
+
+	/*************** CUSTOM STYLES ****************/
+
+	/* Gutenberg */
+
+	.wp-block-latest-posts {
+		padding-left: 20px !important;
+	}
+
+	/* Caption image / Highlight widget - shrink caption (all widget areas same at this resolution) */
+
+	#ctcom-home-highlights .exodus-caption-image-title, /* Homepage Highlight */
+	#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title,
+	.exodus-home-widget .exodus-caption-image-title, /* Homepage Bottom Widget */
+	.exodus-sidebar-widget .exodus-caption-image-title { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 10px 13px;
+		font-size: 1.2em;
+		line-height: 1.2em;
+	}
+
+		/* Font Adjustments */
+
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-home-widget .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-sidebar-widget .exodus-caption-image-title {
+			padding-top: 11px;
+			padding-bottom: 9px;
+		}
+
+	#ctcom-home-highlights .exodus-caption-image-description, /* Homepage Highlight */
+	#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-description,
+	.exodus-home-widget .exodus-caption-image-description, /* Homepage Bottom Widget */
+	.exodus-sidebar-widget .exodus-caption-image-description { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 7px 13px;
+	}
+
+	/* Prev/Next Navigation (single posts and comments) */
+
+	.exodus-nav-left-right a {
+		min-width: 50%;
+	}
+
+	.exodus-nav-left,
+	.exodus-nav-right {
+		text-align: center;
+		width: 100%;
+	}
+
+	.exodus-nav-right {
+		margin-top: 14px;
+	}
+
+	/* Author Box */
+
+	.exodus-author-avatar img {
+		width: 50px;
+		height: 50px;
+	}
+
+	.exodus-author-content {
+		margin-left: 70px;
+	}
+
+	/************* WORDPRESS STYLES ***************/
+
+	/* Move floated images to their own line and center */
+
+	.alignleft,
+	.alignright,
+	.wp-block-image.alignleft,
+	.wp-block-image.alignright {
+		display: block;
+		margin: 30px auto;
+		float: none;
+	}
+
+	/****************** BANNER ********************/
+
+	#exodus-banner-inner {
+		min-height: 100px; /* less height */
+		font-size: 0.5em;
+	}
+
+		#exodus-banner h1 {
+			padding: 10px 12px;
+			letter-spacing: 0;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do #exodus-banner h1 {
+				padding-top: 12px;
+				padding-bottom: 8px;
+			}
+
+	/***************** SIDEBAR ********************/
+
+	/* Widget Title */
+
+	.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+		font-size: 1.2em; /* same as caption image at this size */
+		line-height: 1.25em;
+	}
+
+	/****************** FOOTER *******************/
+
+	#exodus-footer-top-content {
+		margin-bottom: -40px;
+	}
+
+		/* Hide Map (scales too small) */
+
+		#exodus-footer-top-map {
+			display: none !important;
+		}
+
+		/* Spacing between rows */
+
+		#exodus-footer-top-info > *:not(:first-child):not(#exodus-footer-top-phone-icons),
+		#exodus-footer-top-phone-icons > div { /* spacing between rows */
+			margin-top: 18px;
+		}
+
+			/* Reduce address size */
+
+			#exodus-footer-top-address {
+				font-size: 1.3em; /* like H3 */
+			}
+
+		.exodus-footer-has-phone #exodus-footer-top-email {
+			margin-top: 10px !important;
+		}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Slider Shrink */
+
+	#exodus-slider {
+		height: 176px; /* proportional to width using same ratio as original 1700x500 (0.294) */
+	}
+
+		#exodus-slider-inner {
+			width: 600px; /* 25% larger than screen width */
+			margin-left: -300px; /* half of width */
+		}
+
+			/* Reduce font size */
+
+			.exodus-slide-caption-content {
+				font-size: 0.5em;
+			}
+
+				.exodus-slide-title {
+					padding: 9px 15px;
+					line-height: 1.4em;
+					letter-spacing: 0;
+				}
+
+					/* Font Adjustments */
+
+					.exodus-heading-font-nothing-you-could-do .exodus-slide-title {
+						padding-top: 10px;
+						padding-bottom: 8px;
+					}
+
+	/* Homepage Intro */
+
+	#exodus-intro {
+		margin-top: 50px; /* eat into exodus-middle-content */
+		margin-bottom: 50px;
+	}
+
+		#exodus-intro-heading {
+			font-size: 1.4em;
+			padding: 1px 0 1px 9px;
+		}
+
+		#exodus-intro-content {
+			font-size: 1.2em;
+			line-height: 1.5em;
+		}
+
+	/* Homepage Highlights */
+
+	#ctcom-home-highlights {
+		margin: 50px 0;
+	}
+
+		#ctcom-home-highlights-inner {
+			margin: 0;
+		}
+
+		#ctcom-home-highlights .exodus-highlight {
+			display: block;
+			width: 100%;
+			margin: 30px 0 0 0;
+		}
+
+			#ctcom-home-highlights .exodus-highlight:first-child {
+				margin-top: 0;
+			}
+
+			#ctcom-home-highlights .exodus-highlight .exodus-caption-image-inner {
+				margin-right: 0;
+			}
+
+	/******************* SERMONS ******************/
+
+	/* Books - one testament per row */
+
+	.exodus-sermon-books-testament { /* <section> */
+		width: 100%;
+	}
+
+		.exodus-sermon-books-testament:nth-child(odd) {
+			margin-right: 0;
+		}
+
+	/*************** ENTRY STYLES *****************/
+
+	/* Reduce extra space at top of images */
+
+	.ctfw-has-image .exodus-entry-header {
+		padding-top: 4px;
+	}
+
+	/* Image Container */
+
+	.exodus-entry-image,
+	.exodus-no-sidebar .exodus-entry-image {
+		display: block;
+		float: none;
+		max-width: 100%;
+		margin: 0 0 40px 0;
+		padding: 0;
+		text-align: center;
+	}
+
+		.exodus-entry-image img {
+			max-height: none;
+		}
+
+	/* Title & Meta Container */
+
+	.exodus-entry-title-meta,
+	.exodus-no-sidebar .exodus-entry-title-meta {
+		display: block;
+		float: none;
+		max-width: 100%;
+	}
+
+	/* Allow links to wrap now */
+
+	.exodus-entry-meta > li a {
+		white-space: normal;
+	}
+
+	/************* GALLERY (SINGLE) ***************/
+
+	/* Make 4+ columns show as 3 columns */
+
+	.gallery-columns-4 .gallery-item,
+	.gallery-columns-5 .gallery-item,
+	.gallery-columns-6 .gallery-item,
+	.gallery-columns-7 .gallery-item,
+	.gallery-columns-8 .gallery-item,
+	.gallery-columns-9 .gallery-item { /* duplicate in style.css for 3 columns */
+		max-width: 27%; /* Android 4 browser did not like anything greater */
+		max-width: -webkit-calc(33.3% - 14px);
+		max-width:         calc(33.3% - 14px);
+	}
+
+	.gallery-item {
+		margin-right: 7px !important; /* reset to original */
+	}
+
+	.gallery-columns-4 .gallery-item:nth-of-type(3n), /* set all to 3 column */
+	.gallery-columns-5 .gallery-item:nth-of-type(3n),
+	.gallery-columns-6 .gallery-item:nth-of-type(3n),
+	.gallery-columns-7 .gallery-item:nth-of-type(3n),
+	.gallery-columns-8 .gallery-item:nth-of-type(3n),
+	.gallery-columns-9 .gallery-item:nth-of-type(3n) {
+		margin-right: 0;
+	}
+
+	/***************** COMMENTS *******************/
+
+	/* Comments */
+
+	.exodus-comment-author span, /* remove "Author" or "Trackback" from after name */
+	.exodus-comment-trackback-link span {
+		display: none;
+	}
+
+	a.comment-edit-link { /* hide admin Edit link */
+		display: none;
+	}
+
+	.exodus-comment-buttons .exodus-button-icon { /* remove icon from Edit button */
+		display: none;
+	}
+
+	.single-post .bypostauthor > article { /* blog posts only */
+		padding: 20px;
+	}
+
+	/****************** SERMONS *******************/
+
+	/* Sermon Index List - Two Columns to One (No Sidebar) */
+
+	.exodus-no-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-two-columns, /* <ul> */
+	.exodus-no-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-three-columns,
+	.exodus-has-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-two-columns,
+	.exodus-has-sidebar .exodus-sermon-index-list.exodus-sermon-index-list-three-columns {
+		-moz-column-count: 1;
+		-webkit-column-count: 1;
+		column-count: 1;
+	}
+
+	/************** EVENT CALENDAR ****************/
+
+	/* Move month/category dropdowns to right (keep from going off screen on small phones) */
+
+	.exodus-dropdown-panel,
+	.exodus-dropdown-menu {
+		position: relative;
+		right: -40px;
+	}
+
+	/* Make day of week heading normal weight */
+
+	.exodus-calendar-table-header-short {
+		font-weight: normal;
+	}
+
+	/* Reduce day size */
+
+	.exodus-calendar-table-day-content-container {
+		padding: 3px 0; /* vertical centering and height */
+	}
+
+		.exodus-calendar-table-day-heading {
+			font-size: 1.1em;
+		}
+
+	/* Less margin by image */
+
+	.exodus-calendar-list-entry-image {
+		padding-right: 25px;
+	}
+
+	/* Reduce meta line height */
+
+	.exodus-calendar-list-entry-meta > li {
+		line-height: 1.4em;
+	}
+
+}
+
+/**********************************************
+ * 320px - Small Phone
+ **********************************************/
+
+@media only screen and (max-width: 320px) {
+
+	/*************** CUSTOM STYLES ****************/
+
+	#ctcom-home-highlights .exodus-caption-image-title, /* Homepage Highlight */
+	#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title,
+	.exodus-home-widget .exodus-caption-image-title, /* Homepage Bottom Widget */
+	.exodus-sidebar-widget .exodus-caption-image-title { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 7px 10px;
+		font-size: 1em;
+		line-height: 1.4em;
+	}
+
+		/* Font Adjustments */
+
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do #ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-home-widget .exodus-caption-image-title,
+		.exodus-heading-font-nothing-you-could-do .exodus-sidebar-widget .exodus-caption-image-title {
+			padding-top: 8px;
+			padding-bottom: 6px;
+		}
+
+	#ctcom-home-highlights .exodus-caption-image-description, /* Homepage Highlight */
+	#ctcom-home-highlights .exodus-highlight-has-title .exodus-caption-image-description,
+	.exodus-home-widget .exodus-caption-image-description, /* Homepage Bottom Widget */
+	.exodus-sidebar-widget .exodus-caption-image-description { /* Sidebar Widget, Galleries Template Thumbnail */
+		padding: 6px 10px;
+		font-size: 0.8em;
+	}
+
+	/* Author Box */
+
+	.exodus-author-avatar img {
+		display: none;
+	}
+
+	.exodus-author-content {
+		margin-left: 0;
+	}
+
+	/***************** LOGO BAR *******************/
+
+	/* Shrink Logo Tagline */
+
+	#exodus-logo-tagline {
+		font-size: 0.9em;
+	}
+
+	/****************** HOMEPAGE ******************/
+
+	/* Homepage Intro */
+
+	#exodus-intro {
+		padding: 0 4%;
+	}
+
+	/* Homepage Highlights */
+
+	#ctcom-home-highlights .exodus-highlight {
+		margin: 20px 0 0 0;
+	}
+
+	/******************* PEOPLE *******************/
+
+	/* People */
+
+	.exodus-person-image { /* move image to top */
+		width: 100%;
+		max-height: 180px;
+		float: none;
+		margin: 0 auto 22px auto;
+	}
+
+	.exodus-person-content header {
+		text-align: center;
+	}
+
+		.exodus-person-content header h1 {
+			margin-right: 0;
+			width: 100%;
+		}
+
+		.exodus-person-position {
+			display: block;
+			margin: 0;
+		}
+
+	/***************** COMMENTS *******************/
+
+	.exodus-comment,
+	.exodus-comment #respond { /* no indentation for threaded comments */
+		margin-left: 0;
+	}
+
+}

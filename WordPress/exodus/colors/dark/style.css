@@ -1,0 +1,616 @@
+/**
+ * Dark Color Scheme
+ *
+ * It is best not to edit this directly. Use a child theme instead:
+ * https://churchthemes.com/guides/developer/child-theming/
+ */
+
+/**********************************************
+ * BASE STYLES
+ **********************************************/
+
+/**************** BACKGROUND ******************/
+
+body,
+#exodus-calendar-loading {
+	background-color: #111;
+}
+
+/******************* TEXT *********************/
+
+/* Body Text */
+
+body,
+.exodus-list-icons a,
+.exodus-text-icon,
+.exodus-caption-image-description,
+.gallery-caption,
+#exodus-top-bar-menu-links li a,
+.exodus-top-bar-right-item a,
+.sf-menu li li a,
+.exodus-slide-description,
+.exodus-slide-description:hover,
+.exodus-comment-author span,
+.exodus-comment-trackback-link span,
+.exodus-comment-meta time,
+.exodus-search-button,
+.exodus-main-title span, /* page number */
+#exodus-top-bar-search-icon,
+#exodus-calendar-title-category,
+input,
+textarea {
+	color: #aaa;
+}
+
+/* Light Text */
+
+.ctfw-breadcrumbs,
+.ctfw-breadcrumbs a,
+.exodus-list-item-count,
+#exodus-calendar-remove-category a,
+.exodus-calendar-month-dropdown-months li.exodus-calendar-month-dropdown-past,
+.exodus-calendar-table-day-event-time,
+.exodus-list-item-count,
+.exodus-sermon-dates-count,
+#exodus-sermon-series-list .exodus-sermon-series-count,
+.wp-caption,
+.wp-caption-text,
+.wp-caption-dd,
+.wp-block-image figcaption,
+.wp-block-audio figcaption,
+.wp-block-video figcaption,
+.wp-block-embed figcaption {
+	color: #888;
+}
+
+/* Text Over Customizer's "Main Color" */
+
+#exodus-header-menu,
+.exodus-slide-title,
+.exodus-slide-title:hover,
+.flex-control-nav li a.active,
+.flex-control-nav li a.active:hover,
+#exodus-banner h1,
+#exodus-banner h1 a,
+.exodus-caption-image-title, /* home highlights */
+.exodus-caption-image-title h1, /* widget sidebar or home bottom */
+.exodus-logo-bar-right-item-date,
+a.exodus-button,
+.exodus-list-buttons a,
+a.comment-reply-link,
+.exodus-nav-left-right a,
+.page-numbers a,
+.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title,
+.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title a,
+input[type=submit],
+.more-link,
+#exodus-header-menu .exodus-list-icons a,
+.exodus-calendar-table-header-content {
+	color: #fff;
+}
+
+/* Headings */
+
+h1,
+h2,
+#exodus-logo-text a,
+.exodus-top-bar-right-item-date,
+#exodus-footer-top-address a {
+	color: #eee;
+}
+
+h3,
+h4,
+h5,
+h6 {
+	color: #aaa;
+}
+
+/* Blockquote */
+
+blockquote,
+.quote-caption,
+.wp-block-quote cite,
+blockquote.wp-block-pullquote,
+blockquote.wp-block-pullquote cite {
+	color: #eee;
+}
+
+	blockquote.wp-block-pullquote {
+		background-color: #1e1e1e;
+	}
+
+/* Text Selection (fails when selectors combined) */
+
+::-moz-selection {
+    background-color: #fff;
+    color: #222;
+}
+
+::selection {
+    background-color: #fff;
+    color: #222;
+}
+
+/* Pre */
+
+pre,
+code {
+	color: #fff;
+}
+
+/****************** FORMS *********************/
+
+/* Input and Textarea */
+
+input[type=text], /* being specific to avoid background on radio/checkbox in Opera */
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=number],
+input[type=tel],
+input[type=date],
+input[type=month],
+input[type=week],
+input[type=time],
+input[type=datetime],
+input[type=datetime-local],
+textarea {
+	background-color: #1e1e1e;
+}
+
+	/* On Focus */
+
+	input[type=text]:focus, /* being specific to avoid background on radio/checkbox in Opera */
+	input[type=password]:focus,
+	input[type=email]:focus,
+	input[type=url]:focus,
+	input[type=search]:focus,
+	input[type=number]:focus,
+	input[type=tel]:focus,
+	input[type=date]:focus,
+	input[type=month]:focus,
+	input[type=week]:focus,
+	input[type=time]:focus,
+	input[type=datetime]:focus,
+	input[type=datetime-local]:focus,
+	textarea:focus {
+		background-color: #434343;
+		color: #fff;
+	}
+
+/* Widget Inputs */
+
+.exodus-sidebar-widget input[type=text], /* being specific to avoid background on radio/checkbox in Opera */
+.exodus-sidebar-widget input[type=password],
+.exodus-sidebar-widget input[type=email],
+.exodus-sidebar-widget input[type=url],
+.exodus-sidebar-widget input[type=search],
+.exodus-sidebar-widget input[type=number],
+.exodus-sidebar-widget input[type=tel],
+.exodus-sidebar-widget input[type=date],
+.exodus-sidebar-widget input[type=month],
+.exodus-sidebar-widget input[type=week],
+.exodus-sidebar-widget input[type=time],
+.exodus-sidebar-widget input[type=datetime],
+.exodus-sidebar-widget input[type=datetime-local],
+.exodus-sidebar-widget textarea {
+	background-color: #434343;
+	color: #fff;
+}
+
+/******************* OTHER ********************/
+
+/* Lines */
+
+hr,
+.exodus-entry-content table,
+.exodus-entry-content td {
+	border-color: #444;
+}
+
+/**********************************************
+ * CUSTOM STYLES
+ **********************************************/
+
+/***************** BUTTONS ********************/
+
+/* Colored Buttons */
+
+a.exodus-button,
+.exodus-list-buttons a,
+a.comment-reply-link,
+a.post-edit-link,
+.exodus-nav-left-right a,
+.page-numbers a,
+input[type=submit],
+.more-link {
+	color: #fff;
+}
+
+	a.exodus-button:hover,
+	.exodus-list-buttons a:hover,
+	a.comment-reply-link:hover,
+	.exodus-nav-left-right a:hover,
+	.page-numbers a:hover,
+	.page-numbers.current,
+	input[type=submit]:hover,
+	.more-link:hover,
+	.flex-control-nav li a:hover,
+	a.exodus-button.exodus-button-selected,
+	.exodus-list-buttons a.exodus-button-selected {
+		background-color: #777;
+		color: #fff;
+	}
+
+/* Neutral Buttons */
+
+a.post-edit-link,  /* make stand out -- for admin only */
+a.post-edit-link:hover,
+a.comment-edit-link, /* make stand out -- for admin only */
+a.comment-edit-link:hover,
+#exodus-footer-responsive-toggle .exodus-button,
+.exodus-sidebar-widget input[type=submit], /* neutral sidebar buttons */
+.exodus-sidebar-widget a.exodus-button, /* neutral sidebar buttons */
+.widget_tag_cloud a,
+.widget_tag_cloud a:hover,
+#event-calendar-header-right a {
+	background-color: #777 !important;
+	color: #fff;
+}
+
+/************** MEDIAELEMENT.JS ***************/
+
+/* Flat Design (Remove Gradients) */
+
+/* Control Bar */
+
+.hentry .mejs-container .mejs-controls {
+	background: #222;
+}
+
+	/* Grayscale total rail (before play) */
+
+	.hentry .mejs-controls .mejs-time-rail .mejs-time-total {
+		background: #555;
+	}
+
+	/* Grayscale loading rail */
+
+	.hentry .mejs-controls .mejs-time-rail .mejs-time-loaded { /* grayscale progress bar */
+		background: #828282;
+	}
+
+	/* Grayscale time rail */
+
+	.hentry .mejs-controls .mejs-time-rail .mejs-time-current {
+		background: #d2d2d2;
+	}
+
+	/* Volume slider total */
+
+	.hentry .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
+		background: #555;
+	}
+
+	/* Volume slider value */
+
+	.hentry .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
+		background: #d2d2d2;
+	}
+
+/*************** JQUERY DROPDOWN ***************/
+
+.exodus-dropdown .exodus-dropdown-menu,
+.exodus-dropdown .exodus-dropdown-panel {
+	border-color: #444;
+	background-color: #111;
+
+}
+
+/***************** TOOLTIPSTER *****************/
+
+/* Custom Theme (tooltipster.css has base styles) */
+
+.exodus-tooltipster {
+	border-color: #444;
+	background-color: #1e1e1e;
+}
+
+/* Event Calendar Theme */
+
+.exodus-tooltipster-calendar {
+	border-color: #444;
+	background-color: #111;
+}
+
+/************* GUTENBERG BLOCKS ***************/
+
+/* Cover Image */
+
+.wp-block-cover a,
+.wp-block-cover a:hover {
+	color: #fff !important;
+	border-color: #fff !important;
+}
+
+	.exodus-entry-content .wp-block-cover a:hover:not(.exodus-button) {
+		color: #fff !important;
+	}
+
+/* Verse (Poetry) */
+
+pre.wp-block-verse {
+	background-color: #1e1e1e;
+	color: #fff;
+}
+
+/* Separator */
+
+.wp-block-separator:not(.is-style-dots),
+.wp-block-separator.is-style-wide {
+	border-color: #444;
+}
+
+.wp-block-separator.is-style-dots:before {
+	color: #777;
+}
+
+/* Table */
+
+.wp-block-table tr:first-of-type strong {
+    color: #fff;
+}
+
+/**********************************************
+ * LAYOUT
+ **********************************************/
+
+/*************** SHARED STYLES ***************/
+
+/* Boxed Elements (Gray) */
+
+#exodus-top-bar-inner,
+#exodus-footer-top,
+#exodus-footer.exodus-footer-no-location.exodus-footer-no-social-icons, /* no icons or location */
+.exodus-caption-image-inner,
+.exodus-sidebar-widget,
+.exodus-logo-bar-right-item a,
+.exodus-rounded .exodus-author-box,
+.single-post .bypostauthor > article /* blog posts only */
+{
+	background-color: #1e1e1e;
+}
+
+/* Description Bars (Over Images) */
+
+.exodus-slide-description,
+.exodus-caption-image-description,
+#ctcom-home-highlights .exodus-caption-image-description,
+.exodus-widget .exodus-caption-image-description,
+.gallery-caption {
+	background-color: #eee;
+	color: #555;
+}
+
+/************** RESPONSIVE MENU ***************/
+
+/* Open / Close Button */
+
+.mean-container a.meanmenu-reveal {
+	color: #fff;
+}
+
+	.mean-container a.meanmenu-reveal span {
+		background-color: #fff;
+	}
+
+/* Menu Items */
+
+.mean-container .mean-nav {
+	background-color: #1e1e1e;
+}
+
+	/* Links */
+
+	.mean-container .mean-nav ul li a {
+		color: #aaa;
+	}
+
+	/* Expand Button */
+
+	.mean-container .mean-nav ul li a.mean-expand {
+		background-color: #434343;
+	}
+
+/******************* TOP BAR *******************/
+
+/* Search Input */
+
+#exodus-top-bar-search-form .exodus-search-field input {
+	background-color: #434343;
+}
+
+/***************** HEADER MENU ****************/
+
+/* Top Level Links */
+
+#exodus-header-menu-content > li > a {
+	color: #fff;
+}
+
+/* Dropdowns */
+
+.sf-menu li li {
+	background-color: #1e1e1e;
+}
+
+	/* Sub Menu Hovering */
+
+	.sf-menu ul li:hover > a,
+	.sf-menu ul .sfHover > a,
+	.sf-menu ul a:focus,
+	.sf-menu ul a:hover,
+	.sf-menu ul a:active {
+		background-color: #434343;
+		color: #fff;
+	}
+
+	/* Arrows */
+
+	.sf-arrows > li:hover > .sf-with-ul a:after,
+	.sf-arrows > .sfHover > .sf-with-ul a:after {
+		border-top-color: #fff;
+	}
+
+	.sf-arrows ul .sf-with-ul:after { /* sub menu */
+		border-left-color: #aaa;
+	}
+
+	.sf-arrows ul li > .sf-with-ul:focus:after,/* sub menu */
+	.sf-arrows ul li:hover > .sf-with-ul:after,
+	.sf-arrows ul .sfHover > .sf-with-ul:after {
+		border-left-color: #fff;
+	}
+
+/******************* FOOTER *******************/
+
+/* Links */
+
+#exodus-footer-menu-links a,
+#exodus-notice a {
+	color: #eee;
+}
+
+/**********************************************
+ * HOMEPAGE
+ **********************************************/
+
+/******************* SLIDER *******************/
+
+/* Slider Background */
+/* Hover makes image semi-transparent, showing this color */
+
+.exodus-slide {
+	background-color: #000; /* match video BG: YouTube and Vimeo both black; */
+}
+
+	/* Video Play Icon */
+
+	.exodus-slide-play-icon {
+		color: #fff;
+	}
+
+/* Slider Controls */
+
+.flex-control-nav li a {
+	background-color: #434343;
+}
+
+/**********************************************
+ * EVENTS
+ **********************************************/
+
+/****************** CALENDAR ******************/
+
+/* Calendar table */
+
+.exodus-calendar-table-bottom {
+	background-color: #444;
+}
+
+	/* Day */
+
+	.exodus-calendar-table-day { /* td */
+		border-color: #444 !important;
+	}
+
+	/* Today */
+
+	.exodus-calendar-table-day-today {
+		border-color: #aaa !important;
+		outline-color: #aaa;
+	}
+
+	/* Day before today */
+
+	.exodus-calendar-table-day-past {
+		background-color: #252525;
+	}
+
+		.exodus-calendar-table-day-past .exodus-calendar-table-day-heading {
+			color: #666;
+		}
+
+	/* Day from other month */
+
+	.exodus-calendar-table-day-other-month {
+		background-color: #2f2f2f;
+	}
+
+	.exodus-calendar-table-day-other-month:not(.exodus-calendar-table-day-today) .exodus-calendar-table-day-heading,
+	.exodus-calendar-table-day-other-month:not(.exodus-calendar-table-day-today) .exodus-calendar-table-day-label {
+		color: #666;
+	}
+
+/**********************************************
+ * GALLERIES
+ **********************************************/
+
+/************ GALLERIES (MULTIPLE) ************/
+
+/* If no cover image, show a solid background */
+
+.exodus-galleries-item.exodus-caption-image-no-image {
+	background-color: #1e1e1e;
+}
+
+/**********************************************
+ * COMMENTS
+ **********************************************/
+
+/*************** COMMENT LIST *****************/
+
+/* Author Name */
+
+.exodus-comment-author {
+	color: #eee;
+}
+
+/*************** COMMENT FORM *****************/
+
+/* Error text */
+
+.comment-form-author label.error,
+.comment-form-email label.error,
+.comment-form-url label.error,
+p.comment-form-comment label.error {
+	color: #eee;
+}
+
+/**********************************************
+ * WIDGETS
+ **********************************************/
+
+/************* WP CALENDAR WIDGET *************/
+
+.widget_calendar #wp-calendar caption {
+	color: #eee;
+}
+
+/**********************************************
+ * PLUGINS
+ **********************************************/
+
+/************** CONTACT FORM 7 ****************/
+
+span.wpcf7-not-valid-tip,
+div.wpcf7-validation-errors {
+	background: none;
+	color: #eee;
+}
+
+span.wpcf7-not-valid-tip-no-ajax {
+	color: #eee;
+}

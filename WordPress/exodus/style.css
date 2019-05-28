@@ -1,0 +1,4992 @@
+/*
+Theme Name: Exodus
+Theme URI: https://churchthemes.com/themes/exodus
+Author: ChurchThemes.com
+Author URI: https://churchthemes.com
+Description: A flat and wide WordPress theme for churches.
+Copyright: (c) 2014 - 2018 ChurchThemes.com
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: one-column, two-columns, right-sidebar, custom-colors, custom-menu, editor-style, featured-image-header, featured-images, threaded-comments, translation-ready
+Text Domain: exodus
+Version: 2.4
+*/
+
+/**********************************************
+ * NOTES
+ **********************************************/
+
+/*
+
+STYLE CUSTOMIZATION
+
+If you want to edit styles, it is best to use a child theme.
+Theme updates replace original stylesheets, so keeping your customizations separate makes updates easier.
+See this guide for more information: https://churchthemes.com/guides/developer/child-theming/
+
+COLOR SCHEMES
+
+See the light and dark stylesheets in the 'colors' directory.
+You can switch between these color schemes in Appearance > Customize.
+There you can also specify colors, background, fonts, etc.
+
+RESPONSIVE STYLES
+
+See css/responsive.css for responsive styling and media queries.
+
+PREFIXES
+
+To prevent conflicts with plugins, everything is prefixed with exodus- (this theme),
+ctcom- (all churchthemes.com themes) or ctfw- (framework). Those with wp- or no prefix are from WordPress.
+Other prefixes are from third party code.
+
+*/
+
+/**********************************************
+ * TABLE OF CONTENTS
+ **********************************************/
+
+/*
+
+1.	BASE STYLES
+	- Reset
+	- Text
+	- Blocks
+	- Images
+	- Forms
+2.	CUSTOM STYLES
+	- Gutenberg Blocks
+	- Rounded Corners
+	- Images
+	- Icons
+	- Buttons
+	- Navigation
+	- Author Box
+	- Search Form
+	- MediaElement.js
+	- Google Maps
+	- Visibility
+	- Clearfix
+3.	LAYOUT
+	- Shared Styles
+	- Container
+	- Header
+	- Top Bar
+	- Logo Bar
+	- Menu Bar
+	- Banner
+	- Breadcrumbs
+	- Content
+	- Sidebar
+	- Footer
+4.	WIDGETS
+	- Shared Styles
+	- WP Tag Cloud
+	- WP Calendar
+	- WP RSS
+	- Highlight
+	- Sermons
+	- Locations
+	- People
+	- Gallery
+	- Giving
+5.	HOMEPAGE
+	- Layout
+	- Slider
+	- Intro
+	- Highlights
+	- Widgets
+6.	ENTRY STYLES
+	- Shared Styles (Full + Short)
+	- Full / Single
+	- Short / Multiple
+7.	SERMONS
+8.	EVENTS
+9.	LOCATIONS
+10.	ATTACHMENTS
+11.	GALLERIES
+12.	COMMENTS
+	- Comment List
+	- Comment Form
+13.	PLUGINS
+	- Contact Form 7
+14. EDITOR
+
+*/
+
+/**********************************************
+ * 1. BASE STYLES
+ **********************************************/
+
+/******************* RESET ********************/
+
+/**
+ * html5doctor.com Reset v1.6.1 (public domain) -
+ * by Richard Clark - http://richclarkdesign.com
+ */
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}
+body{line-height:1;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+nav ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:none;}
+a{font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}
+ins{background-color:#ff9;color:#000;text-decoration:none;}
+mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold;}
+del{text-decoration:line-through;}
+abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help;}
+table{border-collapse:collapse;border-spacing:0;}
+hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}
+input,select{vertical-align:middle;}
+
+/* Additional Reset */
+
+* { /* natural box layout model */
+	-webkit-box-sizing:	border-box;
+	-moz-box-sizing:	border-box;
+	box-sizing:			border-box;
+}
+
+img {
+	vertical-align: bottom; /* remove gap from below <img> tags */
+}
+
+/******************* TEXT *********************/
+
+/* Smooth Fonts */
+
+html,
+html a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+}
+
+/* Base Font */
+
+body,
+input,
+textarea {
+	font-size: 1em;
+	font-weight: normal;
+	line-height: 1.9em;
+}
+
+body {
+	-webkit-text-size-adjust: 100%; /* prevent inconsistent font sizes in mobile Safari */
+}
+
+/* Links */
+
+a {
+	text-decoration: none;
+	font-weight: bold; /* useful for making neutral-colored links stand out */
+}
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 1.4em;
+	font-weight: bold;
+}
+
+h1,
+.mce-content-body h1 {
+	font-size: 2em;
+}
+
+h2,
+.exodus-entry-short h1,
+#reply-title { /* comment form title */
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+
+h3 {
+	font-size: 1.3em;
+	line-height: 1.6em;
+}
+
+h4 {
+	font-size: 1.2em;
+	line-height: 1.7em;
+}
+
+h5 {
+	font-size: 1.1em;
+	line-height: 1.8em;
+}
+
+h6 {
+	font-size: 1em;
+	line-height: 1.9em;
+}
+
+.exodus-entry-content h1,
+.exodus-entry-content h2,
+.exodus-entry-content h3 {
+	margin-top: 40px;
+}
+
+/* Paragraph */
+
+p,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+table,
+form,
+[class^=wp-block]:not(.wp-block-cover-text) {
+	margin: 30px 0;
+}
+
+/* Subscript */
+
+sub {
+	vertical-align: sub;
+	font-size: smaller;
+}
+
+/* Superscript */
+
+sup {
+	vertical-align: super;
+	font-size: smaller;
+}
+
+/* Code / Preformatted */
+
+code,
+pre {
+  font-family: Menlo, Consolas, monaco, monospace;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+}
+
+/****************** BLOCKS ********************/
+
+/* Lists */
+
+ul,
+ol { /* more comfortable margins */
+	margin-left: 40px;
+}
+
+	ul ul,
+	ol ol,
+	ul ol,
+	ol ul {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+ul { /* consistent bullets */
+	list-style: square;
+}
+
+dl { /* definition list */
+	margin-left: 25px;
+}
+
+	dt {
+		font-style: normal;
+		font-weight: bold;
+	}
+
+	dd {
+		margin-bottom: 20px;
+	}
+
+/* Blockquote */
+
+blockquote {
+	display: block;
+	position: relative;
+	margin: 40px 5% !important;
+	padding-left: 60px !important;
+	font-size: 1.2em; /* a little bigger */
+	font-style: italic;
+	line-height: 1.6em;
+}
+
+	/* Quotation mark before */
+
+	blockquote:before {
+		position: absolute;
+		top: 20px;
+		left: 0;
+		display: block;
+		content: "\201C";
+		font-size: 5em;
+		font-style: normal;
+		font-weight: bold;
+	}
+
+	/* <cite> in blockquote */
+
+	blockquote cite {
+		display: block;
+		margin-top: 30px;
+		font-size: 0.85em; /* back to normal size */
+		font-weight: bold;
+		font-style: normal;
+		line-height: 1.6em;
+	}
+
+		/* Emdash before */
+
+		blockquote cite:before {
+			content: "\2014 \2009";
+		}
+
+	/* Large Blockquote */
+
+	blockquote.is-style-large,
+	blockquote.is-style-large p {
+		font-size: 1.55em !important;
+	}
+
+		blockquote.is-style-large {
+			padding-left: 55px !important;
+		}
+
+		blockquote.is-style-large p {
+			line-height: 1.3 !important;
+		}
+
+		blockquote.is-style-large cite {
+			text-align: left !important;
+		}
+
+		blockquote.is-style-large:before {
+			top: 28px;
+			left: -10px;
+		}
+
+	/* Pullquote Block */
+
+	.wp-block-pullquote,
+	.wp-block-pullquote.is-style-solid-color {
+	  border: 0;
+	  padding: 0;
+	  border-radius: 0.3125em;
+	  background-color: #f7f7f7 !important;
+	}
+
+	.wp-block-pullquote blockquote,
+	.wp-block-pullquote.is-style-solid-color blockquote {
+	  padding: 1.9em 2.25em !important;
+	  margin: 0;
+	  max-width: 100%;
+	  text-align: center;
+	}
+
+	.wp-block-pullquote blockquote p,
+	.wp-block-pullquote.is-style-solid-color blockquote p {
+	  font-size: 1.25em;
+	  line-height: 1.5;
+	  margin-bottom: 1em;
+	}
+
+	.wp-block-pullquote blockquote > *:first-child,
+	.wp-block-pullquote.is-style-solid-color blockquote > *:first-child {
+	  margin-top: 0;
+	}
+
+	.wp-block-pullquote blockquote > *:last-child,
+	.wp-block-pullquote.is-style-solid-color blockquote > *:last-child {
+	  margin-bottom: 0;
+	}
+
+	.wp-block-pullquote blockquote.has-text-color {
+	  color: black !important;
+	}
+
+	.wp-block-pullquote blockquote:before {
+	  content: '';
+	}
+
+	.wp-block-pullquote.alignleft,
+	.wp-block-pullquote.alignright {
+		margin-top: 1em;
+		margin-bottom: 1em;
+		background: none !important;
+	}
+
+	.wp-block-pullquote.alignleft blockquote,
+	.wp-block-pullquote.alignright blockquote {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.wp-block-pullquote.alignleft {
+		margin-right: 3em;
+	}
+
+	.wp-block-pullquote.alignright {
+		margin-left: 3em;
+	}
+
+/* Quote Tag */
+
+q {
+	font-style: italic;
+}
+
+/* Tables */
+
+.exodus-entry-content table,
+.mce-content-body table {
+	width: 100%;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	line-height: 2em;
+}
+
+	.exodus-entry-content caption,
+	.mce-content-body caption {
+		margin-bottom: 20px;
+		font-style: italic;
+		text-align: left;
+	}
+
+	.exodus-entry-content th,
+	.mce-content-body th {
+		padding: 0 10px 10px 0;
+		text-align: left;
+	}
+
+	.exodus-entry-content td,
+	.mce-content-body td {
+		border-width: 1px 0 0 0;
+		border-style: solid;
+		padding: 10px 10px 10px 0;
+	}
+
+/* Horizontal Rule */
+
+hr {
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+	margin: 24px 0;
+	padding: 0;
+}
+
+/****************** IMAGES ********************/
+
+/* Don't let images exceed their containers */
+
+.exodus-entry-content img,
+.exodus-widget img,
+.exodus-caption-image img, /* for placeholder */
+.exodus-image,
+#exodus-banner img,
+img.size-full,
+img.size-large,
+img[class*="align"],
+img[class*="wp-image-"],
+img[class*="attachment-"] {
+	max-width: 100%;
+	height: auto;
+}
+
+/******************* MEDIA ********************/
+
+audio,
+video {
+	width: 100%;
+}
+
+/******************* FORMS ********************/
+
+input {
+	height: 40px;
+	margin: 0;
+	padding: 0 12px;
+	border: none;
+	font-size: 0.95em;
+	line-height: 40px;
+	outline: 0;
+}
+
+textarea {
+	margin: 0;
+	padding: 15px;
+	border: none;
+	font-size: 0.95em;
+}
+
+	textarea:focus {
+		outline: 0;
+	}
+
+input[type=radio],
+input[type=checkbox] {
+	margin-right: 4px;
+}
+
+input[type=submit] {
+	padding: 7px;
+}
+
+/* Remove iOS form styling */
+
+.exodus-is-ios input:not([type=checkbox]):not([type=radio]),
+.exodus-is-ios textarea { /* get rid of iOS styles */
+    -webkit-appearance: none;
+}
+
+.exodus-is-ios.exodus-not-rounded input:not([type=checkbox]):not([type=radio]),
+.exodus-is-ios.exodus-not-rounded textarea {
+	-webkit-border-radius:	0; /* iOS 3 */
+    border-radius:			0;
+}
+
+/**********************************************
+ * 2. CUSTOM STYLES
+ **********************************************/
+
+/************* GUTENBERG BLOCKS ***************/
+
+/* Sized Text */
+
+.has-huge-font-size {
+	line-height: 1.2;
+}
+
+.has-large-font-size {
+	line-height: 1.3;
+}
+
+.has-regular-font-size {
+	font-size: 1em !important;
+}
+
+.has-small-font-size {
+	font-size: 0.9em !important;
+	line-height: 1.6;
+}
+
+/* Has Background */
+
+.has-background.has-main-background-color:not(.has-text-color),
+.has-background.has-accent-background-color:not(.has-text-color),
+.has-background.has-dark-background-color:not(.has-text-color),
+.has-background.has-light-background-color:not(.has-text-color) {
+	color: #fff; /* White text when using certain preset colors and don't have custom text color */
+}
+
+.has-background.has-main-background-color:not(.has-text-color) a,
+.has-background.has-accent-background-color:not(.has-text-color) a,
+.has-background.has-dark-background-color:not(.has-text-color) a,
+.has-background.has-light-background-color:not(.has-text-color) a,
+.has-background.has-main-background-color:not(.has-text-color) a:hover,
+.has-background.has-accent-background-color:not(.has-text-color) a:hover,
+.has-background.has-dark-background-color:not(.has-text-color) a:hover,
+.has-background.has-light-background-color:not(.has-text-color) a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.has-background.has-text-color a,
+.has-background.has-text-color a,
+.has-background.has-text-color a,
+.has-background.has-text-color a,
+.has-background.has-text-color a:hover,
+.has-background.has-text-color a:hover,
+.has-background.has-text-color a:hover,
+.has-background.has-text-color a:hover {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.has-accent-color a,
+.has-accent-color a:hover {
+	text-decoration: underline; /* underline when text color is same as accent/link color */
+}
+
+/* Dropcap */
+
+.has-drop-cap:not(:focus):first-letter {
+	margin: 0 0.25em 0 0;
+	padding-top: 0.12em;
+	font-weight: normal !important;
+	font-size: 3.8em !important;
+	line-height: 1;
+	color: #000;
+}
+
+/* Extra Margin */
+
+.wp-block-image:not(.alignleft):not(.alignright),
+.wp-block-cover,
+.wp-block-audio,
+.wp-block-video,
+.wp-block-embed,
+.wp-block-gallery,
+.wp-block-quote,
+.wp-pull-quote,
+.has-background,
+.wp-block-button,
+.exodus-block-wide-container {
+	margin-top: 2.5em !important;
+	margin-bottom: 2.5em !important;
+}
+
+/* Columns */
+
+.wp-block-columns {
+  margin: 1.5em 0 !important;
+}
+
+.wp-block-column {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  margin-right: 2.5em !important;
+}
+
+.wp-block-column:last-child {
+  margin-right: 0 !important;
+}
+
+.wp-block-column > *:first-child {
+  margin-top: 0 !important;
+}
+
+.wp-block-column > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Spacing Tweaks */
+
+.wp-block-latest-posts,
+.wp-block-categories {
+	margin: 24px 0 !important;
+}
+
+.wp-block-latest-posts,
+.wp-block-categories {
+	padding-left: 40px !important;
+}
+
+.wp-block-image.alignright,
+.wp-block-image.alignleft {
+	margin-top: 24px !important;
+}
+
+/* Cover Image */
+
+.wp-block-cover {
+	padding-left: 2.1em;
+	padding-right: 2.1em;
+	font-size: 14px !important;
+}
+
+.wp-block-cover a,
+.wp-block-cover a:hover {
+	display: inline-block;
+	line-height: 1;
+	border-width: 0 0 1.5px 0 !important;
+	text-decoration: underline;
+}
+
+	.wp-block-cover-text {
+		margin-top: 0;
+  		line-height: 1.5 !important;
+	}
+
+	.exodus-entry-content .wp-block-cover a:hover:not(.exodus-button) {
+		color: #fff !important;
+	}
+
+.wp-block-cover,
+.wp-block-cover::before {
+	border-width: 0;
+}
+
+.wp-block-cover.alignleft,
+.wp-block-cover.alignright {
+	margin-top: 0.8em !important;
+	margin-bottom: 0.8em !important;
+	font-size: 0.75em !important;
+}
+
+	.wp-block-cover.alignleft .wp-block-cover-text,
+	.wp-block-cover.alignright .wp-block-cover-text {
+		line-height: 1.25 !important;
+	}
+
+.wp-block-cover.alignleft {
+	margin-right: 2.7em;
+}
+
+.wp-block-cover.alignright {
+	margin-left: 2.7em;
+}
+
+/* Block Image */
+
+.wp-block-image:not(.alignright):not(.alignleft) {
+	width: 100%;
+}
+
+.wp-block-image figure.alignleft,
+.wp-block-image figure.alignright {
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+
+.wp-block-image figure.alignleft {
+	margin-right: 2.5em;
+}
+
+.wp-block-image figure.alignright {
+	margin-left: 2.5em;
+}
+
+/* Pullquote - see blockquote in _base-elements.scss */
+
+/* Button (shown by JS) */
+
+.js .wp-block-button {
+	visibility: hidden;
+}
+
+/* Gallery */
+
+.wp-block-gallery .blocks-gallery-item figcaption {
+	line-height: 1.3;
+	padding-bottom: 10px;
+}
+
+.wp-block-gallery .blocks-gallery-item figcaption a,
+.wp-block-gallery .blocks-gallery-item figcaption a:hover {
+	color: #fff !important;
+	text-decoration: underline;
+	font-style: normal;
+}
+
+/* Embed */
+
+.wp-block-embed .wp-block-embed__wrapper {
+	margin-bottom: 12px !important;
+}
+
+/* Verse (Poetry) */
+
+pre.wp-block-verse {
+	padding: 2em 2.2em;
+	font-size: 1.2em;
+	white-space: nowrap;
+	word-wrap: break-word;
+	line-break: after-white-space;
+	overflow: auto;
+}
+
+/* Separator */
+
+.wp-block-separator:not(.is-style-dots),
+.wp-block-separator.is-style-wide {
+	width: 200px;
+	max-width: 100%;
+	margin: 65px auto !important;
+	border-width: 1px 0 0 0;
+}
+
+.wp-block-separator.is-style-wide {
+	width: 100%;
+}
+
+/* Button Blocks */
+
+a.exodus-button.exodus-button-block {
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+	margin-right: 0.8em;
+}
+
+a.exodus-button.exodus-button-block:last-child {
+	margin-right: 0;
+}
+
+/* Code Block */
+
+.wp-block-code {
+  font-size: 1em;
+}
+
+/* Latest Posts, Categories, Archives */
+
+.wp-block-categories li,
+.wp-block-archives li {
+	margin-left: 2.5em;
+}
+
+.wp-block-categories.aligncenter,
+.wp-block-archives.aligncenter {
+	list-style: none;
+	text-align: center;
+	padding-left: 0 !important;
+}
+
+.wp-block-categories.aligncenter li,
+.wp-block-archives.aligncenter li {
+	margin-left: 0;
+}
+
+/* Latest Posts */
+
+.wp-block-latest-posts.is-grid {
+	padding-left: 0 !important;
+}
+
+/************** ROUNDED CORNERS ***************/
+
+/* All Corners */
+
+.exodus-rounded .exodus-image,
+.exodus-rounded .exodus-slide-title,
+.exodus-rounded .exodus-slide-description,
+.exodus-rounded .flex-control-nav li a,
+.exodus-rounded #exodus-banner h1,
+.exodus-rounded .exodus-caption-image-inner,
+.exodus-rounded .exodus-highlight,
+.exodus-rounded .exodus-highlight img,
+.exodus-rounded .exodus-caption-image-title,
+.exodus-rounded .exodus-caption-image-description,
+.exodus-rounded a.exodus-button,
+.exodus-rounded .exodus-list-buttons a,
+.exodus-rounded a.comment-reply-link,
+.exodus-rounded a.comment-edit-link,
+.exodus-rounded a.post-edit-link,
+.exodus-rounded .exodus-nav-left-right a,
+.exodus-rounded .page-numbers a,
+.exodus-rounded .page-numbers.current,
+.exodus-rounded .widget_tag_cloud a,
+.exodus-rounded .exodus-comment-avatar img,
+.exodus-rounded .exodus-widget-entry-thumb img,
+.exodus-rounded .exodus-entry-image img,
+.exodus-rounded .wp-caption img,
+.exodus-rounded .exodus-author-box,
+.exodus-rounded .exodus-author-avatar img,
+.exodus-rounded #exodus-sidebar-right,
+.exodus-rounded .exodus-widget,
+.exodus-rounded input,
+.exodus-rounded textarea,
+.exodus-rounded .more-link,
+.exodus-rounded .post-password-required input[type=submit],
+.exodus-rounded .ctfw-google-map-image,
+.exodus-rounded .gallery-item,
+.exodus-rounded .gallery-icon img,
+.exodus-rounded .has-background,
+.exodus-rounded .wp-block-image img,
+.exodus-rounded .blocks-gallery-item img,
+.exodus-rounded pre.wp-block-verse,
+.exodus-rounded .wp-block-cover,
+.exodus-rounded .wp-block-cover::before,
+.exodus-dropdown .exodus-dropdown-menu,
+.exodus-dropdown .exodus-dropdown-panel,
+.exodus-tooltipster,
+.exodus-tooltipster-calendar {
+	border-radius: 2px !important;
+}
+
+.exodus-rounded .wp-block-gallery .blocks-gallery-item figcaption {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 10px;
+}
+
+/* Top */
+
+.exodus-rounded .sf-menu li:first-child,
+.exodus-rounded .sf-menu ul li:first-child:hover > a,
+.exodus-rounded .exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title,
+.exodus-rounded .exodus-calendar-table-top {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+/* Bottom */
+
+.exodus-rounded .sf-menu li:last-child,
+.exodus-rounded .sf-menu ul li:last-child:hover > a,
+.exodus-rounded .exodus-slide,
+.exodus-rounded .exodus-slide img,
+.exodus-rounded .gallery-item:hover .gallery-caption,
+.exodus-rounded .exodus-calendar-table-bottom {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+
+	/* Only when banner image not running off screen */
+
+	@media only screen and (min-width: 1700px) { /* not in responsive.css because does not load when "Full Site" used */
+		.exodus-rounded #exodus-banner {
+			border-bottom-left-radius: 2px;
+			border-bottom-right-radius: 2px;
+		}
+	}
+
+/******************** IMAGES *******************/
+
+/* Caption Image (e.g. Highlight Widget) */
+
+.exodus-caption-image {
+	position: relative;
+}
+
+	/* Container for Title and Description */
+
+	.exodus-caption-image-caption {
+		display: block;
+		position: absolute;
+		bottom: 10%;
+		left: 6%; /* update padding-right at double or overflows */
+		padding-right: 12% !important; /* set to twice left */
+		max-width: 88%;
+	}
+
+		/* Title */
+
+		.exodus-caption-image-title {
+			display: inline-block;
+			position: relative; /* helps z-index kick in (in color scheme CSS) */
+			float: left; /* needed for IE in order for float/clear: left on description to work below */
+			padding: 10px 15px;
+			font-size: 1.3em; /* same as H3 */
+			font-weight: bold;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do .exodus-caption-image-title {
+				padding-top: 11px;
+				padding-bottom: 9px;
+			}
+
+		/* Line height */
+
+		.exodus-caption-image-title,
+		.exodus-caption-image-title h1 {
+			line-height: 1.25em;
+		}
+
+		/* Description */
+
+		.exodus-caption-image-description {
+			display: inline-block;
+			position: relative; /* helps z-index kick in (in color scheme CSS) */
+			float: left; /* float/clear left causes new line without resorting to display: block which span 100% width of title/caption */
+			clear: left;
+			padding: 9px 15px;
+			font-size: 0.95em;
+			font-weight: normal;
+			line-height: 1.4em;
+		}
+
+/* Image Hover */
+
+a .exodus-image, /* typically a linked image */
+.exodus-slide a img, /* ditto for slider */
+.exodus-entry-content a img,
+.gallery-item img {
+	-o-transition:		.15s;
+	-ms-transition:		.15s;
+	-moz-transition:	.15s;
+	-webkit-transition:	.15s;
+	transition:			.15s;
+	-webkit-backface-visibility: 	hidden; /* prevents shifting */
+	-moz-backface-visibility:		hidden;
+	-backface-visibility: 			hidden;
+}
+
+	/* Add .exodus-img-backface-visible to <body> when temporarily need this (demo) */
+
+	.exodus-img-backface-visible a .exodus-image, /* typically a linked image */
+	.exodus-img-backface-visible .exodus-slide a img, /* ditto for slider */
+	.exodus-img-backface-visible .exodus-entry-content a img,
+	.exodus-img-backface-visible .gallery-item img {
+		-webkit-backface-visibility: 	visible; /* prevents shifting */
+		-moz-backface-visibility:		visible;
+		-backface-visibility: 			visible;
+	}
+
+	/* Hover effect - not on mobile (iOS 5 and others can have trouble w/simulation) */
+
+	.exodus-not-mobile a:hover .exodus-image, /* this way hover on caption makes image below fade in/out */
+	.exodus-not-mobile .exodus-slide:hover a img, /* ditto for slider */
+	.exodus-not-mobile .exodus-entry-content a img:hover,
+	.exodus-not-mobile .gallery-item:hover img {
+		-o-filter: 		grayscale(100%) contrast(110%);
+		-ms-filter: 	grayscale(100%) contrast(110%);
+		-moz-filter: 	grayscale(100%) contrast(110%);
+		-webkit-filter:	grayscale(100%) contrast(110%);
+		filter:			grayscale(100%) contrast(110%);
+	}
+
+/* WordPress Images */
+
+.alignnone,
+.wp-block-image.alignnone {
+	margin: 30px 0;
+}
+
+	p .alignnone,
+	p .wp-block-image.alignnone {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+
+.aligncenter,
+.wp-block-image.aligncenter {
+	display: block;
+	margin: 30px auto; /* top/bottom margin, centered */
+}
+
+.alignleft,
+.wp-block-image.alignleft {
+	float: left;
+	margin: 20px 25px 20px 0;
+}
+
+.alignright,
+.wp-block-image.alignright {
+	float: right;
+	margin: 20px 0 20px 25px;
+}
+
+.wp-caption,
+.wp-block-image figcaption {
+	max-width: 100%;
+    text-align: center;
+}
+
+.wp-caption-text,
+.wp-caption-dd,
+.wp-block-image figcaption,
+.wp-block-audio figcaption,
+.wp-block-video figcaption,
+.wp-block-embed figcaption {
+	font-size: 0.9em;
+    margin: 8px 0 0 0;
+    padding: 0 5px;
+    line-height: 1.5em;
+}
+
+/******************** ICONS ********************/
+
+/* Font Icons */
+
+[class^="el-icon-"],
+[class*=" el-icon-"] {
+	position: relative;
+	top: 1px; /* global adjust */
+}
+
+/* Size Adjustments (also see for button below) */
+
+.el-icon-headphones {
+	top: 0;
+}
+
+.el-icon-video {
+	font-size: 1.1em;
+}
+
+.el-icon-download-alt {
+	font-size: 0.85em;
+}
+
+/* Icon List */
+
+.exodus-list-icons { /* <ul> */
+	margin: 0 -6px; /* negative of space between icons */
+	padding: 0;
+	list-style: none;
+	line-height: 1;
+}
+
+	.exodus-list-icons li {
+		display: inline-block;
+		margin: 0 6px; /* space between icons */
+		vertical-align: middle;
+		font-size: 1.3em;
+	}
+
+/* Icon to left of content */
+
+.exodus-content-icon { /* add to container having <span class="icon"></span> before other content */
+	padding-left: 30px; /* offset for icon */
+	position: relative;
+}
+
+	/* Icons */
+
+	.exodus-content-icon > [class^="el-icon-"],
+	.exodus-content-icon > [class*=" el-icon-"] {
+		position: absolute;
+		top: 3px;
+		left: 0;
+		font-size: 1.2em;
+	}
+
+	/* Adjustments */
+
+	.exodus-content-icon > .el-icon-torso {
+		top: 2px;
+	}
+
+	.exodus-content-icon > .el-icon-flag {
+		font-size: 1.1em;
+	}
+
+	.exodus-content-icon .el-icon-forward-alt {
+		top: 6px;
+	}
+
+	.exodus-content-icon .el-icon-tags {
+		top: 6px;
+	}
+
+	.exodus-content-icon .el-icon-refresh {
+		font-size: 1.1em;
+		top: 4px;
+	}
+
+/***************** BUTTONS ********************/
+
+/* Button */
+
+a.exodus-button,
+.exodus-list-buttons a,
+a.comment-reply-link,
+a.comment-edit-link,
+a.post-edit-link,
+.exodus-nav-left-right a,
+.page-numbers a,
+.page-numbers.current,
+.widget_tag_cloud a,
+input[type=submit],
+.more-link {
+	display: inline-block;
+	padding: 0 15px;
+	border: 0;
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 2.5em;
+	white-space: nowrap;
+}
+
+	/* Submit Button */
+
+	input[type=submit] {
+		height: 40px;
+		cursor: pointer;
+	}
+
+/* Button Icon */
+
+.exodus-button-icon {
+	position: relative;
+	top: 2px;
+	margin-right: 6px;
+	font-size: 1.2em;
+}
+
+	/* Icon Size Adjustments */
+
+	.exodus-button-icon.el-icon-align-justify {
+		font-size: 1.1em;
+	}
+
+	.exodus-button-icon.el-icon-video {
+		top: 4px;
+		font-size: 1.3em;
+	}
+
+	.exodus-button-icon.el-icon-download-alt {
+		font-size: 1em;
+	}
+
+	.exodus-button-icon.el-icon-comment-alt {
+		font-size: 1.1em;
+	}
+
+	.exodus-button-icon.el-icon-edit {
+		top: 1px;
+		font-size: 1em;
+	}
+
+	.exodus-button-icon.el-icon-road {
+		font-size: 1.05em;
+	}
+
+	.exodus-button-icon.el-icon-chevron-left {
+		margin: 0 6px 0 -1px;
+		top: 1px;
+		font-size: 1em;
+	}
+
+	.exodus-button-icon.el-icon-chevron-right {
+		margin: 0 -2px 0 6px;
+		top: 1px;
+		font-size: 1em;
+	}
+
+	.exodus-button-icon.el-icon-chevron-down {
+		margin: 0 0 0 6px;
+		top: -1px;
+		font-size: 1em;
+	}
+
+	.exodus-button-icon.el-icon-ok {
+		font-size: 1.1em;
+		left: 1px;
+	}
+
+/* Button List */
+
+.exodus-list-buttons, /* <ul> */
+ul.page-numbers {
+	margin: -8px;
+	list-style: none;
+}
+
+	.exodus-list-buttons li,
+	ul.page-numbers li {
+		display: inline-block;
+		margin: 8px;
+	}
+
+	.exodus-list-buttons li.exodus-hidden {
+		display: none;
+	}
+
+/******************** LISTS *******************/
+
+/* List Items */
+
+.exodus-list {
+	margin: 0;
+	margin-bottom: -0.625em !important;
+	list-style: none;
+	line-height: 1.3;
+}
+
+/* Hide list until main.js moves count into span, to avoid flicker */
+
+.js .exodus-list {
+	visibility: hidden;
+}
+
+	/* Second and third level margins */
+
+	.exodus-list ul {
+		margin-top: 0.31em;
+		margin-left: 0.938em;
+	}
+
+	/* Top-level Item */
+
+	.exodus-list > li {
+		padding-bottom: 0.625em;
+		-webkit-column-break-inside: avoid;
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+
+	/* All Items */
+
+	.exodus-list li {
+		position: relative;
+		list-style: none;
+	}
+
+		/* Second level or deeper */
+
+		.exodus-list li li {
+			margin-bottom: 0.31em; /* Less margin */
+		}
+
+			/* Second-level links */
+
+			.exodus-list li li a {
+				font-weight: normal;
+			}
+
+	/* Make room for count so wrapping is nice */
+
+	.exodus-list > li {
+		padding-right: 1.875em;
+	}
+
+/* List Items Count */
+
+.exodus-list-item-count {
+	position: absolute;
+	top: 0.25em !important;
+	right: 0;
+	font-size: 0.9em;
+	font-style: normal;
+	line-height: 1;
+}
+
+	li li .exodus-list-item-count {
+		right: -2.063em;
+	}
+
+/***************** NAVIGATION *****************/
+
+/* Prev/Next Navigation (single posts and comments) */
+
+.exodus-nav-left { /* use in .exodus-nav-left-right */
+	float: left;
+	width: 50%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+/* Next / Newer */
+
+.exodus-nav-right {
+	float: right;
+	text-align: right;
+	width: 50%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+/* Post Page Numbers ( << 1 2 3 >> below loops) */
+
+ul.page-numbers { /* WordPress-provided class; see .exodus-button class */
+	margin: -5px;
+	text-align: center;
+}
+
+	ul.page-numbers li {
+		margin: 5px;
+	}
+
+		.page-numbers a,
+		.page-numbers.current {
+			min-width: 30px;
+		}
+
+/**************** AUTHOR BOX ******************/
+
+/* Used below blog posts and author archive */
+
+.exodus-author-box {
+	position: relative;
+	min-height: 160px;
+	margin-top: 90px;
+	padding: 30px;
+}
+
+	/* Avatar */
+
+	.exodus-author-avatar {
+		position: absolute;
+		left: 30px;
+		top: 30px;
+		width: 100px;
+		height: 100px;
+	}
+
+		.exodus-author-avatar img {
+			max-width: 100%;
+			height: auto;
+		}
+
+	/* Bio */
+
+	.exodus-author-content {
+		margin-left: 130px;
+	}
+
+		.exodus-author-content p {
+			margin: 15px 0 0 0;
+			line-height: 1.8em;
+		}
+
+		/* Heading */
+
+		.exodus-author-content h2 {
+			margin: 0;
+		}
+
+		/* More posts link */
+
+		.exodus-author-box-archive {
+			float: right;
+			margin: 0 0 0 30px;
+			font-size: 0.95em;
+		}
+
+/**************** SEARCH FORM ******************/
+
+/* Search Form Shared Styles (Top & Widget) */
+
+.exodus-search-form form {
+	position: relative;
+	margin: 0;
+}
+
+	/* Search Input */
+
+	.exodus-search-field {
+		margin-right: 35px;
+	}
+
+		.exodus-search-field input {
+			width: 100%;
+		}
+
+	/* Search Button */
+
+	.exodus-search-button {
+		position: absolute;
+		top: 10px;
+		right: 2px;
+		font-size: 1.3em;
+	}
+
+/*************** MEDIAELEMENT.JS ***************/
+
+/* Remove yellow border on play button */
+
+.hentry .mejs-controls .mejs-button button:focus {
+	outline: none;
+}
+
+/* Move time down (too high after WP 4.1, but fine from 4.9 and on when MediaElement.js was updated in core) */
+
+.exodus-wp-4-8-or-less .hentry .mejs-time {
+	padding-top: 10px !important;
+}
+
+/* Make video span 100% of screen (default is 640px) */
+
+.wp-video {
+	min-width: 99%; /* 100% is more likely to show black edges */
+}
+
+/*************** GOOGLE MAPS JS ***************/
+
+/* Responsive Map */
+
+.ctfw-google-map {
+	height: 350px; /* cap the height at this for larger displays */
+}
+
+	/* See responsive.css for reducing map height on mobile */
+
+	/* Prevent responsive images affecting Google Maps */
+
+	.ctfw-google-map img {
+		max-width: none;
+	}
+
+/*************** JQUERY DROPDOWN ***************/
+
+/* https://github.com/claviska/jquery-dropdown */
+
+.exodus-dropdown {
+	position: absolute;
+	z-index: 9999999;
+	display: none;
+}
+
+	.exodus-dropdown a {
+		font-weight: normal;
+	}
+
+		/* PJAX implemetation forward/back doesn't update dropdown content, so don't differentiate
+		.exodus-dropdown li.exodus-dropdown-selected a {
+			font-weight: bold;
+		}
+		*/
+
+	.exodus-dropdown .exodus-dropdown-menu,
+	.exodus-dropdown .exodus-dropdown-panel {
+		min-width: 160px;
+		max-width: 200px;
+		list-style: none;
+		overflow: visible;
+		margin: 4px 0 0 0;
+		padding: 12px 10px 12px 20px;
+		font-size: 0.95em; /* same as main menu */
+		border-style: solid;
+		border-width: 2px;
+	}
+
+	.exodus-dropdown .exodus-dropdown-menu {
+		padding: 10px 20px;
+	}
+
+		.exodus-dropdown .exodus-dropdown-menu li {
+			line-height: 1.4em;
+			margin: 6px 0;
+		}
+
+/***************** TOOLTIPSTER *****************/
+
+/* MIT License: http://iamceege.github.io/tooltipster/ */
+/* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
+
+/* Custom Theme (tooltipster.css has base styles) */
+
+.exodus-tooltipster {
+	margin-left: 10px;
+	margin-right: 10px;
+	border-style: solid;
+	border-width: 2px;
+}
+
+	.exodus-tooltipster .tooltipster-content {
+		max-width: 500px;
+		padding: 15px 20px;
+		overflow: hidden;
+		font-size: 15px; /* fails without px font-size */
+		line-height: 1.6em;
+	}
+
+/* Event Calendar Theme */
+
+.exodus-tooltipster-calendar {
+	margin-left: 40px;
+	margin-right: 40px;
+	border-style: solid;
+	border-width: 2px;
+}
+
+	.exodus-tooltipster-calendar .tooltipster-content {
+		padding: 20px 28px 26px 28px;
+		overflow: hidden;
+		font-size: 15px; /* fails without px font-size */
+	}
+
+/****************** VISIBILITY *****************/
+
+/* Hidden */
+
+.exodus-hidden {
+	display: none;
+}
+
+/* Hidden but active element (e.g. hidden submit) */
+
+.exodus-invisible {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+	left: 30000px;
+}
+
+/* Text meant only for screen readers (required, Theme Check) */
+
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar. */
+}
+
+/***************** CLEARFIX *******************/
+
+.exodus-clearfix:after,
+.gallery:after { /* for sidebar floating, more */
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/**********************************************
+ * 3. LAYOUT
+ **********************************************/
+
+/*************** SHARED STYLES ****************/
+
+/* Prepare for sticky footer */
+
+html.exodus-html, /* prevent issue with classic editor styling */
+html.exodus-html body {
+	height: 100%;
+}
+
+/* Prepare sections for sticky footer */
+
+#exodus-header,
+#exodus-middle,
+#exodus-footer {
+	display: table-row;
+}
+
+/* Centered content */
+
+.exodus-centered-content {
+	width: 1170px; /* force width when not using responsive stylesheet */
+	margin: 0 auto; /* centered content */
+	border-bottom: 1px solid transparent; /* assist FireFox rendering (Slider in particular) */
+	margin-bottom: -1px; /* contract bottom border */
+}
+
+/***************** CONTAINER *****************/
+
+/* Container - prepare for sticky footer */
+
+#exodus-container {
+	display: table;
+	table-layout: fixed; /* make FF and Opera respect max-width: http://stackoverflow.com/a/11310261 */
+	width: 100%;
+	height: 100%;
+}
+
+	/* Middle Content */
+
+	#exodus-middle-content {
+		margin-top: 70px; /* space between page title / sidebar and breadcrumb/banner/nav */
+		padding-bottom: 100px; /* space above footer */
+	}
+
+/******************* HEADER ********************/
+
+#exodus-header {
+	height: 100px;
+}
+
+/******************* TOP BAR *******************/
+
+/* Top Bar */
+
+#exodus-top-bar {
+	height: 41px; /* match #exodus-top-bar-inner min-height */
+	font-size: 0.95em;
+}
+
+	#exodus-top-bar-inner {
+		max-height: 41px; /* match #exodus-top-bar */
+		overflow: hidden; /* simulate hiding of right content when there is no room for it (goes to second line) */
+	}
+
+		#exodus-top-bar-content {
+			padding: 5px 0;
+			text-align: right;
+		}
+
+			#exodus-top-bar-content-inner {
+				width: 100%;
+				height: 100%;
+			}
+
+				/* Line Height */
+
+				#exodus-top-bar,
+				#exodus-top-bar-search-icon,
+				#exodus-top-bar-menu {
+					line-height: 2em; /* enough to hide right content when moves into hidden overflow on line two */
+				}
+
+				/* Search Icon */
+
+				#exodus-top-bar-search-icon {
+					position: relative;
+					top: 0;
+					display: inline-block;
+					margin-right: 30px;
+					float: left;
+					vertical-align: middle;
+					font-size: 1.2em;
+					line-height: 1.8em;
+				}
+
+				/* Close Icon */
+
+				#exodus-top-bar-search-icon.el-icon-remove {
+					font-size: 1em;
+					line-height: 2.2em;
+				}
+
+				/* Search Form */
+
+				#exodus-top-bar-search-form {
+					display: none;
+					margin-right: 30px;
+					float: left;
+					margin-top: 1px;
+					line-height: 1;
+				}
+
+					/* Search Input */
+
+					.exodus-search-field {
+						margin-right: 30px;
+					}
+
+						#exodus-top-bar-search-form .exodus-search-field input {
+							max-width: 200px;
+							height: 29px;
+							line-height: 29px;
+							padding: 0 8px;
+						}
+
+					/* Search Button */
+
+					#exodus-top-bar-search-form .exodus-search-button {
+						top: 6px;
+						right: 0;
+						font-size: 1.2em;
+					}
+
+				/* Top Menu */
+
+				#exodus-top-bar-menu {
+					display: inline-block;
+					margin-right: 15px; /* don't let right content get too close */
+					padding-bottom: 2px;
+					max-width: 90%;
+					float: left;
+					white-space: nowrap;
+				}
+
+					#exodus-top-bar-menu-links { /* <ul> */
+						margin: 0;
+						list-style: none;
+					}
+
+						#exodus-top-bar-menu-links li {
+							display: inline-block;
+							margin-right: 20px;
+						}
+
+						#exodus-top-bar-menu-links li:last-child {
+							margin-right: 0;
+						}
+
+							#exodus-top-bar-menu-links a {
+								font-weight: normal;
+							}
+
+				/* Top Right Content */
+
+				.exodus-top-bar-right-content {
+					display: inline-block;
+				}
+
+				/* Top Right Posts (events, posts, etc.) */
+
+				.exodus-top-bar-right-item {
+					margin-left: 20px;
+				}
+
+					.exodus-top-bar-right-item:first-child {
+						margin-left: 0;
+					}
+
+					/* Date */
+
+					.exodus-top-bar-right-item-date {
+						padding: 0 8px;
+						font-weight: bold;
+					}
+
+					/* Title */
+
+					.exodus-top-bar-right-item-title {
+						font-weight: normal;
+					}
+
+/****************** LOGO BAR ******************/
+
+/* Logo Bar */
+
+#exodus-logo-bar {
+	position: relative; /* enables tagline box to be placed relatively, will not work for old FF in #exodus-logo-bar-content because it is table */
+}
+
+	/* Content Container */
+
+	#exodus-logo-bar-content {
+		position: relative;
+		display: table; /* for vertical centering logo */
+		width: 100%;
+		padding: 50px 0; /* line height adds about 10px */
+	}
+
+		/* Logo */
+
+		#exodus-logo {
+			display: table-cell; /* for vertical centering */
+			width: 100%;
+			height: 100%; /* match #exodus-logo-bar-content height */
+			vertical-align: middle;
+		}
+
+			/* Make logo appear higher than top-right so it can be clicked */
+
+			#exodus-logo-content {
+				width: 47%; /* almost half the space */
+				z-index: 100;
+				position: relative; /* z-index won't work without this */
+			}
+
+			/* Logo Image */
+
+			#exodus-logo-image {
+				position: relative; /* for Customizer "Move" left/right */
+				max-width: 500px; /* help Firefox/IE */
+			}
+
+				/* Retina Logo */
+
+				#exodus-logo-regular {
+					display: inline-block;
+				}
+
+				#exodus-logo-hidpi {
+					display: none;
+				}
+
+				@media only screen and (-webkit-min-device-pixel-ratio: 1.25), only screen and (min-resolution: 120dpi), only screen and (-o-min-device-pixel-ratio: 5/4) {
+
+					/* swap only if .exodus-has-hidpi-logo indicates a retina logo exists */
+
+					.exodus-has-hidpi-logo #exodus-logo-regular {
+						display: none;
+					}
+
+					.exodus-has-hidpi-logo #exodus-logo-hidpi[width], /* show once jQuery adds dimensions from regular (if sooner, Retina logo shows enlarged for split second) */
+					.no-js .exodus-has-hidpi-logo #exodus-logo-hidpi /* fallback in case JS off */
+					{
+						display: inline-block;
+					}
+
+				}
+
+			/* Logo Text */
+
+			#exodus-logo-text {
+				position: relative;
+				left: -2px;
+				font-weight: bold;
+				line-height: 1.1em;
+			}
+
+				/* Lowercase */
+
+				.exodus-has-logo-text-lowercase #exodus-logo-text {
+					top: -2px; /* appears more vertically centered */
+					text-transform: lowercase;
+				}
+
+				/* Font Optimizations */
+
+				.exodus-logo-font-open-sans #exodus-logo-text,
+				.exodus-logo-font-open-sans.exodus-has-logo-text-lowercase #exodus-logo-text {
+					letter-spacing: -2px;
+				}
+
+				/* Size */
+
+				#exodus-logo-text.exodus-logo-text-extra-small {
+					font-size: 1.8em;
+				}
+
+				#exodus-logo-text.exodus-logo-text-small {
+					font-size: 2.25em;
+				}
+
+				#exodus-logo-text.exodus-logo-text-medium {
+					font-size: 2.7em;
+				}
+
+				#exodus-logo-text.exodus-logo-text-large {
+					font-size: 3.1em;
+				}
+
+				#exodus-logo-text.exodus-logo-text-extra-large {
+					font-size: 3.6em;
+				}
+
+			/* Tagline below logo */
+
+			#exodus-logo-tagline {
+				position: relative;
+				margin-top: 10px;
+				font-size: 1.25em;
+			}
+
+			.exodus-no-tagline-under-logo #exodus-logo-tagline {
+				display: none; /* hide if option not set; markup exists for Right to move Below on mobile */
+			}
+
+		/* Header Right */
+
+		#exodus-logo-bar-right {
+			position: absolute;
+			top: 0;
+			right: 0;
+			max-width: 47%; /* almost half space - rest for logo */
+			height: 100%; /* match #exodus-logo-bar-content height */
+			z-index: 1000;
+		}
+
+			/* Header Right Inner */
+
+			#exodus-logo-bar-right-inner {
+				display: table; /* for vertical centering text */
+				width: 100%; /* let it wrap with half the space for logo */
+				height: 100%; /* match #exodus-logo-bar-content height */
+				float: right;
+			}
+
+				/* Header Right Content */
+
+				#exodus-logo-bar-right-content {
+					display: table-cell; /* for vertical centering */
+					vertical-align: middle;
+					text-align: right;
+				}
+
+					/* Tagline on right */
+
+					#exodus-logo-bar-right-tagline {
+						position: relative;
+						font-size: 1.25em;
+					}
+
+					/* Custom content */
+
+					#exodus-logo-bar-custom-content {
+						line-height: 1.4em;
+					}
+
+/****************** MENU BAR ******************/
+
+/* Header Menu Bar (Dropdowns, Social Icons) */
+
+#exodus-header-menu {
+	min-height: 58px; /* change #exodus-header-menu-content min-height if change this; not height because of overflow hidden */
+	position: relative; /* assist z-index */
+	z-index: 100; /* above slider */
+}
+
+	#exodus-header-menu-inner {
+		padding-top: 15px; /* change #exodus-header-menu-content min-height if change this */
+	}
+
+		/* Header Menu List */
+
+		#exodus-header-menu-content { /* <ul> */
+			margin: 0 -15px; /* negative match of margin on #exodus-header-menu-content > li */
+			padding: 0;
+			min-height: 43px; /* set to #exodus-header-menu min-height minus #exodus-header-menu-inner padding-top */
+			float: left;
+			font-size: 0.95em;
+			list-style: none;
+		}
+
+			/* Header Menu Items (Top Level) */
+
+			#exodus-header-menu-content > li {
+				display: inline-block;
+				margin: 5px 15px 0 15px; /* match offset in #exodus-header-menu-content */
+				padding-bottom: 19px; /* to connect w/dropdown menu */
+				vertical-align: top;
+			}
+
+				#exodus-header-menu-content > li > a {
+					position: relative; /* for arrow placement */
+					display: inline-block;  /* for arrow placement */
+					font-size: 1.2em;
+					font-weight: bold;
+				}
+
+			/*
+			Superfish (Dropdowns) - http://users.tpg.com.au/j_birch/plugins/superfish/
+			Copyright (c) 2013 Joel Birch
+			Dual licensed under the MIT and GPL licenses
+			*/
+
+			.sf-menu, .sf-menu * {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.sf-menu {
+				float: left;
+				margin-bottom: 1em;
+				line-height: 1;
+			}
+
+				/* All items */
+
+				.sf-menu li {
+					position: relative;
+				}
+
+				/* All Links */
+
+				.sf-menu a {
+					display: block;
+					position: relative;
+					font-weight: normal;
+
+				}
+
+				/* Hover Setup */
+
+				.sf-menu li:hover ul,
+				.sf-menu li.sfHover ul {
+					top: 38px; /* where submenu begins */
+					left: -16px;
+					z-index: 12000;
+				}
+
+					/* Handle opening left when near edge - see main.js for behavior */
+
+					.sf-menu li:not(.exodus-dropdown-align-right):hover ul,
+					.sf-menu li:not(.exodus-dropdown-align-right).sfHover ul {
+						left: -15px; /* align dropdowns left by default */
+					}
+
+					.sf-menu li.exodus-dropdown-align-right:hover ul,
+					.sf-menu li.exodus-dropdown-align-right.sfHover ul {
+						right: -15px; /* align right when near right edge, so doesn't go off screen (also see .exodus-dropdown-open-left) */
+					}
+
+					.sf-menu > li.exodus-dropdown-open-left > ul ul { /* open sub-menus to the left if will go off screen (see main.js) */
+					  left: auto !important; /* reset default positioning */
+					  right: 100% !important; /* open to the left */
+					}
+
+				.sf-menu li:hover li ul,
+				.sf-menu li.sfHover li ul,
+				.sf-menu li li:hover li ul,
+				.sf-menu li li.sfHover li ul {
+					top: -999em;
+				}
+
+				.sf-menu li li:hover ul,
+				.sf-menu li li.sfHover ul,
+				.sf-menu li li li:hover ul,
+				.sf-menu li li li.sfHover ul {
+					left: 10em; /* match .sf-menu ul width below */
+					top: 0;
+				}
+
+				/* Sub Menu Lists */
+
+				.sf-menu ul {
+					position: absolute;
+					top: -999em;
+					width: 10em; /* left offset of submenus need to match (see .sf-menu li li:hover ul above) */
+					padding: 0; /* spacing between dropdowns */
+				}
+
+					/* Second level submenu */
+
+					.sf-menu ul ul {
+						padding-top: 0;
+					}
+
+					/* Sub Menu Items */
+
+					.sf-menu ul li {
+						width: 100%;
+					}
+
+						/* Sub Menu Item Links */
+
+						.sf-menu li li a {
+							font-size: 0.95em;
+							line-height: 1.85em;
+							padding: 0.5em 0.8em;
+						}
+
+							/* Extra right margin for arrows */
+
+							.sf-menu li li.menu-item-has-children a {
+								padding-right: 1.8em;
+							}
+
+						/* Sub Menu Hovering */
+
+						.sf-menu ul li:hover > a,
+						.sf-menu ul li.sfHover > a,
+						.sf-menu ul a:focus,
+						.sf-menu ul a:hover,
+						.sf-menu ul a:active{
+							outline: 0;
+						}
+
+				/* Arrows */
+
+				.sf-arrows ul .sf-with-ul:after { /* sub menu */
+					content: '';
+					position: absolute;
+					top: 50%;
+					height: 0;
+					width: 0;
+					border-width: 5px;
+					border-style: solid;
+					border-color: transparent;
+				}
+
+				.sf-arrows .sf-with-ul a:after {
+					right: -17px;
+					margin-top: -2px;
+				}
+
+				.sf-arrows ul .sf-with-ul:after { /* sub menu */
+					right: 10px;
+					margin-top: -5px;
+					margin-right: -3px;
+				}
+
+	/* Header Icons */
+
+	#exodus-header-menu .exodus-list-icons {
+		margin-top: 4px;
+		float: right;
+		list-style: none;
+	}
+
+/******************* BANNER *******************/
+
+/* Banner */
+
+#exodus-banner {
+	margin: 0 auto;
+	position: relative;
+	top: -1px; /* fill gap in Opera small screen */
+	max-width: 1700px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+	#exodus-banner-inner {
+		padding-top: 20.588%;
+		height: 0;
+		min-height: 350px;
+	}
+
+		/* Header Title */
+
+		#exodus-banner h1 { /* <h1> */
+			position: absolute;
+			bottom: 20%;
+			max-width: 80%;
+			padding: 11px 20px;
+			font-size: 2em;
+			font-weight: bold;
+			line-height: 1.4em;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do #exodus-banner h1 {
+				padding-top: 13px;
+				padding-bottom: 9px;
+			}
+
+/***************** BREADCRUMBS ****************/
+
+/* Breadcrumbs */
+
+.ctfw-breadcrumbs {
+	margin-top: 10px;
+	font-size: 0.95em;
+	line-height: 1.6em; /* reduced for tighter wrap */
+}
+
+	/* Links */
+
+	.ctfw-breadcrumbs a {
+		font-weight: normal;
+	}
+
+	/* Separator */
+
+	.exodus-breadcrumb-separator {
+		position: relative;
+		top: -1px;
+		font-size: 0.6em;
+		padding: 0 8px;
+		opacity: 0.8; /* lighter because it's thicker */
+	}
+
+/****************** CONTENT *******************/
+
+/* Subpage Content */
+
+#exodus-content {
+	float: left;
+	width: 100%;
+}
+
+	/* Create margins for content when "View Full Site" clicked */
+	/* Not done in responsive.css because that is removed for "Full Site" */
+
+	@media only screen and (max-width: 1280px) {
+
+		/* Also makes top/footer bar BG's fill the width: http://stackoverflow.com/questions/10249229/partial-background-on-ios-mobile-safari; */
+
+		.exodus-responsive-off body {
+		  width: 1250px; /* 1170 + 40px margin on each side */
+		}
+
+	}
+
+	/* Content Block */
+
+	.exodus-content-block {
+		position: relative;
+		margin-top: 90px;
+	}
+
+		.exodus-content-block-close {
+			margin-top: 0;
+		}
+
+		.exodus-content-block-compact {
+			padding: 0;
+		}
+
+		/* Remove margin from top of first block */
+
+		.exodus-content-block:first-child {
+			margin-top: 0;
+		}
+
+		/* Remove margin from first/last elements inside block */
+
+		.exodus-content-block > :first-child {
+			margin-top: 0;
+		}
+
+		.exodus-content-block > :last-child {
+			margin-bottom: 0;
+		}
+
+	/* Main Title (for page or block) */
+
+	.exodus-main-title { /* <h1> */
+		margin: 0 0 40px 0;
+	}
+
+		.exodus-main-title span { /* lighter color for Page X) */
+			position: relative;
+			top: -2px;
+			padding-left: 10px;
+			font-size: 0.9em;
+			font-weight: normal;
+			white-space: nowrap;
+		}
+
+/****************** SIDEBAR *******************/
+
+/* Make room for sidebar by content */
+
+.exodus-has-sidebar #exodus-content-inner  {
+	margin-right: 390px; /* sidebar width + desired margin */
+}
+
+/* Sidebar */
+
+#exodus-sidebar-right {
+	width: 300px;
+	margin-left: -300px; /* width + border */
+	float: right;
+	overflow: hidden; /* prevent horizontal scroll */
+}
+
+	/* Sidebar Widget */
+
+	.exodus-sidebar-widget { /* <aside> */
+		margin-top: 50px;
+	}
+
+		/* Sidebar widget if not CT Highlight */
+
+		.exodus-sidebar-widget:not(.widget_ctfw-highlight) { /* don't affect highlight widget title */
+			line-height: 1.7em; /* reduce line height */
+			padding: 25px;
+		}
+
+		/* No margin on first widget */
+
+		.exodus-sidebar-widget:first-child {
+			margin-top: 0 !important;
+		}
+
+		/* Widget Title */
+
+		.exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+			font-size: 1.3em; /* same as H3 */
+			line-height: 1.4em;
+			margin: -25px;
+			margin-bottom: 25px; /* same as widget padding top */
+			padding: 10px 10px 10px 16px;
+		}
+
+			/* Font Adjustments */
+
+			.exodus-heading-font-nothing-you-could-do .exodus-sidebar-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+				padding-top: 11px;
+				padding-bottom: 9px;
+			}
+
+		/* Paragraphs and margin below title */
+
+		.exodus-sidebar-widget p {
+			margin: 15px 0;
+		}
+
+/******************* FOOTER *******************/
+
+/* Footer (sticks to bottom when content is short) */
+
+#exodus-footer {
+	clear: both;
+	height: 115px; /* match #exodus-footer-bottom min-height */
+	/* see #exodus-middle-content for space between footer and content s*/
+}
+
+	#exodus-footer-inner {
+		min-height: 115px; /* match #exodus-footer height */
+	}
+
+		/* Footer Contact */
+
+		#exodus-footer-top {
+			width: 100%;
+		}
+
+			#exodus-footer-top-inner {
+				padding: 80px 0 80px 0;
+			}
+
+				#exodus-footer-top-content {
+					width: 100%;
+					text-align: center;
+				}
+
+					/* Map + Contact Info */
+
+					#exodus-footer-top-content > div {
+						display: inline-block;
+						margin: 0 2.5%;
+						text-align: left;
+						vertical-align: middle;
+					}
+
+						#exodus-footer-top-content > div:first-child {
+							max-width: 40%;
+							margin-left: 0;
+						}
+
+						#exodus-footer-top-content > div:last-child {
+							max-width: 53%;
+							margin-right: 0;
+						}
+
+					/* Map - Left */
+
+					#exodus-footer-top-map img {
+						max-width: 100%;
+						height: auto;
+					}
+
+					/* Contact Info - Right */
+
+					#exodus-footer-top-info {
+						padding-bottom: 8px;
+						position: relative;
+						top: -5px;
+					}
+
+						#exodus-footer-top-address {
+							margin-bottom: 1.1em;
+						}
+
+						/* Spacing between rows */
+
+						#exodus-footer-top-info > *:not(:first-child):not(#exodus-footer-top-phone-icons),
+						#exodus-footer-top-phone-icons > div { /* spacing between rows */
+							margin-top: 20px;
+						}
+
+						/* Times */
+
+						#exodus-footer-top-times {
+							font-weight: bold;
+						}
+
+						/* Phone + Social Icons Row */
+
+						#exodus-footer-top-phone-icons {
+							margin-left: -60px;
+						}
+
+							#exodus-footer-top-phone-icons > div {
+								margin-left: 60px;
+								display: inline-block;
+								vertical-align: middle;
+								padding: 6px 0;
+							}
+
+						/* Times / Phone Icons */
+
+						#exodus-footer-top-times span,
+						#exodus-footer-top-phone span,
+						#exodus-footer-top-email span {
+							margin-right: 6px;
+							font-size: 1.5em;
+							vertical-align: middle;
+						}
+
+						/* All Icons */
+
+						#exodus-footer-top-times span,
+						#exodus-footer-top-phone span,
+						#exodus-footer-top-email span,
+						#exodus-footer-top-social-icons {
+							position: relative;
+							top: -1px;
+						}
+
+						/* Buttons */
+
+						#exodus-footer-top-buttons { /* <ul> */
+							list-style: none;
+							margin: 0 0 -22px -12px; /* padding-top + negative of margin-bottom in #exodus-footer-top-buttons li */
+							padding-top: 10px;
+						}
+
+							/* Button */
+
+							#exodus-footer-top-buttons li {
+								display: inline-block;
+								margin: 0 0 12px 12px;
+							}
+
+					/* There is no map - center info */
+					/* NOTE: Below is copied (and .exodus-footer-no-map added) from responsive.css for 1024 or less */
+
+					.exodus-footer-no-map #exodus-footer-top-content {
+						margin-bottom: -60px; /* match #exodus-footer-top-content > div:first/second-child */
+						padding: 0 3%;
+					}
+
+						.exodus-footer-no-map #exodus-footer-top-content > div {
+							margin: 0;
+						}
+
+							.exodus-footer-no-map #exodus-footer-top-content > div:first-child,
+							.exodus-footer-no-map #exodus-footer-top-content > div:last-child {
+								max-width: 100%;
+								margin-bottom: 60px; /* match #exodus-footer-top-content */
+								text-align: center;
+							}
+
+
+						.exodus-footer-no-map #exodus-footer-top-map img {
+							max-width: 90%;
+						}
+
+					/* Social icons when there is no location */
+
+					#exodus-footer-social-icons-no-location {
+						font-size: 1.8em;
+					}
+
+						#exodus-footer-social-icons-no-location li {
+							margin: 10px;
+						}
+
+			/* Footer Bottom - Menu / Notice */
+
+			#exodus-footer-bottom {
+				padding: 35px 0 60px 0;
+			}
+
+				/* Space between rows */
+
+				#exodus-footer-responsive-toggle,
+				#exodus-footer-menu-links,
+				#exodus-notice {
+					margin: 25px 0 0 0;
+				}
+
+				/* "View Full Site" link (do not put in responsive.css) */
+
+				#exodus-footer-responsive-toggle {
+					display: none;
+					text-align: center;
+					margin-bottom: 10px;
+				}
+
+					/* Show if responsive cookie set */
+
+					.exodus-responsive-off #exodus-footer-responsive-toggle {
+						display: block;
+					}
+
+						/* Which text to show? */
+
+						#exodus-footer-full-site,
+						#exodus-footer-mobile-site {
+							display: none;
+						}
+
+						.exodus-responsive-on #exodus-footer-full-site,
+						.exodus-responsive-off #exodus-footer-mobile-site {
+							display: inline-block;
+						}
+
+			/* Footer Bottom Left */
+
+			#exodus-footer-bottom-left {
+				width: 49%;
+				float: left;
+			}
+
+				/* Footer Menu */
+
+				#exodus-footer-menu-links { /* <ul> */
+					list-style: none;
+					position: relative;
+					left: -12px; /* offset item margin */
+				}
+
+					/* Menu Items */
+
+					#exodus-footer-menu-links li {
+						display: inline-block;
+						margin: 0 12px;
+					}
+
+						/* Menu Item Links */
+
+						#exodus-footer-menu-links a {
+							font-weight: bold;
+						}
+
+			/* Footer Bottom Right */
+
+			#exodus-footer-bottom-right {
+				width: 49%;
+				float: right;
+				text-align: right;
+			}
+
+			/* Footer Bottom Only One - Center */
+
+			.exodus-footer-has-menu.exodus-footer-no-notice #exodus-footer-bottom-left, /* Menu, no notice */
+			.exodus-footer-has-notice.exodus-footer-no-menu #exodus-footer-bottom-right { /* Notice, no menu */
+				width: 100%;
+				float: none;
+				text-align: center; /* centered when only one */
+			}
+
+/**********************************************
+ * 4. WIDGETS
+ **********************************************/
+
+/*************** SHARED STYLES ****************/
+
+/* Widget Entry */
+
+.exodus-widget-entry { /* <article> */
+	margin-top: 30px;
+	position: relative;
+	overflow: hidden; /* keeps negative margin on meta from causing horizontal scroll on mobile */
+}
+
+	/* Min height on container if thumbnail */
+
+	.exodus-widget-entry.exodus-widget-entry-has-image {
+		min-height: 66px; /* match .exodus-widget-entry-thumb + padding top/bottom */
+		padding-top: 3px; /* make up for lack of line height effect on image, so spacing between entries is even */
+		padding-bottom: 3px; /* on both ends */
+	}
+
+	/* Header */
+
+	.exodus-widget-entry.exodus-widget-entry-has-image header {
+		min-height: 60px; /* Make at least height of image or iamge will cover excerpt */
+	}
+
+	/* Thumbnail Container */
+
+	.exodus-widget-entry-thumb {
+		width: 60px; /* match .exodus-widget-entry.exodus-widget-entry-has-image min-height */
+		height: 60px;
+		margin-top: 3px;
+		position: absolute;
+	}
+
+	/* Title and meta right of thumbnail */
+
+	.exodus-widget-entry-has-image .exodus-widget-entry-title,
+	.exodus-widget-entry-has-image .exodus-widget-entry-meta {
+		margin-left: 80px;
+	}
+
+	/* Entry Title */
+
+	.exodus-widget-entry-title { /* <h1> */
+		margin: 0;
+		padding-top: 1px;
+		font-size: 1em;
+		font-weight: bold;
+		line-height: 1.6em;
+	}
+
+	/* Meta List (Date, Author, etc.) */
+
+	.exodus-widget-entry-meta { /* <ul> */
+		list-style: none;
+		margin: 0 -20px 0 0; /* negative of li right margin; see .exodus-widget-entry overflow: hidden to prevent horizontal scroll on mobile; */
+	}
+
+		/* Meta Item */
+
+		.exodus-widget-entry-meta > li {
+			display: inline-block;
+			margin: 15px 20px 0 0;
+			vertical-align: top;
+		}
+
+			/* Keep links from wrapping */
+
+			.exodus-widget-entry-meta > li a {
+				white-space: nowrap;
+				font-weight: normal;
+			}
+
+			/* Date */
+
+			.exodus-widget-entry-date {
+				font-weight: bold;
+			}
+
+			/* Icons */
+
+			.exodus-widget-entry-icons .exodus-list-icons { /* <ul> */
+				position: relative;
+				white-space: nowrap;
+			}
+
+	/* Content / Excerpt */
+
+	.exodus-widget-entry-content {
+		margin-top: 15px;
+	}
+
+		/* No bottom margin on last paragraph */
+
+		.exodus-widget-entry-content p:last-child {
+			margin-bottom: 0 !important;
+		}
+
+	/* See Homepage section for tweaks */
+
+/* Dropdown Widgets */
+
+.widget_ctfw-archives form,
+.widget_ctfw-categories form {
+	margin: 0;
+}
+
+/* List Widgets */
+
+.widget_categories ul, /* default WP categories - blog only */
+.widget_ctfw-categories ul, /* enhanced categories - taxonomy selector */
+.widget_ctfw-archives ul, /* monthly sermon archives */
+.widget_ctfw-galleries ul, /* gallery page list */
+.widget_recent_entries ul,
+.widget_recent_comments ul,
+.widget_archive ul,
+.widget_meta ul,
+.widget_pages ul,
+.widget_links ul,
+.widget_nav_menu ul {
+	margin: 0;
+	list-style: none;
+	line-height: 1.5em;
+}
+
+	.widget_categories ul ul,
+	.widget_ctfw-categories ul ul,
+	.widget_ctfw-archives ul ul,
+	.widget_ctfw-galleries ul ul,
+	.widget_recent_entries ul ul,
+	.widget_recent_comments ul ul,
+	.widget_archive ul ul,
+	.widget_meta ul ul,
+	.widget_pages ul ul,
+	.widget_links ul ul,
+	.widget_nav_menu ul ul {
+		margin-left: 15px;
+	}
+
+		.widget_categories li,
+		.widget_ctfw-categories li,
+		.widget_ctfw-archives li,
+		.widget_ctfw-galleries li,
+		.widget_archive li,
+		.widget_meta li,
+		.widget_pages li,
+		.widget_links li,
+		.widget_nav_menu li,
+		.widget_recent_entries li,
+		.widget_recent_comments li {
+			margin-top: 8px;
+		}
+
+			.widget_categories li a,
+			.widget_ctfw-categories li a,
+			.widget_ctfw-archives li a,
+			.widget_ctfw-galleries li a,
+			.widget_recent_entries li a,
+			.widget_archive li a,
+			.widget_meta li a,
+			.widget_pages li a,
+			.widget_links li a,
+			.widget_nav_menu li a {
+				font-weight: bold; /* top-level links bold */
+			}
+
+			.widget_categories li li,
+			.widget_ctfw-categories li li,
+			.widget_ctfw-archives li li,
+			.widget_ctfw-galleries li li,
+			.widget_archive li li,
+			.widget_meta li li,
+			.widget_pages li li,
+			.widget_links li li,
+			.widget_nav_menu li li,
+			.widget_recent_entries li li,
+			.widget_recent_comments li li {
+				margin-top: 7px; /* less margin for subpages */
+			}
+
+				.widget_categories li li a,
+				.widget_ctfw-categories li li a,
+				.widget_ctfw-archives li li a,
+				.widget_ctfw-galleries li li a,
+				.widget_ctfw-posts li li a,
+				.widget_recent_entries li li a,
+				.widget_recent_comments li li a,
+				.widget_archive li li a,
+				.widget_meta li li a,
+				.widget_pages li li a,
+				.widget_links li li a,
+				.widget_nav_menu li li a {
+					font-weight: normal; /* only top-level links bold */
+				}
+
+/* List Widgets Count */
+
+.widget_categories li,
+.widget_ctfw-categories li,
+.widget_ctfw-archives li,
+.widget_ctfw-galleries li,
+.widget_archive li,
+.widget_links li {
+	position: relative;
+	padding-right: 35px; /* make room for count so wrapping is nice */
+}
+
+	.exodus-list-item-count { /* class added and ( ) removed by JavaScript */
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 0.95em;
+	}
+
+	/* Sub-items */
+
+	.widget_categories li li .exodus-list-item-count,
+	.widget_ctfw-categories li li .exodus-list-item-count,
+	.widget_ctfw-archives li li .exodus-list-item-count,
+	.widget_ctfw-galleries li li .exodus-list-item-count,
+	.widget_archive li li .exodus-list-item-count,
+	.widget_links li li .exodus-list-item-count {
+		right: -35px;
+	}
+
+		.widget_categories li li li .exodus-list-item-count,
+		.widget_ctfw-categories li li li .exodus-list-item-count,
+		.widget_ctfw-archives li li li .exodus-list-item-count,
+		.widget_ctfw-galleries li li li .exodus-list-item-count,
+		.widget_archive li li li .exodus-list-item-count,
+		.widget_links li li li .exodus-list-item-count {
+			right: -70px;
+		}
+
+/************* WP RECENT COMMENTS *************/
+
+.widget_recent_comments li {
+	margin-top: 20px; /* more than list widgets */
+}
+
+/************* WP TAG CLOUD WIDGET ************/
+
+.widget_tag_cloud {
+	line-height: 2.5em !important;
+}
+
+	.widget_tag_cloud a {
+		margin: 0 1px;
+		font-size: 0.95em !important; /* single size */
+		font-weight: normal;
+		line-height: 2.2em;
+		padding: 0 10px;
+	}
+
+/************* WP CALENDAR WIDGET *************/
+
+.widget_calendar #wp-calendar {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.widget_calendar #wp-calendar caption,
+.widget_calendar #wp-calendar td,
+.widget_calendar #wp-calendar th {
+	text-align: center;
+	padding: 4px;
+}
+
+	.widget_calendar #wp-calendar tbody td a {
+		font-weight: bold;
+	}
+
+.widget_calendar #wp-calendar caption {
+	padding: 0 0 10px 0;
+	font-weight: bold;
+}
+
+.widget_calendar #wp-calendar th {
+	border: 0;
+	font-weight: bold;
+	padding: 10px 0;
+}
+
+.widget_calendar #wp-calendar tfoot td {
+	padding-top: 10px;
+}
+
+.textwidget > :first-child {
+	margin-top: 0;
+}
+
+.textwidget > :last-child {
+	margin-bottom: 0 !important;
+}
+
+/*************** WP RSS WIDGET ****************/
+
+.widget_rss h1 img { /* hide RSS icon */
+	display: none;
+}
+
+.widget_rss ul {
+	margin: 0;
+	list-style: none;
+}
+
+	.widget_rss li:not(:first-child) {
+		margin-top: 30px;
+	}
+
+		.widget_rss li a {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 1em;
+			font-weight: bold;
+			line-height: 1.4em;
+		}
+
+		.widget_rss .rss-date {
+			margin-top: 12px;
+			display: block;
+			font-weight: bold;
+		}
+
+		.widget_rss .rssSummary {
+			margin-top: 12px;
+		}
+
+		.widget_rss cite {
+			display: block;
+			margin-top: 12px;
+		}
+
+/************ CT HIGHLIGHT WIDGET *************/
+
+.widget_ctfw-highlight .exodus-widget-title,
+.widget_ctfw-highlight .exodus-widget-title h1 { /* <h1> */
+	font-size: 1em;
+}
+
+/************** CT SERMONS WIDGET *************/
+
+.exodus-sermons-widget-entry.exodus-widget-entry-first {
+	margin-top: 0;
+}
+
+/* Series */
+
+.exodus-widget-entry-meta > li.exodus-sermons-widget-entry-series a {
+	white-space: normal; /* sermon series titles may be longer than sidebar */
+}
+
+/************ CT LOCATIONS WIDGET *************/
+
+/* Address */
+
+.exodus-locations-widget-entry-address {
+	font-weight: bold;
+}
+
+/* Map */
+
+.exodus-locations-widget-entry-map {
+	margin-top: 25px;
+}
+
+/************* CT PEOPLE WIDGET ***************/
+
+/* Position */
+
+.exodus-people-widget-entry-position {
+	font-weight: bold;
+}
+
+/************* CT GALLERY WIDGET **************/
+
+/* Note there is a buttom margin on gallery thumbnails that could be improved by removal */
+
+/* Gallery container */
+
+.exodus-widget .gallery {
+	margin-top: 0;
+	margin-bottom: -14px;
+}
+
+/* Link */
+
+.exodus-gallery-widget-link { /* holds <a> */
+	text-align: center;
+	margin-top: 30px;
+}
+
+/************* CT GIVING WIDGET ***************/
+
+/* Giving Widget */
+
+.exodus-giving-widget-text p:first-child {
+	margin-top: 0;
+}
+
+.exodus-giving-widget-button {
+	margin-top: 35px;
+}
+
+/**********************************************
+ * 5. HOMEPAGE
+ **********************************************/
+
+/****************** LAYOUT ********************/
+
+/* No bottom margin for last element on homepage */
+
+#exodus-home-content > :last-child {
+	margin-bottom: 0;
+}
+
+/****************** SLIDER ********************/
+
+/**
+ * jQuery FlexSlider v1.8 (http://www.woothemes.com/flexslider/)
+ * Copyright 2012 WooThemes
+ * MIT license (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+#exodus-slider {
+	position: relative;
+	height: 500px;
+	overflow: hidden;
+	clear: both; /* keep mobile menu from covering */
+}
+
+	#exodus-slider-inner {
+		position: absolute;
+		left: 50%;
+		width: 1700px;
+		margin: 0 auto;
+		margin-left: -850px; /* half slide width */
+	}
+
+		/* FlexSlider */
+
+		.flexslider {
+			margin: 0;
+			padding: 0;
+			position: relative;
+		}
+
+			/* Browser Resets */
+
+			.flexslider a:active,
+			.flexslider a:focus  {
+				outline: none;
+			}
+
+			.flexslider .slides,
+			.flex-control-nav,
+			.flex-direction-nav {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			/* FlexSlider Necessary Styles */
+
+			.flexslider .slides > li {
+				position: relative;
+				display: none;
+			}
+
+			.flexslider .slides img {
+				width: 100%;
+				height: auto;
+				display: block;
+				border-top-left-radius: 0 !important; /* negate .exodus-image rounding */
+				border-top-right-radius: 0 !important;
+			}
+
+			/* Slider Video */
+
+			.exodus-slide-video-wrapper iframe { /* YouTube, Vimeo */
+				width: 100%;
+			}
+
+			/* Slide Hover Overlay */
+
+			.exodus-slide-overlay {
+				display: none;
+				position: absolute;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+			}
+
+				/* Show Overlay */
+
+				.exodus-not-mobile .exodus-slide:hover .exodus-slide-overlay {
+					display: block;
+				}
+
+				/* Darker for video overlay so white icon can show on light (semi-transparent allows more dark BG to show through) */
+
+				.exodus-not-mobile .exodus-slide-video:hover .exodus-slide-image-container img {
+					opacity: 0.6;
+				}
+
+				/* Video Hide Title/Description */
+
+				.exodus-slide-video .exodus-slide-title,
+				.exodus-slide-video .exodus-slide-description {
+					opacity: 1;
+					-o-transition:		0.15s;
+					-ms-transition:		0.15s;
+					-moz-transition:	0.15s;
+					-webkit-transition:	0.15s;
+					transition:			0.15s;
+				}
+
+				.exodus-not-mobile .exodus-slide-video:hover .exodus-slide-title,
+				.exodus-not-mobile .exodus-slide-video:hover .exodus-slide-description {
+					opacity: 0;
+				}
+
+				/* Video Play Icon */
+
+				.exodus-slide-play-icon {
+					display: none;
+					top: 50%;
+					margin-top: -75px; /* half font size */
+					font-size: 150px;
+					text-align: center;
+				}
+
+				.exodus-not-mobile .exodus-slide-video:hover .exodus-slide-play-icon {
+					display: inline-block;
+				}
+
+			/* Clearfix for the .slides element */
+
+			.flexslider .slides:after {
+				content: ".";
+				display: block;
+				clear: both;
+				visibility: hidden;
+				line-height: 0;
+				height: 0;
+			}
+
+			html[xmlns] .flexslider .slides {
+				display: block;
+			}
+
+			* html .flexslider .slides {
+				height: 1%;
+			}
+
+			/* No JavaScript Fallback */
+
+			.no-js .flexslider .slides > li:first-child { /* .no-js requires Modernizr */
+				display: block;
+			}
+
+			/* Slide Caption (Title + Description) */
+
+			.exodus-slide-caption {
+				position: absolute;
+				bottom: 14%;
+				display: block;
+				width: 100%;
+			}
+
+				/* Hide on first load -- JS snaps it into place after short delay */
+
+				.js .exodus-slide-caption {
+					display: none;
+				}
+
+				/* Pointer if slide linked or video */
+
+				.exodus-slide-video .exodus-slide-caption,
+				.exodus-slide-linked .exodus-slide-caption {
+					cursor: pointer;
+				}
+
+				/* Caption Content */
+
+				.exodus-slide-caption-content {
+					max-width: 90%;
+				}
+
+				/* Slide Title */
+
+				.exodus-slide-title {
+					display: inline-block;
+					padding: 17px 20px;
+					float: left; /* needed for IE in order for float/clear: left on description to work below */
+					font-size: 2em;
+					font-weight: bold;
+					line-height: 1.05em;
+					position: relative; /* helps z-index kick in (in color scheme CSS) */
+				}
+
+					/* Font Adjustments */
+
+					.exodus-heading-font-nothing-you-could-do .exodus-slide-title {
+						padding-top: 19px;
+						padding-bottom: 15px;
+					}
+
+				/* Slide Description */
+
+				.exodus-slide-description {
+					display: inline-block;
+					float: left; /* float/clear left causes new line without resorting to display: block which span 100% width of title/caption */
+					clear: left;
+					padding: 12px 20px;
+					font-size: 1em;
+					font-weight: normal;
+					line-height: 1.6em;
+					position: relative; /* helps z-index kick in (in color scheme CSS) */
+				}
+
+			/* Title higher if no description */
+
+			.exodus-slide-no-description .exodus-slide-caption-content {
+				bottom: 18%;
+			}
+
+			/* Control Nav (Radios) */
+
+			.flex-control-nav {
+				margin: 15px 10px -20px 10px; /* negative bottom pulls content below up */
+				text-align: center;
+			}
+
+				/* Control Buttons */
+
+				.flex-control-nav li {
+					margin: 0 5px 10px 5px;
+					display: inline-block;
+				}
+
+					.flex-control-nav li a {
+						width: 40px;
+						height: 18px;
+						display: block;
+						cursor: pointer;
+						text-indent: -999em;
+					}
+
+					.flex-control-nav li a.active,
+					.flex-control-nav li a.active:hover {
+						cursor: default;
+					}
+
+/*************** HOMEPAGE INTRO ***************/
+
+#exodus-intro {
+	margin-top: 90px;
+	margin-bottom: 90px;
+	text-align: center;
+}
+
+	/* Heading */
+
+	#exodus-intro-heading { /* <h1> */
+		margin: 0;
+		font-size: 2.8em;
+		font-weight: bold;
+		line-height: 1.2em;
+		border-style: solid;
+	}
+
+	/* Content */
+
+	#exodus-intro-content {
+		font-size: 1.9em;
+		line-height: 1.6em;
+	}
+
+		/* No content top margin unless have heading */
+
+		.exodus-intro-has-heading #exodus-intro-content {
+			margin-top: 40px;
+		}
+
+		/* No bottom margin so flush with container */
+
+		#exodus-intro-content p {
+			margin: 30px 0 0 0;
+		}
+
+		/* No margin at top for first child in case no heading */
+
+		#exodus-intro-content p:first-child {
+			margin-top: 0;
+		}
+
+/************ HOMEPAGE HIGHLIGHTS *************/
+
+/* Note: Change all 40px values together for even spacing */
+
+#ctcom-home-highlights {
+	width: 100%;
+	margin: 90px 0 90px -40px;
+	float: none;
+}
+
+	#ctcom-home-highlights-inner {
+		margin: -40px -40px 0 0;
+	}
+
+	#ctcom-home-highlights .exodus-highlight {
+		display: inline-block;
+		margin: 40px -40px 0 40px;
+		width: 33.3%; /* three columns totals 100% */
+	}
+
+		#ctcom-home-highlights .exodus-highlight .exodus-caption-image-inner {
+			margin-right: 40px;
+		}
+
+		/* Bigger title on homepage */
+
+		#ctcom-home-highlights .exodus-caption-image-title,
+		.exodus-home-widget .exodus-caption-image-title  {
+			font-size: 1.5em;
+		}
+
+/************** HOMEPAGE WIDGETS **************/
+
+/* Homepage Widget Columns (Two Columns) */
+
+#exodus-home-bottom-widgets {
+	margin: 90px 0;
+}
+
+	/* Left Column */
+
+	.exodus-home-bottom-widgets-both #exodus-home-bottom-widgets-left { /* make 50% only if both columns used */
+		float: left;
+		width: 46%;
+	}
+
+	/* Right Column */
+
+	.exodus-home-bottom-widgets-both #exodus-home-bottom-widgets-right { /* make 50% only if both columns used */
+		float: right;
+		width: 46%;
+	}
+
+/* Homepage Widgets */
+
+.exodus-home-widget { /* <aside> */
+	margin-top: 70px;
+}
+
+	/* No margin on first widget */
+
+	.exodus-home-widget:first-child {
+		margin-top: 0;
+	}
+
+	/* Widget title */
+
+	.exodus-home-widget:not(.widget_ctfw-highlight) .exodus-widget-title { /* don't affect highlight widget title */
+		margin-bottom: 40px;
+	}
+
+	/* Paragraphs */
+
+	.exodus-home-widget p {
+		margin: 20px 0;
+	}
+
+/* Widget Entries (bigger thumbnail, one meta per line) */
+
+.exodus-home-widget .exodus-widget-entry { /* <article> */
+	margin: 35px 0;
+}
+
+	.exodus-home-widget .exodus-widget-entry.exodus-widget-entry-has-image {
+		min-height: 120px; /* match .exodus-widget-entry-thumb + padding top/bottom */
+		padding-top: 5px; /* make up for lack of line height effect on image, so spacing between entries is even */
+		padding-bottom: 5px; /* on both ends */
+	}
+
+	.exodus-home-widget .exodus-widget-entry.exodus-widget-entry-has-image header {
+		min-height: 110px; /* Make at least height of image or iamge will cover excerpt */
+	}
+
+	.exodus-home-widget .exodus-widget-entry-thumb {
+		width: 110px; /* match .exodus-widget-entry.exodus-widget-entry-has-image min-height */
+		height: 110px;
+	}
+
+	.exodus-home-widget .exodus-widget-entry-has-image .exodus-widget-entry-title,
+	.exodus-home-widget .exodus-widget-entry-has-image .exodus-widget-entry-meta {
+		margin-left: 140px;
+	}
+
+	.exodus-home-widget .exodus-widget-entry-meta > li {
+		display: block; /* one per line */
+		margin-right: 0;
+	}
+
+/**********************************************
+ * 6. ENTRY STYLES (Shared)
+ **********************************************/
+
+/* These are generic styles used by multiple post types */
+
+/******** SHARED STYLES (Full + Short) ********/
+
+/* Entry Header */
+
+.exodus-entry-header {
+	overflow: hidden; /* prevent horizontal scroll on mobile from negative margins */
+}
+
+	/* Increase space above when entry has image to compensate for line height */
+
+	.ctfw-has-image .exodus-entry-header {
+		padding-top: 5px;
+	}
+
+	/* Image Container */
+
+	.exodus-entry-image {
+		display: inline-block;
+		float: left;
+		max-width: 29%; /* just big enough for image to be 100% */
+		padding: 2px 30px 0 0;
+		vertical-align: top;
+	}
+
+		/* Apply max height so don't start shrinking until need to */
+
+		.exodus-entry-image img {
+			width: auto;
+			max-height: 135px; /* keep image reasonably sized on wide screens */
+		}
+
+		/* No sidebar */
+
+		.exodus-no-sidebar .exodus-entry-image {
+			max-width: 19%; /* just big enough for image to be 100% */
+		}
+
+/* Title & Meta Container */
+
+.exodus-entry-title-meta {
+	display: block;
+	max-width: 70%; /* this plus .exodus-entry-image should make 100% */
+	float: left;
+}
+
+	/* No sidebar */
+
+	.exodus-no-sidebar .exodus-entry-title-meta {
+		max-width: 81%; /* this plus .exodus-entry-image should make 100% */
+	}
+
+	/* No image */
+
+	.ctfw-no-image > .exodus-entry-header .exodus-entry-title-meta { /* affect only the most immediate header in light of "loop after content" */
+		max-width: 100%;
+	}
+
+	/* Title */
+
+	h1.exodus-entry-title { /* .exodus-main-title */
+		margin: 0 0 5px 0;
+	}
+
+	/* Meta List */
+
+	.exodus-entry-meta { /* <ul> */
+		margin: 8px -30px 0 0; /* negative of li right margin; see overflow: hidden on .exodus-entry-header */
+		list-style: none;
+	}
+
+		/* Meta Item */
+
+		.exodus-entry-meta > li {
+			display: inline-block;
+			margin: 16px 30px 0 0;
+			vertical-align: top;
+			font-weight: bold;
+			line-height: 1.6em;
+		}
+
+			/* Meta is first element (no Title) so remove space above */
+
+			.exodus-entry-meta:first-child {
+				margin-top: -20px; /* negative of .exodus-entry-meta > li */
+			}
+
+			/* Links */
+
+			.exodus-entry-meta > li a {
+				white-space: nowrap; /* Keep links from wrapping */
+			}
+
+			/* Move buttons down a little to compensate for line height */
+
+			.exodus-entry-meta > li .exodus-button {
+				margin: 5px 0;
+			}
+
+			/* Date */
+
+			.exodus-entry-date {
+				font-weight: bold;
+			}
+
+			/* Spans (e.g. "8:00 - 9:00 <span>(Description)</span>") */
+
+			.exodus-entry-meta > li span {
+				font-weight: normal;
+			}
+
+			/* Icon List */
+
+			.exodus-entry-meta .exodus-list-icons {
+				padding-top: 1px;
+			}
+
+/* Entry Content (full content, short excerpt and comment content use this) */
+
+.exodus-entry-content > :first-child {
+	margin-top: 0; /* remove margin from first element (probably <p>) */
+}
+
+.exodus-entry-content > :last-child {
+	margin-bottom: 0; /* remove margin from last element (probably <p>) */
+}
+
+/*************** FULL / SINGLE ****************/
+
+/* Margin between elements */
+
+.exodus-entry-full > *,
+.exodus-entry-footer-item {
+	margin-top: 60px;
+}
+
+	.exodus-entry-full > *:first-child {
+		margin-top: 0;
+	}
+
+/* No bottom margin on last element in entry */
+
+.exodus-entry-full > :last-child {
+	margin-bottom: 0;
+}
+
+/* Password Protection Form */
+
+.post-password-form label {
+	font-weight: bold;
+}
+
+	/* Input */
+
+	.post-password-form input[type=password] {
+		display: block; /* force "Password:" and submit button to their own lines */
+		margin: 20px 0;
+	}
+
+/* Loop After Content */
+
+/* Entry content is first child, meaning no Title */
+/* Loop after content is first child, meaning no content above it */
+
+.exodus-entry-full > .exodus-entry-content:first-child {
+	margin-top : 0;
+}
+
+	.exodus-entry-full > .exodus-entry-content:first-child #exodus-loop-after-content:first-child { /* if is first element (no page title or desc) */
+		margin-top: -75px; /* compensate for short entry top margin */
+	}
+
+/* Entry Footer */
+
+.exodus-entry-footer-item:first-child {
+	margin-top: 0; /* no margin on first item */
+}
+
+	/* Multipage Navigation (Pages: 1 2 3)  - for posts/pages broken into multiple pages */
+
+	.exodus-entry-page-nav {
+		font-size: 1.4em;
+		font-weight: bold;
+		text-align: center;
+	}
+
+		/* "Pages:" */
+
+		.exodus-entry-page-nav span {
+			font-weight: bold;
+		}
+
+		/* Linked Page # */
+
+		.exodus-entry-page-nav a {
+			font-weight: normal;
+		}
+
+	/* Term Lists (categories, tags, etc.) */
+
+	.exodus-entry-footer-terms {
+		margin-top: 10px;
+	}
+
+		/* No margin on first item */
+
+		.exodus-entry-footer-terms:first-child {
+			margin-top: 0;
+		}
+
+		/* Icon Adjustments */
+
+		.exodus-entry-footer-terms .exodus-content-icon .el-icon-folder {
+			top: 5px;
+		}
+
+	/* Edit Link */
+
+	.exodus-entry-footer .post-edit-link {
+		float: right;
+	}
+
+/************** SHORT / MULTIPLE **************/
+
+/* Container */
+
+.exodus-entry-short { /* space between each <article> */
+	margin-top: 75px; /* also change on: .exodus-entry-full > .exodus-entry-content:first-child #exodus-loop-after-content:first-child */
+}
+
+	/* More margin abobe meta on short to better line up with thumbnail */
+
+	.exodus-entry-short .exodus-entry-meta { /* <ul> */
+		margin-top: 16px;
+	}
+
+	/* Margin between elements (less than Full) */
+
+	.exodus-entry-short > *,
+	.exodus-entry-short .exodus-entry-footer-item {
+		margin-top: 30px;
+	}
+
+		/* Remove margin from top of first entry when show latest posts on homepage or "Posts page" */
+
+		.blog .exodus-entry-short:first-child {
+			margin-top: -30px; /* compensate for short entry top margin */
+		}
+
+/* Sticky posts - required class */
+
+.sticky {
+	display: block;
+}
+
+/**********************************************
+ * 7. SERMONS
+ **********************************************/
+
+/*************** FULL / SINGLE ****************/
+
+/* Space between player and buttons */
+
+#exodus-sermon-full-player,
+#exodus-sermon-full-buttons {
+	margin-top: 30px;
+}
+
+	#exodus-sermon-full-player:first-child,
+	#exodus-sermon-full-buttons:first-child {
+		margin-top: 0;
+	}
+
+/****************** INDEXES *******************/
+
+/* Hide title if page has banner (buttons are descriptive) */
+
+.exodus-has-banner.page-template-sermon-topics .exodus-main-title,
+.exodus-has-banner.page-template-sermon-series .exodus-main-title,
+.exodus-has-banner.page-template-sermon-books .exodus-main-title,
+.exodus-has-banner.page-template-sermon-speakers .exodus-main-title,
+.exodus-has-banner.page-template-sermon-dates .exodus-main-title {
+	display: none;
+}
+
+.exodus-has-banner.page-template-sermon-topics .exodus-entry-full > .exodus-entry-content,
+.exodus-has-banner.page-template-sermon-series .exodus-entry-full > .exodus-entry-content,
+.exodus-has-banner.page-template-sermon-books .exodus-entry-full > .exodus-entry-content,
+.exodus-has-banner.page-template-sermon-speakers .exodus-entry-full > .exodus-entry-content,
+.exodus-has-banner.page-template-sermon-dates .exodus-entry-full > .exodus-entry-content {
+	margin-top: 0;
+}
+
+/* Index Container */
+
+.exodus-sermon-index {
+	margin-top: 3.125em; /* in case there is content but no buttons */
+}
+
+	.exodus-sermon-index > * {
+		margin-top: 0;
+	}
+
+	.exodus-sermon-index > *:last-child {
+		margin-bottom: 0;
+	}
+
+/* Header Buttons */
+
+#exodus-sermon-index-header.exodus-sermon-index-has-content {
+	margin-top: 3.125em; /* add margin above buttons when content used */
+}
+
+#exodus-sermon-index-header ul {
+	margin-top: 0;
+	margin-bottom: 3.125em;
+}
+
+/* List Items (Sermons and Speakers) */
+
+.exodus-sermon-index-list { /* <ul> */
+	margin-top: 0;
+	margin-bottom: -1.25em !important;
+	line-height: 1.3;
+}
+
+	/* Second and third level margins */
+
+	.exodus-sermon-index-list ul {
+		margin-top: 0.5em;
+	}
+
+		.exodus-sermon-index-list ul ul {
+			margin-left: 1.25em;
+		}
+
+	/* Top-level Item */
+
+	.exodus-sermon-index-list > li {
+		padding-bottom: 1.25em
+	}
+
+		/* Link bigger */
+
+		.exodus-sermon-index-list > li > a {
+			font-size: 1.2em; /* h4 */
+		}
+
+		/* Count lower */
+
+		.exodus-sermon-index-list > li > .exodus-list-item-count {
+			top: 0.375em;
+		}
+
+	/* Second level or deeper */
+
+	.exodus-sermon-index-list li li {
+		margin-bottom: 0.5em; /* Less margin */
+	}
+
+		/* Second-level links smaller */
+
+		.exodus-sermon-index-list li li a {
+			font-size: 1em;
+		}
+
+	/* Three Columns */
+
+	.exodus-sermon-index-list.exodus-sermon-index-list-three-columns {
+		-moz-column-count: 3;
+		-webkit-column-count: 3;
+		column-count: 3;
+		-moz-column-gap: 6.25em;
+		-webkit-column-gap: 6.25em;
+		column-gap: 6.25em;
+	}
+
+	/* Two Columns */
+
+	.exodus-sermon-index-list.exodus-sermon-index-list-two-columns {
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+		-moz-column-gap: 4.375em;
+		-webkit-column-gap: 4.375em;
+		column-gap: 4.375em;
+	}
+
+/* Sermon Series */
+
+#exodus-sermon-series-list h2 {
+	margin-bottom: 1.5em;
+}
+
+	#exodus-sermon-series-list h2:first-child {
+		margin-top: 0;
+	}
+
+#exodus-sermon-series-list ul {
+	margin-top: 0;
+	margin-bottom: -1.7em;
+	margin-left: -1.563em;
+	margin-right: -1.563em;
+}
+
+	#exodus-sermon-series-list li {
+		display: inline-block;
+		width: 27%;
+		min-width: 250px;
+		margin-bottom: 2.5em; /* reduce to account for line height */
+		margin-left: 1.563em;
+		margin-right: 1.563em;
+		list-style: none;
+		vertical-align: top;
+		line-height: 1.3;
+	}
+
+		#exodus-sermon-series-list a {
+			display: inline-block;
+			font-size: 1.2em; /* h4 */
+			line-height: 1.2;
+		}
+
+		#exodus-sermon-series-list .exodus-sermon-series-dates,
+		#exodus-sermon-series-list .exodus-sermon-series-count {
+			margin-top: 0.313em;
+		}
+
+		#exodus-sermon-series-list .exodus-sermon-series-dates {
+			font-weight: bold;
+		}
+
+/* Sermon Books */
+
+#exodus-sermon-books-list {
+	margin-bottom: -2.1em;
+}
+
+.exodus-sermon-books-testament { /* <section> */
+	display: inline-block;
+	width: 44.5%;
+	margin-bottom: 2.1em;
+	vertical-align: top;
+}
+
+.exodus-sermon-books-testament .exodus-list {
+	margin-top: 2.4em;
+}
+
+	.exodus-sermon-books-testament:nth-child(odd) {
+		margin-right: 10%;
+	}
+
+	.exodus-sermon-books-testament h2 {
+		margin-top: 0 !important;
+	}
+
+	.exodus-sermon-books-testament ul {
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+		-moz-column-gap: 3.75em;
+		-webkit-column-gap: 3.75em;
+		column-gap: 3.75em;
+		padding-bottom: 0.75em; /* workaround for when there is only one item, it gets cut off in IE / Edge */
+	}
+
+	.exodus-sermon-books-testament a {
+		font-size: 1.2em; /* h4 */
+	}
+
+/* Sermon Dates */
+
+#exodus-sermon-dates-list h2 {
+	margin: 0 0 1.4em 0;
+}
+
+#exodus-sermon-dates-list ul {
+	margin: 0 0 2.9em 0;
+}
+
+	#exodus-sermon-dates-list li {
+		margin: 0 0.938em 0 0;
+		display: inline-block;
+		list-style: 0;
+	}
+
+	#exodus-sermon-dates-list a {
+		font-size: 1.2em; /* h4 */
+	}
+
+	.exodus-sermon-dates-count {
+		position: relative;
+		top: -0.063em;
+		margin-left: 0.313em;
+		font-size: 0.9em;
+	}
+
+/**********************************************
+ * 8. EVENTS
+ **********************************************/
+
+/*************** FULL / SINGLE ****************/
+
+/* Space between map and buttons */
+
+#exodus-event-buttons {
+	margin-top: 32px;
+}
+
+/****************** CALENDAR ******************/
+
+/* Header (Title and Controls) */
+
+#exodus-calendar {
+	position: relative;
+}
+
+	#exodus-calendar-loading {
+		display: none;
+		opacity: 0.7;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		z-index: 100;
+	}
+
+	/* Month table and controls */
+
+	#exodus-calendar-month {
+
+	}
+
+		#exodus-calendar-header {
+			margin-top: -15px;
+		}
+
+			#event-calendar-header-left {
+				float: left;
+				margin-bottom: 10px;
+				line-height: 50px;
+				margin-right: 25px;
+				vertical-align: middle;
+			}
+
+				#event-calendar-title { /* h2 */
+					display: inline-block;
+					margin: 0;
+					vertical-align: middle;
+					line-height: 1.6em;
+				}
+
+					#event-calendar-title span {
+						display: inline-block;
+						margin-right: 15px;
+					}
+
+					/* Category */
+
+					#exodus-calendar-title-category {
+						display: inline-block;
+						font-weight: normal;
+					}
+
+						#exodus-calendar-remove-category {
+							margin-left: 4px;
+							display: inline-block;
+							position: relative;
+
+						}
+
+							#exodus-calendar-remove-category a {
+								font-size: 0.6em;
+								position: relative;
+								top: -2px;
+
+							}
+
+			#event-calendar-header-right {
+				float: right;
+				margin-bottom: 10px;
+				padding-top: 2px;
+				line-height: 50px;
+			}
+
+				#event-calendar-header-right a {
+					position: relative;
+					margin-left: 10px;
+					padding: 0;
+					width: 32px;
+					line-height: 32px;
+					text-align: center;
+				}
+
+				#event-calendar-header-right a:first-child {
+					margin-left: 0;
+				}
+
+					#event-calendar-header-right a .el-icon-chevron-left {
+						font-size: 1.05em;
+						margin: 0 2px 0 0;
+					}
+
+					#event-calendar-header-right a .el-icon-chevron-right {
+						font-size: 1.05em;
+						margin: 0 0 0 2px;
+					}
+
+					#event-calendar-header-right a .el-icon-calendar {
+						top: 2px;
+						font-size: 1.2em;
+					}
+
+					#event-calendar-header-right a .el-icon-folder {
+						top: 2px;
+						font-size: 1.2em;
+					}
+
+				/* Month Dropdown */
+
+				#exodus-calendar-month-dropdown {
+					width: 200px;
+				}
+
+					.exodus-calendar-month-dropdown-year {
+						font-weight: bold;
+						margin-top: 10px;
+					}
+
+					.exodus-calendar-month-dropdown-year:first-child {
+						margin-top: 0;
+					}
+
+					.exodus-calendar-month-dropdown-months { /* <ul> */
+						margin: 0;
+						list-style: none;
+					}
+
+						.exodus-calendar-month-dropdown-months li {
+							display: inline-block;
+							width: 23%;
+						}
+
+							.exodus-calendar-month-dropdown-months li.exodus-calendar-month-dropdown-past {
+								font-weight: normal;
+							}
+
+		/* Calendar table */
+
+		#exodus-calendar-table { /* table */
+			margin-top: 15px;
+			border-collapse: separate; /* Firefox doesn't like collapse */
+			border-spacing: 0;
+			table-layout: fixed; /* help overflow: hidden on cells; equal widths */
+			border: 0 !important;
+			margin-bottom: 0;
+			overflow: hidden;
+		}
+
+			/* Top and bottom (for rounded corners) */
+
+			.exodus-calendar-table-top {
+				height: 2px; /* equal to border-radius; update .exodus-calendar-table-header padding-bottom and .exodus-calendar-table-header-row height */
+			}
+
+			.exodus-calendar-table-bottom {
+				height: 1px;
+			}
+
+			/* Cells */
+
+			#exodus-calendar-table th,
+			#exodus-calendar-table td {
+				border: 0;
+				padding: 0;
+				position: relative; /* helps today border */
+			}
+
+			/* Header */
+
+			.exodus-calendar-table-header-row { /* tr */
+				height: 38px; /* 40 minus .exodus-calendar-table-top height */
+			}
+
+				.exodus-calendar-table-header { /* th */
+					width: 14.2857%;
+					border-width: 1px !important;
+					border-style: solid !important;
+					vertical-align: middle;
+				}
+
+					.exodus-calendar-table-header-content {
+						padding-bottom: 2px !important; /* offset .exodus-calendar-table-top height */
+						font-size: 1em;
+						font-weight: bold;
+						text-align: center !important;
+					}
+
+						/* Three letter abbreviation show on mobile */
+
+						.exodus-calendar-table-header-short {
+							display: none;
+						}
+
+			/* Week */
+
+			.exodus-calendar-table-week { /* tr */
+
+			}
+
+				.exodus-calendar-table-week-first .exodus-calendar-table-day {
+					border-top-width: 0 !important;
+				}
+
+				.exodus-calendar-table-day { /* td */
+					border-width: 1px !important;
+					border-style: solid !important;
+				}
+
+					/* First and last days of week */
+
+					.exodus-calendar-table-day-1 {
+						border-left-width: 2px !important;
+					}
+
+					.exodus-calendar-table-day-7 {
+						border-right-width: 2px !important;
+					}
+
+					/* Day content container */
+
+					.exodus-calendar-table-day-content-container {
+						padding: 5px 17px 10px 10px;
+						overflow: hidden;
+						min-height: 100px;
+					}
+
+						/* Greater min height when no sidebar */
+
+						.exodus-no-sidebar .exodus-calendar-table-day-content-container {
+							min-height: 120px;
+						}
+
+						.exodus-calendar-table-day-heading { /* div */
+							margin-bottom: 1px;
+							font-size: 0.95em;
+							font-weight: bold;
+							text-align: right;
+							white-space: nowrap;
+						}
+
+							.exodus-calendar-table-day-label { /* span */
+								font-weight: normal;
+								display: inline-block;
+								margin-right: 3px;
+								vertical-align: middle;
+							}
+
+							/* Number */
+
+							.exodus-calendar-table-day-number {
+								vertical-align: middle;
+							}
+
+							/* Number - linked number for mobile */
+
+							a.exodus-calendar-table-day-number {
+								display: none;
+							}
+
+						.exodus-calendar-table-day-events { /* ul */
+							list-style: none;
+							margin: 0;
+						}
+
+							.exodus-calendar-table-day-events li {
+								font-size: 0.85em;
+								line-height: 1.7em;
+								white-space: nowrap;
+							}
+
+								.exodus-calendar-table-day-events li a {
+
+								}
+
+								/* Time */
+
+								.exodus-calendar-table-day-event-time {
+									padding-left: 3px;
+								}
+
+						/* Today */
+
+						.exodus-calendar-table-day-today {
+							border-width: 1px;
+							border-style: solid;
+							outline-width: 1px;
+							outline-style: solid;
+							z-index: 10;
+						}
+
+						.exodus-calendar-table-week-first .exodus-calendar-table-day.exodus-calendar-table-day-today {
+							border-top-width: 1px !important;
+						}
+
+						.exodus-calendar-table-day-today.exodus-calendar-table-day-1 {
+							border-left-width: 2px !important;
+						}
+
+						.exodus-calendar-table-day-today.exodus-calendar-table-day-7 {
+							border-right-width: 2px !important;
+						}
+
+						/* Day from other month */
+
+						.exodus-calendar-table-day-other-month .exodus-calendar-table-day-heading,
+						.exodus-calendar-table-day-other-month a {
+							font-weight: normal;
+						}
+
+	/* List of events (hover and mobile) */
+
+	#exodus-calendar-list {
+		display: none;
+		margin-top: 42px;
+	}
+
+		/* Heading */
+
+		#exodus-calendar-list-heading {
+			display: none;
+			margin-bottom: 35px;
+		}
+
+		/* Event */
+
+		#exodus-calendar-list .exodus-calendar-list-entry { /* space between each <article> in list; not hover */
+			display: none;
+			margin-top: 30px; /* for mobile */
+		}
+
+		#exodus-calendar-list .exodus-calendar-list-entry:first-of-type {
+			margin-top: 0;
+		}
+
+			/* Entry content */
+
+			.exodus-calendar-list-entry-content {
+				overflow: hidden; /* prevent horizontal scroll on mobile from negative margins */
+			}
+
+				/* Increase space above when entry has image to compensate for line height */
+
+				.ctfw-has-image .exodus-calendar-list-entry-content {
+					padding-top: 5px;
+				}
+
+				/* Image Container */
+
+				.exodus-calendar-list-entry-image {
+					display: inline-block;
+					float: left;
+					max-width: 29%;
+					padding: 2px 30px 0 0;
+					vertical-align: top;
+				}
+
+					/* Apply max height so don't start shrinking until need to */
+
+					.exodus-calendar-list-entry-image img {
+						width: auto;
+						max-height: 110px; /* keep image reasonably sized on wide screens */
+					}
+
+				/* Title & Meta Container */
+
+				.exodus-calendar-list-entry-right {
+					display: block;
+					max-width: 70%; /* this plus .exodus-calendar-list-entry-image should make 100% */
+					float: left;
+				}
+
+					/* No image */
+
+					.ctfw-no-image > .exodus-calendar-list-entry-content .exodus-calendar-list-entry-right { /* affect only the most immediate header in light of "loop after content" */
+						max-width: 100%;
+					}
+
+					/* Title */
+
+					h1.exodus-calendar-list-entry-title {
+						margin: 2px 0 0 0 !important;
+						font-size: 1.1em;
+						line-height: 1.5em;
+					}
+
+					/* Meta List */
+
+					.exodus-calendar-list-entry-meta { /* <ul> */
+						margin: 0 -30px 0 0; /* negative of li right margin below; see overflow: hidden on .exodus-calendar-list-entry-content */
+						list-style: none;
+					}
+
+						/* Meta Item */
+
+						.exodus-calendar-list-entry-meta > li {
+							display: block;
+							margin: 16px 30px 0 0;
+							vertical-align: top;
+							line-height: 1.6em;
+						}
+
+							/* Meta is first element (no Title) so remove space above */
+
+							.exodus-calendar-list-entry-meta:first-child {
+								margin-top: -20px; /* negative of .exodus-calendar-list-entry-meta > li */
+							}
+
+							/* Links */
+
+							.exodus-calendar-list-entry-meta > li a {
+								white-space: nowrap; /* Keep links from wrapping */
+							}
+
+							/* Move buttons down a little to compensate for line height */
+
+							.exodus-calendar-list-entry-meta > li .exodus-button {
+								margin: 5px 0;
+							}
+
+							/* Date */
+
+							.exodus-calendar-list-entry-date {
+								font-weight: bold;
+							}
+
+								/* Hide date in list (heading shows it) */
+
+								#exodus-calendar-list .exodus-calendar-list-entry .exodus-calendar-list-entry-date {
+									display: none;
+								}
+
+							/* Hide address in list (too long for mobile) */
+
+							#exodus-calendar-list .exodus-calendar-list-entry .exodus-calendar-list-entry-address {
+								display: none;
+							}
+
+
+				/* Buttons */
+
+				.exodus-calendar-list-entry-buttons {
+					margin-top: 18px;
+				}
+
+					/* Hide buttons in list (less room on phone) */
+
+					#exodus-calendar-list .exodus-calendar-list-entry .exodus-calendar-list-entry-buttons {
+						display: none;
+					}
+
+/**********************************************
+ * 9. LOCATIONS
+ **********************************************/
+
+/*************** FULL / SINGLE ****************/
+
+/* Space between map and buttons */
+
+.exodus-location-full-direction {
+	margin-top: 40px;
+}
+
+/**********************************************
+ * 10. ATTACHMENTS
+ **********************************************/
+
+/* Back button max 100% since there is none on right */
+
+.attachment .exodus-nav-left { /* use in .exodus-nav-left-right */
+	width: 100%;
+}
+
+/**********************************************
+ * 11. GALLERIES
+ **********************************************/
+
+/************** GALLERY (SINGLE) **************/
+
+/* Styles for native WordPress gallery based on styles from Twenty Thirteen theme */
+/* Note that these classes also used for showing cover thumbnails on Galleries template */
+
+/* Gallery Container */
+
+.gallery { /* see .exodus-clearfix */
+	margin: 50px -7px 36px -7px; /* 50px - 14px bottom margin; offset for left/right margin */
+	position: relative;
+}
+
+	/* Thumbnail Container */
+
+	.gallery-item {
+		display: block;
+		position: relative;
+		float: left; /* fills vertical gaps in some browsers */
+		margin: 0 7px 14px 7px;
+	}
+
+		/* Thumbnail caption */
+
+		.gallery-caption {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			max-height: 32%;
+			margin: 0;
+			padding: 8px 12px;
+			font-size: 0.9em;
+			line-height: 1.4em;
+			text-align: left;
+			cursor: pointer;
+			opacity: 0;
+			overflow: hidden;
+			-webkit-transition:	.15s;
+			-moz-transition:	.15s;
+			-ms-transition:		.15s;
+			-o-transition:		.15s;
+			transition:			.15s; /* fade caption in */
+			-webkit-backface-visibility: 	hidden; /* prevents shifting */
+			-moz-backface-visibility:		hidden;
+			-backface-visibility: 			hidden;
+		}
+
+			/* Show on hover */
+
+			.gallery-item:hover .gallery-caption {
+				opacity: 1;
+			}
+
+		/* Smaller caption for small thumbnails */
+
+		.exodus-has-sidebar .gallery-columns-3 .gallery-caption,
+		.gallery-columns-4 .gallery-caption {
+			font-size: 0.8em;
+		}
+
+		/* No caption for very small thumbnails, galleries in widgets, and browsers without opacity */
+
+		.exodus-has-sidebar .gallery-columns-4 .gallery-caption,
+		.gallery-columns-5 .gallery-caption,
+		.gallery-columns-6 .gallery-caption,
+		.gallery-columns-7 .gallery-caption,
+		.gallery-columns-8 .gallery-caption,
+		.gallery-columns-9 .gallery-caption,
+		.exodus-widget .gallery-caption,
+		.no-opacity .gallery-caption {
+			display: none;
+		}
+
+	/* Multi-column widths */
+
+	.gallery-columns-1 .gallery-item { /* duplicate in responsive.css */
+		max-width: 96%; /* old Android -- in widget in particular */
+		max-width: -webkit-calc(100% - 14px);
+		max-width:         calc(100% - 14px);
+	}
+
+	.gallery-columns-2 .gallery-item { /* duplicate in responsive.css */
+		max-width: 44%; /* Opera Mobile, Android 4 don't like anything greater */
+		max-width: -webkit-calc(50% - 14px);
+		max-width:         calc(50% - 14px);
+	}
+
+	.gallery-columns-3 .gallery-item { /* duplicate in responsive.css for 3 columns */
+		max-width: 27%; /* Opera Mobile, Android 4 don't like anything greater */
+		max-width: -webkit-calc(33.3% - 14px);
+		max-width:         calc(33.3% - 14px);
+	}
+
+	.gallery-columns-4 .gallery-item {
+		max-width: 22%; /* Android 4 does not like anything greater */
+		max-width: -webkit-calc(25% - 14px);
+		max-width:         calc(25% - 14px);
+	}
+
+	.gallery-columns-5 .gallery-item { /* duplicate in responsive.css for 5 columns */
+		max-width: 17%;
+		max-width: -webkit-calc(20% - 14px);
+		max-width:         calc(20% - 14px);
+	}
+
+	.gallery-columns-6 .gallery-item {
+		max-width: 14%;
+		max-width: -webkit-calc(16.7% - 14px);
+		max-width:         calc(16.7% - 14px);
+	}
+
+	.gallery-columns-7 .gallery-item {
+		max-width: 12%;
+		max-width: -webkit-calc(14.28% - 14px);
+		max-width:         calc(14.28% - 14px);
+	}
+
+	.gallery-columns-8 .gallery-item {
+		max-width: 10%;
+		max-width: -webkit-calc(12.5% - 14px);
+		max-width:         calc(12.5% - 14px);
+	}
+
+	.gallery-columns-9 .gallery-item {
+		max-width: 9%;
+		max-width: -webkit-calc(11.1% - 14px);
+		max-width:         calc(11.1% - 14px);
+	}
+
+	/* Flush with right edge */
+
+	.gallery-columns-1 .gallery-item:nth-of-type(1n),
+	.gallery-columns-2 .gallery-item:nth-of-type(2n),
+	.gallery-columns-3 .gallery-item:nth-of-type(3n),
+	.gallery-columns-4 .gallery-item:nth-of-type(4n),
+	.gallery-columns-5 .gallery-item:nth-of-type(5n),
+	.gallery-columns-6 .gallery-item:nth-of-type(6n),
+	.gallery-columns-7 .gallery-item:nth-of-type(7n),
+	.gallery-columns-8 .gallery-item:nth-of-type(8n),
+	.gallery-columns-9 .gallery-item:nth-of-type(9n) {
+		margin-right: 0;
+	}
+
+	/* Remove unnecesary breaks/clearing */
+
+	.gallery br {
+		display: none;
+	}
+
+/* Single column gallery (wider spacing) */
+
+.gallery-columns-1 {
+	margin: 40px -11px 26px 0; /* 11px not 14px to prevent horizontal scroll on mobile */
+}
+
+	.gallery-columns-1 .gallery-item {
+		margin: 14px 0;
+	}
+
+	.gallery-columns-1 .gallery-item:first-child {
+		margin-top: 0;
+	}
+
+/**********************************************
+ * 12. COMMENTS
+ **********************************************/
+
+/* Note: #comments is hardcoded in WP core comments_popup_link(), so no prefix */
+
+/*************** COMMENT LIST *****************/
+
+.exodus-comments, /* <ol> */
+.exodus-comments ul.children {
+	margin: 0;
+	list-style: none;
+}
+
+	/* Comment or Trackback/Pingback Item */
+
+	.exodus-comment {
+		margin: 50px 0 0 0;
+	}
+
+		/* Comment Meta */
+
+		.exodus-comment-meta {
+			min-height: 60px;
+			line-height: 1.5em;
+		}
+
+			/* Avatar Container */
+
+			.exodus-comment-avatar {
+				margin-right: 18px;
+				float: left;
+			}
+
+				/* Image */
+
+				.exodus-comment-avatar img {
+					width: 60px;
+					height: 60px;
+				}
+
+			/* Comment Author or Trackback */
+
+			.exodus-comment-author,
+			.exodus-comment-trackback-link {
+				padding: 1px 0 0 0;
+				font-weight: bold;
+			}
+
+				/* Post author, or trackback or pingback note - after name/link */
+
+				.exodus-comment-author span,
+				.exodus-comment-trackback-link span {
+					font-weight: normal;
+					text-transform: none;
+				}
+
+			/* Date */
+
+			.exodus-comment-meta time {
+				display: inline-block;
+				padding-top: 10px;
+				font-weight: bold;
+			}
+
+				.exodus-comment-time {
+					font-weight: normal;
+				}
+
+			/* Buttons */
+
+			.exodus-comment-buttons {
+				float: right;
+				margin-top: 6px;
+			}
+
+				.comment-reply-link,
+				.comment-edit-link {
+					float: left;
+					margin-left: 14px;
+				}
+
+		/* Comment Content */
+
+		.exodus-comment-content {
+			margin-top: 30px;
+		}
+
+			/* Less space between paragraphs / blocks */
+
+			.exodus-comment-content p,
+			.exodus-comment-content h4,
+			.exodus-comment-content h5,
+			.exodus-comment-content h6,
+			.exodus-comment-content ul,
+			.exodus-comment-content ol,
+			.exodus-comment-content dl,
+			.exodus-comment-content table,
+			.exodus-comment-content form {
+				margin-top: 20px; /* don't do margin: 20px 0 or list left margins break */
+				margin-bottom: 20px;
+			}
+
+		/* Moderation Note */
+
+		.exodus-comment-moderation {
+			font-weight: bold;
+		}
+
+		/* Indentations */
+
+		.exodus-comment,
+		.exodus-comment #respond {
+			margin-left: 6%;
+		}
+
+		.exodus-comment.depth-1 { /* first level flush left */
+			margin-left: 0;
+		}
+
+	/* Post author */
+
+	.single-post .bypostauthor > article { /* blog posts only */
+		padding: 30px;
+	}
+
+/* Comment nav */
+
+#exodus-comment-nav { /* .exodus-nav-left-right */
+	margin-top: 60px;
+}
+
+/**************** COMMENT FORM ****************/
+
+/* Comment Form */
+
+#respond { /* hard coded by WP */
+	position: relative;
+	margin: 50px 0 60px 0;
+}
+
+	/* No bottom margin when at bottom */
+
+	#respond:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Cancel Reply Link */
+
+	#cancel-comment-reply-link { /* this is within #reply-title heading so here we give it regular font */
+		position: relative;
+		bottom: 4px;
+		margin-left: 25px;
+		font-size: 0.65em;
+		font-weight: normal;
+		text-transform: none;
+	}
+
+	/* Message above form */
+
+	#respond .comment-notes,
+	#respond .logged-in-as {
+		margin: 25px 0 35px 0;
+	}
+
+	/* Text Inputs */
+
+	.comment-form-author,
+	.comment-form-email,
+	.comment-form-url {
+		position: relative;
+		margin: 30px 0;
+	}
+
+		#respond label {
+			font-weight: bold;
+			line-height: 40px;
+		}
+
+
+		#respond .comment-form-cookies-consent,
+		#respond .comment-form-cookies-consent label {
+			font-weight: normal;
+			line-height: 0.5;
+			padding-left: 4px;
+		}
+
+		.comment-form-comment label {
+			display: none;
+		}
+
+		#respond .required {
+			margin-left: 5px;
+		}
+
+		#respond input[type=text],
+		#respond input[type=email],
+		#respond input[type=url] {
+			position: absolute;
+			left: 90px;
+			width: 260px;
+		}
+
+	/* Comment Field */
+
+	.comment-form-comment {
+		clear: left;
+		margin: 10px 0;
+	}
+
+		/* Comment Textarea */
+
+		.comment-form-comment textarea {
+			width: 95%;
+		}
+
+	/* Error Messages */
+
+	#respond label.error {
+		font-weight: normal;
+	}
+
+		/* Error text */
+
+		.comment-form-author label.error,
+		.comment-form-email label.error,
+		.comment-form-url label.error,
+		p.comment-form-comment label.error {
+			font-weight: bold;
+		}
+
+		/* Error Message for Name, Email, URL after input */
+
+		.comment-form-author label.error,
+		.comment-form-email label.error,
+		.comment-form-url label.error {
+			position: absolute;
+			left: 375px;
+			white-space: nowrap;
+		}
+
+		/* Error Message for Comment */
+
+		p.comment-form-comment label.error {
+			position: relative;
+			top: 0;
+			display: block;
+		}
+
+	/* Allowed tags note */
+
+	.form-allowed-tags {
+		display: none;
+	}
+
+	/* Submit Button */
+
+	#respond .form-submit {
+		margin: 35px 0 0 0;
+	}
+
+/* Comments closed message (in place of add form if comments have already been made) */
+
+#exodus-comments-closed {
+	margin-top: 40px;
+	font-weight: bold;
+}
+
+/**********************************************
+ * 13. PLUGINS
+ **********************************************/
+
+/************** CONTACT FORM 7 ****************/
+
+span.wpcf7-form-control-wrap {
+	width: 100%;
+}
+
+div.wpcf7-mail-sent-ok,
+div.wpcf7-mail-sent-ng,
+div.wpcf7-spam-blocked,
+div.wpcf7-validation-errors {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	font-weight: bold;
+}
+
+span.wpcf7-not-valid-tip {
+	top: 30%;
+	left: 30%;
+	width: auto;
+	padding: 5px 0 0 0;
+	border: 0;
+	font-size: 1em;
+	font-weight: normal;
+}
+
+span.wpcf7-not-valid-tip-no-ajax {
+	padding-top: 5px;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+
+span.wpcf7-form-control-wrap textarea {
+	max-width: 100% !important;
+}
+
+div.wpcf7-validation-errors {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+/***************** JETPACK *******************/
+
+/* Hide the Jetpack stat smiley (used when JS off) */
+
+#wpstats {
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 30000px;
+	overflow: hidden;
+}
+
+/**********************************************
+ * 14. EDITOR
+ **********************************************/
+
+/* Content Margin */
+
+.mce-content-body {
+  margin: 1.875em;
+}
+
+	.mce-content-body > *:first-child {
+	  margin-top: 0;
+	}
+
+	.mce-content-body > *:last-child {
+	  margin-bottom: 0;
+	}
+
+/* Paragraph */
+
+.mce-content-body p,
+.mce-content-body h1,
+.mce-content-body h2,
+.mce-content-body h3,
+.mce-content-body h4,
+.mce-content-body h5,
+.mce-content-body h6,
+.mce-content-body table,
+.mce-content-body form {
+	margin: 30px 0;
+}
+
+	/* None on first */
+
+	.mce-content-body body > *:first-child {
+		margin-top: 0;
+	}
+
+/* Colors */
+
+.mce-content-body {
+	color: #555;
+}
+
+.mce-content-body h1,
+.mce-content-body h2,
+.mce-content-body blockquote {
+	color: #222;
+}
+
+.mce-content-body h3,
+.mce-content-body h4,
+.mce-content-body h5,
+.mce-content-body h6 {
+	color: #555;
+}
+
+.mce-content-body .wp-caption-text,
+.mce-content-body .wp-caption-dd {
+	line-height: 1.5;
+	color: #777;
+}
+
+.mce-content-body .wp-caption-dd {
+  padding-top: 0.5em;
+}

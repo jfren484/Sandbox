@@ -1,0 +1,3241 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exodus\n"
+"Report-Msgid-Bugs-To: churchthemes.com <contact@churchthemes.com>\n"
+"POT-Creation-Date: 2018-09-20 10:28-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: churchthemes.com <contact@churchthemes.com>\n"
+"Language-Team: churchthemes.com <contact@churchthemes.com>\n"
+"Language: ro_RO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2;"
+"_nx:1,2;_nx_noop:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: comment.php:48
+#, php-format
+msgid "%s Reply"
+msgstr "%s Răspunde"
+
+#: comment.php:49
+msgid "Log in to Reply"
+msgstr "Loghează-te pentru a răspunde"
+
+#: comment.php:56
+#, php-format
+msgctxt "comment"
+msgid "%s Edit"
+msgstr "%s Editează"
+
+#: comment.php:70
+msgctxt "comments"
+msgid "(Author)"
+msgstr "(Autor)"
+
+#: comment.php:76
+msgid "(Trackback)"
+msgstr "(Trackback)"
+
+#: comment.php:78
+msgid "(Pingback)"
+msgstr "(Pingback)"
+
+#: comment.php:90
+#, php-format
+msgctxt "comments"
+msgid "%3$s <span class=\"exodus-comment-time\">at %4$s</span>"
+msgstr "%3$s <span class=\"exodus-comment-time\">la %4$s</span>"
+
+#: comment.php:103
+msgid "Your comment is awaiting moderation."
+msgstr "Comentariul tău a fost trimis spre moderare."
+
+#: comments.php:29
+msgctxt "password protected"
+msgid "Comments"
+msgstr "Comentarii"
+
+#: comments.php:33
+msgid "Enter the password above to view any comments."
+msgstr "Introdu parola mai sus pentru a vedea comentariile."
+
+#: comments.php:44
+#, php-format
+msgid "One Comment"
+msgid_plural "%1$s Comments"
+msgstr[0] "%1$s Comentariu"
+msgstr[1] "%1$s Comentarii"
+msgstr[2] "%1$s de Comentarii"
+
+#: comments.php:68
+#, php-format
+msgid " %s Older Comments"
+msgstr " %s Comentarii mai vechi"
+
+#: comments.php:69
+#, php-format
+msgid "Newer Comments %s"
+msgstr "Comentarii noi %s"
+
+#: comments.php:83
+msgctxt "comment form"
+msgid "Add a Comment"
+msgstr "Adaugă comentariu"
+
+#: comments.php:84
+#, php-format
+msgid "Add a Reply to %s"
+msgstr "Adaugă un răspuns la %s"
+
+#: comments.php:85
+msgctxt "comment form"
+msgid "Cancel"
+msgstr "Anulează"
+
+#: comments.php:86
+msgctxt "comment form"
+msgid "Add Comment"
+msgstr "Adaugare comentariu"
+
+#: comments.php:96
+msgid "Commenting has been turned off."
+msgstr "Adăugarea comentariilor este dezactivată."
+
+#: content-attachment-header.php:24
+#, php-format
+msgid "Uploaded %s"
+msgstr "Încarcat %s"
+
+#: content-attachment.php:46
+#, php-format
+msgid "Download %s"
+msgstr "Descarcă %s"
+
+#: content-event-header.php:66
+msgid "Excluded Dates"
+msgstr ""
+
+#: content-event.php:58
+msgctxt "event"
+msgid "Get Directions"
+msgstr "Obţine indicaţii"
+
+#: content-event.php:69 content-footer-short.php:134
+msgctxt "event"
+msgid "Register"
+msgstr ""
+
+#: content-footer-full.php:19 content-footer-full.php:31
+#: content-footer-full.php:38 content-footer-full.php:49
+#: content-post-header.php:38 content-sermon-header.php:33
+#: content-sermon-header.php:40 content-sermon-header.php:47
+#: widget-templates/widget-events.php:81 widget-templates/widget-sermons.php:85
+#: widget-templates/widget-sermons.php:91
+#: widget-templates/widget-sermons.php:97
+#: widget-templates/widget-sermons.php:103
+msgid ", "
+msgstr ", "
+
+#: content-footer-full.php:21 content-footer-full.php:40
+#, php-format
+msgid "Tagged with %s"
+msgstr "Etichetat cu %s"
+
+#: content-footer-full.php:33
+#, php-format
+msgid "Series: %s"
+msgstr "Serii %s"
+
+#: content-footer-full.php:72
+msgid "Pages:"
+msgstr "Pagini:"
+
+#: content-footer-full.php:108
+#, php-format
+msgid "%1$s Edit %2$s"
+msgstr "%1$s Editează %2$s"
+
+#: content-footer-short.php:48
+msgid "Read"
+msgstr "Citeşte"
+
+#: content-footer-short.php:50
+msgctxt "sermon button"
+msgid "Details"
+msgstr "Detalii"
+
+#: content-footer-short.php:59
+msgid "Watch"
+msgstr "Urmăreşte"
+
+#: content-footer-short.php:68
+msgid "Listen"
+msgstr "Ascultă"
+
+#: content-footer-short.php:75 content-sermon.php:170
+msgid "Download PDF"
+msgstr "Descarcă PDF"
+
+#: content-footer-short.php:77
+msgid "PDF"
+msgstr "PDF"
+
+#: content-footer-short.php:98
+msgid "Location Details"
+msgstr "Detaliile Locaţiei"
+
+#: content-footer-short.php:103 content-footer-short.php:126
+#: page-templates/events-calendar.php:562
+msgid "Directions"
+msgstr "Direcţii"
+
+#: content-footer-short.php:121 page-templates/events-calendar.php:557
+msgid "Event Details"
+msgstr "Detalii Eveniment"
+
+#: content-footer-short.php:151
+msgid "Read Biography"
+msgstr "Citeşte Biografie"
+
+#: content-footer-short.php:165
+msgid "View Gallery"
+msgstr "Vezi Albumul Foto"
+
+#: content-footer-short.php:187
+msgid "Read More"
+msgstr "Citeşte mai mult"
+
+#: content-footer-short.php:193
+#, php-format
+msgid "View %s"
+msgstr "Vezi %s"
+
+#: content-location.php:45
+msgctxt "location"
+msgid "Get Directions"
+msgstr "Obţine indicaţii"
+
+#: content-sermon.php:136
+msgid "Show Video Player"
+msgstr "Arată Player-ul Video"
+
+#: content-sermon.php:145
+msgid "Show Audio Player"
+msgstr "Arată Player-ul Audio"
+
+#: content-sermon.php:152
+msgid "Download Video"
+msgstr "Descarcă Videoclip"
+
+#: content-sermon.php:154
+msgid "Save Video"
+msgstr "Salvează Videoclip"
+
+#: content-sermon.php:161
+msgid "Download Audio"
+msgstr "Descarcă Audio"
+
+#: content-sermon.php:163
+msgid "Save Audio"
+msgstr "Salvează Audio"
+
+#: content-sermon.php:172
+msgid "Save PDF"
+msgstr "Salvează PDF"
+
+#: footer.php:189
+msgctxt "footer"
+msgid "More Info"
+msgstr "Mai multe informaţii"
+
+#: footer.php:192
+msgctxt "footer"
+msgid "Directions"
+msgstr "Direcţii"
+
+#: footer.php:196
+msgctxt "footer"
+msgid "All Locations"
+msgstr "Toate Locaţiile"
+
+#: footer.php:229
+msgid "View Full Site"
+msgstr "Vezi Site Complet"
+
+#: footer.php:233
+msgid "View Mobile Site"
+msgstr "Vezi versiunea mobilă"
+
+#: framework/includes/admin/admin-taxonomies.php:70
+#, php-format
+msgid ""
+"<b>Custom Ordering:</b> Try <a href=\"%s\" target=\"_blank\">this plugin</a> "
+"for custom ordering your %s."
+msgstr ""
+
+#: framework/includes/admin/admin-widgets.php:33
+msgctxt "widget image library"
+msgid "Choose Image for Widget"
+msgstr "Alege imagine pentru Widget"
+
+#: framework/includes/admin/admin-widgets.php:34
+msgctxt "widget image library"
+msgid "Use in Widget"
+msgstr "Utilizează în Widget"
+
+#: framework/includes/admin/admin-widgets.php:63
+msgid "Sorry, this widget is not made for use in this area. Please delete."
+msgstr ""
+"Ne pare rău, dar acest widget nu se potrivește în această zonă. Te rugăm să "
+"ștergi."
+
+#: framework/includes/admin/edd-license.php:76
+msgid "<strong>License key could not be activated.</strong>"
+msgstr "<strong>Codul licenţei nu a putut fi activat</strong>"
+
+#: framework/includes/admin/edd-license.php:77
+#, php-format
+msgid ""
+"<strong>Theme License Inactive:</strong> <a href=\"%1$s\">Activate Your "
+"Theme License</a> to enable updates for the <strong>%2$s</strong> theme."
+msgstr ""
+"<strong>Licenţa temei este inactivă:</strong> <a href=\"%1$s\">Activează "
+"licenţa temei</a> to enable updates for the <strong>%2$s</strong> theme."
+
+#: framework/includes/admin/edd-license.php:78
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> <a href=\"%1$s\">Renew Your Theme "
+"License</a> to re-enable updates for the <strong>%2$s</strong> theme "
+"(expired on <strong>%3$s</strong>)."
+msgstr ""
+"<strong>licenţa temei a expirat:</strong> <a href=\"%1$s\">Renoieşte-ţi "
+"licenţa temei</a> to re-enable updates for the <strong>%2$s</strong> theme "
+"(expired on <strong>%3$s</strong>)."
+
+#: framework/includes/admin/edd-license.php:79
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> Ask %6$s to renew their <a href="
+"\"%1$s\">Theme License</a> for <strong>%2$s</strong> to re-enable updates "
+"for your site (expired <strong>%3$s</strong>)."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:80
+#, php-format
+msgid ""
+"<strong>Theme License Expiring Soon:</strong> <a href=\"%1$s\">Renew Your "
+"Theme License</a> to continue receiving updates for the <strong>%2$s</"
+"strong> theme (expires on <strong>%3$s</strong>)."
+msgstr ""
+"<strong>Licenţa temei va expira curând:</strong> <a href=\"%1$s\">Reînoieşte-"
+"ti licenţa temei</a>pentru a continua să primeşti update-uri pentru<strong>"
+"%2$s</strong> temă (expires on <strong>%3$s</strong>)."
+
+#: framework/includes/admin/edd-license.php:125
+msgid ""
+"If you have modified theme files directly (not common), your changes will be "
+"overwritten (make a child theme instead). Click \"Cancel\" to stop or \"OK\" "
+"to update the theme."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:126
+#, php-format
+msgid ""
+"<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\" target=\"_blank"
+"\">Check out what's new</a> or <a href=\"%5$s\"%6$s>update now</a>."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:403
+msgctxt "license expiration"
+msgid "unknown date"
+msgstr "data necunoscută"
+
+#: framework/includes/admin/edd-license.php:429
+#: framework/includes/admin/edd-license.php:455
+msgctxt "page title"
+msgid "Theme License"
+msgstr "Licenţa Temei"
+
+#: framework/includes/admin/edd-license.php:430
+msgctxt "menu title"
+msgid "Theme License"
+msgstr "Licenţa Temei"
+
+#: framework/includes/admin/edd-license.php:472
+msgctxt "heading"
+msgid "License Key"
+msgstr "Cod Licenţă"
+
+#: framework/includes/admin/edd-license.php:481
+msgid "License Key"
+msgstr "Cod Licenţă"
+
+#: framework/includes/admin/edd-license.php:495
+msgid "Save Key"
+msgstr "Salvează Cod"
+
+#: framework/includes/admin/edd-license.php:499
+#: framework/includes/admin/edd-license.php:508
+msgid "License Status"
+msgstr "Status Licenţă"
+
+#: framework/includes/admin/edd-license.php:515
+msgctxt "license key"
+msgid "Active"
+msgstr "Activată"
+
+#: framework/includes/admin/edd-license.php:518
+msgctxt "license status"
+msgid "Expiring Soon"
+msgstr "Licenţa expiră în curând"
+
+#: framework/includes/admin/edd-license.php:523
+msgctxt "license key"
+msgid "Expired"
+msgstr "Expirată"
+
+#: framework/includes/admin/edd-license.php:527
+msgctxt "license key"
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: framework/includes/admin/edd-license.php:540
+msgid "License Expiration"
+msgstr "Expirarea Licenţei"
+
+#: framework/includes/admin/edd-license.php:561
+msgid "Deactivate License"
+msgstr "Dezactivează licenţa"
+
+#: framework/includes/admin/edd-license.php:565
+msgid "Activate License"
+msgstr "Activează licenţa"
+
+#: framework/includes/admin/edd-license.php:572
+msgid "Renew License"
+msgstr "Reînoieşte licenţa"
+
+#: framework/includes/admin/edd-license.php:859
+msgid "your website provider"
+msgstr ""
+
+#: framework/includes/archives.php:281 framework/includes/content-types.php:684
+#, php-format
+msgctxt "month archive"
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: framework/includes/classes/breadcrumbs.php:55
+msgctxt "breadcrumb separator"
+msgid " > "
+msgstr " > "
+
+#: framework/includes/classes/breadcrumbs.php:242
+msgctxt "breadcrumb year format"
+msgid "Y"
+msgstr "Y"
+
+#: framework/includes/classes/breadcrumbs.php:259
+msgctxt "breadcrumb month format"
+msgid "F"
+msgstr "F"
+
+#: framework/includes/classes/breadcrumbs.php:276
+msgctxt "breadcrumb day format"
+msgid "jS"
+msgstr "jS"
+
+#: framework/includes/classes/breadcrumbs.php:326
+msgctxt "sermon breadcrumb"
+msgid "Sermons"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:327
+msgctxt "sermon breadcrumb"
+msgid "Topics"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:328
+msgctxt "sermon breadcrumb"
+msgid "Series"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:329
+msgctxt "sermon breadcrumb"
+msgid "Books"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:330
+msgctxt "sermon breadcrumb"
+msgid "Speakers"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:331
+msgctxt "sermon breadcrumb"
+msgid "Dates"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:366
+#, php-format
+msgctxt "breadcrumb"
+msgid "Page %s"
+msgstr "Pagina %s"
+
+#: framework/includes/classes/breadcrumbs.php:377
+msgctxt "breadcrumb"
+msgid "Search Results"
+msgstr "Rezultatele Căutării"
+
+#: framework/includes/classes/breadcrumbs.php:571
+msgctxt "breadcrumbs"
+msgid "Home"
+msgstr "Acasă"
+
+#: framework/includes/classes/customize-controls.php:71
+#: framework/includes/classes/customize-controls.php:147
+msgid "Colorable"
+msgstr "Colorabil"
+
+#: framework/includes/classes/customize-controls.php:87
+msgid "The selected image is <strong>colorable</strong>."
+msgstr "Imaginea selectată este <strong>corolabilă</strong>."
+
+#: framework/includes/classes/customize-controls.php:124
+msgctxt "customizer"
+msgid "Presets"
+msgstr "Setat"
+
+#: framework/includes/classes/widget-archives.php:34
+msgctxt "widget"
+msgid "CT Archives"
+msgstr "CT Arhive"
+
+#: framework/includes/classes/widget-archives.php:36
+msgid "Monthly archive for chosen post type"
+msgstr "Arhiva lunară pentru tipul ales de postări"
+
+#: framework/includes/classes/widget-archives.php:85
+msgctxt "archives widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-archives.php:97
+msgctxt "archives widget title default"
+msgid "Archives"
+msgstr "Arhive"
+
+#: framework/includes/classes/widget-archives.php:111
+msgctxt "archives widget"
+msgid "Type"
+msgstr "Tip"
+
+#: framework/includes/classes/widget-archives.php:137
+msgctxt "archives widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-archives.php:139
+msgctxt "archives widget"
+msgid "Set to 0 for no limit."
+msgstr "Stează la 0 pentru a nu avea limită."
+
+#: framework/includes/classes/widget-archives.php:170
+msgctxt "archives widget"
+msgid "Show counts"
+msgstr "Arată numerotarea"
+
+#: framework/includes/classes/widget-archives.php:193
+msgctxt "archives widget"
+msgid "Show as dropdown"
+msgstr "Selectare în jos"
+
+#: framework/includes/classes/widget-archives.php:250
+#: includes/support-framework.php:452
+msgctxt "archives widget"
+msgid "Blog"
+msgstr "Blog"
+
+#: framework/includes/classes/widget-categories.php:34
+msgctxt "widget"
+msgid "CT Categories"
+msgstr "CT Categorii"
+
+#: framework/includes/classes/widget-categories.php:36
+msgid "Shows categories of various types"
+msgstr "Arată categorii la diferite tipuri"
+
+#: framework/includes/classes/widget-categories.php:88
+msgctxt "categories widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-categories.php:100
+msgctxt "categories widget title default"
+msgid "Categories"
+msgstr "Categorii"
+
+#: framework/includes/classes/widget-categories.php:114
+msgctxt "categories widget"
+msgid "Type"
+msgstr "Tip"
+
+#: framework/includes/classes/widget-categories.php:140
+msgctxt "categories widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-categories.php:149
+msgctxt "categories widget order by"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-categories.php:150
+msgctxt "categories widget order by"
+msgid "Date"
+msgstr "Dată"
+
+#: framework/includes/classes/widget-categories.php:151
+msgctxt "categories widget order by"
+msgid "Post Count"
+msgstr "Numerotare Postări"
+
+#: framework/includes/classes/widget-categories.php:179
+msgctxt "categories widget order"
+msgid "Low to High"
+msgstr "Mic la Mare"
+
+#: framework/includes/classes/widget-categories.php:180
+msgctxt "categories widget order"
+msgid "High to Low"
+msgstr "Mare la Mic"
+
+#: framework/includes/classes/widget-categories.php:199
+msgctxt "categories widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-categories.php:201
+msgctxt "categories widget"
+msgid "Set to 0 for unlimited."
+msgstr "Setează 0 pentru nelimitat."
+
+#: framework/includes/classes/widget-categories.php:232
+msgctxt "categories widget"
+msgid "Show counts"
+msgstr "Arată numerotarea"
+
+#: framework/includes/classes/widget-categories.php:258
+msgctxt "categories widget"
+msgid "Show hierarchy"
+msgstr "Arată ierarhia"
+
+#: framework/includes/classes/widget-categories.php:281
+msgctxt "categories widget"
+msgid "Show as dropdown"
+msgstr "Selectare în jos"
+
+#: framework/includes/classes/widget-categories.php:331
+msgctxt "categories widget"
+msgid "Blog Categories"
+msgstr "Categorii blog"
+
+#: framework/includes/classes/widget-categories.php:333
+msgctxt "categories widget"
+msgid "Blog Tags"
+msgstr "Taguri blog"
+
+#: framework/includes/classes/widget-events.php:32
+msgctxt "events widget"
+msgid "CT Events"
+msgstr "CT Evenimente"
+
+#: framework/includes/classes/widget-events.php:34
+msgctxt "events widget"
+msgid "Shows upcoming or past events"
+msgstr "Arată evenimente viitoare sau trecute"
+
+#: framework/includes/classes/widget-events.php:83
+msgctxt "events widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-events.php:95
+msgctxt "events widget title default"
+msgid "Events"
+msgstr "Evenimente"
+
+#: framework/includes/classes/widget-events.php:109
+msgctxt "events widget"
+msgid "Period"
+msgstr "Perioadă"
+
+#: framework/includes/classes/widget-events.php:118
+msgctxt "events widget order"
+msgid "Upcoming"
+msgstr "In curând"
+
+#: framework/includes/classes/widget-events.php:119
+msgctxt "events widget order"
+msgid "Past"
+msgstr "Trecute"
+
+#: framework/includes/classes/widget-events.php:138
+msgctxt "events widget"
+msgid "Category"
+msgstr "Categorie"
+
+#: framework/includes/classes/widget-events.php:147
+msgctxt "sermons widget"
+msgid "All Categories"
+msgstr "Toate categoriile"
+
+#: framework/includes/classes/widget-events.php:166
+msgctxt "events widget"
+msgid "Limit"
+msgstr "Limita"
+
+#: framework/includes/classes/widget-events.php:196
+#: framework/includes/classes/widget-locations.php:197
+msgctxt "events widget"
+msgid "Show image"
+msgstr "Arată imaginea"
+
+#: framework/includes/classes/widget-events.php:225
+msgctxt "events widget"
+msgid "Show date"
+msgstr "Arata data"
+
+#: framework/includes/classes/widget-events.php:248
+msgctxt "events widget"
+msgid "Show time"
+msgstr "Arată ora"
+
+#: framework/includes/classes/widget-events.php:277
+msgctxt "events widget"
+msgid "Show category"
+msgstr "Arată categoria"
+
+#: framework/includes/classes/widget-events.php:300
+msgctxt "events widget"
+msgid "Show excerpt"
+msgstr "Arată selecţia"
+
+#: framework/includes/classes/widget-events.php:322
+msgctxt "events widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-galleries.php:36
+msgctxt "widget"
+msgid "CT Galleries"
+msgstr "CT Galerii"
+
+#: framework/includes/classes/widget-galleries.php:38
+msgid "Shows list of gallery pages"
+msgstr "Arată lista de pagini albume foto"
+
+#: framework/includes/classes/widget-galleries.php:87
+msgctxt "galleries widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-galleries.php:99
+msgctxt "galleries widget title default"
+msgid "Galleries"
+msgstr "Albume foto"
+
+#: framework/includes/classes/widget-galleries.php:113
+msgctxt "galleries widget"
+msgid "Order By"
+msgstr "Ordoneayă după"
+
+#: framework/includes/classes/widget-galleries.php:122
+msgctxt "galleries widget order by"
+msgid "Date Added"
+msgstr "Dată adăugată"
+
+#: framework/includes/classes/widget-galleries.php:123
+msgctxt "galleries widget order by"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-galleries.php:151
+msgctxt "galleries widget order"
+msgid "Low to High"
+msgstr "Mic la Mare"
+
+#: framework/includes/classes/widget-galleries.php:152
+msgctxt "galleries widget order"
+msgid "High to Low"
+msgstr "Mare la Mic"
+
+#: framework/includes/classes/widget-galleries.php:171
+msgctxt "galleries widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-galleries.php:173
+msgctxt "galleries widget"
+msgid "Set to 0 for unlimited."
+msgstr "Setează 0 pentru nelimitat."
+
+#: framework/includes/classes/widget-gallery.php:32
+msgctxt "gallery widget"
+msgid "CT Gallery"
+msgstr "CT Galerie"
+
+#: framework/includes/classes/widget-gallery.php:34
+msgid "Shows gallery thumbnails"
+msgstr "Arată miniaturile galeriilor"
+
+#: framework/includes/classes/widget-gallery.php:56
+msgctxt "gallery widget"
+msgid "All Galleries"
+msgstr "Toate galeriile"
+
+#: framework/includes/classes/widget-gallery.php:94
+msgctxt "gallery widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-gallery.php:106
+msgctxt "gallery widget title default"
+msgid "Gallery"
+msgstr "Galerie"
+
+#: framework/includes/classes/widget-gallery.php:120
+msgctxt "gallery widget"
+msgid "Gallery"
+msgstr "Galerii"
+
+#: framework/includes/classes/widget-gallery.php:150
+msgctxt "gallery widget"
+msgid "Show link to gallery"
+msgstr "Arată legătura la galerie"
+
+#: framework/includes/classes/widget-gallery.php:172
+msgctxt "gallery widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-gallery.php:181
+msgctxt "gallery widget order by"
+msgid "Upload Date"
+msgstr "Data la care a fost încărcat"
+
+#: framework/includes/classes/widget-gallery.php:182
+msgctxt "gallery widget order by"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-gallery.php:183
+msgctxt "gallery widget order by"
+msgid "Comment Count"
+msgstr "Număr comentarii"
+
+#: framework/includes/classes/widget-gallery.php:211
+msgctxt "gallery widget order"
+msgid "Low to High"
+msgstr "De la cel mai mic la cel mai mare"
+
+#: framework/includes/classes/widget-gallery.php:212
+msgctxt "gallery widget order"
+msgid "High to Low"
+msgstr "De la cel mai mare la cel mai mic"
+
+#: framework/includes/classes/widget-gallery.php:231
+msgctxt "gallery widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-gallery.php:257
+msgctxt "gallery widget"
+msgid "Thumbnail Size"
+msgstr "Dimensiune miniatură"
+
+#: framework/includes/classes/widget-gallery.php:266
+msgctxt "gallery widget"
+msgid "Small"
+msgstr "Mic"
+
+#: framework/includes/classes/widget-gallery.php:267
+msgctxt "gallery widget"
+msgid "Medium"
+msgstr "Mediu"
+
+#: framework/includes/classes/widget-gallery.php:268
+msgctxt "gallery widget"
+msgid "Large"
+msgstr "Mare"
+
+#: framework/includes/classes/widget-giving.php:32
+msgctxt "widget"
+msgid "CT Giving"
+msgstr "Donații CT"
+
+#: framework/includes/classes/widget-giving.php:34
+msgid "Shows a message and button"
+msgstr "Arată un mesaj și un buton"
+
+#: framework/includes/classes/widget-giving.php:83
+msgctxt "giving widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-giving.php:95
+msgctxt "giving widget default title"
+msgid "Giving"
+msgstr "Donații"
+
+#: framework/includes/classes/widget-giving.php:109
+msgctxt "giving widget"
+msgid "Message"
+msgstr "Mesaj"
+
+#: framework/includes/classes/widget-giving.php:121
+msgid "You may give online by clicking below."
+msgstr "Poți face o donație online făcând clic mai jos."
+
+#: framework/includes/classes/widget-giving.php:135
+msgctxt "giving widget"
+msgid "Button Text"
+msgstr "Text buton"
+
+#: framework/includes/classes/widget-giving.php:147
+msgctxt "giving widget"
+msgid "Give Now"
+msgstr "Donează acum"
+
+#: framework/includes/classes/widget-giving.php:161
+msgctxt "giving widget"
+msgid "Button URL"
+msgstr "URL buton"
+
+#: framework/includes/classes/widget-giving.php:187
+msgctxt "giving widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:32
+msgctxt "widget"
+msgid "CT Highlight"
+msgstr "Galerii CT"
+
+#: framework/includes/classes/widget-highlight.php:34
+msgid "Shows a highlight"
+msgstr "Arată o secțiune"
+
+#: framework/includes/classes/widget-highlight.php:83
+msgctxt "highlight widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-highlight.php:109
+msgctxt "highlight widget"
+msgid "Description"
+msgstr "Descriere"
+
+#: framework/includes/classes/widget-highlight.php:135
+msgctxt "highlight widget"
+msgid "Click URL"
+msgstr "Clic URL"
+
+#: framework/includes/classes/widget-highlight.php:165
+msgctxt "highlight widget"
+msgid "Open in new tab"
+msgstr "Deschide într-o filă nouă"
+
+#: framework/includes/classes/widget-highlight.php:187
+msgctxt "highlight widget"
+msgid "Image"
+msgstr "Imagine"
+
+#: framework/includes/classes/widget-highlight.php:213
+msgctxt "highlight widget"
+msgid "Brightness"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:214
+#: framework/includes/classes/widget-highlight.php:242
+msgctxt "highlight widget"
+msgid "(Percentage)"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:241
+msgctxt "highlight widget"
+msgid "Opacity"
+msgstr ""
+
+#: framework/includes/classes/widget-locations.php:32
+msgctxt "widget"
+msgid "CT Locations"
+msgstr "Locații CT"
+
+#: framework/includes/classes/widget-locations.php:34
+msgid "Shows church location(s)"
+msgstr "Arată locațiile bisericii"
+
+#: framework/includes/classes/widget-locations.php:83
+msgctxt "locations widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-locations.php:95
+msgctxt "locations widget title default"
+msgid "Locations"
+msgstr "Locații"
+
+#: framework/includes/classes/widget-locations.php:109
+msgctxt "locations widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-locations.php:118
+msgctxt "locations widget order by"
+msgid "Custom Order"
+msgstr "Aranjare personalizată"
+
+#: framework/includes/classes/widget-locations.php:119
+msgctxt "locations widget order by"
+msgid "Name"
+msgstr "Nume"
+
+#: framework/includes/classes/widget-locations.php:147
+msgctxt "locations widget order"
+msgid "Low to High"
+msgstr "De la cel mai mic la cel mai mare"
+
+#: framework/includes/classes/widget-locations.php:148
+msgctxt "locations widget order"
+msgid "High to Low"
+msgstr "De la cel mai mare la cel mai mic"
+
+#: framework/includes/classes/widget-locations.php:167
+msgctxt "locations widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-locations.php:223
+msgctxt "locations widget"
+msgid "Show address"
+msgstr "Arată adresa"
+
+#: framework/includes/classes/widget-locations.php:249
+msgctxt "locations widget"
+msgid "Show phone number"
+msgstr "Arată numărul de telefon"
+
+#: framework/includes/classes/widget-locations.php:278
+msgctxt "locations widget"
+msgid "Show email"
+msgstr ""
+
+#: framework/includes/classes/widget-locations.php:301
+msgctxt "locations widget"
+msgid "Show times"
+msgstr "Arată orele"
+
+#: framework/includes/classes/widget-locations.php:327
+msgctxt "locations widget"
+msgid "Show map"
+msgstr "Arată harta"
+
+#: framework/includes/classes/widget-locations.php:349
+msgctxt "locations widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-people.php:32
+msgctxt "widget"
+msgid "CT People"
+msgstr "Oameni CT"
+
+#: framework/includes/classes/widget-people.php:34
+msgid "Shows people according to options"
+msgstr "Arată oamenii potrivit cu opțiunile alese"
+
+#: framework/includes/classes/widget-people.php:83
+msgctxt "people widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-people.php:95
+msgctxt "people widget title default"
+msgid "People"
+msgstr "Oameni"
+
+#: framework/includes/classes/widget-people.php:109
+msgctxt "people widget"
+msgid "Group"
+msgstr "Grup"
+
+#: framework/includes/classes/widget-people.php:118
+msgctxt "people widget"
+msgid "All Groups"
+msgstr "Toate grupurile"
+
+#: framework/includes/classes/widget-people.php:137
+msgctxt "people widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-people.php:146
+msgctxt "people widget order by"
+msgid "Custom Order"
+msgstr "Aranjare personalizată"
+
+#: framework/includes/classes/widget-people.php:147
+msgctxt "people widget order by"
+msgid "Name"
+msgstr "Nume"
+
+#: framework/includes/classes/widget-people.php:175
+msgctxt "people widget order"
+msgid "Low to High"
+msgstr "De la cel mai mic la cel mai mare"
+
+#: framework/includes/classes/widget-people.php:176
+msgctxt "people widget order"
+msgid "High to Low"
+msgstr "De la cel mai mare la cel mai mic"
+
+#: framework/includes/classes/widget-people.php:195
+msgctxt "people widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-people.php:225
+msgctxt "people widget"
+msgid "Show photo"
+msgstr "Arată imaginea"
+
+#: framework/includes/classes/widget-people.php:251
+msgctxt "people widget"
+msgid "Show position"
+msgstr "Arată funcția"
+
+#: framework/includes/classes/widget-people.php:277
+msgctxt "people widget"
+msgid "Show phone"
+msgstr "Arată numărul de telefon"
+
+#: framework/includes/classes/widget-people.php:303
+msgctxt "people widget"
+msgid "Show email"
+msgstr "Arată emailul"
+
+#: framework/includes/classes/widget-people.php:329
+msgctxt "people widget"
+msgid "Show icons"
+msgstr "Arată iconițele"
+
+#: framework/includes/classes/widget-people.php:355
+#: framework/includes/classes/widget-posts.php:332
+msgctxt "posts widget"
+msgid "Show excerpt"
+msgstr "Arată extras"
+
+#: framework/includes/classes/widget-people.php:377
+msgctxt "people widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-posts.php:34
+msgctxt "widget"
+msgid "CT Posts"
+msgstr "Articole CT"
+
+#: framework/includes/classes/widget-posts.php:36
+msgid "Shows blog posts according to options"
+msgstr "Arată articolele blogului potrivit cu opțiunile alese"
+
+#: framework/includes/classes/widget-posts.php:85
+msgctxt "posts widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-posts.php:97
+msgctxt "posts widget title default"
+msgid "Posts"
+msgstr "Articole"
+
+#: framework/includes/classes/widget-posts.php:111
+msgctxt "posts widget"
+msgid "Category"
+msgstr "Categorie"
+
+#: framework/includes/classes/widget-posts.php:120
+msgctxt "posts widget"
+msgid "All Categories"
+msgstr "Toate categoriile"
+
+#: framework/includes/classes/widget-posts.php:139
+msgctxt "posts widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-posts.php:148
+msgctxt "posts widget order by"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-posts.php:149
+msgctxt "posts widget order by"
+msgid "Date"
+msgstr "Dată"
+
+#: framework/includes/classes/widget-posts.php:150
+msgctxt "posts widget order by"
+msgid "Comment Count"
+msgstr "Număr comentarii"
+
+#: framework/includes/classes/widget-posts.php:178
+msgctxt "posts widget order"
+msgid "Low to High"
+msgstr "De la cel mai mic la cel mai mare"
+
+#: framework/includes/classes/widget-posts.php:179
+msgctxt "posts widget order"
+msgid "High to Low"
+msgstr "De la cel mai mare la cel mai mic"
+
+#: framework/includes/classes/widget-posts.php:198
+msgctxt "posts widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-posts.php:228
+msgctxt "posts widget"
+msgid "Show image"
+msgstr "Arată imaginea"
+
+#: framework/includes/classes/widget-posts.php:257
+msgctxt "posts widget"
+msgid "Show date"
+msgstr "Arată data"
+
+#: framework/includes/classes/widget-posts.php:283
+msgctxt "posts widget"
+msgid "Show author"
+msgstr "Arată autorul"
+
+#: framework/includes/classes/widget-posts.php:309
+msgctxt "posts widget"
+msgid "Show category"
+msgstr ""
+
+#: framework/includes/classes/widget-posts.php:354
+msgctxt "posts widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:34
+msgctxt "widget"
+msgid "CT Section"
+msgstr "Secțiune CT"
+
+#: framework/includes/classes/widget-section.php:36
+msgid "Shows a section"
+msgstr "Arată o secțiune"
+
+#: framework/includes/classes/widget-section.php:85
+msgctxt "section widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-section.php:108
+msgctxt "section widget"
+msgid "Content"
+msgstr "Conținut"
+
+#: framework/includes/classes/widget-section.php:131
+msgctxt "section widget"
+msgid "Text Size"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:140
+msgctxt "section widget text size"
+msgid "Small"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:141
+msgctxt "section widget text size"
+msgid "Regular"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:142
+msgctxt "section widget text size"
+msgid "Large"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:168
+msgctxt "sermons widget"
+msgid "Centered"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:187
+msgctxt "section widget"
+msgid "Image"
+msgstr "Imagine"
+
+#: framework/includes/classes/widget-section.php:213
+msgctxt "slide widget"
+msgid "Video"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:214
+msgctxt "widget field"
+msgid "(Optional)"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:222
+msgid "Choose Video"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:223
+msgid "Choose Video for Widget"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:239
+msgctxt "section widget"
+msgid "Brightness"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:240
+#: framework/includes/classes/widget-section.php:268
+msgctxt "section widget"
+msgid "(Percentage)"
+msgstr "(Procente)"
+
+#: framework/includes/classes/widget-section.php:267
+msgctxt "section widget"
+msgid "Opacity"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:295
+msgctxt "section widget"
+msgid "Attachment"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:304
+msgctxt "section widget attachment"
+msgid "Scroll"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:305
+msgctxt "section widget attachment"
+msgid "Fixed"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:324
+msgctxt "section widget"
+msgid "Height"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:325
+msgctxt "widget field"
+msgid "(Percentage)"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:352
+msgctxt "section widget"
+msgid "Orientation"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:361
+msgctxt "section widget orientation"
+msgid "Vertical"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:362
+msgctxt "section widget orientation"
+msgid "Horizontal"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:381
+msgctxt "section widget"
+msgid "Link 1"
+msgstr "Prima legătură"
+
+#: framework/includes/classes/widget-section.php:397
+#: framework/includes/classes/widget-section.php:453
+#: framework/includes/classes/widget-section.php:509
+#: framework/includes/classes/widget-section.php:565
+msgctxt "section widget"
+msgid "Text"
+msgstr "Text"
+
+#: framework/includes/classes/widget-section.php:411
+msgid "Enter text for link then URL."
+msgstr "Introdu text sau legătură, apoi URL."
+
+#: framework/includes/classes/widget-section.php:425
+#: framework/includes/classes/widget-section.php:481
+#: framework/includes/classes/widget-section.php:537
+#: framework/includes/classes/widget-section.php:593
+msgctxt "section widget"
+msgid "URL"
+msgstr "URL"
+
+#: framework/includes/classes/widget-section.php:437
+msgctxt "section widget"
+msgid "Link 2"
+msgstr "A doua legătură"
+
+#: framework/includes/classes/widget-section.php:493
+msgctxt "section widget"
+msgid "Link 3"
+msgstr "A treia legătură"
+
+#: framework/includes/classes/widget-section.php:549
+msgctxt "section widget"
+msgid "Link 4"
+msgstr "A patra legătură"
+
+#: framework/includes/classes/widget-sermons.php:32
+msgctxt "widget"
+msgid "CT Sermons"
+msgstr "Predici CT"
+
+#: framework/includes/classes/widget-sermons.php:34
+msgid "Shows sermons according to options"
+msgstr "Arată predicile potrivit cu opțiunile alese"
+
+#: framework/includes/classes/widget-sermons.php:83
+msgctxt "sermons widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-sermons.php:109
+msgctxt "sermons widget"
+msgid "Topic"
+msgstr "Subiect"
+
+#: framework/includes/classes/widget-sermons.php:118
+msgctxt "sermons widget"
+msgid "All Topics"
+msgstr "Toate subiectele"
+
+#: framework/includes/classes/widget-sermons.php:137
+msgctxt "sermons widget"
+msgid "Book"
+msgstr "Carte"
+
+#: framework/includes/classes/widget-sermons.php:146
+msgctxt "sermons widget"
+msgid "All Books"
+msgstr "Toate cărțile"
+
+#: framework/includes/classes/widget-sermons.php:165
+msgctxt "sermons widget"
+msgid "Series"
+msgstr "Serie"
+
+#: framework/includes/classes/widget-sermons.php:174
+msgctxt "sermons widget"
+msgid "All Series"
+msgstr "Toate seriile"
+
+#: framework/includes/classes/widget-sermons.php:193
+msgctxt "sermons widget"
+msgid "Speaker"
+msgstr "Vorbitor"
+
+#: framework/includes/classes/widget-sermons.php:202
+msgctxt "sermons widget"
+msgid "All Speakers"
+msgstr "Toți vorbitorii"
+
+#: framework/includes/classes/widget-sermons.php:221
+msgctxt "sermons widget"
+msgid "Order By"
+msgstr "Ordonează după"
+
+#: framework/includes/classes/widget-sermons.php:230
+msgctxt "sermons widget order by"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-sermons.php:231
+msgctxt "sermons widget order by"
+msgid "Date"
+msgstr "Dată"
+
+#: framework/includes/classes/widget-sermons.php:232
+msgctxt "sermons widget order by"
+msgid "Comment Count"
+msgstr "Număr comentarii"
+
+#: framework/includes/classes/widget-sermons.php:260
+msgctxt "sermons widget order"
+msgid "Low to High"
+msgstr "De la cel mai mic la cel mai mare"
+
+#: framework/includes/classes/widget-sermons.php:261
+msgctxt "sermons widget order"
+msgid "High to Low"
+msgstr "De la cel mai mare la cel mai mic"
+
+#: framework/includes/classes/widget-sermons.php:280
+msgctxt "sermons widget"
+msgid "Limit"
+msgstr "Limită"
+
+#: framework/includes/classes/widget-sermons.php:310
+msgctxt "sermons widget"
+msgid "Show image"
+msgstr "Arată imaginea"
+
+#: framework/includes/classes/widget-sermons.php:339
+msgctxt "sermons widget"
+msgid "Show date"
+msgstr "Arată data"
+
+#: framework/includes/classes/widget-sermons.php:365
+msgctxt "sermons widget"
+msgid "Show topic"
+msgstr "Arată subiectul"
+
+#: framework/includes/classes/widget-sermons.php:391
+msgctxt "sermons widget"
+msgid "Show book"
+msgstr "Arată cartea"
+
+#: framework/includes/classes/widget-sermons.php:417
+msgctxt "sermons widget"
+msgid "Show series"
+msgstr "Arată seria"
+
+#: framework/includes/classes/widget-sermons.php:443
+msgctxt "sermons widget"
+msgid "Show speaker"
+msgstr "Arată vorbitorul"
+
+#: framework/includes/classes/widget-sermons.php:466
+msgctxt "sermons widget"
+msgid "Show media types"
+msgstr "Arată tipurile media"
+
+#: framework/includes/classes/widget-sermons.php:492
+msgctxt "sermons widget"
+msgid "Show excerpt"
+msgstr "Arată extras"
+
+#: framework/includes/classes/widget-sermons.php:514
+msgctxt "sermons widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-slide.php:33
+msgctxt "widget"
+msgid "CT Slide"
+msgstr "Articole CT"
+
+#: framework/includes/classes/widget-slide.php:35
+msgid "A slide to be shown in a slider"
+msgstr "Un slide pentru a fi arătat într-un slider"
+
+#: framework/includes/classes/widget-slide.php:83
+msgctxt "slide widget"
+msgid "Title"
+msgstr "Titlu"
+
+#: framework/includes/classes/widget-slide.php:109
+msgctxt "slide widget"
+msgid "Description"
+msgstr "Descriere"
+
+#: framework/includes/classes/widget-slide.php:135
+msgctxt "slide widget"
+msgid "Click URL"
+msgstr "Clic URL"
+
+#: framework/includes/classes/widget-slide.php:165
+msgctxt "slide widget"
+msgid "Open in new tab"
+msgstr "Deschide într-o filă nouă"
+
+#: framework/includes/classes/widget-slide.php:187
+msgctxt "slide widget"
+msgid "Image"
+msgstr "Imagine"
+
+#: framework/includes/classes/widget-slide.php:213
+msgctxt "slide widget"
+msgid "Video URL"
+msgstr "URL video"
+
+#: framework/includes/classes/widget.php:320
+msgctxt "widget image field"
+msgid "Choose Image"
+msgstr "Alege o imagine"
+
+#: framework/includes/classes/widget.php:323
+msgctxt "widget image field"
+msgid "Remove Image"
+msgstr "Elimină imaginea"
+
+#: framework/includes/compatibility.php:63
+#, php-format
+msgid ""
+"<b>Activation Failed:</b> %s requires a newer version of WordPress. Please "
+"update and try again."
+msgstr ""
+"<b>Activare eşuată:</b> %s necesită o nouă versiune de Wordpress. "
+"Actualizează şi încearcă din nou."
+
+#: framework/includes/compatibility.php:133
+msgid "Go back."
+msgstr "Mergi înapoi."
+
+#: framework/includes/compatibility.php:230
+#, php-format
+msgid ""
+"<b>Plugin Required:</b> Please install and activate the <a href=\"%s"
+"\">Church Content</a> plugin to use with the current theme."
+msgstr ""
+
+#: framework/includes/compatibility.php:240
+#, php-format
+msgid ""
+"Please <a href=\"%s\">activate</a> the <b>Church Content</b> plugin required "
+"by the current theme."
+msgstr ""
+"Te rog <a href=\"%s\">activează</a> the <b>Church Content</b> plugin "
+"necesitat pentru tema curentă."
+
+#: framework/includes/compatibility.php:308
+msgid ""
+"You are using an outdated version of Internet Explorer. Please upgrade your "
+"browser to use this site."
+msgstr ""
+"Folosești o versiune depășită a Internet Explorer. Te rugăm să o descarci pe "
+"cea mai nouă."
+
+#: framework/includes/content-types.php:750
+msgctxt "content type archives"
+msgid "Months"
+msgstr "Luni"
+
+#: framework/includes/deprecated.php:82
+#, php-format
+msgctxt "head title"
+msgid " (Page %d)"
+msgstr " Pagina %d"
+
+#: framework/includes/deprecated.php:103
+msgctxt "head title"
+msgid " - "
+msgstr " - "
+
+#: framework/includes/events.php:134
+#, php-format
+msgid "%1$s <span>(%2$s)</span>"
+msgstr "%1$s <span>(%2$s)</span>"
+
+#: framework/includes/events.php:249
+#, php-format
+msgctxt "dates"
+msgid "%1$s &ndash; %2$s"
+msgstr "%1$s &ndash; %2$s"
+
+#: framework/includes/events.php:277
+#, php-format
+msgctxt "times"
+msgid "%1$s &ndash; %2$s"
+msgstr "%1$s &ndash; %2$s"
+
+#: framework/includes/events.php:1241 framework/includes/events.php:1283
+#: framework/includes/events.php:1786
+msgctxt "item list"
+msgid ", "
+msgstr ""
+
+#: framework/includes/events.php:1244 framework/includes/events.php:1286
+#: framework/includes/events.php:1789
+msgctxt "item list"
+msgid " and "
+msgstr ""
+
+#: framework/includes/events.php:1263
+msgctxt "week of month"
+msgid "first"
+msgstr "prima"
+
+#: framework/includes/events.php:1264
+msgctxt "week of month"
+msgid "second"
+msgstr "a doua"
+
+#: framework/includes/events.php:1265
+msgctxt "week of month"
+msgid "third"
+msgstr "a treia"
+
+#: framework/includes/events.php:1266
+msgctxt "week of month"
+msgid "fourth"
+msgstr "a patra"
+
+#: framework/includes/events.php:1267
+msgctxt "week of month"
+msgid "fifth"
+msgstr ""
+
+#: framework/includes/events.php:1268
+msgctxt "week of month"
+msgid "last"
+msgstr "ultima"
+
+#: framework/includes/events.php:1318
+#, php-format
+msgid "Every week on %2$s until %3$s (excluding %4$s)"
+msgid_plural "Every %1$s weeks on %2$s until %3$s (excluding %4$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1337
+#, php-format
+msgid "Every week on %2$s until %3$s"
+msgid_plural "Every %1$s weeks on %2$s until %3$s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1360
+#, php-format
+msgid "Every week on %2$s (excluding %3$s)"
+msgid_plural "Every %1$s weeks on %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1378
+#, php-format
+msgid "Every week on %2$s"
+msgid_plural "Every %1$s weeks on %2$s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1405
+#, php-format
+msgid "Every week until %2$s (excluding %3$s)"
+msgid_plural "Every %1$s weeks until %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1423
+#, php-format
+msgid "Every week until %2$s"
+msgid_plural "Every %1$s weeks until %2$s"
+msgstr[0] "Fiecare săptămână până %2$s"
+msgstr[1] "La fiecare %1$s săptămâni până %2$s"
+msgstr[2] "La fiecare %1$s de săptămâni până %2$s"
+
+#: framework/includes/events.php:1445
+#, php-format
+msgid "Every week (excluding %2$s)"
+msgid_plural "Every %1$s weeks (excluding %2$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1462
+#, php-format
+msgid "Every week"
+msgid_plural "Every %1$s weeks"
+msgstr[0] "Fiecare săptămână"
+msgstr[1] "La fiecare %1$s săptămâni"
+msgstr[2] "La fiecare %1$s de săptămâni"
+
+#: framework/includes/events.php:1480
+#, php-format
+msgid "Every Week"
+msgid_plural "Every %1$s Weeks"
+msgstr[0] "Fiecare Săptămână"
+msgstr[1] "La fiecare %1$s Săptămâni"
+msgstr[2] "La fiecare %1$s de Săptămâni"
+
+#: framework/includes/events.php:1504
+#, php-format
+msgid "Every month on the %2$s %3$s until %4$s (excluding %5$s)"
+msgid_plural "Every %1$s months on the %2$s %3$s until %4$s (excluding %5$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1524
+#, php-format
+msgid "Every month on the %2$s %3$s until %4$s"
+msgid_plural "Every %1$s months on the %2$s %3$s until %4$s"
+msgstr[0] "Fiecare lună pe %2$s %3$s până %4$s"
+msgstr[1] "La fiecare %1$s luni pe %2$s %3$s până %4$s"
+msgstr[2] "La fiecare %1$s de luni pe %2$s %3$s până %4$s"
+
+#: framework/includes/events.php:1548
+#, php-format
+msgid "Every month on the %2$s %3$s (excluding %4$s)"
+msgid_plural "Every %1$s months on the %2$s %3$s (excluding %4$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1567
+#, php-format
+msgid "Every month on the %2$s %3$s"
+msgid_plural "Every %1$s months on the %2$s %3$s"
+msgstr[0] "La fiecare lună pe %2$s %3$s"
+msgstr[1] "La fiecare %1$s luni pe %2$s %3$s"
+msgstr[2] "La fiecare %1$s de luni pe %2$s %3$s"
+
+#: framework/includes/events.php:1593
+#, php-format
+msgid "Every month until %2$s (excluding %3$s)"
+msgid_plural "Every %1$s months until %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1611
+#, php-format
+msgid "Every month until %2$s"
+msgid_plural "Every %1$s months until %2$s"
+msgstr[0] "Fiecare lună până %2$s"
+msgstr[1] "La fiecare %1$s luni până %2$s"
+msgstr[2] "La fiecare %1$s de luni până %2$s"
+
+#: framework/includes/events.php:1633
+#, php-format
+msgid "Every month (excluding %2$s)"
+msgid_plural "Every %1$s months (excluding %2$s)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: framework/includes/events.php:1650
+#, php-format
+msgid "Every month"
+msgid_plural "Every %1$s months"
+msgstr[0] "Fiecare lună"
+msgstr[1] "La fiecare %1$s luni"
+msgstr[2] "La fiecare %1$s de luni"
+
+#: framework/includes/events.php:1668
+#, php-format
+msgid "Every Month"
+msgid_plural "Every %1$s Months"
+msgstr[0] "Fiecare Lună"
+msgstr[1] "La fiecare %1$s luni"
+msgstr[2] "La fiecare %1$s de luni"
+
+#: framework/includes/events.php:1688
+#, php-format
+msgid "Every year until %1$s (excluding %2$s)"
+msgstr ""
+
+#: framework/includes/events.php:1700
+#, php-format
+msgid "Every year until %1$s"
+msgstr "În fiecare an, până la%1$s"
+
+#: framework/includes/events.php:1716
+#, php-format
+msgid "Every year (excluding %1$s)"
+msgstr ""
+
+#: framework/includes/events.php:1724
+msgid "Every year"
+msgstr "În fiecare an"
+
+#: framework/includes/events.php:1730
+msgid "Every Year"
+msgstr "În fiecare an"
+
+#: framework/includes/head.php:68 page-templates/events-calendar.php:60
+msgctxt "event calendar"
+msgid "F Y"
+msgstr "F Y"
+
+#: framework/includes/head.php:105
+msgctxt "head title"
+msgid " | "
+msgstr ""
+
+#: framework/includes/helpers.php:276 framework/includes/helpers.php:297
+msgctxt "shortened text"
+msgid "&hellip;"
+msgstr "&hellip;"
+
+#: framework/includes/images.php:75
+#, php-format
+msgid "The target image size is %s."
+msgstr "Imaginea selectată are mărimea de %s."
+
+#: framework/includes/maps.php:96
+msgid ""
+"<p><b>Google Map Error:</b> <i>latitude</i> and <i>longitude</i> attributes "
+"are required. See documentation for help.</p>"
+msgstr ""
+"<p><b>Google Map Error:</b> <i>latitudine</i> și <i>longitudine</i> sunt "
+"necesare. Vezi documentația pentru ajutor.</p>"
+
+#: framework/includes/mime-types.php:32
+msgctxt "mime type"
+msgid "File"
+msgstr "Fișier"
+
+#: framework/includes/sermons.php:36
+msgctxt "singular"
+msgid "Sermon"
+msgstr ""
+
+#: framework/includes/sermons.php:62
+msgctxt "plural"
+msgid "Sermons"
+msgstr ""
+
+#: framework/includes/sermons.php:221
+msgid "Genesis"
+msgstr "Geneza"
+
+#: framework/includes/sermons.php:224
+msgid "Exodus"
+msgstr "Exod"
+
+#: framework/includes/sermons.php:227
+msgid "Leviticus"
+msgstr "Levitic"
+
+#: framework/includes/sermons.php:230
+msgid "Numbers"
+msgstr "Numeri"
+
+#: framework/includes/sermons.php:233
+msgid "Deuteronomy"
+msgstr "Deuteronom"
+
+#: framework/includes/sermons.php:236
+msgid "Joshua"
+msgstr "Iosua"
+
+#: framework/includes/sermons.php:239
+msgid "Judges"
+msgstr "Judecători"
+
+#: framework/includes/sermons.php:242
+msgid "Ruth"
+msgstr "Rut"
+
+#: framework/includes/sermons.php:245
+msgid "1 Samuel"
+msgstr "1 Samuel"
+
+#: framework/includes/sermons.php:248
+msgid "2 Samuel"
+msgstr "2 Samuel"
+
+#: framework/includes/sermons.php:251
+msgid "1 Kings"
+msgstr "1 Împărați"
+
+#: framework/includes/sermons.php:254
+msgid "2 Kings"
+msgstr "2 Împărați"
+
+#: framework/includes/sermons.php:257
+msgid "1 Chronicles"
+msgstr "1 Cronici"
+
+#: framework/includes/sermons.php:260
+msgid "2 Chronicles"
+msgstr "2 Cronici"
+
+#: framework/includes/sermons.php:263
+msgid "Ezra"
+msgstr "Ezra"
+
+#: framework/includes/sermons.php:266
+msgid "Nehemiah"
+msgstr "Neemia"
+
+#: framework/includes/sermons.php:269
+msgid "Esther"
+msgstr "Estera"
+
+#: framework/includes/sermons.php:272
+msgid "Job"
+msgstr "Iov"
+
+#: framework/includes/sermons.php:275
+msgid "Psalms"
+msgstr "Psalmi"
+
+#: framework/includes/sermons.php:278
+msgid "Proverbs"
+msgstr "Proverbe"
+
+#: framework/includes/sermons.php:281
+msgid "Ecclesiastes"
+msgstr "Eclesiastul"
+
+#: framework/includes/sermons.php:284
+msgid "Song of Solomon"
+msgstr "Cântarea cântărilor"
+
+#: framework/includes/sermons.php:287
+msgid "Isaiah"
+msgstr "Isaia"
+
+#: framework/includes/sermons.php:290
+msgid "Jeremiah"
+msgstr "Ieremia"
+
+#: framework/includes/sermons.php:293
+msgid "Lamentations"
+msgstr "Plângerile lui Ieremia"
+
+#: framework/includes/sermons.php:296
+msgid "Ezekiel"
+msgstr "Ezechiel"
+
+#: framework/includes/sermons.php:299
+msgid "Daniel"
+msgstr "Daniel"
+
+#: framework/includes/sermons.php:302
+msgid "Hosea"
+msgstr "Osea"
+
+#: framework/includes/sermons.php:305
+msgid "Joel"
+msgstr "Ioel"
+
+#: framework/includes/sermons.php:308
+msgid "Amos"
+msgstr "Amos"
+
+#: framework/includes/sermons.php:311
+msgid "Obadiah"
+msgstr "Obadia"
+
+#: framework/includes/sermons.php:314
+msgid "Jonah"
+msgstr "Iona"
+
+#: framework/includes/sermons.php:317
+msgid "Micah"
+msgstr "Mica"
+
+#: framework/includes/sermons.php:320
+msgid "Nahum"
+msgstr "Naum"
+
+#: framework/includes/sermons.php:323
+msgid "Habakkuk"
+msgstr "Habacuc"
+
+#: framework/includes/sermons.php:326
+msgid "Zephaniah"
+msgstr "Țefania"
+
+#: framework/includes/sermons.php:329
+msgid "Haggai"
+msgstr "Hagai"
+
+#: framework/includes/sermons.php:332
+msgid "Zechariah"
+msgstr "Zaharia"
+
+#: framework/includes/sermons.php:335
+msgid "Malachi"
+msgstr "Maleahi"
+
+#: framework/includes/sermons.php:341
+msgid "Matthew"
+msgstr "Matei"
+
+#: framework/includes/sermons.php:344
+msgid "Mark"
+msgstr "Marcu"
+
+#: framework/includes/sermons.php:347
+msgid "Luke"
+msgstr "Luca"
+
+#: framework/includes/sermons.php:350
+msgid "John"
+msgstr "Ioan"
+
+#: framework/includes/sermons.php:353
+msgid "Acts"
+msgstr "Faptele apostolilor"
+
+#: framework/includes/sermons.php:356
+msgid "Romans"
+msgstr "Romani"
+
+#: framework/includes/sermons.php:359
+msgid "1 Corinthians"
+msgstr "1 Corinteni"
+
+#: framework/includes/sermons.php:362
+msgid "2 Corinthians"
+msgstr "2 Corinteni"
+
+#: framework/includes/sermons.php:365
+msgid "Galatians"
+msgstr "Galateni"
+
+#: framework/includes/sermons.php:368
+msgid "Ephesians"
+msgstr "Efeseni"
+
+#: framework/includes/sermons.php:371
+msgid "Philippians"
+msgstr "Filipeni"
+
+#: framework/includes/sermons.php:374
+msgid "Colossians"
+msgstr "Coloseni"
+
+#: framework/includes/sermons.php:377
+msgid "1 Thessalonians"
+msgstr "1 Tesaloniceni"
+
+#: framework/includes/sermons.php:380
+msgid "2 Thessalonians"
+msgstr "2 Tesaloniceni"
+
+#: framework/includes/sermons.php:383
+msgid "1 Timothy"
+msgstr "1 Timotei"
+
+#: framework/includes/sermons.php:386
+msgid "2 Timothy"
+msgstr "2 Timotei"
+
+#: framework/includes/sermons.php:389
+msgid "Titus"
+msgstr "Tit"
+
+#: framework/includes/sermons.php:392
+msgid "Philemon"
+msgstr "Filimon"
+
+#: framework/includes/sermons.php:395
+msgid "Hebrews"
+msgstr "Evrei"
+
+#: framework/includes/sermons.php:398
+msgid "James"
+msgstr "Iacov"
+
+#: framework/includes/sermons.php:401
+msgid "1 Peter"
+msgstr "1 Petru"
+
+#: framework/includes/sermons.php:404
+msgid "2 Peter"
+msgstr "2 Petru"
+
+#: framework/includes/sermons.php:407
+msgid "1 John"
+msgstr "1 Ioan"
+
+#: framework/includes/sermons.php:410
+msgid "2 John"
+msgstr "2 Ioan"
+
+#: framework/includes/sermons.php:413
+msgid "3 John"
+msgstr "3 Ioan"
+
+#: framework/includes/sermons.php:416
+msgid "Jude"
+msgstr "Iuda"
+
+#: framework/includes/sermons.php:419
+msgid "Revelation"
+msgstr "Apocalipsa"
+
+#: framework/includes/sermons.php:461
+msgid "Old Testament"
+msgstr ""
+
+#: framework/includes/sermons.php:464
+msgid "New Testament"
+msgstr ""
+
+#: framework/includes/sermons.php:468
+msgid "Other Books"
+msgstr ""
+
+#: framework/includes/template-tags.php:71
+msgid "Today"
+msgstr "Azi"
+
+#: framework/includes/template-tags.php:76
+msgid "Yesterday"
+msgstr "Ieri"
+
+#: header-top-bar.php:142 header-top-bar.php:165
+msgctxt "top right items"
+msgid "Today"
+msgstr "Azi"
+
+#: header-top-bar.php:144
+msgctxt "top right items"
+msgid "Yesterday"
+msgstr "Ieri"
+
+#: header-top-bar.php:147 header-top-bar.php:170
+msgctxt "top right items"
+msgid "F j"
+msgstr "F j"
+
+#: header-top-bar.php:167
+msgctxt "top right items"
+msgid "Tomorrow"
+msgstr "Măine"
+
+#: includes/admin/meta-boxes.php:58
+msgid "Options"
+msgstr "Opțiuni"
+
+#: includes/admin/meta-boxes.php:70
+msgid "Banner"
+msgstr "Banner"
+
+#: includes/admin/meta-boxes.php:74
+msgid "Do not show text over featured image"
+msgstr "Nu arăta text peste imaginea aceasta"
+
+#: includes/admin/meta-boxes.php:97
+msgid ""
+"Example: Sermons template used. This page's banner shows on all sermon pages."
+msgstr ""
+"Exemplu: șablonul Predici este folosit. Bannerul acestei pagini este afișat "
+"pe toate paginile cu predici."
+
+#: includes/admin/meta-boxes.php:99
+msgid "Show banner on related content"
+msgstr "Arată bannerul la conținut similar"
+
+#: includes/admin/meta-boxes.php:123
+msgctxt "meta box"
+msgid "Sidebar"
+msgstr "Lateral"
+
+#: includes/admin/meta-boxes.php:127
+#, php-format
+msgid "Hide sidebar <a href=\"%s\" target=\"_blank\">widgets</a>"
+msgstr "Ascunde lateralul <a href=\"%s\" target=\"_blank\">module</a>"
+
+#: includes/admin/meta-boxes.php:148
+msgctxt "meta box"
+msgid "Gallery"
+msgstr "Galerie"
+
+#: includes/admin/meta-boxes.php:150
+msgid "Applies only when gallery used in content."
+msgstr "Se aplică doar atunci când galeria se folosește în conținut."
+
+#: includes/admin/meta-boxes.php:152
+msgid "Exclude from gallery widgets/templates"
+msgstr "Exclude conținutul galeriei din widgeturile și șablonurile galeriei"
+
+#: includes/customize-defaults.php:187
+#, php-format
+msgid ""
+"&copy; [ctcom_current_year] [ctcom_site_name]. Powered by <a href=\"%s\" "
+"target=\"_blank\" rel=\"nofollow\">ChurchThemes.com</a>"
+msgstr ""
+
+#: includes/customize-defaults.php:199
+msgid ""
+"http://facebook.com\n"
+"http://twitter.com\n"
+"[ctcom_rss_url]\n"
+"http://www.apple.com/itunes/"
+msgstr ""
+"http://facebook.com\n"
+"http://twitter.com\n"
+"[ctcom_rss_url]\n"
+"http://www.apple.com/itunes/"
+
+#: includes/customize-defaults.php:205
+msgid ""
+"http://facebook.com\n"
+"http://twitter.com\n"
+"http://vimeo.com\n"
+"http://youtube.com\n"
+"http://instagram.com\n"
+"http://pinterest.com"
+msgstr ""
+
+#: includes/customize.php:34
+msgid "Don't move"
+msgstr "Nu mișca"
+
+#: includes/customize.php:37
+#, php-format
+msgid "%d pixels right"
+msgstr "%d pixeli la dreapta"
+
+#: includes/customize.php:38
+#, php-format
+msgid "%d pixels left"
+msgstr "%d pixeli la stânga"
+
+#: includes/customize.php:54
+msgctxt "customizer"
+msgid "Upcoming Events"
+msgstr "Evenimente viitoare"
+
+#: includes/customize.php:57
+#, php-format
+msgctxt "customizer"
+msgid "Latest %1$s"
+msgstr ""
+
+#: includes/customize.php:60
+msgctxt "customizer"
+msgid "Latest Posts"
+msgstr "Ultimele articole"
+
+#: includes/customize.php:61 includes/customize.php:133
+msgctxt "customizer"
+msgid "Tagline"
+msgstr "Tagline"
+
+#: includes/customize.php:62 includes/customize.php:134
+msgctxt "customizer"
+msgid "Custom Content"
+msgstr "Conținut personalizat"
+
+#: includes/customize.php:63 includes/customize.php:135
+msgctxt "customizer"
+msgid "Nothing"
+msgstr "Nimic"
+
+#: includes/customize.php:79
+msgctxt "customizer header items"
+msgid "One"
+msgstr "Unu"
+
+#: includes/customize.php:80
+msgctxt "customizer header items"
+msgid "Two"
+msgstr "Doi"
+
+#: includes/customize.php:96
+msgctxt "customizer"
+msgid "Image"
+msgstr "Imagine"
+
+#: includes/customize.php:97
+msgctxt "customizer"
+msgid "Text"
+msgstr "Text"
+
+#: includes/customize.php:113
+msgctxt "customizer"
+msgid "Extra Small"
+msgstr "Foarte mic"
+
+#: includes/customize.php:114
+msgctxt "customizer"
+msgid "Small"
+msgstr "Mic"
+
+#: includes/customize.php:115
+msgctxt "customizer"
+msgid "Medium"
+msgstr "Mediu"
+
+#: includes/customize.php:116
+msgctxt "customizer"
+msgid "Large"
+msgstr "Mare"
+
+#: includes/customize.php:117
+msgctxt "customizer"
+msgid "Extra Large"
+msgstr "Foarte mare"
+
+#: includes/customize.php:175
+msgid "Colors & Styling"
+msgstr "Culori"
+
+#: includes/customize.php:187
+msgid "Color Scheme"
+msgstr "Schemă culori"
+
+#: includes/customize.php:204
+msgid "Main Color"
+msgstr "Culoare principală"
+
+#: includes/customize.php:219
+msgid "Link Color"
+msgstr "Culoare legătură"
+
+#: includes/customize.php:233
+msgid "Rounded Corners"
+msgstr "Colţuri rotunjite"
+
+#: includes/customize.php:243
+msgctxt "customizer"
+msgid "Google Fonts"
+msgstr "Fonturi Google"
+
+#: includes/customize.php:258
+msgid "Logo Font"
+msgstr "Font logo"
+
+#: includes/customize.php:278
+msgid "Tagline Font"
+msgstr "Tagline Font"
+
+#: includes/customize.php:298
+msgid "Menu Font"
+msgstr "Font meniu"
+
+#: includes/customize.php:318
+msgid "Heading Font"
+msgstr "Font Heading"
+
+#: includes/customize.php:338
+msgid "Body Font"
+msgstr "Font Body"
+
+#: includes/customize.php:357
+msgid "Character Sets"
+msgstr "Set caractere"
+
+#: includes/customize.php:367
+msgctxt "customizer"
+msgid "Top Bar"
+msgstr "Bara de sus"
+
+#: includes/customize.php:381
+msgid "Search Icon"
+msgstr "Iconiţă căutare"
+
+#: includes/customize.php:396
+msgctxt "customizer"
+msgid "Top Right"
+msgstr "Dreapta sus"
+
+#: includes/customize.php:412
+msgctxt "customizer"
+msgid "Items on Right"
+msgstr "Obiecte din dreapta"
+
+#: includes/customize.php:428 includes/customize.php:617
+msgid "Custom Content"
+msgstr "Conținut personalizat"
+
+#: includes/customize.php:438
+msgctxt "customizer"
+msgid "Header & Logo"
+msgstr "Partea de sus & Logo"
+
+#: includes/customize.php:452
+msgctxt "customizer"
+msgid "Logo Type"
+msgstr "Tipul de logo"
+
+#: includes/customize.php:468
+msgctxt "customizer"
+msgid "Logo Image"
+msgstr "Imagine logo"
+
+#: includes/customize.php:482
+msgctxt "customizer"
+msgid "HiDPI Logo (Optional)"
+msgstr "Logo HiDPI (opțional)"
+
+#: includes/customize.php:499
+msgid "Move Logo"
+msgstr "Muta Logo"
+
+#: includes/customize.php:515
+msgid "Logo Text"
+msgstr "Text Logo"
+
+#: includes/customize.php:530
+msgid "Show in lowercase"
+msgstr "Arată în minuscule"
+
+#: includes/customize.php:545
+msgctxt "customizer"
+msgid "Logo Text Size"
+msgstr "Marime text logo"
+
+#: includes/customize.php:568
+msgid "Show tagline under logo"
+msgstr "Arată text sub logo"
+
+#: includes/customize.php:585
+msgid "Move Tagline"
+msgstr "Mută textul"
+
+#: includes/customize.php:601
+msgctxt "customizer"
+msgid "Right of Logo"
+msgstr "În dreapta de logo"
+
+#: includes/customize.php:632
+msgid "Show breadcrumb path on subpages"
+msgstr "Arată calea paginilor pe fiecare sub-pagină"
+
+#: includes/customize.php:642
+msgctxt "customizer"
+msgid "Footer Content"
+msgstr "Conţinut subsol"
+
+#: includes/customize.php:656
+msgctxt "customizer"
+msgid "Show Location"
+msgstr "Arată locația"
+
+#: includes/customize.php:671
+msgctxt "customizer"
+msgid "Notice"
+msgstr "Observă"
+
+#: includes/customize.php:682
+msgctxt "customizer"
+msgid "Social Media Icons"
+msgstr "Iconițele sociale"
+
+#: includes/customize.php:696
+msgid "Header URLs"
+msgstr "URL-uri din partea de sus"
+
+#: includes/customize.php:708
+#, php-format
+msgid ""
+"Enter one URL per line for %s. Use <code>[ctcom_rss_url]</code> for RSS."
+msgstr ""
+"Introdu un URL pe linie pentru %s. Folosește <code>[ctcom_rss_url]</code> "
+"pentru RSS."
+
+#: includes/customize.php:723
+msgid "Footer URLs"
+msgstr "URL-uri din partea de jos"
+
+#: includes/customize.php:742
+msgctxt "customizer"
+msgid "Homepage Slider"
+msgstr "Slider-ul din pagina principală"
+
+#: includes/customize.php:756
+msgid "Automatically transition to next slide"
+msgstr "Tranziţie automată la următorul slide"
+
+#: includes/customize.php:771
+msgid "Seconds Between Transitions"
+msgstr "Secundele dintre tranziţii"
+
+#: includes/enqueue-scripts.php:102
+msgctxt "menu dropdown"
+msgid "Menu"
+msgstr "Meniu"
+
+#: includes/enqueue-scripts.php:107 includes/enqueue-scripts.php:108
+msgid "Required"
+msgstr "Necesitat"
+
+#: includes/enqueue-scripts.php:109
+msgid "Invalid Email"
+msgstr "Email invalid"
+
+#: includes/enqueue-scripts.php:110
+msgid "Invalid URL"
+msgstr "URL invalid"
+
+#: includes/enqueue-scripts.php:111
+msgid "Comment Required"
+msgstr "Comentariu necesitat"
+
+#: includes/icons.php:207
+msgctxt "social icons list"
+msgid ", "
+msgstr ", "
+
+#: includes/icons.php:210
+msgctxt "social icons list"
+msgid " or "
+msgstr " sau "
+
+#: includes/icons.php:212
+msgctxt "social icons list"
+msgid " and "
+msgstr " și "
+
+#: includes/nav-menus.php:28
+msgctxt "menu location"
+msgid "Top"
+msgstr "Sus"
+
+#: includes/nav-menus.php:31
+msgctxt "menu location"
+msgid "Header"
+msgstr "Meniul de sus"
+
+#: includes/nav-menus.php:34
+msgctxt "menu location"
+msgid "Footer"
+msgstr "Meniul de jos"
+
+#: includes/sidebars.php:33
+msgctxt "widget area"
+msgid "Homepage Slider"
+msgstr "Slider-ul din pagina principală"
+
+#: includes/sidebars.php:34
+msgid "Add CT Slide widgets to show in the homepage slider."
+msgstr "Adaugă modulul CT Slide pentru a fi arătat în slider."
+
+#: includes/sidebars.php:44
+msgctxt "widget area"
+msgid "Homepage Highlights"
+msgstr "Important după pagina principală"
+
+#: includes/sidebars.php:45
+msgid ""
+"Add CT Highlight widgets to show on the homepage under the slider and intro."
+msgstr ""
+"Adaugă modulul CT Highlight pentru a fi arătat pe pagina principală sub "
+"slider și introducere."
+
+#: includes/sidebars.php:55
+msgctxt "widget area"
+msgid "Homepage Bottom Left"
+msgstr "Pagina principală stânga-jos"
+
+#: includes/sidebars.php:56
+msgid "These show at the bottom-left of the homepage."
+msgstr "Se arată în partea de jos-stânga a paginii principale."
+
+#: includes/sidebars.php:66
+msgctxt "widget area"
+msgid "Homepage Bottom Right"
+msgstr "Pagina principală dreapta-jos"
+
+#: includes/sidebars.php:67
+msgid "These show at the bottom-right of the homepage."
+msgstr "Se arată în partea de jos-dreapta a paginii principale."
+
+#: includes/sidebars.php:77
+msgid "Page Sidebar"
+msgstr "Lateralul de la prima pagină"
+
+#: includes/sidebars.php:79
+msgid "These widgets show on the side of pages using the default template."
+msgstr ""
+"Aceste module apar în lateralul paginilor care folosesc schiţa de bază."
+
+#: includes/sidebars.php:91
+msgid "Sermons Sidebar"
+msgstr "Lateralul de la pagina cu predici"
+
+#: includes/sidebars.php:92
+msgid "These widgets show on the side of sermon pages."
+msgstr "Aceste module apar în lateralul paginii cu predici."
+
+#: includes/sidebars.php:102
+msgid "Events Sidebar"
+msgstr "Lateralul de la evenimente"
+
+#: includes/sidebars.php:103
+msgid "These widgets show on the side of event pages."
+msgstr "Aceste module apar în lateralul paginilor cu evenimente."
+
+#: includes/sidebars.php:113
+msgid "People Sidebar"
+msgstr "Lateralul de la staff"
+
+#: includes/sidebars.php:114
+msgid "These widgets show on the side of people pages."
+msgstr "Aceste module apar în lateralul paginilor cu echipa."
+
+#: includes/sidebars.php:124
+msgid "Locations Sidebar"
+msgstr "Lateralul de la locaţii"
+
+#: includes/sidebars.php:125
+msgid "These widgets show on the side of locations content."
+msgstr "Aceste module apar în lateralul conţinutului locaţiei."
+
+#: includes/sidebars.php:135
+msgid "Gallery Sidebar"
+msgstr "Lateralul de la galerii"
+
+#: includes/sidebars.php:136
+msgid "These widgets show on the side of gallery pages."
+msgstr "Aceste module apar în lateralul paginilor de la galerii."
+
+#: includes/sidebars.php:146
+msgid "Blog Sidebar"
+msgstr "Blog Sidebar"
+
+#: includes/sidebars.php:147
+msgid "These widgets show on the side of blog content."
+msgstr "Aceste module apar în lateralul conţinutului de la postări."
+
+#: includes/sidebars.php:157
+msgid "Contact Sidebar"
+msgstr "Contact Sidebar"
+
+#: includes/sidebars.php:158
+msgid "These widgets show on the side of the contact page."
+msgstr "Aceste module apar în lateralul paginii de contact."
+
+#: includes/sidebars.php:168
+msgid "Search Sidebar"
+msgstr "Caută în lateral"
+
+#: includes/sidebars.php:169
+msgid "These widgets show on the side of search results."
+msgstr "Aceste module apar în lateralul rezultatelor căutării."
+
+#: includes/support-ctc.php:113
+#, php-format
+msgid "Enter one URL per line for %s."
+msgstr "Introduceți un singur URL per linie pentru %s."
+
+#: includes/support-ctc.php:116 includes/support-ctc.php:137
+msgid "Email address will be encoded to help prevent spam."
+msgstr ""
+
+#: includes/support-framework.php:43
+#, php-format
+msgid ""
+"<b>Next Steps:</b> Please continue reading the <a href=\"%s\" target=\"_blank"
+"\">Getting Started</a> guide for the next steps after theme activation."
+msgstr ""
+"<b>Următorii paşi:</b> Te rugăm să continui să citeşti <a href=\"%s\" target="
+"\"_blank>Începe aici</a> ghid, pentru alţi paşi după activarea temei."
+
+#: includes/support-framework.php:55
+#, php-format
+msgid ""
+"Please activate your license key to enable one-click theme updates and to "
+"get support from <a href=\"%1$s\" target=\"_blank\">ChurchThemes.com</a> for "
+"this site. Read <a href=\"%2$s\" target=\"_blank\">License Keys</a> for more "
+"information."
+msgstr ""
+
+#: includes/support-framework.php:60
+#, php-format
+msgid ""
+"<b>License key could not be activated.</b> Read the <a href=\"%1$s\" target="
+"\"_blank\">License Keys</a> guide for help."
+msgstr ""
+"<b>Licienţa nu a putut fi activată.</b> Citeşte <a href=\"%1$s\" target="
+"\"_blank\">ghidul pentru licienţă</a> ajutor."
+
+#: includes/support-framework.php:63
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> <a href=\"%4$s\" target=\"_blank"
+"\">Renew</a> your <a href=\"%1$s\">Theme License</a> to re-enable updates "
+"and support for the <strong>%2$s</strong> theme (expired on <strong>%3$s</"
+"strong>). <a href=\"%5$s\" target=\"_blank\">Learn More</a>"
+msgstr ""
+"<strong>Licienţa temei a expirat:</strong> <a href=\"%4$s\" target=\"_blank"
+"\">Înoieşte</a> your <a href=\"%1$s\">Licienţa temei</a> pentru a re-permite "
+"primirea actualizărilor si a suportului pentru <strong>%2$s</strong> temă "
+"(expiră <strong>%3$s</strong>). <a href=\"%5$s\" target=\"_blank\">Află mai "
+"multe</a>"
+
+#: includes/support-framework.php:64
+#, php-format
+msgid ""
+"<strong>Theme License Expiring Soon:</strong> <a href=\"%4$s\" target="
+"\"_blank\">Renew</a> your <a href=\"%1$s\">Theme License</a> to continue "
+"receiving updates and support for the <strong>%2$s</strong> theme (expires "
+"on <strong>%3$s</strong>). <a href=\"%5$s\" target=\"_blank\">Learn More</a>"
+msgstr ""
+"<strong>Licienţa temei va expira curând:</strong> <a href=\"%4$s\" target="
+"\"_blank\">Înoieşte</a> your <a href=\"%1$s\">Licienţa temei</a> pentru a "
+"continua primirea actualizărilor si a suportului pentru <strong>%2$s</"
+"strong> temă (expiră <strong>%3$s</strong>). <a href=\"%5$s\" target=\"_blank"
+"\">Află mai multe</a>"
+
+#: includes/support-framework.php:82
+msgid "Email"
+msgstr "Email"
+
+#: includes/support-framework.php:83
+msgid "Courriel"
+msgstr "Web E-mail"
+
+#: includes/support-framework.php:172
+#, php-format
+msgid ""
+"Optionally provide an image that is at least %s (it will be cropped/"
+"resized). An image exactly this size is ideal."
+msgstr ""
+"Opțional oferă o imagine care este cel puțin %s (va fi tăiată/editată). Este "
+"ideal o imagine cu această mărime."
+
+#: includes/support-framework.php:482
+msgctxt "slide widget image"
+msgid "(Required)"
+msgstr "(Necesitat)"
+
+#: includes/support-framework.php:483 includes/support-framework.php:502
+#, php-format
+msgid "Image cropped to %s."
+msgstr "Imagine tăiată la %s."
+
+#: includes/support-framework.php:486
+msgid ""
+"To make this a video slide, enter a YouTube or Vimeo video page URL. Note: "
+"Click URL has no effect when video is used."
+msgstr "Pentru a face un slide video introduceți un YouTube sau Vimeo URL."
+
+#: includes/support-wp.php:44
+msgid "Main"
+msgstr ""
+
+#: includes/support-wp.php:49
+msgid "Accent"
+msgstr ""
+
+#: includes/support-wp.php:54
+msgid "Dark"
+msgstr ""
+
+#: includes/support-wp.php:59
+msgid "Light"
+msgstr ""
+
+#: includes/support-wp.php:64
+msgid "Light Background"
+msgstr ""
+
+#: includes/support-wp.php:69
+msgid "White"
+msgstr ""
+
+#: includes/template-tags.php:67
+#, php-format
+msgid "%s <span>(Page %d)</span>"
+msgstr "%s <span>(Pagină %d)</span>"
+
+#: includes/template-tags.php:203
+msgid "0 Comments"
+msgstr "0 Comentarii"
+
+#: includes/template-tags.php:204
+msgid "1 Comment"
+msgstr "1 Comentariu"
+
+#: includes/template-tags.php:205
+msgid "% Comments"
+msgstr "Comentarii"
+
+#: loop-author.php:37
+msgid "More Posts"
+msgstr "Citeşte mai mult"
+
+#: loop-author.php:41
+#, php-format
+msgctxt "author box"
+msgid "About %s"
+msgstr "Despre %s"
+
+#: loop-header.php:52
+#, php-format
+msgid "'%s' Tagged Posts"
+msgstr "'%s' Postări etichetate"
+
+#: loop-header.php:68
+#, php-format
+msgctxt "sermon topic"
+msgid "%1$s on %2$s"
+msgstr ""
+
+#: loop-header.php:70
+#, php-format
+msgctxt "sermon book"
+msgid "%1$s on %2$s"
+msgstr ""
+
+#: loop-header.php:72
+#, php-format
+msgctxt "sermon speaker"
+msgid "%1$s by %2$s"
+msgstr ""
+
+#: loop-header.php:74
+#, php-format
+msgctxt "sermon tag"
+msgid "\"%2$s\" Tagged %1$s"
+msgstr ""
+
+#: loop-header.php:106
+#, php-format
+msgid "There are no %s to show."
+msgstr "Nu sunt %s de arătat."
+
+#: loop-header.php:121
+#, php-format
+msgid "Posts by %s"
+msgstr "Articole de %s"
+
+#: loop-header.php:138
+#, php-format
+msgid "Search results for '%s'"
+msgstr "Rezultatele căutării pentru '%s'"
+
+#: loop-header.php:143
+#, php-format
+msgid "There is %d match for %s."
+msgid_plural "There are %d matches for %s."
+msgstr[0] "Există %d pereche pentru %s."
+msgstr[1] "Există %d perechi pentru %s."
+msgstr[2] "Există %d de prechei pentru %s."
+
+#: loop-header.php:161
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "F Y"
+
+#: loop-header.php:163
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: loop-header.php:170
+#, php-format
+msgid "Posts from %1$s"
+msgstr ""
+
+#: loop-header.php:172
+#, php-format
+msgctxt "sermon archive"
+msgid "%2$s from %1$s"
+msgstr ""
+
+#: loop-header.php:209
+msgid "Archives"
+msgstr "Arhive"
+
+#: loop-header.php:215
+msgid "Not Found"
+msgstr "Nu a fost găsit(ă)"
+
+#: loop-header.php:218
+msgid "Sorry, the page or file you tried to access was not found."
+msgstr "Ne pare rău,pagina sau fişierul accesat nu a fost găsit."
+
+#: loop-navigation.php:27
+#, php-format
+msgid " %s Back to %s"
+msgstr " %s Înapoi la %s"
+
+#: loop-navigation.php:62
+#, php-format
+msgctxt "previous post link"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: loop-navigation.php:71
+#, php-format
+msgctxt "next post link"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: loop-navigation.php:105
+#, php-format
+msgctxt "pagination"
+msgid "%s Previous"
+msgstr "%s Pagina precedentă"
+
+#: loop-navigation.php:106
+#, php-format
+msgctxt "pagination"
+msgid "Next %s"
+msgstr "Pagina următoare %s"
+
+#: page-templates/events-calendar.php:138
+msgctxt "event calendar"
+msgid "Remove Category Filter"
+msgstr "Elimină filtru categorie"
+
+#: page-templates/events-calendar.php:152
+#, php-format
+msgid "Previous Month &ndash; %1$s"
+msgstr "Luna anterioară &ndash; %1$s"
+
+#: page-templates/events-calendar.php:156
+#, php-format
+msgid "Next Month &ndash; %1$s"
+msgstr "Luna următoare &ndash; %1$s"
+
+#: page-templates/events-calendar.php:159
+msgctxt "event calendar"
+msgid "Choose Month"
+msgstr "Selectează luna"
+
+#: page-templates/events-calendar.php:162
+msgctxt "event calendar"
+msgid "Choose Category"
+msgstr "Alege categorie"
+
+#: page-templates/events-calendar.php:286
+msgctxt "event calendar"
+msgid "Today"
+msgstr "Azi"
+
+#: page-templates/events-calendar.php:443
+msgctxt "event calendar"
+msgid "All Categories"
+msgstr "Toate categoriile"
+
+#: page-templates/galleries.php:67
+#, php-format
+msgid "1 Photo"
+msgid_plural "%d Photos"
+msgstr[0] "Poză"
+msgstr[1] "%d Poze"
+msgstr[2] "%d de poze"
+
+#: page-templates/sermon-books.php:69
+msgid "There are no books to show."
+msgstr ""
+
+#: page-templates/sermon-dates.php:55
+msgctxt "sermon dates index"
+msgid "F"
+msgstr ""
+
+#: page-templates/sermon-dates.php:77
+msgid "There are no dates to show."
+msgstr ""
+
+#: page-templates/sermon-series.php:98
+#, php-format
+msgctxt "series date range"
+msgid "%s &ndash; %s"
+msgstr ""
+
+#: page-templates/sermon-series.php:123
+#, php-format
+msgctxt "sermon count single"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: page-templates/sermon-series.php:135
+#, php-format
+msgctxt "sermon count multiple"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: page-templates/sermon-series.php:159
+msgid "There are no series to show."
+msgstr ""
+
+#: page-templates/sermon-speakers.php:43
+msgid "There are no speakers to show."
+msgstr ""
+
+#: page-templates/sermon-topics.php:42
+msgid "There are no topics to show."
+msgstr ""
+
+#: searchform.php:15
+msgid "Search"
+msgstr "Caută"
+
+#: sermon-index-header.php:35
+msgctxt "sermon archives"
+msgid "Dates"
+msgstr ""
+
+#: widget-templates/widget-archives.php:38
+#, php-format
+msgctxt "archives widget"
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: widget-templates/widget-archives.php:59
+msgctxt "archives widget"
+msgid "Select Month"
+msgstr "Selectează luna"
+
+#: widget-templates/widget-categories.php:39
+msgctxt "categories widget"
+msgid "Select One"
+msgstr "Selectează unul"
+
+#: widget-templates/widget-events.php:109
+msgctxt "events widget"
+msgid "There are no events to show."
+msgstr "Nu sunt evenimente de arătat."
+
+#: widget-templates/widget-galleries.php:61
+msgctxt "galleries widget"
+msgid "There are no galleries to show."
+msgstr "Nu sunt albume foto de arătat."
+
+#: widget-templates/widget-gallery.php:63
+msgctxt "gallery widget"
+msgid "View Gallery"
+msgstr "Vezi Albumul Foto"
+
+#: widget-templates/widget-gallery.php:74
+msgctxt "gallery widget"
+msgid "There are no images to show."
+msgstr "Nu sunt imagini de arătat."
+
+#: widget-templates/widget-locations.php:156
+msgctxt "locations widget"
+msgid "There are no locations to show."
+msgstr "Nu sunt locaţii de arătat."
+
+#: widget-templates/widget-people.php:114
+msgctxt "people widget"
+msgid "There are no people to show."
+msgstr "Nu sunt persoane de arătat."
+
+#: widget-templates/widget-posts.php:85
+#, php-format
+msgctxt "posts widget"
+msgid "by <a href=\"%1$s\">%2$s</a>"
+msgstr "de către <a href=\"%1$s\">%2$s</a>"
+
+#: widget-templates/widget-posts.php:115
+msgctxt "posts widget"
+msgid "There are no posts to show."
+msgstr "Nu sunt postări de arătat."
+
+#: widget-templates/widget-sermons.php:87
+#, php-format
+msgctxt "widget"
+msgid "by %s"
+msgstr "de către %s"
+
+#: widget-templates/widget-sermons.php:116
+msgctxt "sermons widget"
+msgid "Read Online"
+msgstr "Citeşte online"
+
+#: widget-templates/widget-sermons.php:120
+msgctxt "sermons widget"
+msgid "Watch Video"
+msgstr "Urmărește video"
+
+#: widget-templates/widget-sermons.php:124
+msgctxt "sermons widget"
+msgid "Listen to Audio"
+msgstr "Ascultă fişier audio"
+
+#: widget-templates/widget-sermons.php:128
+msgctxt "sermons widget"
+msgid "Download PDF"
+msgstr "Descarcă PDF"
+
+#: widget-templates/widget-sermons.php:162
+#, php-format
+msgctxt "sermons widget"
+msgid "There are no %1$s to show."
+msgstr ""
+
+#~ msgid ""
+#~ "Please activate your license key to enable one-click theme updates and to "
+#~ "get support from <a href=\"%1$s\" target=\"_blank\">churchthemes.com</a> "
+#~ "for this site. Read <a href=\"%2$s\" target=\"_blank\">License Keys</a> "
+#~ "for more information."
+#~ msgstr ""
+#~ "Te rugăm să activezi licienţa pentru a permite actualizări si suport de "
+#~ "la <a href=\"%1$s\" target=\"_blank\">churchthemes.com</a> pentru acest "
+#~ "website. Citeşte <a href=\"%2$s\" target=\"_blank\">ghidul de licienţe</"
+#~ "a> pentru mai multe informaţii."
+
+#~ msgctxt "sermons widget title default"
+#~ msgid "Sermons"
+#~ msgstr "Predici"
+
+#~ msgctxt "customizer"
+#~ msgid "Latest Sermons"
+#~ msgstr "Ultimele predici"
+
+#~ msgctxt "archives widget"
+#~ msgid "Sermons"
+#~ msgstr "Predici"
+
+#~ msgctxt "sermon topic"
+#~ msgid "Sermons on %s"
+#~ msgstr "Predici despre%s"
+
+#~ msgctxt "sermon book"
+#~ msgid "Sermons on %s"
+#~ msgstr "Predici despre%s"
+
+#~ msgid "Sermons by %s"
+#~ msgstr "Predici de%s"
+
+#~ msgid "'%s' Tagged Sermons"
+#~ msgstr "'%s' - predici etichetate"
+
+#~ msgid "Posts from %s"
+#~ msgstr "Articole din %s"
+
+#~ msgid "Sermons from %s"
+#~ msgstr "Predici din %s"
+
+#~ msgctxt "sermons widget"
+#~ msgid "There are no sermons to show."
+#~ msgstr "Nu sunt predici de arătat"
+
+#~ msgid ""
+#~ "Any customizations you have made directly to %s's theme files will be "
+#~ "lost. Please consider using a child theme for modifications."
+#~ msgstr ""
+#~ "Orice modificare direct făcută acestui %s's fişier va fi pierdută. "
+#~ "Consideră în a lucra cu o temă copil pentru modificările necesare."
+
+#~ msgid ""
+#~ "<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\"%4$s>Update Now</"
+#~ "a> or read the <a href=\"%5$s\" target=\"_blank\">Changelog</a>."
+#~ msgstr ""
+#~ "<strong>%1$s %2$s</strong> este disponibil. <a href=\"%3$s"
+#~ "\"%4$s>Actualizează acum</a> sau citeşte <a href=\"%5$s\" target=\"_blank"
+#~ "\">documentul de schimbări</a>."
+
+#~ msgctxt "section widget"
+#~ msgid "Image Opacity"
+#~ msgstr "Opacitate imagine"
+
+#~ msgid ""
+#~ "http://facebook.com\n"
+#~ "http://twitter.com\n"
+#~ "https://plus.google.com\n"
+#~ "http://vimeo.com\n"
+#~ "http://instagram.com"
+#~ msgstr ""
+#~ "http://facebook.com\n"
+#~ "http://twitter.com\n"
+#~ "https://plus.google.com\n"
+#~ "http://vimeo.com\n"
+#~ "http://instagram.com"

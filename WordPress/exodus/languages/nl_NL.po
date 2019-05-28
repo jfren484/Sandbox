@@ -1,0 +1,3228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exodus\n"
+"Report-Msgid-Bugs-To: churchthemes.com <contact@churchthemes.com>\n"
+"POT-Creation-Date: 2018-09-20 10:28-0500\n"
+"PO-Revision-Date: 2018-09-20 10:28-0500\n"
+"Last-Translator: churchthemes.com <contact@churchthemes.com>\n"
+"Language-Team: churchthemes.com <contact@churchthemes.com>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Loco-Target-Locale: nl_NL\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: comment.php:48
+#, php-format
+msgid "%s Reply"
+msgstr "%s Reageer"
+
+#: comment.php:49
+msgid "Log in to Reply"
+msgstr "Log in om te Reageren"
+
+#: comment.php:56
+#, php-format
+msgctxt "comment"
+msgid "%s Edit"
+msgstr "%s bewerken"
+
+#: comment.php:70
+msgctxt "comments"
+msgid "(Author)"
+msgstr "(Auteur)"
+
+#: comment.php:76
+msgid "(Trackback)"
+msgstr ""
+
+#: comment.php:78
+msgid "(Pingback)"
+msgstr ""
+
+#: comment.php:90
+#, php-format
+msgctxt "comments"
+msgid "%3$s <span class=\"exodus-comment-time\">at %4$s</span>"
+msgstr "%3$s <span class=\"exodus-comment-time\">aan %4$s</span>"
+
+#: comment.php:103
+msgid "Your comment is awaiting moderation."
+msgstr "Uw reactie wacht op goedkeuring."
+
+#: comments.php:29
+msgctxt "password protected"
+msgid "Comments"
+msgstr "Reacties"
+
+#: comments.php:33
+msgid "Enter the password above to view any comments."
+msgstr "Voer hiervoor het wachtwoord in om eventuele reacties te bekijken."
+
+#: comments.php:44
+#, php-format
+msgid "One Comment"
+msgid_plural "%1$s Comments"
+msgstr[0] "een reactie"
+msgstr[1] "%1$s Reactie"
+
+#: comments.php:68
+#, php-format
+msgid " %s Older Comments"
+msgstr "%s Oudere Reacties"
+
+#: comments.php:69
+#, php-format
+msgid "Newer Comments %s"
+msgstr "Oudere Reacties %s"
+
+#: comments.php:83
+msgctxt "comment form"
+msgid "Add a Comment"
+msgstr "Voeg een reactie toe"
+
+#: comments.php:84
+#, php-format
+msgid "Add a Reply to %s"
+msgstr "Voeg een reactie aan %s"
+
+#: comments.php:85
+msgctxt "comment form"
+msgid "Cancel"
+msgstr "Annuleer"
+
+#: comments.php:86
+msgctxt "comment form"
+msgid "Add Comment"
+msgstr "Voeg een reactie toe"
+
+#: comments.php:96
+msgid "Commenting has been turned off."
+msgstr "Reacties zijn uitgeschakeld."
+
+#: content-attachment-header.php:24
+#, php-format
+msgid "Uploaded %s"
+msgstr "Geüpload %s"
+
+#: content-attachment.php:46
+#, php-format
+msgid "Download %s"
+msgstr "Download %s"
+
+#: content-event-header.php:66
+msgid "Excluded Dates"
+msgstr ""
+
+#: content-event.php:58
+msgctxt "event"
+msgid "Get Directions"
+msgstr "Routebeschrijving"
+
+#: content-event.php:69 content-footer-short.php:134
+msgctxt "event"
+msgid "Register"
+msgstr ""
+
+#: content-footer-full.php:19 content-footer-full.php:31
+#: content-footer-full.php:38 content-footer-full.php:49
+#: content-post-header.php:38 content-sermon-header.php:33
+#: content-sermon-header.php:40 content-sermon-header.php:47
+#: widget-templates/widget-events.php:81 widget-templates/widget-sermons.php:85
+#: widget-templates/widget-sermons.php:91
+#: widget-templates/widget-sermons.php:97
+#: widget-templates/widget-sermons.php:103
+msgid ", "
+msgstr ""
+
+#: content-footer-full.php:21 content-footer-full.php:40
+#, php-format
+msgid "Tagged with %s"
+msgstr "Getagd met %s"
+
+#: content-footer-full.php:33
+#, php-format
+msgid "Series: %s"
+msgstr "Series: %s"
+
+#: content-footer-full.php:72
+msgid "Pages:"
+msgstr "Pagina’s:"
+
+#: content-footer-full.php:108
+#, php-format
+msgid "%1$s Edit %2$s"
+msgstr "%1$s Bewerk %2$s"
+
+#: content-footer-short.php:48
+msgid "Read"
+msgstr "Lezen"
+
+#: content-footer-short.php:50
+msgctxt "sermon button"
+msgid "Details"
+msgstr ""
+
+#: content-footer-short.php:59
+msgid "Watch"
+msgstr "Bekijken"
+
+#: content-footer-short.php:68
+msgid "Listen"
+msgstr "Luisteren"
+
+#: content-footer-short.php:75 content-sermon.php:170
+msgid "Download PDF"
+msgstr ""
+
+#: content-footer-short.php:77
+msgid "PDF"
+msgstr ""
+
+#: content-footer-short.php:98
+msgid "Location Details"
+msgstr "Locatie details"
+
+#: content-footer-short.php:103 content-footer-short.php:126
+#: page-templates/events-calendar.php:562
+msgid "Directions"
+msgstr "Routebeschrijving"
+
+#: content-footer-short.php:121 page-templates/events-calendar.php:557
+msgid "Event Details"
+msgstr "Evenement"
+
+#: content-footer-short.php:151
+msgid "Read Biography"
+msgstr "Lees Biografie"
+
+#: content-footer-short.php:165
+msgid "View Gallery"
+msgstr "Galerij bekijken"
+
+#: content-footer-short.php:187
+msgid "Read More"
+msgstr "Leer meer"
+
+#: content-footer-short.php:193
+#, php-format
+msgid "View %s"
+msgstr "Bekijk %s"
+
+#: content-location.php:45
+msgctxt "location"
+msgid "Get Directions"
+msgstr "Routebeschrijving"
+
+#: content-sermon.php:136
+msgid "Show Video Player"
+msgstr "Toom Video"
+
+#: content-sermon.php:145
+msgid "Show Audio Player"
+msgstr "Toon Audio"
+
+#: content-sermon.php:152
+msgid "Download Video"
+msgstr ""
+
+#: content-sermon.php:154
+msgid "Save Video"
+msgstr "Video opslaan"
+
+#: content-sermon.php:161
+msgid "Download Audio"
+msgstr ""
+
+#: content-sermon.php:163
+msgid "Save Audio"
+msgstr "Download MP3"
+
+#: content-sermon.php:172
+msgid "Save PDF"
+msgstr "Download PDF"
+
+#: footer.php:189
+msgctxt "footer"
+msgid "More Info"
+msgstr "Meer informatie"
+
+#: footer.php:192
+msgctxt "footer"
+msgid "Directions"
+msgstr "Routebeschrijving"
+
+#: footer.php:196
+msgctxt "footer"
+msgid "All Locations"
+msgstr "Alle locaties"
+
+#: footer.php:229
+msgid "View Full Site"
+msgstr "Bekijk de volledige site"
+
+#: footer.php:233
+msgid "View Mobile Site"
+msgstr "Mobiele website bekijken"
+
+#: framework/includes/admin/admin-taxonomies.php:70
+#, php-format
+msgid ""
+"<b>Custom Ordering:</b> Try <a href=\"%s\" target=\"_blank\">this plugin</a> "
+"for custom ordering your %s."
+msgstr ""
+"<b>Aangepaste weergave:</ b> Probeer <a href=\"%s\" target=\"_blank\">deze "
+"plugin</a> voor aangepaste weergave %s."
+
+#: framework/includes/admin/admin-widgets.php:33
+msgctxt "widget image library"
+msgid "Choose Image for Widget"
+msgstr "Kies een afbeelding voor Widget"
+
+#: framework/includes/admin/admin-widgets.php:34
+msgctxt "widget image library"
+msgid "Use in Widget"
+msgstr "Gebruik in Widget"
+
+#: framework/includes/admin/admin-widgets.php:63
+msgid "Sorry, this widget is not made for use in this area. Please delete."
+msgstr ""
+"Sorry, deze widget is niet gemaakt voor dit onderdeel. Gelieve te "
+"verwijderen."
+
+#: framework/includes/admin/edd-license.php:76
+msgid "<strong>License key could not be activated.</strong>"
+msgstr "<strong>License sleutel kan niet worden geactiveerd.</strong>"
+
+#: framework/includes/admin/edd-license.php:77
+#, php-format
+msgid ""
+"<strong>Theme License Inactive:</strong> <a href=\"%1$s\">Activate Your "
+"Theme License</a> to enable updates for the <strong>%2$s</strong> theme."
+msgstr ""
+"<strong>Thema Licentie Inactief:</strong> <a href=\"%1$s\">Activeer uw thema "
+"Licentie</a> om updates te ontvangen <strong>%2$s</strong> thema."
+
+#: framework/includes/admin/edd-license.php:78
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> <a href=\"%1$s\">Renew Your Theme "
+"License</a> to re-enable updates for the <strong>%2$s</strong> theme "
+"(expired on <strong>%3$s</strong>)."
+msgstr ""
+"<strong>Thema Licentie Verlopen:</strong> <a href=\"%1$s\">Vernieuw Uw Theme "
+"License</a> op nieuwe updates te ontvangen <strong>%2$s</strong> thema "
+"(verlopen op <strong>%3$s</strong>)."
+
+#: framework/includes/admin/edd-license.php:79
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> Ask %6$s to renew their <a href="
+"\"%1$s\">Theme License</a> for <strong>%2$s</strong> to re-enable updates "
+"for your site (expired <strong>%3$s</strong>)."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:80
+#, php-format
+msgid ""
+"<strong>Theme License Expiring Soon:</strong> <a href=\"%1$s\">Renew Your "
+"Theme License</a> to continue receiving updates for the <strong>%2$s</"
+"strong> theme (expires on <strong>%3$s</strong>)."
+msgstr ""
+"<strong>Thema Licentie Verloopt Binnenkort:</strong> <a href=\"%1$s"
+"\">Vernieuw Uw Theme License</a> om updates te blijven ontvangen <strong>"
+"%2$s</strong> thema (verloopt op <strong>%3$s</strong>)."
+
+#: framework/includes/admin/edd-license.php:125
+msgid ""
+"If you have modified theme files directly (not common), your changes will be "
+"overwritten (make a child theme instead). Click \"Cancel\" to stop or \"OK\" "
+"to update the theme."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:126
+#, php-format
+msgid ""
+"<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\" target=\"_blank"
+"\">Check out what's new</a> or <a href=\"%5$s\"%6$s>update now</a>."
+msgstr ""
+
+#: framework/includes/admin/edd-license.php:403
+msgctxt "license expiration"
+msgid "unknown date"
+msgstr "onbekende datum"
+
+#: framework/includes/admin/edd-license.php:429
+#: framework/includes/admin/edd-license.php:455
+msgctxt "page title"
+msgid "Theme License"
+msgstr "Thema Licentie"
+
+#: framework/includes/admin/edd-license.php:430
+msgctxt "menu title"
+msgid "Theme License"
+msgstr "Thema Licentie"
+
+#: framework/includes/admin/edd-license.php:472
+msgctxt "heading"
+msgid "License Key"
+msgstr "Lixentie code"
+
+#: framework/includes/admin/edd-license.php:481
+msgid "License Key"
+msgstr "Licentie code"
+
+#: framework/includes/admin/edd-license.php:495
+msgid "Save Key"
+msgstr "Licentie opslaan"
+
+#: framework/includes/admin/edd-license.php:499
+#: framework/includes/admin/edd-license.php:508
+msgid "License Status"
+msgstr "Licentie Status"
+
+#: framework/includes/admin/edd-license.php:515
+msgctxt "license key"
+msgid "Active"
+msgstr "Actief"
+
+#: framework/includes/admin/edd-license.php:518
+msgctxt "license status"
+msgid "Expiring Soon"
+msgstr "Verloopt Binnenkort"
+
+#: framework/includes/admin/edd-license.php:523
+msgctxt "license key"
+msgid "Expired"
+msgstr "Verlopen"
+
+#: framework/includes/admin/edd-license.php:527
+msgctxt "license key"
+msgid "Inactive"
+msgstr "Inactief"
+
+#: framework/includes/admin/edd-license.php:540
+msgid "License Expiration"
+msgstr "Licentie Vervaldatum"
+
+#: framework/includes/admin/edd-license.php:561
+msgid "Deactivate License"
+msgstr "Deactiveer Licentie"
+
+#: framework/includes/admin/edd-license.php:565
+msgid "Activate License"
+msgstr "Actieveer Licentie"
+
+#: framework/includes/admin/edd-license.php:572
+msgid "Renew License"
+msgstr "Vernieuw Licentie"
+
+#: framework/includes/admin/edd-license.php:859
+msgid "your website provider"
+msgstr ""
+
+#: framework/includes/archives.php:281 framework/includes/content-types.php:684
+#, php-format
+msgctxt "month archive"
+msgid "%1$s %2$d"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:55
+msgctxt "breadcrumb separator"
+msgid " > "
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:242
+msgctxt "breadcrumb year format"
+msgid "Y"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:259
+msgctxt "breadcrumb month format"
+msgid "F"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:276
+msgctxt "breadcrumb day format"
+msgid "jS"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:326
+msgctxt "sermon breadcrumb"
+msgid "Sermons"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:327
+msgctxt "sermon breadcrumb"
+msgid "Topics"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:328
+msgctxt "sermon breadcrumb"
+msgid "Series"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:329
+msgctxt "sermon breadcrumb"
+msgid "Books"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:330
+msgctxt "sermon breadcrumb"
+msgid "Speakers"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:331
+msgctxt "sermon breadcrumb"
+msgid "Dates"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:366
+#, php-format
+msgctxt "breadcrumb"
+msgid "Page %s"
+msgstr ""
+
+#: framework/includes/classes/breadcrumbs.php:377
+msgctxt "breadcrumb"
+msgid "Search Results"
+msgstr "Zoek resultaten"
+
+#: framework/includes/classes/breadcrumbs.php:571
+msgctxt "breadcrumbs"
+msgid "Home"
+msgstr ""
+
+#: framework/includes/classes/customize-controls.php:71
+#: framework/includes/classes/customize-controls.php:147
+msgid "Colorable"
+msgstr "Kleurbaar"
+
+#: framework/includes/classes/customize-controls.php:87
+msgid "The selected image is <strong>colorable</strong>."
+msgstr "De geselecteerde afbeelding is <strong>kleurbaar</strong>."
+
+#: framework/includes/classes/customize-controls.php:124
+msgctxt "customizer"
+msgid "Presets"
+msgstr ""
+
+#: framework/includes/classes/widget-archives.php:34
+msgctxt "widget"
+msgid "CT Archives"
+msgstr ""
+
+#: framework/includes/classes/widget-archives.php:36
+msgid "Monthly archive for chosen post type"
+msgstr "Maandelijks archief voor gekozen type"
+
+#: framework/includes/classes/widget-archives.php:85
+msgctxt "archives widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-archives.php:97
+msgctxt "archives widget title default"
+msgid "Archives"
+msgstr "Archief"
+
+#: framework/includes/classes/widget-archives.php:111
+msgctxt "archives widget"
+msgid "Type"
+msgstr ""
+
+#: framework/includes/classes/widget-archives.php:137
+msgctxt "archives widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-archives.php:139
+msgctxt "archives widget"
+msgid "Set to 0 for no limit."
+msgstr "Instellen op 0 voor geen limiet."
+
+#: framework/includes/classes/widget-archives.php:170
+msgctxt "archives widget"
+msgid "Show counts"
+msgstr "Aantal"
+
+#: framework/includes/classes/widget-archives.php:193
+msgctxt "archives widget"
+msgid "Show as dropdown"
+msgstr "Toon als dropdown"
+
+#: framework/includes/classes/widget-archives.php:250
+#: includes/support-framework.php:452
+msgctxt "archives widget"
+msgid "Blog"
+msgstr ""
+
+#: framework/includes/classes/widget-categories.php:34
+msgctxt "widget"
+msgid "CT Categories"
+msgstr "CT Categorieën"
+
+#: framework/includes/classes/widget-categories.php:36
+msgid "Shows categories of various types"
+msgstr "Toont categorieën van verschillende soorten"
+
+#: framework/includes/classes/widget-categories.php:88
+msgctxt "categories widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-categories.php:100
+msgctxt "categories widget title default"
+msgid "Categories"
+msgstr "Categorieën"
+
+#: framework/includes/classes/widget-categories.php:114
+msgctxt "categories widget"
+msgid "Type"
+msgstr ""
+
+#: framework/includes/classes/widget-categories.php:140
+msgctxt "categories widget"
+msgid "Order By"
+msgstr "Order"
+
+#: framework/includes/classes/widget-categories.php:149
+msgctxt "categories widget order by"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-categories.php:150
+msgctxt "categories widget order by"
+msgid "Date"
+msgstr "Datum"
+
+#: framework/includes/classes/widget-categories.php:151
+msgctxt "categories widget order by"
+msgid "Post Count"
+msgstr "Aantal"
+
+#: framework/includes/classes/widget-categories.php:179
+msgctxt "categories widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-categories.php:180
+msgctxt "categories widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-categories.php:199
+msgctxt "categories widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-categories.php:201
+msgctxt "categories widget"
+msgid "Set to 0 for unlimited."
+msgstr "Zet op 0 voor onbeperkt."
+
+#: framework/includes/classes/widget-categories.php:232
+msgctxt "categories widget"
+msgid "Show counts"
+msgstr "Toon aantal"
+
+#: framework/includes/classes/widget-categories.php:258
+msgctxt "categories widget"
+msgid "Show hierarchy"
+msgstr "Toon hiërarchie"
+
+#: framework/includes/classes/widget-categories.php:281
+msgctxt "categories widget"
+msgid "Show as dropdown"
+msgstr "Toon als dropdown"
+
+#: framework/includes/classes/widget-categories.php:331
+msgctxt "categories widget"
+msgid "Blog Categories"
+msgstr "Blog Categorieën"
+
+#: framework/includes/classes/widget-categories.php:333
+msgctxt "categories widget"
+msgid "Blog Tags"
+msgstr ""
+
+#: framework/includes/classes/widget-events.php:32
+msgctxt "events widget"
+msgid "CT Events"
+msgstr "CT Evenementen"
+
+#: framework/includes/classes/widget-events.php:34
+msgctxt "events widget"
+msgid "Shows upcoming or past events"
+msgstr "Toont komende of gedane evenementen"
+
+#: framework/includes/classes/widget-events.php:83
+msgctxt "events widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-events.php:95
+msgctxt "events widget title default"
+msgid "Events"
+msgstr "Evenementen"
+
+#: framework/includes/classes/widget-events.php:109
+msgctxt "events widget"
+msgid "Period"
+msgstr "Periode"
+
+#: framework/includes/classes/widget-events.php:118
+msgctxt "events widget order"
+msgid "Upcoming"
+msgstr "Aankomende"
+
+#: framework/includes/classes/widget-events.php:119
+msgctxt "events widget order"
+msgid "Past"
+msgstr "Verledem"
+
+#: framework/includes/classes/widget-events.php:138
+msgctxt "events widget"
+msgid "Category"
+msgstr "Categorie"
+
+#: framework/includes/classes/widget-events.php:147
+msgctxt "sermons widget"
+msgid "All Categories"
+msgstr "Alle Categorieën"
+
+#: framework/includes/classes/widget-events.php:166
+msgctxt "events widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-events.php:196
+#: framework/includes/classes/widget-locations.php:197
+msgctxt "events widget"
+msgid "Show image"
+msgstr "Toon afbeelding"
+
+#: framework/includes/classes/widget-events.php:225
+msgctxt "events widget"
+msgid "Show date"
+msgstr "Toon datum"
+
+#: framework/includes/classes/widget-events.php:248
+msgctxt "events widget"
+msgid "Show time"
+msgstr "Toon tijd"
+
+#: framework/includes/classes/widget-events.php:277
+msgctxt "events widget"
+msgid "Show category"
+msgstr "Toon categorie"
+
+#: framework/includes/classes/widget-events.php:300
+msgctxt "events widget"
+msgid "Show excerpt"
+msgstr "Toon uitzonderingen"
+
+#: framework/includes/classes/widget-events.php:322
+msgctxt "events widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-galleries.php:36
+msgctxt "widget"
+msgid "CT Galleries"
+msgstr ""
+
+#: framework/includes/classes/widget-galleries.php:38
+msgid "Shows list of gallery pages"
+msgstr "Toont lijst galerij pagina's"
+
+#: framework/includes/classes/widget-galleries.php:87
+msgctxt "galleries widget"
+msgid "Title"
+msgstr "titel"
+
+#: framework/includes/classes/widget-galleries.php:99
+msgctxt "galleries widget title default"
+msgid "Galleries"
+msgstr "Galerijen"
+
+#: framework/includes/classes/widget-galleries.php:113
+msgctxt "galleries widget"
+msgid "Order By"
+msgstr "Sorteren op"
+
+#: framework/includes/classes/widget-galleries.php:122
+msgctxt "galleries widget order by"
+msgid "Date Added"
+msgstr "Datum toevoegen"
+
+#: framework/includes/classes/widget-galleries.php:123
+msgctxt "galleries widget order by"
+msgid "Title"
+msgstr "titel"
+
+#: framework/includes/classes/widget-galleries.php:151
+msgctxt "galleries widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-galleries.php:152
+msgctxt "galleries widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-galleries.php:171
+msgctxt "galleries widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-galleries.php:173
+msgctxt "galleries widget"
+msgid "Set to 0 for unlimited."
+msgstr "Zet op 0 voor onbeperkt."
+
+#: framework/includes/classes/widget-gallery.php:32
+msgctxt "gallery widget"
+msgid "CT Gallery"
+msgstr ""
+
+#: framework/includes/classes/widget-gallery.php:34
+msgid "Shows gallery thumbnails"
+msgstr "Toont thumbnails galerij"
+
+#: framework/includes/classes/widget-gallery.php:56
+msgctxt "gallery widget"
+msgid "All Galleries"
+msgstr "Alle Galerijen"
+
+#: framework/includes/classes/widget-gallery.php:94
+msgctxt "gallery widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-gallery.php:106
+msgctxt "gallery widget title default"
+msgid "Gallery"
+msgstr "Galerij"
+
+#: framework/includes/classes/widget-gallery.php:120
+msgctxt "gallery widget"
+msgid "Gallery"
+msgstr "Galerij"
+
+#: framework/includes/classes/widget-gallery.php:150
+msgctxt "gallery widget"
+msgid "Show link to gallery"
+msgstr "Toon link naar galerij"
+
+#: framework/includes/classes/widget-gallery.php:172
+msgctxt "gallery widget"
+msgid "Order By"
+msgstr "Sorteer op"
+
+#: framework/includes/classes/widget-gallery.php:181
+msgctxt "gallery widget order by"
+msgid "Upload Date"
+msgstr "Uploaddatum"
+
+#: framework/includes/classes/widget-gallery.php:182
+msgctxt "gallery widget order by"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-gallery.php:183
+msgctxt "gallery widget order by"
+msgid "Comment Count"
+msgstr "Reactie Aantal"
+
+#: framework/includes/classes/widget-gallery.php:211
+msgctxt "gallery widget order"
+msgid "Low to High"
+msgstr "Laag naar hoog"
+
+#: framework/includes/classes/widget-gallery.php:212
+msgctxt "gallery widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-gallery.php:231
+msgctxt "gallery widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-gallery.php:257
+msgctxt "gallery widget"
+msgid "Thumbnail Size"
+msgstr "Thumbnail Groote"
+
+#: framework/includes/classes/widget-gallery.php:266
+msgctxt "gallery widget"
+msgid "Small"
+msgstr "Klein"
+
+#: framework/includes/classes/widget-gallery.php:267
+msgctxt "gallery widget"
+msgid "Medium"
+msgstr "Normaal"
+
+#: framework/includes/classes/widget-gallery.php:268
+msgctxt "gallery widget"
+msgid "Large"
+msgstr "Groot"
+
+#: framework/includes/classes/widget-giving.php:32
+msgctxt "widget"
+msgid "CT Giving"
+msgstr ""
+
+#: framework/includes/classes/widget-giving.php:34
+msgid "Shows a message and button"
+msgstr "Toont een bericht en de knop"
+
+#: framework/includes/classes/widget-giving.php:83
+msgctxt "giving widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-giving.php:95
+msgctxt "giving widget default title"
+msgid "Giving"
+msgstr "Donatie"
+
+#: framework/includes/classes/widget-giving.php:109
+msgctxt "giving widget"
+msgid "Message"
+msgstr "Bericht"
+
+#: framework/includes/classes/widget-giving.php:121
+msgid "You may give online by clicking below."
+msgstr "U kunt online doneren door hieronder te klikken."
+
+#: framework/includes/classes/widget-giving.php:135
+msgctxt "giving widget"
+msgid "Button Text"
+msgstr "Knop Tekst"
+
+#: framework/includes/classes/widget-giving.php:147
+msgctxt "giving widget"
+msgid "Give Now"
+msgstr "Doneer nu"
+
+#: framework/includes/classes/widget-giving.php:161
+msgctxt "giving widget"
+msgid "Button URL"
+msgstr "knop URL"
+
+#: framework/includes/classes/widget-giving.php:187
+msgctxt "giving widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:32
+msgctxt "widget"
+msgid "CT Highlight"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:34
+msgid "Shows a highlight"
+msgstr "Toont een hoogtepunt"
+
+#: framework/includes/classes/widget-highlight.php:83
+msgctxt "highlight widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-highlight.php:109
+msgctxt "highlight widget"
+msgid "Description"
+msgstr "Beschrijving"
+
+#: framework/includes/classes/widget-highlight.php:135
+msgctxt "highlight widget"
+msgid "Click URL"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:165
+msgctxt "highlight widget"
+msgid "Open in new tab"
+msgstr "Openen in nieuw tabblad"
+
+#: framework/includes/classes/widget-highlight.php:187
+msgctxt "highlight widget"
+msgid "Image"
+msgstr "Afbeelding"
+
+#: framework/includes/classes/widget-highlight.php:213
+msgctxt "highlight widget"
+msgid "Brightness"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:214
+#: framework/includes/classes/widget-highlight.php:242
+msgctxt "highlight widget"
+msgid "(Percentage)"
+msgstr ""
+
+#: framework/includes/classes/widget-highlight.php:241
+msgctxt "highlight widget"
+msgid "Opacity"
+msgstr ""
+
+#: framework/includes/classes/widget-locations.php:32
+msgctxt "widget"
+msgid "CT Locations"
+msgstr ""
+
+#: framework/includes/classes/widget-locations.php:34
+msgid "Shows church location(s)"
+msgstr "Toont kerk locatie('s)"
+
+#: framework/includes/classes/widget-locations.php:83
+msgctxt "locations widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-locations.php:95
+msgctxt "locations widget title default"
+msgid "Locations"
+msgstr "Locatie's"
+
+#: framework/includes/classes/widget-locations.php:109
+msgctxt "locations widget"
+msgid "Order By"
+msgstr "Sorteer op"
+
+#: framework/includes/classes/widget-locations.php:118
+msgctxt "locations widget order by"
+msgid "Custom Order"
+msgstr "Aangepaste orde"
+
+#: framework/includes/classes/widget-locations.php:119
+msgctxt "locations widget order by"
+msgid "Name"
+msgstr "naam"
+
+#: framework/includes/classes/widget-locations.php:147
+msgctxt "locations widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-locations.php:148
+msgctxt "locations widget order"
+msgid "High to Low"
+msgstr "hoog naar Laag"
+
+#: framework/includes/classes/widget-locations.php:167
+msgctxt "locations widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-locations.php:223
+msgctxt "locations widget"
+msgid "Show address"
+msgstr "Toon adres"
+
+#: framework/includes/classes/widget-locations.php:249
+msgctxt "locations widget"
+msgid "Show phone number"
+msgstr "Toon telefoonnummer"
+
+#: framework/includes/classes/widget-locations.php:278
+msgctxt "locations widget"
+msgid "Show email"
+msgstr ""
+
+#: framework/includes/classes/widget-locations.php:301
+msgctxt "locations widget"
+msgid "Show times"
+msgstr "Toon tijden"
+
+#: framework/includes/classes/widget-locations.php:327
+msgctxt "locations widget"
+msgid "Show map"
+msgstr "Toon map"
+
+#: framework/includes/classes/widget-locations.php:349
+msgctxt "locations widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-people.php:32
+msgctxt "widget"
+msgid "CT People"
+msgstr ""
+
+#: framework/includes/classes/widget-people.php:34
+msgid "Shows people according to options"
+msgstr "Toont mensen volgens de opties"
+
+#: framework/includes/classes/widget-people.php:83
+msgctxt "people widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-people.php:95
+msgctxt "people widget title default"
+msgid "People"
+msgstr "Mensen"
+
+#: framework/includes/classes/widget-people.php:109
+msgctxt "people widget"
+msgid "Group"
+msgstr "Groep"
+
+#: framework/includes/classes/widget-people.php:118
+msgctxt "people widget"
+msgid "All Groups"
+msgstr "Alle groepen"
+
+#: framework/includes/classes/widget-people.php:137
+msgctxt "people widget"
+msgid "Order By"
+msgstr "Sorteer op"
+
+#: framework/includes/classes/widget-people.php:146
+msgctxt "people widget order by"
+msgid "Custom Order"
+msgstr "Aangepaste orde"
+
+#: framework/includes/classes/widget-people.php:147
+msgctxt "people widget order by"
+msgid "Name"
+msgstr "Naam"
+
+#: framework/includes/classes/widget-people.php:175
+msgctxt "people widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-people.php:176
+msgctxt "people widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-people.php:195
+msgctxt "people widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-people.php:225
+msgctxt "people widget"
+msgid "Show photo"
+msgstr "Toon foto"
+
+#: framework/includes/classes/widget-people.php:251
+msgctxt "people widget"
+msgid "Show position"
+msgstr "Toon positie"
+
+#: framework/includes/classes/widget-people.php:277
+msgctxt "people widget"
+msgid "Show phone"
+msgstr "Toon telefoon"
+
+#: framework/includes/classes/widget-people.php:303
+msgctxt "people widget"
+msgid "Show email"
+msgstr "Toon email"
+
+#: framework/includes/classes/widget-people.php:329
+msgctxt "people widget"
+msgid "Show icons"
+msgstr "Toon icoon"
+
+#: framework/includes/classes/widget-people.php:355
+#: framework/includes/classes/widget-posts.php:332
+msgctxt "posts widget"
+msgid "Show excerpt"
+msgstr "Toon uittreksel"
+
+#: framework/includes/classes/widget-people.php:377
+msgctxt "people widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-posts.php:34
+msgctxt "widget"
+msgid "CT Posts"
+msgstr ""
+
+#: framework/includes/classes/widget-posts.php:36
+msgid "Shows blog posts according to options"
+msgstr "Toont blogposts volgens opties"
+
+#: framework/includes/classes/widget-posts.php:85
+msgctxt "posts widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-posts.php:97
+msgctxt "posts widget title default"
+msgid "Posts"
+msgstr "Berichten"
+
+#: framework/includes/classes/widget-posts.php:111
+msgctxt "posts widget"
+msgid "Category"
+msgstr "Categorie"
+
+#: framework/includes/classes/widget-posts.php:120
+msgctxt "posts widget"
+msgid "All Categories"
+msgstr "Alle categorieën"
+
+#: framework/includes/classes/widget-posts.php:139
+msgctxt "posts widget"
+msgid "Order By"
+msgstr "Sorteer op"
+
+#: framework/includes/classes/widget-posts.php:148
+msgctxt "posts widget order by"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-posts.php:149
+msgctxt "posts widget order by"
+msgid "Date"
+msgstr "Datum"
+
+#: framework/includes/classes/widget-posts.php:150
+msgctxt "posts widget order by"
+msgid "Comment Count"
+msgstr "Reactie tellen"
+
+#: framework/includes/classes/widget-posts.php:178
+msgctxt "posts widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-posts.php:179
+msgctxt "posts widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-posts.php:198
+msgctxt "posts widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-posts.php:228
+msgctxt "posts widget"
+msgid "Show image"
+msgstr "Toon afbeelding"
+
+#: framework/includes/classes/widget-posts.php:257
+msgctxt "posts widget"
+msgid "Show date"
+msgstr "Toon datum"
+
+#: framework/includes/classes/widget-posts.php:283
+msgctxt "posts widget"
+msgid "Show author"
+msgstr "Toon auteur"
+
+#: framework/includes/classes/widget-posts.php:309
+msgctxt "posts widget"
+msgid "Show category"
+msgstr ""
+
+#: framework/includes/classes/widget-posts.php:354
+msgctxt "posts widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:34
+msgctxt "widget"
+msgid "CT Section"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:36
+msgid "Shows a section"
+msgstr "Toon een section"
+
+#: framework/includes/classes/widget-section.php:85
+msgctxt "section widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-section.php:108
+msgctxt "section widget"
+msgid "Content"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:131
+msgctxt "section widget"
+msgid "Text Size"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:140
+msgctxt "section widget text size"
+msgid "Small"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:141
+msgctxt "section widget text size"
+msgid "Regular"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:142
+msgctxt "section widget text size"
+msgid "Large"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:168
+msgctxt "sermons widget"
+msgid "Centered"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:187
+msgctxt "section widget"
+msgid "Image"
+msgstr "Afbeelding"
+
+#: framework/includes/classes/widget-section.php:213
+msgctxt "slide widget"
+msgid "Video"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:214
+msgctxt "widget field"
+msgid "(Optional)"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:222
+msgid "Choose Video"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:223
+msgid "Choose Video for Widget"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:239
+msgctxt "section widget"
+msgid "Brightness"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:240
+#: framework/includes/classes/widget-section.php:268
+msgctxt "section widget"
+msgid "(Percentage)"
+msgstr "(Percentage)"
+
+#: framework/includes/classes/widget-section.php:267
+msgctxt "section widget"
+msgid "Opacity"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:295
+msgctxt "section widget"
+msgid "Attachment"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:304
+msgctxt "section widget attachment"
+msgid "Scroll"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:305
+msgctxt "section widget attachment"
+msgid "Fixed"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:324
+msgctxt "section widget"
+msgid "Height"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:325
+msgctxt "widget field"
+msgid "(Percentage)"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:352
+msgctxt "section widget"
+msgid "Orientation"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:361
+msgctxt "section widget orientation"
+msgid "Vertical"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:362
+msgctxt "section widget orientation"
+msgid "Horizontal"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:381
+msgctxt "section widget"
+msgid "Link 1"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:397
+#: framework/includes/classes/widget-section.php:453
+#: framework/includes/classes/widget-section.php:509
+#: framework/includes/classes/widget-section.php:565
+msgctxt "section widget"
+msgid "Text"
+msgstr "Tekst"
+
+#: framework/includes/classes/widget-section.php:411
+msgid "Enter text for link then URL."
+msgstr "Voer de tekst voor link en dan de URL."
+
+#: framework/includes/classes/widget-section.php:425
+#: framework/includes/classes/widget-section.php:481
+#: framework/includes/classes/widget-section.php:537
+#: framework/includes/classes/widget-section.php:593
+msgctxt "section widget"
+msgid "URL"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:437
+msgctxt "section widget"
+msgid "Link 2"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:493
+msgctxt "section widget"
+msgid "Link 3"
+msgstr ""
+
+#: framework/includes/classes/widget-section.php:549
+msgctxt "section widget"
+msgid "Link 4"
+msgstr ""
+
+#: framework/includes/classes/widget-sermons.php:32
+msgctxt "widget"
+msgid "CT Sermons"
+msgstr ""
+
+#: framework/includes/classes/widget-sermons.php:34
+msgid "Shows sermons according to options"
+msgstr "Toont preken volgens opties"
+
+#: framework/includes/classes/widget-sermons.php:83
+msgctxt "sermons widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-sermons.php:109
+msgctxt "sermons widget"
+msgid "Topic"
+msgstr "Onderwerp"
+
+#: framework/includes/classes/widget-sermons.php:118
+msgctxt "sermons widget"
+msgid "All Topics"
+msgstr "alle onderwerpen"
+
+#: framework/includes/classes/widget-sermons.php:137
+msgctxt "sermons widget"
+msgid "Book"
+msgstr "Boek"
+
+#: framework/includes/classes/widget-sermons.php:146
+msgctxt "sermons widget"
+msgid "All Books"
+msgstr "Alle Boeken"
+
+#: framework/includes/classes/widget-sermons.php:165
+msgctxt "sermons widget"
+msgid "Series"
+msgstr ""
+
+#: framework/includes/classes/widget-sermons.php:174
+msgctxt "sermons widget"
+msgid "All Series"
+msgstr "Alle Series"
+
+#: framework/includes/classes/widget-sermons.php:193
+msgctxt "sermons widget"
+msgid "Speaker"
+msgstr "Spreker"
+
+#: framework/includes/classes/widget-sermons.php:202
+msgctxt "sermons widget"
+msgid "All Speakers"
+msgstr "Alle Sprekers"
+
+#: framework/includes/classes/widget-sermons.php:221
+msgctxt "sermons widget"
+msgid "Order By"
+msgstr "Sorteer op"
+
+#: framework/includes/classes/widget-sermons.php:230
+msgctxt "sermons widget order by"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-sermons.php:231
+msgctxt "sermons widget order by"
+msgid "Date"
+msgstr "Datum"
+
+#: framework/includes/classes/widget-sermons.php:232
+msgctxt "sermons widget order by"
+msgid "Comment Count"
+msgstr "Comment Count"
+
+#: framework/includes/classes/widget-sermons.php:260
+msgctxt "sermons widget order"
+msgid "Low to High"
+msgstr "Laag naar Hoog"
+
+#: framework/includes/classes/widget-sermons.php:261
+msgctxt "sermons widget order"
+msgid "High to Low"
+msgstr "Hoog naar Laag"
+
+#: framework/includes/classes/widget-sermons.php:280
+msgctxt "sermons widget"
+msgid "Limit"
+msgstr "Limiet"
+
+#: framework/includes/classes/widget-sermons.php:310
+msgctxt "sermons widget"
+msgid "Show image"
+msgstr "Toon afbeelding"
+
+#: framework/includes/classes/widget-sermons.php:339
+msgctxt "sermons widget"
+msgid "Show date"
+msgstr "Toon datum"
+
+#: framework/includes/classes/widget-sermons.php:365
+msgctxt "sermons widget"
+msgid "Show topic"
+msgstr "Toon onderwerp"
+
+#: framework/includes/classes/widget-sermons.php:391
+msgctxt "sermons widget"
+msgid "Show book"
+msgstr "Toon Boek"
+
+#: framework/includes/classes/widget-sermons.php:417
+msgctxt "sermons widget"
+msgid "Show series"
+msgstr "Toon Series"
+
+#: framework/includes/classes/widget-sermons.php:443
+msgctxt "sermons widget"
+msgid "Show speaker"
+msgstr "Toon spreker"
+
+#: framework/includes/classes/widget-sermons.php:466
+msgctxt "sermons widget"
+msgid "Show media types"
+msgstr "Toon media type"
+
+#: framework/includes/classes/widget-sermons.php:492
+msgctxt "sermons widget"
+msgid "Show excerpt"
+msgstr "Toon citaat"
+
+#: framework/includes/classes/widget-sermons.php:514
+msgctxt "sermons widget"
+msgid "Image"
+msgstr ""
+
+#: framework/includes/classes/widget-slide.php:33
+msgctxt "widget"
+msgid "CT Slide"
+msgstr ""
+
+#: framework/includes/classes/widget-slide.php:35
+msgid "A slide to be shown in a slider"
+msgstr "Een slide in een slider worden getoond"
+
+#: framework/includes/classes/widget-slide.php:83
+msgctxt "slide widget"
+msgid "Title"
+msgstr "Titel"
+
+#: framework/includes/classes/widget-slide.php:109
+msgctxt "slide widget"
+msgid "Description"
+msgstr "Beschrijving"
+
+#: framework/includes/classes/widget-slide.php:135
+msgctxt "slide widget"
+msgid "Click URL"
+msgstr ""
+
+#: framework/includes/classes/widget-slide.php:165
+msgctxt "slide widget"
+msgid "Open in new tab"
+msgstr "Openen in new tab"
+
+#: framework/includes/classes/widget-slide.php:187
+msgctxt "slide widget"
+msgid "Image"
+msgstr "Afbeelding"
+
+#: framework/includes/classes/widget-slide.php:213
+msgctxt "slide widget"
+msgid "Video URL"
+msgstr ""
+
+#: framework/includes/classes/widget.php:320
+msgctxt "widget image field"
+msgid "Choose Image"
+msgstr "Afbeelding kiezen"
+
+#: framework/includes/classes/widget.php:323
+msgctxt "widget image field"
+msgid "Remove Image"
+msgstr "Afbeelding verwijderen"
+
+#: framework/includes/compatibility.php:63
+#, php-format
+msgid ""
+"<b>Activation Failed:</b> %s requires a newer version of WordPress. Please "
+"update and try again."
+msgstr ""
+"<b>Activering mislukt:</b> %s vereist een nieuwere versie van WordPress. "
+"Werkbij en probeer het opnieuw."
+
+#: framework/includes/compatibility.php:133
+msgid "Go back."
+msgstr "Ga terug."
+
+#: framework/includes/compatibility.php:230
+#, php-format
+msgid ""
+"<b>Plugin Required:</b> Please install and activate the <a href=\"%s"
+"\">Church Content</a> plugin to use with the current theme."
+msgstr ""
+
+#: framework/includes/compatibility.php:240
+#, php-format
+msgid ""
+"Please <a href=\"%s\">activate</a> the <b>Church Content</b> plugin required "
+"by the current theme."
+msgstr ""
+"Please <a href=\"%s\">activeren</a> the <b>Church Content</b> plugin vereist "
+"door de huidige thema."
+
+#: framework/includes/compatibility.php:308
+msgid ""
+"You are using an outdated version of Internet Explorer. Please upgrade your "
+"browser to use this site."
+msgstr ""
+"U gebruikt een verouderde versie van Internet Explorer. Update uw browser om "
+"deze site te gebruiken."
+
+#: framework/includes/content-types.php:750
+msgctxt "content type archives"
+msgid "Months"
+msgstr "Maand"
+
+#: framework/includes/deprecated.php:82
+#, php-format
+msgctxt "head title"
+msgid " (Page %d)"
+msgstr " (Pagina %d)"
+
+#: framework/includes/deprecated.php:103
+msgctxt "head title"
+msgid " - "
+msgstr ""
+
+#: framework/includes/events.php:134
+#, php-format
+msgid "%1$s <span>(%2$s)</span>"
+msgstr ""
+
+#: framework/includes/events.php:249
+#, php-format
+msgctxt "dates"
+msgid "%1$s &ndash; %2$s"
+msgstr ""
+
+#: framework/includes/events.php:277
+#, php-format
+msgctxt "times"
+msgid "%1$s &ndash; %2$s"
+msgstr ""
+
+#: framework/includes/events.php:1241 framework/includes/events.php:1283
+#: framework/includes/events.php:1786
+msgctxt "item list"
+msgid ", "
+msgstr ""
+
+#: framework/includes/events.php:1244 framework/includes/events.php:1286
+#: framework/includes/events.php:1789
+msgctxt "item list"
+msgid " and "
+msgstr ""
+
+#: framework/includes/events.php:1263
+msgctxt "week of month"
+msgid "first"
+msgstr "Eerste"
+
+#: framework/includes/events.php:1264
+msgctxt "week of month"
+msgid "second"
+msgstr "Tweede"
+
+#: framework/includes/events.php:1265
+msgctxt "week of month"
+msgid "third"
+msgstr "Derde"
+
+#: framework/includes/events.php:1266
+msgctxt "week of month"
+msgid "fourth"
+msgstr "Vierde"
+
+#: framework/includes/events.php:1267
+msgctxt "week of month"
+msgid "fifth"
+msgstr ""
+
+#: framework/includes/events.php:1268
+msgctxt "week of month"
+msgid "last"
+msgstr "Laatste"
+
+#: framework/includes/events.php:1318
+#, php-format
+msgid "Every week on %2$s until %3$s (excluding %4$s)"
+msgid_plural "Every %1$s weeks on %2$s until %3$s (excluding %4$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1337
+#, php-format
+msgid "Every week on %2$s until %3$s"
+msgid_plural "Every %1$s weeks on %2$s until %3$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1360
+#, php-format
+msgid "Every week on %2$s (excluding %3$s)"
+msgid_plural "Every %1$s weeks on %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1378
+#, php-format
+msgid "Every week on %2$s"
+msgid_plural "Every %1$s weeks on %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1405
+#, php-format
+msgid "Every week until %2$s (excluding %3$s)"
+msgid_plural "Every %1$s weeks until %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1423
+#, php-format
+msgid "Every week until %2$s"
+msgid_plural "Every %1$s weeks until %2$s"
+msgstr[0] "Elke week tot %2$s"
+msgstr[1] "Every %1$s weeks until %2$s"
+
+#: framework/includes/events.php:1445
+#, php-format
+msgid "Every week (excluding %2$s)"
+msgid_plural "Every %1$s weeks (excluding %2$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1462
+#, php-format
+msgid "Every week"
+msgid_plural "Every %1$s weeks"
+msgstr[0] "Elke week"
+msgstr[1] "Ledere %1$s weken"
+
+#: framework/includes/events.php:1480
+#, php-format
+msgid "Every Week"
+msgid_plural "Every %1$s Weeks"
+msgstr[0] "Elke Week"
+msgstr[1] "Eelke %1$s Week"
+
+#: framework/includes/events.php:1504
+#, php-format
+msgid "Every month on the %2$s %3$s until %4$s (excluding %5$s)"
+msgid_plural "Every %1$s months on the %2$s %3$s until %4$s (excluding %5$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1524
+#, php-format
+msgid "Every month on the %2$s %3$s until %4$s"
+msgid_plural "Every %1$s months on the %2$s %3$s until %4$s"
+msgstr[0] "Elke maand op de %2$s %3$s tot de %4$s"
+msgstr[1] "Elke %1$s maand op de %2$s %3$s tot del %4$s"
+
+#: framework/includes/events.php:1548
+#, php-format
+msgid "Every month on the %2$s %3$s (excluding %4$s)"
+msgid_plural "Every %1$s months on the %2$s %3$s (excluding %4$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1567
+#, php-format
+msgid "Every month on the %2$s %3$s"
+msgid_plural "Every %1$s months on the %2$s %3$s"
+msgstr[0] "Elke maand op de %2$s %3$s"
+msgstr[1] "Elke %1$s maand op de %2$s %3$s"
+
+#: framework/includes/events.php:1593
+#, php-format
+msgid "Every month until %2$s (excluding %3$s)"
+msgid_plural "Every %1$s months until %2$s (excluding %3$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1611
+#, php-format
+msgid "Every month until %2$s"
+msgid_plural "Every %1$s months until %2$s"
+msgstr[0] "Elke maand tot %2$s"
+msgstr[1] "Elke %1$s maand tot de %2$s"
+
+#: framework/includes/events.php:1633
+#, php-format
+msgid "Every month (excluding %2$s)"
+msgid_plural "Every %1$s months (excluding %2$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: framework/includes/events.php:1650
+#, php-format
+msgid "Every month"
+msgid_plural "Every %1$s months"
+msgstr[0] "Elke maand "
+msgstr[1] "Elke %1$s maand"
+
+#: framework/includes/events.php:1668
+#, php-format
+msgid "Every Month"
+msgid_plural "Every %1$s Months"
+msgstr[0] "Elke Maand"
+msgstr[1] "Elke %1$s Maand"
+
+#: framework/includes/events.php:1688
+#, php-format
+msgid "Every year until %1$s (excluding %2$s)"
+msgstr ""
+
+#: framework/includes/events.php:1700
+#, php-format
+msgid "Every year until %1$s"
+msgstr "Elk jaar tot %1$s"
+
+#: framework/includes/events.php:1716
+#, php-format
+msgid "Every year (excluding %1$s)"
+msgstr ""
+
+#: framework/includes/events.php:1724
+msgid "Every year"
+msgstr "Elk jaar"
+
+#: framework/includes/events.php:1730
+msgid "Every Year"
+msgstr "Elk jaar"
+
+#: framework/includes/head.php:68 page-templates/events-calendar.php:60
+msgctxt "event calendar"
+msgid "F Y"
+msgstr ""
+
+#: framework/includes/head.php:105
+msgctxt "head title"
+msgid " | "
+msgstr ""
+
+#: framework/includes/helpers.php:276 framework/includes/helpers.php:297
+msgctxt "shortened text"
+msgid "&hellip;"
+msgstr ""
+
+#: framework/includes/images.php:75
+#, php-format
+msgid "The target image size is %s."
+msgstr "De gewenste afbeelding grote is %s."
+
+#: framework/includes/maps.php:96
+msgid ""
+"<p><b>Google Map Error:</b> <i>latitude</i> and <i>longitude</i> attributes "
+"are required. See documentation for help.</p>"
+msgstr ""
+"<p><b>Google Map Error:</b> <i>latitude</i> en<i>longitude</i> attributen "
+"vereist. Zie documentatie voor hulp.</p>"
+
+#: framework/includes/mime-types.php:32
+msgctxt "mime type"
+msgid "File"
+msgstr "Bestand"
+
+#: framework/includes/sermons.php:36
+msgctxt "singular"
+msgid "Sermon"
+msgstr ""
+
+#: framework/includes/sermons.php:62
+msgctxt "plural"
+msgid "Sermons"
+msgstr ""
+
+#: framework/includes/sermons.php:221
+msgid "Genesis"
+msgstr "Genesis"
+
+#: framework/includes/sermons.php:224
+msgid "Exodus"
+msgstr ""
+
+#: framework/includes/sermons.php:227
+msgid "Leviticus"
+msgstr ""
+
+#: framework/includes/sermons.php:230
+msgid "Numbers"
+msgstr "Numeri"
+
+#: framework/includes/sermons.php:233
+msgid "Deuteronomy"
+msgstr "Deuteronomium"
+
+#: framework/includes/sermons.php:236
+msgid "Joshua"
+msgstr "Jozua"
+
+#: framework/includes/sermons.php:239
+msgid "Judges"
+msgstr "Rechters"
+
+#: framework/includes/sermons.php:242
+msgid "Ruth"
+msgstr ""
+
+#: framework/includes/sermons.php:245
+msgid "1 Samuel"
+msgstr "1 Samuel"
+
+#: framework/includes/sermons.php:248
+msgid "2 Samuel"
+msgstr "2 Samuel"
+
+#: framework/includes/sermons.php:251
+msgid "1 Kings"
+msgstr "1 Koningen"
+
+#: framework/includes/sermons.php:254
+msgid "2 Kings"
+msgstr "2 Koningen"
+
+#: framework/includes/sermons.php:257
+msgid "1 Chronicles"
+msgstr "1 Kronieken"
+
+#: framework/includes/sermons.php:260
+msgid "2 Chronicles"
+msgstr "2 Kronieken"
+
+#: framework/includes/sermons.php:263
+msgid "Ezra"
+msgstr "Ezra"
+
+#: framework/includes/sermons.php:266
+msgid "Nehemiah"
+msgstr "Nehemia"
+
+#: framework/includes/sermons.php:269
+msgid "Esther"
+msgstr "Ester"
+
+#: framework/includes/sermons.php:272
+msgid "Job"
+msgstr ""
+
+#: framework/includes/sermons.php:275
+msgid "Psalms"
+msgstr "Psalmen"
+
+#: framework/includes/sermons.php:278
+msgid "Proverbs"
+msgstr "Spreuken"
+
+#: framework/includes/sermons.php:281
+msgid "Ecclesiastes"
+msgstr "Prediker"
+
+#: framework/includes/sermons.php:284
+msgid "Song of Solomon"
+msgstr "Hooglied"
+
+#: framework/includes/sermons.php:287
+msgid "Isaiah"
+msgstr "Jesaja"
+
+#: framework/includes/sermons.php:290
+msgid "Jeremiah"
+msgstr "Jeremia"
+
+#: framework/includes/sermons.php:293
+msgid "Lamentations"
+msgstr "Klaagliederen"
+
+#: framework/includes/sermons.php:296
+msgid "Ezekiel"
+msgstr "Ezechiël"
+
+#: framework/includes/sermons.php:299
+msgid "Daniel"
+msgstr "Daniël"
+
+#: framework/includes/sermons.php:302
+msgid "Hosea"
+msgstr "Hosea"
+
+#: framework/includes/sermons.php:305
+msgid "Joel"
+msgstr "Joël"
+
+#: framework/includes/sermons.php:308
+msgid "Amos"
+msgstr ""
+
+#: framework/includes/sermons.php:311
+msgid "Obadiah"
+msgstr "Obadja"
+
+#: framework/includes/sermons.php:314
+msgid "Jonah"
+msgstr "Jona"
+
+#: framework/includes/sermons.php:317
+msgid "Micah"
+msgstr "Micha"
+
+#: framework/includes/sermons.php:320
+msgid "Nahum"
+msgstr "Nahum"
+
+#: framework/includes/sermons.php:323
+msgid "Habakkuk"
+msgstr "Habakuk"
+
+#: framework/includes/sermons.php:326
+msgid "Zephaniah"
+msgstr "Sefanja"
+
+#: framework/includes/sermons.php:329
+msgid "Haggai"
+msgstr "Haggai"
+
+#: framework/includes/sermons.php:332
+msgid "Zechariah"
+msgstr "Zacharia"
+
+#: framework/includes/sermons.php:335
+msgid "Malachi"
+msgstr "Maleachi"
+
+#: framework/includes/sermons.php:341
+msgid "Matthew"
+msgstr "Matteüs"
+
+#: framework/includes/sermons.php:344
+msgid "Mark"
+msgstr "Marcus"
+
+#: framework/includes/sermons.php:347
+msgid "Luke"
+msgstr "Lucas"
+
+#: framework/includes/sermons.php:350
+msgid "John"
+msgstr "Johannes"
+
+#: framework/includes/sermons.php:353
+msgid "Acts"
+msgstr "Handelingen"
+
+#: framework/includes/sermons.php:356
+msgid "Romans"
+msgstr "Romeinen"
+
+#: framework/includes/sermons.php:359
+msgid "1 Corinthians"
+msgstr "1 Korintiërs"
+
+#: framework/includes/sermons.php:362
+msgid "2 Corinthians"
+msgstr "2 Korintiërs"
+
+#: framework/includes/sermons.php:365
+msgid "Galatians"
+msgstr "Galaten"
+
+#: framework/includes/sermons.php:368
+msgid "Ephesians"
+msgstr "Efeziërs"
+
+#: framework/includes/sermons.php:371
+msgid "Philippians"
+msgstr "Filippenzen"
+
+#: framework/includes/sermons.php:374
+msgid "Colossians"
+msgstr "Kolossenzen"
+
+#: framework/includes/sermons.php:377
+msgid "1 Thessalonians"
+msgstr "1 Tessalonicenzen"
+
+#: framework/includes/sermons.php:380
+msgid "2 Thessalonians"
+msgstr "2 Tessalonicenzen"
+
+#: framework/includes/sermons.php:383
+msgid "1 Timothy"
+msgstr "1 Timoteüs"
+
+#: framework/includes/sermons.php:386
+msgid "2 Timothy"
+msgstr "2 Timoteüs"
+
+#: framework/includes/sermons.php:389
+msgid "Titus"
+msgstr "Titus"
+
+#: framework/includes/sermons.php:392
+msgid "Philemon"
+msgstr "Filemon"
+
+#: framework/includes/sermons.php:395
+msgid "Hebrews"
+msgstr "Hebreeërs"
+
+#: framework/includes/sermons.php:398
+msgid "James"
+msgstr "Jakobus"
+
+#: framework/includes/sermons.php:401
+msgid "1 Peter"
+msgstr "1 Petrus"
+
+#: framework/includes/sermons.php:404
+msgid "2 Peter"
+msgstr "2 Petrus"
+
+#: framework/includes/sermons.php:407
+msgid "1 John"
+msgstr "1 Johannes"
+
+#: framework/includes/sermons.php:410
+msgid "2 John"
+msgstr "2 Johannes"
+
+#: framework/includes/sermons.php:413
+msgid "3 John"
+msgstr "3 Johannes"
+
+#: framework/includes/sermons.php:416
+msgid "Jude"
+msgstr "Judas"
+
+#: framework/includes/sermons.php:419
+msgid "Revelation"
+msgstr "Openbaring"
+
+#: framework/includes/sermons.php:461
+msgid "Old Testament"
+msgstr ""
+
+#: framework/includes/sermons.php:464
+msgid "New Testament"
+msgstr ""
+
+#: framework/includes/sermons.php:468
+msgid "Other Books"
+msgstr ""
+
+#: framework/includes/template-tags.php:71
+msgid "Today"
+msgstr "Vandaag"
+
+#: framework/includes/template-tags.php:76
+msgid "Yesterday"
+msgstr "Gisteren"
+
+#: header-top-bar.php:142 header-top-bar.php:165
+msgctxt "top right items"
+msgid "Today"
+msgstr "Vandaag"
+
+#: header-top-bar.php:144
+msgctxt "top right items"
+msgid "Yesterday"
+msgstr "Gisteren"
+
+#: header-top-bar.php:147 header-top-bar.php:170
+msgctxt "top right items"
+msgid "F j"
+msgstr ""
+
+#: header-top-bar.php:167
+msgctxt "top right items"
+msgid "Tomorrow"
+msgstr "Morgen"
+
+#: includes/admin/meta-boxes.php:58
+msgid "Options"
+msgstr "Opties"
+
+#: includes/admin/meta-boxes.php:70
+msgid "Banner"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:74
+msgid "Do not show text over featured image"
+msgstr "Toon geen tekst over uitgelichte afbeelding"
+
+#: includes/admin/meta-boxes.php:97
+msgid ""
+"Example: Sermons template used. This page's banner shows on all sermon pages."
+msgstr ""
+"Voorbeeld: Diensten template gebruikt. Deze afbeelding word op alle diensten "
+"getoond"
+
+#: includes/admin/meta-boxes.php:99
+msgid "Show banner on related content"
+msgstr "Toon Banner op gerelateerde content"
+
+#: includes/admin/meta-boxes.php:123
+msgctxt "meta box"
+msgid "Sidebar"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:127
+#, php-format
+msgid "Hide sidebar <a href=\"%s\" target=\"_blank\">widgets</a>"
+msgstr "Verberg sidebar <a href=\"%s\" target=\"_blank\">widgets</a>"
+
+#: includes/admin/meta-boxes.php:148
+msgctxt "meta box"
+msgid "Gallery"
+msgstr "Galerij"
+
+#: includes/admin/meta-boxes.php:150
+msgid "Applies only when gallery used in content."
+msgstr "Geldt alleen wanneer galerie gebruikt in de inhoud."
+
+#: includes/admin/meta-boxes.php:152
+msgid "Exclude from gallery widgets/templates"
+msgstr "Uitsluiten van galerie widgets / templates"
+
+#: includes/customize-defaults.php:187
+#, php-format
+msgid ""
+"&copy; [ctcom_current_year] [ctcom_site_name]. Powered by <a href=\"%s\" "
+"target=\"_blank\" rel=\"nofollow\">ChurchThemes.com</a>"
+msgstr ""
+
+#: includes/customize-defaults.php:199
+msgid ""
+"http://facebook.com\n"
+"http://twitter.com\n"
+"[ctcom_rss_url]\n"
+"http://www.apple.com/itunes/"
+msgstr ""
+
+#: includes/customize-defaults.php:205
+msgid ""
+"http://facebook.com\n"
+"http://twitter.com\n"
+"http://vimeo.com\n"
+"http://youtube.com\n"
+"http://instagram.com\n"
+"http://pinterest.com"
+msgstr ""
+
+#: includes/customize.php:34
+msgid "Don't move"
+msgstr "Niet bewegen"
+
+#: includes/customize.php:37
+#, php-format
+msgid "%d pixels right"
+msgstr "%d pixels rechts"
+
+#: includes/customize.php:38
+#, php-format
+msgid "%d pixels left"
+msgstr "%d pixels links"
+
+#: includes/customize.php:54
+msgctxt "customizer"
+msgid "Upcoming Events"
+msgstr "aankomende evenementen"
+
+#: includes/customize.php:57
+#, php-format
+msgctxt "customizer"
+msgid "Latest %1$s"
+msgstr ""
+
+#: includes/customize.php:60
+msgctxt "customizer"
+msgid "Latest Posts"
+msgstr "Laatste berichten"
+
+#: includes/customize.php:61 includes/customize.php:133
+msgctxt "customizer"
+msgid "Tagline"
+msgstr ""
+
+#: includes/customize.php:62 includes/customize.php:134
+msgctxt "customizer"
+msgid "Custom Content"
+msgstr ""
+
+#: includes/customize.php:63 includes/customize.php:135
+msgctxt "customizer"
+msgid "Nothing"
+msgstr "Niets"
+
+#: includes/customize.php:79
+msgctxt "customizer header items"
+msgid "One"
+msgstr "één"
+
+#: includes/customize.php:80
+msgctxt "customizer header items"
+msgid "Two"
+msgstr "Twee"
+
+#: includes/customize.php:96
+msgctxt "customizer"
+msgid "Image"
+msgstr "afbeelding"
+
+#: includes/customize.php:97
+msgctxt "customizer"
+msgid "Text"
+msgstr "tekst"
+
+#: includes/customize.php:113
+msgctxt "customizer"
+msgid "Extra Small"
+msgstr "Extra Klein"
+
+#: includes/customize.php:114
+msgctxt "customizer"
+msgid "Small"
+msgstr "Klein"
+
+#: includes/customize.php:115
+msgctxt "customizer"
+msgid "Medium"
+msgstr "Standaard"
+
+#: includes/customize.php:116
+msgctxt "customizer"
+msgid "Large"
+msgstr "Groot"
+
+#: includes/customize.php:117
+msgctxt "customizer"
+msgid "Extra Large"
+msgstr "Extra Groot"
+
+#: includes/customize.php:175
+msgid "Colors & Styling"
+msgstr "Kleuren & Styling"
+
+#: includes/customize.php:187
+msgid "Color Scheme"
+msgstr "Kleurenschema"
+
+#: includes/customize.php:204
+msgid "Main Color"
+msgstr "Hoofdkleur"
+
+#: includes/customize.php:219
+msgid "Link Color"
+msgstr "Link Kleur"
+
+#: includes/customize.php:233
+msgid "Rounded Corners"
+msgstr "Afgeronde hoeken"
+
+#: includes/customize.php:243
+msgctxt "customizer"
+msgid "Google Fonts"
+msgstr "Google Lettertypes"
+
+#: includes/customize.php:258
+msgid "Logo Font"
+msgstr "Logo Lettertype"
+
+#: includes/customize.php:278
+msgid "Tagline Font"
+msgstr "Tagline Lettertype"
+
+#: includes/customize.php:298
+msgid "Menu Font"
+msgstr "Menu Lettertype"
+
+#: includes/customize.php:318
+msgid "Heading Font"
+msgstr "Heading Lettertype"
+
+#: includes/customize.php:338
+msgid "Body Font"
+msgstr "Body Lettertype"
+
+#: includes/customize.php:357
+msgid "Character Sets"
+msgstr ""
+
+#: includes/customize.php:367
+msgctxt "customizer"
+msgid "Top Bar"
+msgstr ""
+
+#: includes/customize.php:381
+msgid "Search Icon"
+msgstr "Zoek Icoon"
+
+#: includes/customize.php:396
+msgctxt "customizer"
+msgid "Top Right"
+msgstr ""
+
+#: includes/customize.php:412
+msgctxt "customizer"
+msgid "Items on Right"
+msgstr "Items op Rechts"
+
+#: includes/customize.php:428 includes/customize.php:617
+msgid "Custom Content"
+msgstr ""
+
+#: includes/customize.php:438
+msgctxt "customizer"
+msgid "Header & Logo"
+msgstr ""
+
+#: includes/customize.php:452
+msgctxt "customizer"
+msgid "Logo Type"
+msgstr ""
+
+#: includes/customize.php:468
+msgctxt "customizer"
+msgid "Logo Image"
+msgstr "Logo afbeelding"
+
+#: includes/customize.php:482
+msgctxt "customizer"
+msgid "HiDPI Logo (Optional)"
+msgstr ""
+
+#: includes/customize.php:499
+msgid "Move Logo"
+msgstr "Verplaats Logo"
+
+#: includes/customize.php:515
+msgid "Logo Text"
+msgstr ""
+
+#: includes/customize.php:530
+msgid "Show in lowercase"
+msgstr "In kleine letters"
+
+#: includes/customize.php:545
+msgctxt "customizer"
+msgid "Logo Text Size"
+msgstr "Logo Text Grootte"
+
+#: includes/customize.php:568
+msgid "Show tagline under logo"
+msgstr "Toon tagline onder logo"
+
+#: includes/customize.php:585
+msgid "Move Tagline"
+msgstr ""
+
+#: includes/customize.php:601
+msgctxt "customizer"
+msgid "Right of Logo"
+msgstr ""
+
+#: includes/customize.php:632
+msgid "Show breadcrumb path on subpages"
+msgstr "Toon breadcrumb pad op subpagina"
+
+#: includes/customize.php:642
+msgctxt "customizer"
+msgid "Footer Content"
+msgstr ""
+
+#: includes/customize.php:656
+msgctxt "customizer"
+msgid "Show Location"
+msgstr "Toon Locatie"
+
+#: includes/customize.php:671
+msgctxt "customizer"
+msgid "Notice"
+msgstr "Kennisgeving"
+
+#: includes/customize.php:682
+msgctxt "customizer"
+msgid "Social Media Icons"
+msgstr ""
+
+#: includes/customize.php:696
+msgid "Header URLs"
+msgstr ""
+
+#: includes/customize.php:708
+#, php-format
+msgid ""
+"Enter one URL per line for %s. Use <code>[ctcom_rss_url]</code> for RSS."
+msgstr ""
+"Voer één URL per lijn voor %s. Gebruik <code>[ctcom_rss_url]</code> van RSS."
+
+#: includes/customize.php:723
+msgid "Footer URLs"
+msgstr ""
+
+#: includes/customize.php:742
+msgctxt "customizer"
+msgid "Homepage Slider"
+msgstr ""
+
+#: includes/customize.php:756
+msgid "Automatically transition to next slide"
+msgstr "Automatisch overgaan naar de volgende slide"
+
+#: includes/customize.php:771
+msgid "Seconds Between Transitions"
+msgstr "Seconden tussen overgangen"
+
+#: includes/enqueue-scripts.php:102
+msgctxt "menu dropdown"
+msgid "Menu"
+msgstr ""
+
+#: includes/enqueue-scripts.php:107 includes/enqueue-scripts.php:108
+msgid "Required"
+msgstr "vereist"
+
+#: includes/enqueue-scripts.php:109
+msgid "Invalid Email"
+msgstr "Ongeldig e-mail"
+
+#: includes/enqueue-scripts.php:110
+msgid "Invalid URL"
+msgstr "ongeldige URL"
+
+#: includes/enqueue-scripts.php:111
+msgid "Comment Required"
+msgstr "Reactie vereist"
+
+#: includes/icons.php:207
+msgctxt "social icons list"
+msgid ", "
+msgstr ""
+
+#: includes/icons.php:210
+msgctxt "social icons list"
+msgid " or "
+msgstr " of "
+
+#: includes/icons.php:212
+msgctxt "social icons list"
+msgid " and "
+msgstr " en "
+
+#: includes/nav-menus.php:28
+msgctxt "menu location"
+msgid "Top"
+msgstr ""
+
+#: includes/nav-menus.php:31
+msgctxt "menu location"
+msgid "Header"
+msgstr ""
+
+#: includes/nav-menus.php:34
+msgctxt "menu location"
+msgid "Footer"
+msgstr ""
+
+#: includes/sidebars.php:33
+msgctxt "widget area"
+msgid "Homepage Slider"
+msgstr ""
+
+#: includes/sidebars.php:34
+msgid "Add CT Slide widgets to show in the homepage slider."
+msgstr "Voeg CT Slide widgets toe om te laten zien op de homepage slider."
+
+#: includes/sidebars.php:44
+msgctxt "widget area"
+msgid "Homepage Highlights"
+msgstr "Homepage Hoogtepunten"
+
+#: includes/sidebars.php:45
+msgid ""
+"Add CT Highlight widgets to show on the homepage under the slider and intro."
+msgstr ""
+"Voeg CT Highlight widgets te laten zien op de homepage onder de slider en "
+"intro."
+
+#: includes/sidebars.php:55
+msgctxt "widget area"
+msgid "Homepage Bottom Left"
+msgstr "Homepage Linksonder"
+
+#: includes/sidebars.php:56
+msgid "These show at the bottom-left of the homepage."
+msgstr "Deze tonen aan de onderkant links van de homepage."
+
+#: includes/sidebars.php:66
+msgctxt "widget area"
+msgid "Homepage Bottom Right"
+msgstr "Homepage Rechtsonder"
+
+#: includes/sidebars.php:67
+msgid "These show at the bottom-right of the homepage."
+msgstr "Dit tonen aan de onderkant rechts van de homepage."
+
+#: includes/sidebars.php:77
+msgid "Page Sidebar"
+msgstr "Pagina Sidebar"
+
+#: includes/sidebars.php:79
+msgid "These widgets show on the side of pages using the default template."
+msgstr ""
+"Deze widgets tonen aan de zijkant van pagina's met behulp van de standaard "
+"template."
+
+#: includes/sidebars.php:91
+msgid "Sermons Sidebar"
+msgstr "Samenkomst Sidebar"
+
+#: includes/sidebars.php:92
+msgid "These widgets show on the side of sermon pages."
+msgstr "Deze widgets tonen aan de kant van de preek pagina's."
+
+#: includes/sidebars.php:102
+msgid "Events Sidebar"
+msgstr "Evenementen Sidebar"
+
+#: includes/sidebars.php:103
+msgid "These widgets show on the side of event pages."
+msgstr "eze widgets tonen aan de kant van event bladzijden."
+
+#: includes/sidebars.php:113
+msgid "People Sidebar"
+msgstr "Personen Sidebar"
+
+#: includes/sidebars.php:114
+msgid "These widgets show on the side of people pages."
+msgstr "Deze widgets tonen aan de kant van Personen bladzijden."
+
+#: includes/sidebars.php:124
+msgid "Locations Sidebar"
+msgstr "Locaties Sidebar"
+
+#: includes/sidebars.php:125
+msgid "These widgets show on the side of locations content."
+msgstr "Deze widgets tonen aan de kant van locaties content."
+
+#: includes/sidebars.php:135
+msgid "Gallery Sidebar"
+msgstr "Galerij Sidebar"
+
+#: includes/sidebars.php:136
+msgid "These widgets show on the side of gallery pages."
+msgstr "Deze widgets tonen aan de kant van de galerij pagina's."
+
+#: includes/sidebars.php:146
+msgid "Blog Sidebar"
+msgstr ""
+
+#: includes/sidebars.php:147
+msgid "These widgets show on the side of blog content."
+msgstr "Deze widgets tonen aan de kant van de blog inhoud."
+
+#: includes/sidebars.php:157
+msgid "Contact Sidebar"
+msgstr ""
+
+#: includes/sidebars.php:158
+msgid "These widgets show on the side of the contact page."
+msgstr "Deze widgets tonen aan de zijkant van de contact pagina."
+
+#: includes/sidebars.php:168
+msgid "Search Sidebar"
+msgstr "SIderbar Zoeken"
+
+#: includes/sidebars.php:169
+msgid "These widgets show on the side of search results."
+msgstr "Deze widgets tonen aan de zijkant van de zoekresultaten."
+
+#: includes/support-ctc.php:113
+#, php-format
+msgid "Enter one URL per line for %s."
+msgstr "Voer één URL per regel voor %s."
+
+#: includes/support-ctc.php:116 includes/support-ctc.php:137
+msgid "Email address will be encoded to help prevent spam."
+msgstr ""
+
+#: includes/support-framework.php:43
+#, php-format
+msgid ""
+"<b>Next Steps:</b> Please continue reading the <a href=\"%s\" target=\"_blank"
+"\">Getting Started</a> guide for the next steps after theme activation."
+msgstr ""
+"<b>Volgende stappen:</b> Lees de <a href=\"%s\" target=\"_blank\">Getting "
+"Started</a> Gids voor de volgende stappen na de thema te hebben gaactiveerd."
+
+#: includes/support-framework.php:55
+#, php-format
+msgid ""
+"Please activate your license key to enable one-click theme updates and to "
+"get support from <a href=\"%1$s\" target=\"_blank\">ChurchThemes.com</a> for "
+"this site. Read <a href=\"%2$s\" target=\"_blank\">License Keys</a> for more "
+"information."
+msgstr ""
+
+#: includes/support-framework.php:60
+#, php-format
+msgid ""
+"<b>License key could not be activated.</b> Read the <a href=\"%1$s\" target="
+"\"_blank\">License Keys</a> guide for help."
+msgstr ""
+"<b> License sleutel kan niet worden geactiveerd.</ b> Lees de <a href=\"%1$s"
+"\" target=\"_blank\"> License Keys</a> begeleiden om hulp."
+
+#: includes/support-framework.php:63
+#, php-format
+msgid ""
+"<strong>Theme License Expired:</strong> <a href=\"%4$s\" target=\"_blank"
+"\">Renew</a> your <a href=\"%1$s\">Theme License</a> to re-enable updates "
+"and support for the <strong>%2$s</strong> theme (expired on <strong>%3$s</"
+"strong>). <a href=\"%5$s\" target=\"_blank\">Learn More</a>"
+msgstr ""
+"<strong>Thema Licentie Verlopen:</strong> <a href=\"%4$s\" target=\"_blank"
+"\">Vernieuw</a> <a href=\"%1$s\">Thema Licenstie</a> om opnieuw updates en "
+"ondersteuning in te schakelen <strong>%2$s</strong> thema (verstreken op "
+"<strong>%3$s</ strong>). <a href=\"%5$s\" target=\"_blank\">Meer informatie</"
+"a>"
+
+#: includes/support-framework.php:64
+#, php-format
+msgid ""
+"<strong>Theme License Expiring Soon:</strong> <a href=\"%4$s\" target="
+"\"_blank\">Renew</a> your <a href=\"%1$s\">Theme License</a> to continue "
+"receiving updates and support for the <strong>%2$s</strong> theme (expires "
+"on <strong>%3$s</strong>). <a href=\"%5$s\" target=\"_blank\">Learn More</a>"
+msgstr ""
+"<strong>Thema Licentie verloopt binnenkort:</strong> <a href=\"%4$s\" target="
+"\"_blank\">Vernieuw</a> <a href=\"%1$s\">Thema licentie</a> Om updates en "
+"ondersteuning te blijven ontvangen <strong>%2$s</ strong> thema (verstreken "
+"op <strong>%3$s</ strong>). <a href=\"%5$s\" target=\"_blank\">Meer "
+"informatie</a>"
+
+#: includes/support-framework.php:82
+msgid "Email"
+msgstr "Email"
+
+#: includes/support-framework.php:83
+msgid "Courriel"
+msgstr ""
+
+#: includes/support-framework.php:172
+#, php-format
+msgid ""
+"Optionally provide an image that is at least %s (it will be cropped/"
+"resized). An image exactly this size is ideal."
+msgstr ""
+"Optioneel voorzie een afbeelding dat ten minste %s (De afbeelding zal worden "
+"bijgesneden/aangepast). Een afbeelding precies dit formaat is ideaal."
+
+#: includes/support-framework.php:482
+msgctxt "slide widget image"
+msgid "(Required)"
+msgstr "(Verplicht)"
+
+#: includes/support-framework.php:483 includes/support-framework.php:502
+#, php-format
+msgid "Image cropped to %s."
+msgstr "Afbeelding bijgesneden tot %s."
+
+#: includes/support-framework.php:486
+msgid ""
+"To make this a video slide, enter a YouTube or Vimeo video page URL. Note: "
+"Click URL has no effect when video is used."
+msgstr ""
+"Om deze video slide te maken, voert u een YouTube of Vimeo video pagina URL "
+"in. Opmerking: Click URL heeft geen effect wanneer de video wordt gebruikt."
+
+#: includes/support-wp.php:44
+msgid "Main"
+msgstr ""
+
+#: includes/support-wp.php:49
+msgid "Accent"
+msgstr ""
+
+#: includes/support-wp.php:54
+msgid "Dark"
+msgstr ""
+
+#: includes/support-wp.php:59
+msgid "Light"
+msgstr ""
+
+#: includes/support-wp.php:64
+msgid "Light Background"
+msgstr ""
+
+#: includes/support-wp.php:69
+msgid "White"
+msgstr ""
+
+#: includes/template-tags.php:67
+#, php-format
+msgid "%s <span>(Page %d)</span>"
+msgstr "%s <span>(Pagina %d)</span>"
+
+#: includes/template-tags.php:203
+msgid "0 Comments"
+msgstr "0 Reacties"
+
+#: includes/template-tags.php:204
+msgid "1 Comment"
+msgstr "1 Reactie"
+
+#: includes/template-tags.php:205
+msgid "% Comments"
+msgstr "% Reacties"
+
+#: loop-author.php:37
+msgid "More Posts"
+msgstr "Meer berichten"
+
+#: loop-author.php:41
+#, php-format
+msgctxt "author box"
+msgid "About %s"
+msgstr "Over %s"
+
+#: loop-header.php:52
+#, php-format
+msgid "'%s' Tagged Posts"
+msgstr "'%s' Getagde berichten"
+
+#: loop-header.php:68
+#, php-format
+msgctxt "sermon topic"
+msgid "%1$s on %2$s"
+msgstr ""
+
+#: loop-header.php:70
+#, php-format
+msgctxt "sermon book"
+msgid "%1$s on %2$s"
+msgstr ""
+
+#: loop-header.php:72
+#, php-format
+msgctxt "sermon speaker"
+msgid "%1$s by %2$s"
+msgstr ""
+
+#: loop-header.php:74
+#, php-format
+msgctxt "sermon tag"
+msgid "\"%2$s\" Tagged %1$s"
+msgstr ""
+
+#: loop-header.php:106
+#, php-format
+msgid "There are no %s to show."
+msgstr "Geen %s te tonen."
+
+#: loop-header.php:121
+#, php-format
+msgid "Posts by %s"
+msgstr "Posts door %s"
+
+#: loop-header.php:138
+#, php-format
+msgid "Search results for '%s'"
+msgstr "Zoek resultaten voor '%s'"
+
+#: loop-header.php:143
+#, php-format
+msgid "There is %d match for %s."
+msgid_plural "There are %d matches for %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: loop-header.php:161
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+#: loop-header.php:163
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: loop-header.php:170
+#, php-format
+msgid "Posts from %1$s"
+msgstr ""
+
+#: loop-header.php:172
+#, php-format
+msgctxt "sermon archive"
+msgid "%2$s from %1$s"
+msgstr ""
+
+#: loop-header.php:209
+msgid "Archives"
+msgstr "Archief"
+
+#: loop-header.php:215
+msgid "Not Found"
+msgstr "Niet gevonden"
+
+#: loop-header.php:218
+msgid "Sorry, the page or file you tried to access was not found."
+msgstr ""
+"Sorry, de pagina of bestand dat u probeerde te vinden is niet gevonden."
+
+#: loop-navigation.php:27
+#, php-format
+msgid " %s Back to %s"
+msgstr " %s Terug naar %s"
+
+#: loop-navigation.php:62
+#, php-format
+msgctxt "previous post link"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: loop-navigation.php:71
+#, php-format
+msgctxt "next post link"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: loop-navigation.php:105
+#, php-format
+msgctxt "pagination"
+msgid "%s Previous"
+msgstr "%s Vorige"
+
+#: loop-navigation.php:106
+#, php-format
+msgctxt "pagination"
+msgid "Next %s"
+msgstr "Volgende %s"
+
+#: page-templates/events-calendar.php:138
+msgctxt "event calendar"
+msgid "Remove Category Filter"
+msgstr "Verwijderen Categorie Filter"
+
+#: page-templates/events-calendar.php:152
+#, php-format
+msgid "Previous Month &ndash; %1$s"
+msgstr "Vorige Maand &ndash; %1$s"
+
+#: page-templates/events-calendar.php:156
+#, php-format
+msgid "Next Month &ndash; %1$s"
+msgstr "Volgende Maand &ndash; %1$s"
+
+#: page-templates/events-calendar.php:159
+msgctxt "event calendar"
+msgid "Choose Month"
+msgstr "Kies Maand"
+
+#: page-templates/events-calendar.php:162
+msgctxt "event calendar"
+msgid "Choose Category"
+msgstr "Kies Categorie"
+
+#: page-templates/events-calendar.php:286
+msgctxt "event calendar"
+msgid "Today"
+msgstr "Vandaag"
+
+#: page-templates/events-calendar.php:443
+msgctxt "event calendar"
+msgid "All Categories"
+msgstr "Alle Categorieën"
+
+#: page-templates/galleries.php:67
+#, php-format
+msgid "1 Photo"
+msgid_plural "%d Photos"
+msgstr[0] "1 foto"
+msgstr[1] "%d fotos"
+
+#: page-templates/sermon-books.php:69
+msgid "There are no books to show."
+msgstr ""
+
+#: page-templates/sermon-dates.php:55
+msgctxt "sermon dates index"
+msgid "F"
+msgstr ""
+
+#: page-templates/sermon-dates.php:77
+msgid "There are no dates to show."
+msgstr ""
+
+#: page-templates/sermon-series.php:98
+#, php-format
+msgctxt "series date range"
+msgid "%s &ndash; %s"
+msgstr ""
+
+#: page-templates/sermon-series.php:123
+#, php-format
+msgctxt "sermon count single"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: page-templates/sermon-series.php:135
+#, php-format
+msgctxt "sermon count multiple"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: page-templates/sermon-series.php:159
+msgid "There are no series to show."
+msgstr ""
+
+#: page-templates/sermon-speakers.php:43
+msgid "There are no speakers to show."
+msgstr ""
+
+#: page-templates/sermon-topics.php:42
+msgid "There are no topics to show."
+msgstr ""
+
+#: searchform.php:15
+msgid "Search"
+msgstr ""
+
+#: sermon-index-header.php:35
+msgctxt "sermon archives"
+msgid "Dates"
+msgstr ""
+
+#: widget-templates/widget-archives.php:38
+#, php-format
+msgctxt "archives widget"
+msgid "%1$s %2$d"
+msgstr ""
+
+#: widget-templates/widget-archives.php:59
+msgctxt "archives widget"
+msgid "Select Month"
+msgstr "Selecteer Maand"
+
+#: widget-templates/widget-categories.php:39
+msgctxt "categories widget"
+msgid "Select One"
+msgstr "Selecteer één"
+
+#: widget-templates/widget-events.php:109
+msgctxt "events widget"
+msgid "There are no events to show."
+msgstr "Er zijn geen Evenementen te tonen."
+
+#: widget-templates/widget-galleries.php:61
+msgctxt "galleries widget"
+msgid "There are no galleries to show."
+msgstr "Er zijn geen galeries om te laten zien."
+
+#: widget-templates/widget-gallery.php:63
+msgctxt "gallery widget"
+msgid "View Gallery"
+msgstr "Toon Galerij"
+
+#: widget-templates/widget-gallery.php:74
+msgctxt "gallery widget"
+msgid "There are no images to show."
+msgstr "Er zijn geen afbeeldingen te zien."
+
+#: widget-templates/widget-locations.php:156
+msgctxt "locations widget"
+msgid "There are no locations to show."
+msgstr "Er zijn geen locaties te vinden."
+
+#: widget-templates/widget-people.php:114
+msgctxt "people widget"
+msgid "There are no people to show."
+msgstr "Er zijn geen personen te tonen."
+
+#: widget-templates/widget-posts.php:85
+#, php-format
+msgctxt "posts widget"
+msgid "by <a href=\"%1$s\">%2$s</a>"
+msgstr "door <a href=\"%1$s\">%2$s</a>"
+
+#: widget-templates/widget-posts.php:115
+msgctxt "posts widget"
+msgid "There are no posts to show."
+msgstr ""
+
+#: widget-templates/widget-sermons.php:87
+#, php-format
+msgctxt "widget"
+msgid "by %s"
+msgstr "door %s"
+
+#: widget-templates/widget-sermons.php:116
+msgctxt "sermons widget"
+msgid "Read Online"
+msgstr ""
+
+#: widget-templates/widget-sermons.php:120
+msgctxt "sermons widget"
+msgid "Watch Video"
+msgstr ""
+
+#: widget-templates/widget-sermons.php:124
+msgctxt "sermons widget"
+msgid "Listen to Audio"
+msgstr ""
+
+#: widget-templates/widget-sermons.php:128
+msgctxt "sermons widget"
+msgid "Download PDF"
+msgstr ""
+
+#: widget-templates/widget-sermons.php:162
+#, php-format
+msgctxt "sermons widget"
+msgid "There are no %1$s to show."
+msgstr ""
+
+#: js/jquery.pjax.min.js:7
+msgid "<form>"
+msgstr ""
+
+#: js/jquery.pjax.min.js:7
+msgid "<input>"
+msgstr ""
+
+#: js/jquery.pjax.min.js:7
+msgid "#"
+msgstr ""
+
+#: js/jquery.pjax.min.js:7
+msgid "script[src]"
+msgstr ""
+
+#: js/jquery.pjax.min.js:7
+msgid "meta"
+msgstr ""
+
+#: js/jquery.smooth-scroll.min.js:7
+msgid "html, body"
+msgstr ""
+
+#~ msgid ""
+#~ "Please activate your license key to enable one-click theme updates and to "
+#~ "get support from <a href=\"%1$s\" target=\"_blank\">churchthemes.com</a> "
+#~ "for this site. Read <a href=\"%2$s\" target=\"_blank\">License Keys</a> "
+#~ "for more information."
+#~ msgstr ""
+#~ "Activeer uw licentiesleutel om in één-klik thema updates mogelijk te "
+#~ "maken en om support te krijgen van <a href=\"%1$s\" target=\"_blank\"> "
+#~ "churchthemes.com</a> voor deze site. Lees <a href=\"%2$s\" target=\"_blank"
+#~ "\">Licentiesleutels</a> voor meer informatie."
+
+#~ msgctxt "sermons widget title default"
+#~ msgid "Sermons"
+#~ msgstr "Diensten"
+
+#~ msgctxt "customizer"
+#~ msgid "Latest Sermons"
+#~ msgstr "Laatste Preken"
+
+#~ msgctxt "archives widget"
+#~ msgid "Sermons"
+#~ msgstr "Samenkomsten"
+
+#~ msgctxt "sermon topic"
+#~ msgid "Sermons on %s"
+#~ msgstr "Samenkomsten over %s"
+
+#~ msgctxt "sermon book"
+#~ msgid "Sermons on %s"
+#~ msgstr "Samenkomsten over %s"
+
+#~ msgid "Sermons by %s"
+#~ msgstr "Samenkomsten door %s"
+
+#~ msgid "'%s' Tagged Sermons"
+#~ msgstr "‘%s’ Getagde berichten"
+
+#~ msgid "Posts from %s"
+#~ msgstr "Berichten van %s"
+
+#~ msgid "Sermons from %s"
+#~ msgstr "Samenkomsten van %s"
+
+#~ msgid ""
+#~ "Any customizations you have made directly to %s's theme files will be "
+#~ "lost. Please consider using a child theme for modifications."
+#~ msgstr ""
+#~ "Aanpassingen die u heeft gemaakt aan het  thema %s gaan verloren. "
+#~ "Overweeg het gebruik van een child theme voor wijzigingen."
+
+#~ msgid ""
+#~ "<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\"%4$s>Update Now</"
+#~ "a> or read the <a href=\"%5$s\" target=\"_blank\">Changelog</a>."
+#~ msgstr ""
+#~ "<strong>%1$s %2$s</strong> is beschikbaar. <a href=\"%3$s\"%4$s>Update "
+#~ "Nu</a> of lees de <a href=\"%5$s\" target=\"_blank\">Changelog</a>."
+
+#~ msgctxt "section widget"
+#~ msgid "Image Opacity"
+#~ msgstr "Afbeelding Doorzichtigheid"

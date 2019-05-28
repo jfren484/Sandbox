@@ -1,0 +1,27 @@
+/**
+ * Theme Customizer Controls
+ */
+
+/* Logo Text */
+
+#customize-control-exodus_customizations-logo_text textarea {
+	height: 40px;
+}
+
+/* Social Media Icons */
+
+#exodus-customize-icons-description code {
+	font-style: normal;
+}
+
+#customize-section-exodus_icons textarea {
+	white-space: nowrap;
+	overflow: auto;
+	height: 105px;
+}
+
+/* Slider Speed */
+
+#customize-control-exodus_customizations-slider_speed input[type=number] {
+	width: 40px;
+}
