@@ -15,9 +15,8 @@
 #include <vector>
 #include <chrono>
 #include <random>
-#include <math.h>
+
 typedef std::vector<int> intVector;
-const int numOfValues = 100;
 
 void radix_sort(intVector& source, int nPasses, int base) {
 	int divisor = 1; // using LSB technique
@@ -56,18 +55,24 @@ void radix_sort_recursive(intVector& source, int pass, int nPasses, int base, st
 	if (pass < nPasses) {
 		radix_sort_recursive(source, pass + 1, nPasses, base, bins, divisor * base);
 	}
-
 }
 
-int main() {
+int main(int argc, const char* argv[]) {
 	using namespace std::chrono;
 
+	int numOfValues = argc > 1
+		? std::atoi(argv[1])
+		: 100;
+
+	bool printValues = argc > 2 && (std::strcmp(argv[2], "DEBUG") == 0);
+
 	std::default_random_engine generator;
-	int exponent = 5;
+	int exponent = 10;
 	int base = 10;
 
-	//std::uniform_int_distribution<int> distribution(pow(base, exponent), pow(base,exponent+1)-1);
-	std::uniform_int_distribution<int> distribution(10000, 99999);
+	printf("Processing %d values for %d^%d\n", numOfValues, base, exponent);
+
+	std::uniform_int_distribution<int> distribution(0, INT_MAX);
 	std::vector<intVector> bins(base);
 
 	intVector vals(numOfValues);
@@ -77,7 +82,12 @@ int main() {
 		vals[v] = randomized;
 		vals2[v] = randomized;
 	}
-	for (int v in vals) { printf("%d ", v); } putchar('\n');
+
+	if (printValues)
+	{
+		printf("Values before processing:\n");
+		for (int v in vals) { printf(" %10d\n", v); }
+	}
 
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 	radix_sort(vals, exponent, base);
@@ -89,8 +99,17 @@ int main() {
 
 	duration<double> time_span_iterative = duration_cast<duration<double>>(t2 - t1);
 	duration<double> time_span_recursive = duration_cast<duration<double>>(t3 - t2);
-	for (int v in vals) { printf("%d ", v); } putchar('\n');
+
+	if (printValues)
+	{
+		printf("Values after processing (iterative - recursive):\n");
+		for (int i = 0; i < numOfValues; ++i) {
+			printf(" %10d  %10d\n", vals[i], vals2[i]);
+		}
+	}
+
 	printf("Time taken iterative: %f \n", time_span_iterative.count());
 	printf("Time taken recursive: %f \n", time_span_recursive.count());
+
 	return 0;
 }
