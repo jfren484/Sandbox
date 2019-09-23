@@ -7,7 +7,7 @@ template class Mergesort<unsigned int>;
 template <typename T>
 void Mergesort<T>::print(const char* caption, VectorIter<T> begin, VectorIter<T> end) {
 	// Make copies of all iterators whose next method will be called
-	VectorIter<T> pos = begin;//.copy();
+	VectorIter<T> pos = begin.copy();
 	printf("%s: \n", caption);
 	for (; !pos.isEqualTo(end); pos.next()) {
 		printf(" %d", pos.get());
@@ -17,6 +17,8 @@ void Mergesort<T>::print(const char* caption, VectorIter<T> begin, VectorIter<T>
 
 template <typename T>
 void Mergesort<T>::swap(VectorIter<T> a, VectorIter<T> b) {
+	printf("swapping\n");
+
 	T c = a.get();
 	a.set(b.get());
 	b.set(c);
@@ -25,8 +27,10 @@ void Mergesort<T>::swap(VectorIter<T> a, VectorIter<T> b) {
 template <typename T>
 VectorIter<T> Mergesort<T>::append(VectorIter<T> resultHold, VectorIter<T> begin, VectorIter<T> end) {
 	// Make copies of all iterators whose next method will be called
-	VectorIter<T> pos = begin;//.copy();
-	VectorIter<T> result = resultHold;//.copy();
+	VectorIter<T> pos = begin.copy();
+	VectorIter<T> result = resultHold.copy();
+
+	printf("appending\n");
 
 	for (; !pos.isEqualTo(end); result.next(), pos.next()) {
 		result.set(pos.get());
@@ -38,9 +42,9 @@ template <typename T>
 void Mergesort<T>::merge(VectorIter<T> begin1, VectorIter<T> end1, VectorIter<T> begin2, VectorIter<T> end2, VectorIter<T> result, VectorIter<T> beginHold) {
 
 	// Make copies of all iterators whose next method will be called
-	VectorIter<T> pos = beginHold;//.copy();
-	VectorIter<T> iter1 = begin1;//.copy();
-	VectorIter<T> iter2 = begin2;//.copy();
+	VectorIter<T> pos = beginHold.copy();
+	VectorIter<T> iter1 = begin1.copy();
+	VectorIter<T> iter2 = begin2.copy();
 
 	// Debugging information
 	printf("merging\n");
@@ -71,8 +75,8 @@ void Mergesort<T>::merge(VectorIter<T> begin1, VectorIter<T> end1, VectorIter<T>
 template <typename T>
 void Mergesort<T>::sort(VectorIter<T> begin, VectorIter<T> end, VectorIter<T> hold) {
 	// Make copies of all iterators whose next method will be called
-	VectorIter<T> pos = begin;//.copy();
-	VectorIter<T> mid = begin;//.copy();
+	VectorIter<T> pos = begin.copy();
+	VectorIter<T> mid = begin.copy();
 
 	printf("Inside sort\n");
 

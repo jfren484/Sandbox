@@ -30,7 +30,8 @@ void VectorIter<T>::set(T value) { theList[index] = value; }
 template <typename T>
 void VectorIter<T>::next() { ++index; }
 
-//VectorIter<T> VectorIter<T>::copy() { return new VectorIter<T>(this, index); }
+template <typename T>
+VectorIter<T> VectorIter<T>::copy() { return VectorIter<T>(theList, index); }
 
 template <typename T>
 bool VectorIter<T>::isEqualTo(VectorIter<T> other) {

@@ -18,5 +18,5 @@ public:
 	T get();
 	void set(T value);
 	void next();
-	//ArrayIter<T> copy();
+	VectorIter<T> copy();
 };
