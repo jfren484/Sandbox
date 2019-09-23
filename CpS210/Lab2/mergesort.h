@@ -1,14 +1,55 @@
-#pragma once
-template <typename T>
-class Mergesort {
-public:
-	static void print(const char* caption, VectorIter<T> begin, VectorIter<T> end);
+#include <utility>
+#include <functional>
+#include <algorithm>
 
-	static void swap(VectorIter<T> a, VectorIter<T> b);
+#ifdef DEBUG
+#include <iostream>
 
-	static VectorIter<T> append(VectorIter<T> resultHold, VectorIter<T> begin, VectorIter<T> end);
+template <typename Iter>
+void printRange(Iter begin, Iter end) {
+	for (Iter pos=begin; pos != end; ++pos) {
+		std::cout << *pos << ' ';
+	}
+	std::cout << std::endl;
+}
+#endif
 
-	static void merge(VectorIter<T> begin1, VectorIter<T> end1, VectorIter<T> begin2, VectorIter<T> end2, VectorIter<T> result, VectorIter<T> beginHold);
-
-	static void sort(VectorIter<T> begin, VectorIter<T> end, VectorIter<T> hold);
+namespace Mergesort {
+	template <typename Iter1, typename Iter2, typename Compare>
+	void sort(Iter1 begin, Iter1 end, Iter2 hold, Compare cmp) {
+		auto mid=begin;
+		int size = 0;
+		
+		// count the items in the list and find the middle of the list
+		for (auto pos=begin; pos != end; ++pos, ++size) {
+			if (0 == size % 2) { ++mid; }
+		}
+#ifdef DEBUG
+		std::cout << "Found middle; size=" << size << std::endl;
+		if (size > 2) {
+			std::cout << "First Half: ";
+			printRange(begin, mid);
+			std::cout << "Second Half: ";
+			printRange(mid, end);
+		}
+#endif
+		// nonrecursive cases: size <= 2
+		if (size <= 2) {
+			if (2 == size && cmp(*mid, *begin)) {
+				std::swap(*mid, *begin);
+			}
+			return;
+		}
+		
+		sort(begin, mid, hold, cmp);
+		sort(mid, end, hold, cmp);
+		Iter2 holdEnd=std::merge(begin, mid, mid, end, hold, cmp);
+		std::copy(hold, holdEnd, begin);
+	}
+	
+	template <typename Iter1, typename Iter2>
+	void sort(Iter1 begin, Iter1 end, Iter2 hold) {
+		sort(begin, end, hold, std::less<decltype(*begin)>());
+	}
+		
 };
