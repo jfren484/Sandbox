@@ -12,7 +12,7 @@ private:
 
 public:
 	square(int n, bool zero=true) : 
-		N(n), cells(new T[n*n]) 
+		N(n), cells(new T[n*(long)n]) 
 	{
 		if (zero) {
 			for (int k=0; k < n*n; cells[k++] = 0) { ; }
