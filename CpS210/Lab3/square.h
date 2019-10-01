@@ -34,7 +34,7 @@ public:
 			for (int col=1; col < N; ++col) {
 				os << sep << at(row,col);
 			}
-			os << std::endl;
+			os << sep << std::endl;
 		}
 		return os;
 	}
