@@ -47,7 +47,7 @@ T fastExp2(T x, unsigned long long n) {
 template <typename T>
 T fastExp3(T x, unsigned long long n) {
 	if (n < 2) { return (1==n ? x : T(1)); }
-	stack<bool> bits;
+	std::stack<bool> bits;
 	for (; n > 3; n >>= 1) {
 		bits.push(n&1);
 	}
