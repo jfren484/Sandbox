@@ -86,15 +86,25 @@ T fastExp4(T x, unsigned long long n) {
 
 template <typename T, typename BitIter>
 T fastExp5(T x, BitIter MSB, BitIter pastLSB) {
-	return x;
+	T ans(1);
+
+	for (BitIter pos = MSB; pos != pastLSB; --pos) {
+		ans *= ans;
+		if (*pos) { ans *= x; }
+	}
+
+	return ans;
 }
 
 template <typename T, typename BitIter>
 T fastExp6(T x, BitIter LSB, BitIter pastMSB) {
 	T x_to_a_power_of_2 = x;
 	T ans(1);
+
 	for (BitIter pos = LSB; pos != pastMSB; ++pos) {
 		if (*pos) { ans *= x_to_a_power_of_2; }
 		x_to_a_power_of_2 *= x_to_a_power_of_2;
 	}		
+
+	return ans;
 }

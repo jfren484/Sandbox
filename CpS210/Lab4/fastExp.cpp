@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <vector>
 #include "fastExp.h"
 
 int main(int argc, const char* argv[]) {
@@ -40,6 +41,18 @@ int main(int argc, const char* argv[]) {
 	t2 = high_resolution_clock::now();
 	time_span = duration_cast<duration<double>>(t2 - t1);
 	std::cout << "Time taken for fastExp4(" << base << ", " << pow << "), answer (" << ans << "), ";
+	printf("%.7f\n", time_span.count());
+
+	std::vector<char> bits(64);
+	for (int n = pow; n > 0; n >>= 1) {
+		bits.push_back(n & 1);
+	}
+
+	t1 = high_resolution_clock::now();
+	ans = fastExp5(base, bits.end(), bits.begin());
+	t2 = high_resolution_clock::now();
+	time_span = duration_cast<duration<double>>(t2 - t1);
+	std::cout << "Time taken for fastExp5(" << base << ", " << pow << "), answer (" << ans << "), ";
 	printf("%.7f\n", time_span.count());
 
 	//for (int n = 0; n <= pow; ++n) {
