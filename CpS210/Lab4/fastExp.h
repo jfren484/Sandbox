@@ -1,4 +1,5 @@
 #include <stack>
+#include <queue>
 /*--------------------------------------------------------------------- *
 x^91 
 = x*(x^90)
@@ -44,6 +45,7 @@ T fastExp2(T x, unsigned long long n) {
 	return ans;
 }
 
+// MSB -> LSB
 template <typename T>
 T fastExp3(T x, unsigned long long n) {
 	if (n < 2) { return (1==n ? x : T(1)); }
@@ -62,10 +64,24 @@ T fastExp3(T x, unsigned long long n) {
 	return ans;
 }
 
-
+// LSB -> MSB
 template <typename T>
 T fastExp4(T x, unsigned long long n) {
-	return x;
+	std::queue<bool> bits;
+	for (; n > 0; n >>= 1) {
+		bits.push(n & 1);
+	}
+
+	T x_to_a_power_of_2 = x;
+	T ans = 1;
+
+	for (; !bits.empty(); bits.pop()) {
+		bool bit = bits.front();
+		if (bit) { ans *= x_to_a_power_of_2; }
+		x_to_a_power_of_2 *= x_to_a_power_of_2;
+	}
+
+	return ans;
 }
 
 template <typename T, typename BitIter>

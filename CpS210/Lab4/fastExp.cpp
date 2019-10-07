@@ -41,4 +41,12 @@ int main(int argc, const char* argv[]) {
 	time_span = duration_cast<duration<double>>(t2 - t1);
 	std::cout << "Time taken for fastExp4(" << base << ", " << pow << "), answer (" << ans << "), ";
 	printf("%.7f\n", time_span.count());
+
+	//for (int n = 0; n <= pow; ++n) {
+	//	ans = fastExp4(base, n);
+	//	std::cout << "fastExp4(" << base << ", " << n << "), answer (" << ans << ")";
+	//	ans = fastExp2(base, n);
+	//	std::cout << ", correct answer (" << ans << ")";
+	//	std::cout << std::endl;
+	//}
 }
