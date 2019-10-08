@@ -76,8 +76,7 @@ T fastExp4(T x, unsigned long long n) {
 	T ans = 1;
 
 	for (; !bits.empty(); bits.pop()) {
-		bool bit = bits.front();
-		if (bit) { ans *= x_to_a_power_of_2; }
+		if (bits.front()) { ans *= x_to_a_power_of_2; }
 		x_to_a_power_of_2 *= x_to_a_power_of_2;
 	}
 

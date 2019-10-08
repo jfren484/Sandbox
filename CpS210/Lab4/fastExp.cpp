@@ -43,7 +43,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "Time taken for fastExp4(" << base << ", " << pow << "), answer (" << ans << "), ";
 	printf("%.7f\n", time_span.count());
 
-	std::vector<char> bits(64);
+	std::vector<bool> bits(64);
 	for (int n = pow; n > 0; n >>= 1) {
 		bits.push_back(n & 1);
 	}
