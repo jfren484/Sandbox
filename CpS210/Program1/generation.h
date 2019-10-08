@@ -11,7 +11,7 @@ private:
 	bool* cells;
 
 	void printCell(std::ostream& os, int row, int col) {
-		os << at(row, col) ? "X" : " ";
+		os << (at(row, col) ? "X" : " ");
 	}
 
 	void printRowSeperator(std::ostream& os) {
