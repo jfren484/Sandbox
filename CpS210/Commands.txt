@@ -1,0 +1,2 @@
+cd /mnt/c/Users/jay/source/repos/Sandbox/CpS210
+g++ -std=c++17 -Wall -Wextra -o progname *.cpp
