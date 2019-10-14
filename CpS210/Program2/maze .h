@@ -30,7 +30,6 @@ public:
 	maze(vector<string> lines) : ROWS((int)lines.size()), COLS(0), Entrance(), cells(new maze_data[0]) {
 		Entrance.Row = -1;
 		Entrance.Col = -1;
-
 		for (int i = 0; i < ROWS; ++i) {
 			if (lines[i].size() > (unsigned int)COLS) {
 				COLS = (int)lines[i].size();
@@ -76,7 +75,6 @@ public:
 
 		return os;
 	}
-
 }; // end of class maze
 
 #endif

@@ -1,8 +1,11 @@
 #include <cstdio>
+#include <cstring>
 #include <iostream>
+#include <queue>
 #include <string>
 #include <vector>
 #include "maze.h"
+#include <stack>
 using namespace std;
 
 int main(int argc, const char* argv[]) {
@@ -21,42 +24,66 @@ int main(int argc, const char* argv[]) {
 		cout << "maze:" << endl;
 		m.print(cout);
 	}
+
+	queue<point> todoQueue;
+	todoQueue.push(m.Entrance);
+
+	vector<point> directions(4);
+	directions[0].Row = -1;
+	directions[1].Row = 1;
+	directions[2].Col = -1;
+	directions[3].Col = 1;
+
+	point exit = m.Entrance;
+
+	for (; !todoQueue.empty(); todoQueue.pop()) {
+		point coords = todoQueue.front();
+
+		for (int i = 0; i < 4; ++i) {
+			point neighborCoords = coords;
+			neighborCoords.Row += directions[i].Row;
+			neighborCoords.Col += directions[i].Col;
+
+			if (neighborCoords.Row < 0 || neighborCoords.Row >= m.ROWS || neighborCoords.Col < 0 || neighborCoords.Col >= m.COLS) {
+				if (coords.Row != m.Entrance.Row || coords.Col != m.Entrance.Col) {
+					exit = coords;
+				}
+				continue;
+			}
+
+			if (m.at(neighborCoords.Row, neighborCoords.Col).Value == '1') {
+				continue;
+			}
+
+			int steps = m.at(coords.Row, coords.Col).Steps + 1;
+			if (steps < m.at(neighborCoords.Row, neighborCoords.Col).Steps) {
+				todoQueue.push(neighborCoords);
+				m.at(neighborCoords.Row, neighborCoords.Col).FromLocation = coords;
+				m.at(neighborCoords.Row, neighborCoords.Col).Steps = steps;
+			}
+		}
+	}
+	if (exit.Row == m.Entrance.Row && exit.Col == m.Entrance.Col) {
+		printf("No exit found\n");
+		return 1;
+	}
+	point current = exit;
+	stack<point> path;
+	while (current.Row != m.Entrance.Row || current.Col != m.Entrance.Col) {
+		path.push(current);
+		current = m.at(current.Row, current.Col).FromLocation;
+	}
+
+	for (; !path.empty(); path.pop()) {
+		point coords = path.top();
+		m.at(coords.Row, coords.Col).Value = '*';
+		printf("%d, %d\n", coords.Row, coords.Col);
+	}
+	m.print(cout);
+	
 }
 
 /*
-				$scope.map = [
-					['5', '5', '5', '5', 'L', '5', '5', '5', 'L', 'L', '5', '5', '5', 'L', 'L', '_', '_', '5', '5', '5', '_', '5', '5', '5', '_'],
-					['5', 'L', 'L', '4', '4', '4', '4', '4', '4', 'L', 'L', '5', '5', '5', '5', '5', '_', '5', '5', 'L', '_', 'L', '5', 'L', '_'],
-					['5', 'L', 'L', '3', '3', '3', '3', '3', '3', 'L', 'L', 'L', '5', '5', '5', 'L', 'L', '5', '5', '4', 'L', 'L', '5', '4', '5'],
-					['5', '4', '3', '3', '3', 'L', 'L', '3', '3', '3', '4', '4', '4', '5', '4', 'L', 'L', '5', '4', '4', 'L', 'L', '4', '4', '5'],
-					['5', '4', '4', '4', '4', '4', 'L', 'L', '4', '3', '4', 'L', '4', '4', '4', '5', '5', '5', '4', '3', '3', '4', '4', 'L', '5'],
-					['5', '4', 'L', '4', '5', '4', 'L', 'L', '4', '3', '3', '3', '3', '3', '4', '4', '4', '4', '4', 'L', 'L', '4', 'L', 'L', 'L'],
-					['L', '4', 'L', '4', '5', '4', '4', 'L', 'L', 'L', '3', 'L', 'L', '3', '4', '3', 'L', '3', '3', 'L', 'L', '4', '4', 'L', '5'],
-					['5', '4', 'L', '4', '5', '5', '4', 'L', 'L', '2', '3', 'L', 'L', '3', '4', '3', 'L', '3', 'L', 'L', 'L', '4', '4', '5', '5'],
-					['5', '4', '4', '4', '4', '4', '4', '3', '3', '3', '3', '3', '2', '3', '4', '3', '3', '3', '3', 'L', 'L', '4', '4', '5', '5'],
-					['5', '5', 'L', '4', '4', 'L', '3', '3', 'L', 'L', 'L', '2', '2', '3', '3', '3', 'L', 'L', '3', 'L', 'L', 'L', '4', 'L', '_'],
-					['L', 'L', 'L', '4', '4', 'L', '3', 'L', 'L', 'L', 'L', '1', '2', '2', 'L', 'L', 'L', 'L', '3', '4', 'L', 'L', '4', 'L', '5'],
-					['5', '5', '5', '4', '4', 'L', '3', '3', '2', '2', '2', '1', '1', '1', '2', '1', '2', 'L', '3', '4', '4', '4', '4', '5', '5'],
-					['5', 'L', '4', '4', '4', '3', '3', '3', '3', '2', '1', '1', 'H', '1', '1', 'L', '1', '2', '3', 'L', 'L', '4', '4', '4', '5'],
-					['5', 'L', 'L', 'L', '4', '4', 'L', 'L', 'L', '2', '1', '1', '1', '1', '1', 'L', '2', '2', '2', 'L', 'L', '3', '4', '4', '5'],
-					['5', 'L', 'L', '4', '4', '3', 'L', 'L', 'L', '2', 'L', 'L', '1', 'L', '2', '1', '1', 'L', '2', '2', '2', '3', '4', '4', 'L'],
-					['5', '4', '4', '4', '3', '3', '2', '2', '2', '2', 'L', 'L', '1', '1', '2', '2', '2', '2', '2', '2', '2', '3', 'L', '4', '5'],
-					['5', '5', '5', '4', 'L', 'L', '2', 'L', '3', '3', '3', '2', '1', 'L', 'L', '3', '3', 'L', 'L', 'L', '2', '3', 'L', 'L', '5'],
-					['5', '4', '4', '4', 'L', 'L', '2', 'L', '3', '3', '3', '2', '2', 'L', 'L', '3', 'L', 'L', '2', '2', '2', '3', '4', 'L', '5'],
-					['L', 'L', 'L', '4', '4', '3', '3', 'L', 'L', 'L', '3', '3', '3', '3', 'L', '3', 'L', 'L', 'L', 'L', 'L', '3', '4', '4', '5'],
-					['_', 'L', 'L', '5', '4', '4', '3', '3', 'L', 'L', 'L', '3', '4', '3', '3', '3', '3', 'L', 'L', 'L', 'L', '3', '4', '5', '5'],
-					['5', '5', '5', '5', '5', '4', '4', '3', 'L', 'L', 'L', '3', '4', '4', '4', '4', '3', '3', '3', '3', '4', '4', '4', '5', 'L'],
-					['_', 'L', '4', '5', 'L', 'L', '4', '3', '3', '3', '3', '3', '4', 'L', 'L', '4', '3', '4', '4', '4', '4', '5', '5', '5', 'L'],
-					['_', 'L', '5', '5', 'L', '_', 'L', 'L', 'L', '4', 'L', '4', '4', 'L', 'L', '4', '4', '4', 'L', 'L', 'L', '5', 'L', 'L', '_'],
-					['_', '5', '5', 'L', '_', '_', '_', '4', 'L', '4', '4', '4', '4', '5', '5', '4', '4', '4', 'L', '_', '_', '5', '_', '_', '_'],
-					['_', '5', '5', 'L', '_', '_', 'L', '5', '5', '5', '5', '5', '5', '5', '5', '5', 'L', '5', '5', '5', '_', '_', '_', '_', '_']
-				];
-
-				$scope.mapData = [];
-				for (var i = 0; i < 25; i++) {
-					$scope.mapData.push([]);
-				}
-
 				var center = { 'x': 12, 'y': 12 };
 				$scope.mapData[12][12] = { 'coords': center, 'range': 1900 };
 				$scope.todoQueue = [center];
@@ -69,9 +96,6 @@ int main(int argc, const char* argv[]) {
 				];
 
 				$scope.nav = function () {
-					var currentQueue = $scope.todoQueue;
-					$scope.todoQueue = [];
-
 					currentQueue.forEach(function(toCheckCoords) {
 						var self = $scope.mapData[toCheckCoords.x][toCheckCoords.y];
 						$scope.directions.forEach(function (direction) {
