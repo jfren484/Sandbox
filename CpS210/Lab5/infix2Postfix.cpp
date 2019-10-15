@@ -18,6 +18,8 @@ public:
 int priority(char c) {
 	switch (c) {
 	case '(':
+		return 0;
+		break;
 	case ')':
 		return 4;
 		break;
@@ -51,8 +53,8 @@ string in2Post(const string& exp) {
                 break;
             case ')':
                 for (; !ops.empty() && ops.top() != '('; ops.pop()) { // !ops.empty() means checking if stack is empty
-                    oss << ops.top();
-                }
+					oss << " " << ops.top();
+				}
                 if (ops.empty()) { throw string("Unmatched )"); } // or something else
                 ops.pop(); // remove '('
                 break;
@@ -60,7 +62,7 @@ string in2Post(const string& exp) {
             // These all associate from right to left
             case '^':
                 for (; !ops.empty() && priority(c) < priority(ops.top()); ops.pop()) {
-					oss << ops.top();
+					oss << " " << ops.top();
 				}
 				ops.push(c);
                 break;
@@ -72,7 +74,7 @@ string in2Post(const string& exp) {
             case '/':
             case '%':
                 for (; !ops.empty() && priority(c) <= priority(ops.top()); ops.pop()) {
-					oss << ops.top();
+					oss << " " << ops.top();
 				}
 				ops.push(c);
 				break;
@@ -80,8 +82,10 @@ string in2Post(const string& exp) {
     }
     // Empty the stack
     for (; !ops.empty(); ops.pop()) {
-		oss << ops.top();
 		// Look for an unmatched '('
+		if (ops.top() == '(') { throw string("Unmatched ("); }
+
+		oss << " " << ops.top();
     }
     return oss.str();
 }
