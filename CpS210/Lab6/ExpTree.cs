@@ -1,25 +1,25 @@
-public interface Node {
-	double eval();
+public interface INode {
+	double Eval();
 }
 
-public class NumericNode : Node {
+public class NumericNode : INode {
 	private double value;
-	public virtual double eval() { return value; }
+	public virtual double Eval() { return value; }
 	public NumericNode(double v) { value = v; }
 }
 
-public class OperatorNode : Node {
-	private Node left, right;
+public class OperatorNode : INode {
+	private INode left, right;
 	private char oper;
-	public double eval() {
-		double lhs = left.eval();
-		double rhs = right.eval();
+	public double Eval() {
+		double lhs = left.Eval();
+		double rhs = right.Eval();
 		//...
 	}
 }
 
 public class ExpTree {
-	public Node root = null;
+	public INode root = null;
 	public static void Main(string [] args) {
 		ExpTree tree = new ExpTree();
 		tree.root = new NumericNode(6.0);
