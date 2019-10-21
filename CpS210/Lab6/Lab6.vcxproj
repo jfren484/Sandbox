@@ -153,6 +153,10 @@
   <ItemGroup>
     <ClCompile Include="Lab6.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="list_example.h" />
+    <ClInclude Include="pq.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
