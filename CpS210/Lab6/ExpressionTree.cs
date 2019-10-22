@@ -82,6 +82,11 @@ namespace Lab6
 
         public ExpressionTree(string expression)
         {
+            if (expression.Length == 0)
+            {
+                return;
+            }
+
             const string operators = "+-*/^";
             Stack<INode> stack = new Stack<INode>();
 
@@ -89,7 +94,20 @@ namespace Lab6
             {
                 char c = expression[i];
 
-                if (operators.Contains(c))
+                if (char.IsDigit(c))
+                {
+                    int value = c - '0';
+
+                    // Collect all digits until we get to a non-digit or end-of-string
+                    while (i < expression.Length - 1 && char.IsDigit(expression[i + 1]))
+                    {
+                        c = expression[++i];
+                        value = value * 10 + (c - '0');
+                    }
+
+                    stack.Push(new NumericNode(value));
+                }
+                else if (operators.Contains(c))
                 {
                     if (stack.IsEmpty())
                     {
@@ -104,19 +122,6 @@ namespace Lab6
                     INode left = stack.Pop();
 
                     stack.Push(new OperatorNode(c, left, right));
-                }
-                else if (char.IsDigit(c))
-                {
-                    int value = c - '0';
-
-                    // Collect all digits until we get to a non-digit or end-of-string
-                    while (i < expression.Length - 1 && char.IsDigit(expression[i + 1]))
-                    {
-                        c = expression[++i];
-                        value = value * 10 + (c - '0');
-                    }
-
-                    stack.Push(new NumericNode(value));
                 }
                 else if (char.IsWhiteSpace(c))
                 {
@@ -158,7 +163,7 @@ namespace Lab6
                     tree = new ExpressionTree(line);
 
                     Console.WriteLine($"The expression tree is: {tree}");
-                    Console.WriteLine($"and its value is: {tree.Root.Eval()}");
+                    Console.WriteLine($"and its value is: {tree.Root?.Eval() ?? 0}");
                 }
                 catch (ApplicationException ex)
                 {
