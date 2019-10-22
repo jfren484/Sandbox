@@ -7,7 +7,7 @@ namespace Lab6
     {
         private List<T> _vals = new List<T>();
 
-        public bool Empty()
+        public bool IsEmpty()
         {
             return !_vals.Any();
         }

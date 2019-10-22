@@ -1,3 +1,5 @@
+using System;
+
 namespace Lab6
 {
     public interface INode
@@ -14,20 +16,27 @@ namespace Lab6
             _value = v;
         }
 
-        public virtual double Eval()
+        public double Eval()
         {
             return _value;
+        }
+
+        public override string ToString()
+        {
+            return _value.ToString();
         }
     }
 
     public class OperatorNode : INode
     {
-        private INode _left, _right;
         private char _oper;
+        private INode _left, _right;
 
-        public OperatorNode(char o)
+        public OperatorNode(char o, INode left, INode right)
         {
             _oper = o;
+            _left = left;
+            _right = right;
         }
 
         public double Eval()
@@ -41,10 +50,29 @@ namespace Lab6
                 case '+':
                     result = lhs + rhs;
                     break;
-                // ...
+                case '-':
+                    result = lhs - rhs;
+                    break;
+                case '*':
+                    result = lhs * rhs;
+                    break;
+                case '/':
+                    result = lhs / rhs;
+                    break;
+                case '%':
+                    result = lhs % rhs;
+                    break;
+                case '^':
+                    result = Math.Pow(lhs, rhs);
+                    break;
             }
 
             return result;
+        }
+
+        public override string ToString()
+        {
+            return $"{_oper}({_left},{_right})";
         }
     }
 
@@ -52,10 +80,93 @@ namespace Lab6
     {
         public INode Root = null;
 
+        public ExpressionTree(string expression)
+        {
+            const string operators = "+-*/^";
+            Stack<INode> stack = new Stack<INode>();
+
+            for (int i = 0; i < expression.Length; ++i)
+            {
+                char c = expression[i];
+
+                if (operators.Contains(c))
+                {
+                    if (stack.IsEmpty())
+                    {
+                        throw new ApplicationException($"No operands for '{c}' operator.");
+                    }
+                    INode right = stack.Pop();
+
+                    if (stack.IsEmpty())
+                    {
+                        throw new ApplicationException($"Not enough operands for '{c}' operator.");
+                    }
+                    INode left = stack.Pop();
+
+                    stack.Push(new OperatorNode(c, left, right));
+                }
+                else if (char.IsDigit(c))
+                {
+                    int value = c - '0';
+
+                    // Collect all digits until we get to a non-digit or end-of-string
+                    while (i < expression.Length - 1 && char.IsDigit(expression[i + 1]))
+                    {
+                        c = expression[++i];
+                        value = value * 10 + (c - '0');
+                    }
+
+                    stack.Push(new NumericNode(value));
+                }
+                else if (char.IsWhiteSpace(c))
+                {
+                    // Skip character - space, tab, etc.
+                }
+                else
+                {
+                    throw new ApplicationException($"Unrecognized character: '{c}'");
+                }
+            }
+
+            if (stack.IsEmpty())
+            {
+                throw new ApplicationException("No operands or operators encountered.");
+            }
+
+            Root = stack.Pop();
+
+            if (!stack.IsEmpty())
+            {
+                throw new ApplicationException("Too many operands in expression.");
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"({Root})";
+        }
+
         public static void Main(string[] args)
         {
-            ExpressionTree tree = new ExpressionTree();
-            tree.Root = new NumericNode(6.0);
+            ExpressionTree tree;
+
+            string line = Console.ReadLine();
+            while (line != null)
+            {
+                try
+                {
+                    tree = new ExpressionTree(line);
+
+                    Console.WriteLine($"The expression tree is: {tree}");
+                    Console.WriteLine($"and its value is: {tree.Root.Eval()}");
+                }
+                catch (ApplicationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                line = Console.ReadLine();
+            }
         }
     }
 }
