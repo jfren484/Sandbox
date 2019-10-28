@@ -1,93 +1,63 @@
-#include <string>
 #include <iostream>
-#include <vector>
+#include <queue>
+#include <string>
 #include <sstream>
-#include "medianHeap.h"
+#include <vector>
 
 using namespace std;
 
-// Function implementing algorithm to find median so far. 
-int getMedian(int e, int& m, Heap& l, Heap& r)
+#define MaxHeap priority_queue<int, vector<int>, greater<int>>
+#define MinHeap priority_queue<int, vector<int>, less<int>>
+
+int getMedian(int newValue, int& currentMedian, MinHeap & minHeap, MaxHeap & maxHeap)
 {
-	// Are heaps balanced? If yes, sig will be 0 
-	int sig = Signum(l.GetCount(), r.GetCount());
-	switch (sig)
-	{
-	case 1: // There are more elements in left (max) heap 
-
-		if (e < m) // current element fits in left (max) heap 
-		{
-			// Remore top element from left heap and 
-			// insert into right heap 
-			r.Insert(l.ExtractTop());
-
-			// current element fits in left (max) heap 
-			l.Insert(e);
+	if (newValue < currentMedian) {
+		if (minHeap.size() == maxHeap.size()) {
+			minHeap.push(newValue);
+			currentMedian = minHeap.top();
 		}
-		else
-		{
-			// current element fits in right (min) heap 
-			r.Insert(e);
+		else {
+			if (minHeap.size() > maxHeap.size()) {
+				// Need to move top element on max heap and put it in min heap
+				maxHeap.push(minHeap.top());
+				minHeap.pop();
+			}
+
+			minHeap.push(newValue);
+			currentMedian = (minHeap.top() + maxHeap.top()) / 2;
 		}
-
-		// Both heaps are balanced 
-		m = Average(l.GetTop(), r.GetTop());
-
-		break;
-
-	case 0: // The left and right heaps contain same number of elements 
-
-		if (e < m) // current element fits in left (max) heap 
-		{
-			l.Insert(e);
-			m = l.GetTop();
+	}
+	else {
+		if (minHeap.size() == maxHeap.size()) {
+			maxHeap.push(newValue);
+			currentMedian = maxHeap.top();
 		}
-		else
-		{
-			// current element fits in right (min) heap 
-			r.Insert(e);
-			m = r.GetTop();
+		else {
+			if (minHeap.size() < maxHeap.size()) {
+				// Need to move top element on min heap and put it in max heap
+				minHeap.push(maxHeap.top());
+				maxHeap.pop();
+			}
+
+			maxHeap.push(newValue);
+			currentMedian = (minHeap.top() + maxHeap.top()) / 2;
 		}
-
-		break;
-
-	case -1: // There are more elements in right (min) heap 
-
-		if (e < m) // current element fits in left (max) heap 
-		{
-			l.Insert(e);
-		}
-		else
-		{
-			// Remove top element from right heap and 
-			// insert into left heap 
-			l.Insert(r.ExtractTop());
-
-			// current element fits in right (min) heap 
-			r.Insert(e);
-		}
-
-		// Both heaps are balanced 
-		m = Average(l.GetTop(), r.GetTop());
-
-		break;
 	}
 
-	// No need to return, m already updated 
-	return m;
+	return currentMedian;
 }
 
 int main()
 {
-	int m = 0, i; 
-	Heap* left = new MaxHeap();
-	Heap* right = new MinHeap();
-	string exp;
+	string val;
+	int currentMedian = 0, i;
+	MinHeap* left = new MinHeap();
+	MaxHeap* right = new MaxHeap();
 
-	while (getline(cin, exp)) {
-		i = stoi(exp);
-		m = getMedian(i, m, *left, *right);
-		cout << m << endl;
+	while (getline(cin, val)) {
+		i = stoi(val);
+		currentMedian = getMedian(i, currentMedian, *left, *right);
+		cout << currentMedian << endl;
 	}
 
 	delete left;
