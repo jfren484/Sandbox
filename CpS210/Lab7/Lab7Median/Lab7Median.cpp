@@ -1,58 +1,34 @@
 #include <iostream>
-#include <queue>
 #include <string>
-#include <sstream>
-#include <vector>
+#include "heap.h"
 
 using namespace std;
 
-#define MinHeap priority_queue<int, vector<int>, greater<int>>
-#define MaxHeap priority_queue<int, vector<int>, less<int>>
-
-int getMedian(int newValue, int& currentMedian, MinHeap & minHeap, MaxHeap & maxHeap)
+int getMedian(int newValue, int currentMedian, Heap<int>& minHeap, Heap<int>& maxHeap)
 {
-	if (newValue < currentMedian) {
-		if (maxHeap.size() == minHeap.size()) {
-			maxHeap.push(newValue);
-			currentMedian = maxHeap.top();
-		}
-		else {
-			if (maxHeap.size() > minHeap.size()) {
-				// Need to move top element on min heap and put it in max heap
-				minHeap.push(maxHeap.top());
-				maxHeap.pop();
-			}
+	bool smaller = newValue < currentMedian;
+	Heap<int>* destHeap = smaller ? &maxHeap : &minHeap;
+	Heap<int>* otherHeap = smaller ? &minHeap : &maxHeap;
 
-			maxHeap.push(newValue);
-			currentMedian = (maxHeap.top() + minHeap.top()) / 2;
-		}
-	}
-	else {
-		if (maxHeap.size() == minHeap.size()) {
-			minHeap.push(newValue);
-			currentMedian = minHeap.top();
-		}
-		else {
-			if (maxHeap.size() < minHeap.size()) {
-				// Need to move top element on max heap and put it in min heap
-				maxHeap.push(minHeap.top());
-				minHeap.pop();
-			}
-
-			minHeap.push(newValue);
-			currentMedian = (maxHeap.top() + minHeap.top()) / 2;
-		}
+	if (destHeap->size() > otherHeap->size()) {
+		// Need to move top element on destination heap to other heap
+		otherHeap->push(destHeap->top());
+		destHeap->pop();
 	}
 
-	return currentMedian;
+	destHeap->push(newValue);
+
+	return destHeap->size() == otherHeap->size()
+		? (destHeap->top() + otherHeap->top()) / 2
+		: destHeap->top();
 }
 
 int main()
 {
 	string val;
 	int currentMedian = 0, i;
-	MinHeap* minHeap = new MinHeap();
-	MaxHeap* maxHeap = new MaxHeap();
+	MinHeap<int>* minHeap = new MinHeap<int>();
+	MaxHeap<int>* maxHeap = new MaxHeap<int>();
 
 	while (getline(cin, val)) {
 		i = stoi(val);

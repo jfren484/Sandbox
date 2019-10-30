@@ -154,6 +154,9 @@
   <ItemGroup>
     <ClCompile Include="Lab7Median.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="heap.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
