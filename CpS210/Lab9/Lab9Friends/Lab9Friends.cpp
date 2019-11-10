@@ -1,5 +1,4 @@
 #include <iostream>
-#include <map>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -34,29 +33,37 @@ public:
 	}
 
 	// merge the set containing a with the set containing b
-	int merge(int a, int b) {
+	bool merge(int a, int b) {
 		a = find(a);
 		b = find(b);
 
-		if (a == b) { return 0; }
-
-		int size = 0;
+		if (a == b) { return false; }
 
 		// now we know that we have different trees
 		if (parent[a] < parent[b]) { // then a is bigger
 			parent[a] += parent[b];
 			parent[b] = a;
-			size = -parent[a];
 		}
 		else {
 			parent[b] += parent[a];
 			parent[a] = b;
-			size = -parent[b];
 		}
 
 		--nSets;
 
-		return size;
+		return true;
+	}
+
+	int largestSet() {
+		int largest = 0;
+
+		for (unsigned int i = 0; i < parent.size(); ++i) {
+			if (-parent[i] > largest) {
+				largest = -parent[i];
+			}
+		}
+
+		return largest;
 	}
 
 	void print(ostream& os) {
@@ -84,41 +91,31 @@ vector<string> split(const string& s, char delimiter)
 
 int main()
 {
-	string line, a, b;
+	string line;
 	vector<string> parts;
-	int testCases, friendships, nextId;
+	int testCases, citizens, pairs, a, b;
 
 	getline(cin, line);
 	testCases = stoi(line);
 
 	for (int tc = 0; tc < testCases; ++tc) {
 		getline(cin, line);
-		friendships = stoi(line);
+		parts = split(line, ' ');
+		citizens = stoi(parts[0]);
+		pairs = stoi(parts[1]);
 
-		Partition p(100000);
-		map<string, int> m;
-		nextId = 1;
+		Partition p(citizens + 1);
 
-		for (int f = 0; f < friendships; ++f) {
+		for (int i = 0; i < pairs; ++i) {
 			getline(cin, line);
 			parts = split(line, ' ');
-			a = parts[0];
-			b = parts[1];
+			a = stoi(parts[0]);
+			b = stoi(parts[1]);
 
-			if (!m[a]) {
-				m[a] = nextId++;
-			}
-			if (!m[b]) {
-				m[b] = nextId++;
-			}
-
-			int aKey = m[a];
-			int bKey = m[b];
-
-			int size = p.merge(aKey, bKey);
-
-			cout << size << endl;
+			p.merge(a, b);
 		}
+
+		cout << p.largestSet() << endl;
 	}
 
 	return 0;
