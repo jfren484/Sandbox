@@ -24,11 +24,11 @@ public:
 			k = parent[k];
 		}
 
-		while (k != parent[start]) {
-			int hold = parent[start];
-			parent[start] = k;
-			k = hold;
-		}
+		//while (k != parent[start]) {
+		//	int hold = parent[start];
+		//	parent[start] = k;
+		//	k = hold;
+		//}
 
 		return k;
 	}
@@ -38,7 +38,7 @@ public:
 		a = find(a);
 		b = find(b);
 
-		if (a == b) { return 0; }
+		if (a == b) { return -parent[a]; }
 
 		int size = 0;
 
