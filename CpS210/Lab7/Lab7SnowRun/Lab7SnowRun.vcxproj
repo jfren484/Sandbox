@@ -154,7 +154,7 @@
     <ClCompile Include="Lab7SnowRun.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="square.h" />
+    <Text Include="TestData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,7 +5,6 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "square.h"
 
 using namespace std;
 
@@ -21,6 +20,27 @@ struct grid_data {
 	int Steps;
 
 	grid_data() : Location(), FromLocation(), Value(0), Steps(0) {}
+};
+
+template <typename T>
+class square {
+public:
+	const int COLS, ROWS;
+
+private:
+	T* cells;
+
+public:
+	square(int rows, int cols) : ROWS(rows), COLS(cols), cells(new T[rows * cols]) {	}
+	~square() { delete[] cells; }
+
+	T& at(int row, int col) {
+		return cells[COLS * row + col];
+	}
+
+	const T& at(int row, int col) const {
+		return cells[COLS * row + col];
+	}
 };
 
 vector<string> split(const string& s, char delimiter)
