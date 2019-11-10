@@ -82,36 +82,3 @@ int main(int argc, const char* argv[]) {
 	m.print(cout);
 	
 }
-
-/*
-				var center = { 'x': 12, 'y': 12 };
-				$scope.mapData[12][12] = { 'coords': center, 'range': 1900 };
-				$scope.todoQueue = [center];
-
-				$scope.directions = [
-					{ 'x':  0, 'y':  1 },
-					{ 'x':  1, 'y':  0 },
-					{ 'x':  0, 'y': -1 },
-					{ 'x': -1, 'y':  0 }
-				];
-
-				$scope.nav = function () {
-					currentQueue.forEach(function(toCheckCoords) {
-						var self = $scope.mapData[toCheckCoords.x][toCheckCoords.y];
-						$scope.directions.forEach(function (direction) {
-							var neighborCoords = { 'x': toCheckCoords.x + direction.x, 'y': toCheckCoords.y + direction.y };
-							if (neighborCoords.x < 0 || neighborCoords.x > 24 || neighborCoords.y < 0 || neighborCoords.y > 24) {
-								// Off the map
-								return;
-							}
-
-							var neighborData = { 'coords': neighborCoords, 'range': self.range - oceanData.range };
-
-							if (!$scope.mapData[neighborCoords.x][neighborCoords.y] || neighborData.range > $scope.mapData[neighborCoords.x][neighborCoords.y].range) {
-								$scope.todoQueue.push(neighborCoords);
-								$scope.mapData[neighborCoords.x][neighborCoords.y] = neighborData;
-							}
-						});
-					});
-				}
-*/
