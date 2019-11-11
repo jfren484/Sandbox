@@ -23,11 +23,11 @@ public:
 			k = parent[k];
 		}
 
-		while (k != parent[start]) {
-			int hold = parent[start];
-			parent[start] = k;
-			k = hold;
-		}
+		//while (k != parent[start]) {
+		//	int hold = parent[start];
+		//	parent[start] = k;
+		//	k = hold;
+		//}
 
 		return k;
 	}

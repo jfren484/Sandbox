@@ -19,4 +19,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TestData.txt" />
+    <Text Include="TestData2.txt" />
+    <Text Include="TestData3.txt" />
+  </ItemGroup>
 </Project>
