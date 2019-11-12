@@ -95,7 +95,7 @@ int main()
 		getline(cin, line);
 		friendships = stoi(line);
 
-		Partition p(100000);
+		Partition p(friendships * 2 + 1);
 		map<string, int> m;
 		nextId = 1;
 
