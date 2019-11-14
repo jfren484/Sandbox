@@ -18,10 +18,20 @@ while (nodes):
 		ints = list(map(int, input().split()))
 		graph[ints[0]].add(ints[1])
 
-	# TODO: check if you can bicolor
+	# Check if you can bicolor
+	toCheck = [0]
+	colors[0] = 1
+	bi = True
+	while (len(toCheck) and bi):
+		curr = toCheck.pop(0)
+		color = 1 if colors[curr] == 2 else 2
+		for (neighbor in graph[curr]):
+			if (colors[neighbor] == 0):
+				colors[neighbor] = color
+				toCheck.append(neighbor]
+			elif (colors[neighbor] != color)
+				bi = False
 
-	cond = ""
-
-	print(f"{cond}BICOLORABLE.")
+	print(f"{'' if bi else 'NOT '}BICOLORABLE.")
 	
 	nodes = int(input())
