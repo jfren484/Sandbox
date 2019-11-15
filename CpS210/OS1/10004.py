@@ -25,11 +25,11 @@ while (nodes):
 	while (len(toCheck) and bi):
 		curr = toCheck.pop(0)
 		color = 1 if colors[curr] == 2 else 2
-		for (neighbor in graph[curr]):
-			if (colors[neighbor] == 0):
+		for neighbor in graph[curr]:
+			if colors[neighbor] == 0:
 				colors[neighbor] = color
-				toCheck.append(neighbor]
-			elif (colors[neighbor] != color)
+				toCheck.append(neighbor)
+			elif colors[neighbor] != color:
 				bi = False
 
 	print(f"{'' if bi else 'NOT '}BICOLORABLE.")
