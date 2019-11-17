@@ -1,0 +1,5 @@
+ape	18
+bat	21
+cat	20
+dog	15
+emu	21
