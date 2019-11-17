@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{919FFE96-3444-4257-9E59-7A7990DFBAEE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectEuler</RootNamespace>
+    <AssemblyName>ProjectEuler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BigDouble.cs" />
+    <Compile Include="Expression.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Fraction.cs" />
+    <Compile Include="Grid.cs" />
+    <Compile Include="InputFiles\Problem022Input.cs" />
+    <Compile Include="InputFiles\Problem042Input.cs" />
+    <Compile Include="InputFiles\Problem054Input.cs" />
+    <Compile Include="InputFiles\Problem059Input.cs" />
+    <Compile Include="InputFiles\Problem067Input.cs" />
+    <Compile Include="InputFiles\Problem079Input.cs" />
+    <Compile Include="InputFiles\Problem081To083Input.cs" />
+    <Compile Include="InputFiles\Problem089Input.cs" />
+    <Compile Include="InputFiles\Problem096Input.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InputFiles\Problem098Input.cs" />
+    <Compile Include="InputFiles\Problem099Input.cs" />
+    <Compile Include="InputFiles\Problem102Input.cs" />
+    <Compile Include="Numeric.cs" />
+    <Compile Include="Polygon.cs" />
+    <Compile Include="Polynomial.cs" />
+    <Compile Include="Prime.cs" />
+    <Compile Include="Quadratic.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Problem.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solvers001-090\Problem001Solver.cs" />
+    <Compile Include="Solvers001-090\Problem002Solver.cs" />
+    <Compile Include="Solvers001-090\Problem003Solver.cs" />
+    <Compile Include="Solvers001-090\Problem004Solver.cs" />
+    <Compile Include="Solvers001-090\Problem005Solver.cs" />
+    <Compile Include="Solvers001-090\Problem006Solver.cs" />
+    <Compile Include="Solvers001-090\Problem007Solver.cs" />
+    <Compile Include="Solvers001-090\Problem008Solver.cs" />
+    <Compile Include="Solvers001-090\Problem009Solver.cs" />
+    <Compile Include="Solvers001-090\Problem010Solver.cs" />
+    <Compile Include="Solvers001-090\Problem011Solver.cs" />
+    <Compile Include="Solvers001-090\Problem012Solver.cs" />
+    <Compile Include="Solvers001-090\Problem013Solver.cs" />
+    <Compile Include="Solvers001-090\Problem014Solver.cs" />
+    <Compile Include="Solvers001-090\Problem015Solver.cs" />
+    <Compile Include="Solvers001-090\Problem016Solver.cs" />
+    <Compile Include="Solvers001-090\Problem017Solver.cs" />
+    <Compile Include="Solvers001-090\Problem018Solver.cs" />
+    <Compile Include="Solvers001-090\Problem019Solver.cs" />
+    <Compile Include="Solvers001-090\Problem020Solver.cs" />
+    <Compile Include="Solvers001-090\Problem021Solver.cs" />
+    <Compile Include="Solvers001-090\Problem022Solver.cs" />
+    <Compile Include="Solvers001-090\Problem023Solver.cs" />
+    <Compile Include="Solvers001-090\Problem024Solver.cs" />
+    <Compile Include="Solvers001-090\Problem025Solver.cs" />
+    <Compile Include="Solvers001-090\Problem026Solver.cs" />
+    <Compile Include="Solvers001-090\Problem027Solver.cs" />
+    <Compile Include="Solvers001-090\Problem028Solver.cs" />
+    <Compile Include="Solvers001-090\Problem029Solver.cs" />
+    <Compile Include="Solvers001-090\Problem030Solver.cs" />
+    <Compile Include="Solvers001-090\Problem031Solver.cs" />
+    <Compile Include="Solvers001-090\Problem032Solver.cs" />
+    <Compile Include="Solvers001-090\Problem033Solver.cs" />
+    <Compile Include="Solvers001-090\Problem034Solver.cs" />
+    <Compile Include="Solvers001-090\Problem035Solver.cs" />
+    <Compile Include="Solvers001-090\Problem036Solver.cs" />
+    <Compile Include="Solvers001-090\Problem037Solver.cs" />
+    <Compile Include="Solvers001-090\Problem038Solver.cs" />
+    <Compile Include="Solvers001-090\Problem039Solver.cs" />
+    <Compile Include="Solvers001-090\Problem040Solver.cs" />
+    <Compile Include="Solvers001-090\Problem041Solver.cs" />
+    <Compile Include="Solvers001-090\Problem042Solver.cs" />
+    <Compile Include="Solvers001-090\Problem043Solver.cs" />
+    <Compile Include="Solvers001-090\Problem044Solver.cs" />
+    <Compile Include="Solvers001-090\Problem045Solver.cs" />
+    <Compile Include="Solvers001-090\Problem046Solver.cs" />
+    <Compile Include="Solvers001-090\Problem047Solver.cs" />
+    <Compile Include="Solvers001-090\Problem048Solver.cs" />
+    <Compile Include="Solvers001-090\Problem049Solver.cs" />
+    <Compile Include="Solvers001-090\Problem050Solver.cs" />
+    <Compile Include="Solvers001-090\Problem051Solver.cs" />
+    <Compile Include="Solvers001-090\Problem052Solver.cs" />
+    <Compile Include="Solvers001-090\Problem053Solver.cs" />
+    <Compile Include="Solvers001-090\Problem054Solver.cs" />
+    <Compile Include="Solvers001-090\Problem055Solver.cs" />
+    <Compile Include="Solvers001-090\Problem056Solver.cs" />
+    <Compile Include="Solvers001-090\Problem057Solver.cs" />
+    <Compile Include="Solvers001-090\Problem058Solver.cs" />
+    <Compile Include="Solvers001-090\Problem059Solver.cs" />
+    <Compile Include="Solvers001-090\Problem060Solver.cs" />
+    <Compile Include="Solvers001-090\Problem061Solver.cs" />
+    <Compile Include="Solvers001-090\Problem062Solver.cs" />
+    <Compile Include="Solvers001-090\Problem063Solver.cs" />
+    <Compile Include="Solvers001-090\Problem064Solver.cs" />
+    <Compile Include="Solvers001-090\Problem065Solver.cs" />
+    <Compile Include="Solvers001-090\Problem066Solver.cs" />
+    <Compile Include="Solvers001-090\Problem067Solver.cs" />
+    <Compile Include="Solvers001-090\Problem068Solver.cs" />
+    <Compile Include="Solvers001-090\Problem069Solver.cs" />
+    <Compile Include="Solvers001-090\Problem070Solver.cs" />
+    <Compile Include="Solvers001-090\Problem071Solver.cs" />
+    <Compile Include="Solvers001-090\Problem072Solver.cs" />
+    <Compile Include="Solvers001-090\Problem073Solver.cs" />
+    <Compile Include="Solvers001-090\Problem074Solver.cs" />
+    <Compile Include="Solvers001-090\Problem075Solver.cs" />
+    <Compile Include="Solvers001-090\Problem076Solver.cs" />
+    <Compile Include="Solvers001-090\Problem077Solver.cs" />
+    <Compile Include="Solvers001-090\Problem078Solver.cs" />
+    <Compile Include="Solvers001-090\Problem079Solver.cs" />
+    <Compile Include="Solvers001-090\Problem080Solver.cs" />
+    <Compile Include="Solvers001-090\Problem081Solver.cs" />
+    <Compile Include="Solvers001-090\Problem082Solver.cs" />
+    <Compile Include="Solvers001-090\Problem083Solver.cs" />
+    <Compile Include="Solvers001-090\Problem084Solver.cs" />
+    <Compile Include="Solvers001-090\Problem085Solver.cs" />
+    <Compile Include="Solvers001-090\Problem086Solver.cs" />
+    <Compile Include="Solvers001-090\Problem087Solver.cs" />
+    <Compile Include="Solvers001-090\Problem088Solver.cs" />
+    <Compile Include="Solvers001-090\Problem089Solver.cs" />
+    <Compile Include="Solvers001-090\Problem090Solver.cs" />
+    <Compile Include="Solvers\IProblemSolver.cs" />
+    <Compile Include="Solvers\Problem091Solver.cs" />
+    <Compile Include="Solvers\Problem092Solver.cs" />
+    <Compile Include="Solvers\Problem093Solver.cs" />
+    <Compile Include="Solvers\Problem094Solver.cs" />
+    <Compile Include="Solvers\Problem095Solver.cs" />
+    <Compile Include="Solvers\Problem096Solver.cs" />
+    <Compile Include="Solvers\Problem097Solver.cs" />
+    <Compile Include="Solvers\Problem098Solver.cs" />
+    <Compile Include="Solvers\Problem099Solver.cs" />
+    <Compile Include="Solvers\Problem100Solver.cs" />
+    <Compile Include="Solvers\Problem101Solver.cs" />
+    <Compile Include="Solvers\Problem102Solver.cs" />
+    <Compile Include="Solvers\Problem103Solver.cs" />
+    <Compile Include="Solvers\Problem104Solver.cs" />
+    <Compile Include="Solvers\Problem105Solver.cs" />
+    <Compile Include="Solvers\ProblemXSolver.cs" />
+    <Compile Include="SpecialSumSet.cs" />
+    <Compile Include="Triangle.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Solvers\CreateNewSolver.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProjectEuler.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
