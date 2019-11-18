@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <chrono>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -6,50 +8,63 @@
 #include <vector>
 
 using namespace std;
+using namespace std::chrono;
 
-//struct Datum {
-//	string Word;
-//	int Freq;
-//
-//	Datum(string word, int freq) : Word(word), Freq(freq) {}
+//struct WordFreq {
+//	string word;
+//	int freq;
+//	WordFreq(string w = "", int f = 0) : word(w), freq(f) { ; }
 //};
+//bool operator <(const WordFreq& wf1, const WordFreq& wf2) {
+//	return (wf1.word < wf2.word);
+//}
 
-vector<string> split(const string& s, char delimiter)
+//int main() {
+//	int freq;
+//	string word;
+//	vector<WordFreq> wf;
+//	while (cin >> word >> freq) {
+//		wf.push_back({ word,freq });
+//	}
+//	sort(wf.begin(), wf.end());
+//	for (auto pr : wf) {
+//		cout << '(' << pr.word << ',' << pr.freq << ")\n";
+//	}
+//	return 0;
+//}
+
+int main(int argc, const char* argv[])
 {
-	vector<string> tokens;
-	string token;
-	istringstream tokenStream(s);
-
-	while (getline(tokenStream, token, delimiter))
-	{
-		tokens.push_back(token);
+	if (argc < 2) {
+		cout << "Specify input file on command line" << endl;
+		return 1;
 	}
 
-	return tokens;
-}
+	ifstream in(argv[1]);
+	if (!in.is_open()) {
+		cout << "Could not read file " << argv[1] << endl;
+		return 1;
+	}
 
-int main()
-{
-	string line, word;
+	string word;
 	int freq;
-	vector<string> parts;
-	//vector<Datum> wordData;
 	vector<string> words;
 	map<string, int> wordFreqs;
 
-	while (getline(cin, line)) {
-		parts = split(line, ' ');
-		word = parts[0];
-		freq = stoi(parts[1]);
-		//Datum datum(parts[0], stoi(parts[1]));
-		//wordData.push_back(datum);
+	high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
+	while (in >> word >> freq) {
 		words.push_back(word);
 		wordFreqs[word] = freq;
 	}
 
 	sort(words.begin(), words.end());
 
-	for (unsigned int i = 0; i < words.size(); ++i) {
-		cout << words[i] << " " << wordFreqs[words[i]] << endl;
-	}
+	high_resolution_clock::time_point t2 = high_resolution_clock::now();
+	duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+	cout << "Time taken for " << words.size() << " values: " << time_span.count()  << " seconds." << endl;
+
+	//for (auto pr : wordFreqs) {
+	//	cout << '(' << pr.first << ',' << pr.second << ")\n";
+	//}
 }
