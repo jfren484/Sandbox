@@ -6,12 +6,11 @@ class Point:
 		self.row, self.col = row, col
 
 class GridData:
-	location, from_location, value, steps = Point(), Point(), 0, 0
+	value, steps = 0, 0
 
 class Square:
-	cells = []
-	
 	def __init__(self, rows, cols):
+		self.cells = []
 		self.rows, self.cols = rows, cols
 		for i in range(rows * cols):
 			self.cells.append(GridData())
@@ -24,7 +23,7 @@ def calculateLongestRun(grid):
 
 	for row in range(grid.rows):
 		for col in range(grid.cols):
-			todoQueue.append(grid.at(row, col).location)
+			todoQueue.append(Point(row, col))
 
 	directions = [Point(-1, 0), Point(1, 0), Point(0, -1), Point(0, 1)]
 
@@ -44,14 +43,13 @@ def calculateLongestRun(grid):
 			steps = grid.at(coords.row, coords.col).steps + 1
 			if steps > grid.at(neighborCoords.row, neighborCoords.col).steps:
 				todoQueue.append(neighborCoords)
-				grid.at(neighborCoords.row, neighborCoords.col).from_location = coords
 				grid.at(neighborCoords.row, neighborCoords.col).steps = steps
 
 	stepsList = []
 	for row in range(grid.rows):
 		for col in range(grid.cols):
 			stepsList.append(grid.at(row, col).steps)
-
+	
 	return max(stepsList) + 1
 
 # main
@@ -70,8 +68,6 @@ for tc in range(testCases):
 		parts = sys.stdin.readline().split()
 
 		for col in range(cols):
-			grid.at(row, col).location.row = row
-			grid.at(row, col).location.col = col
 			grid.at(row, col).value = int(parts[col])
 
 	longestRun = calculateLongestRun(grid)
