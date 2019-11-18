@@ -1,5 +1,19 @@
 import sys
 
+def isBicolorable(graph, colors):
+	toCheck = [0]
+	colors[0] = 1
+	while len(toCheck):
+		curr = toCheck.pop(0)
+		color = 1 if colors[curr] == 2 else 2
+		for neighbor in graph[curr]:
+			if colors[neighbor] == 0:
+				colors[neighbor] = color
+				toCheck.append(neighbor)
+			elif colors[neighbor] != color:
+				return False
+	return True
+
 nodes = int(input())
 
 while (nodes):
@@ -17,20 +31,10 @@ while (nodes):
 	for i in range(edges):
 		ints = list(map(int, input().split()))
 		graph[ints[0]].add(ints[1])
+		graph[ints[1]].add(ints[0])
 
 	# Check if you can bicolor
-	toCheck = [0]
-	colors[0] = 1
-	bi = True
-	while (len(toCheck) and bi):
-		curr = toCheck.pop(0)
-		color = 1 if colors[curr] == 2 else 2
-		for neighbor in graph[curr]:
-			if colors[neighbor] == 0:
-				colors[neighbor] = color
-				toCheck.append(neighbor)
-			elif colors[neighbor] != color:
-				bi = False
+	bi = isBicolorable(graph, colors)
 
 	print(f"{'' if bi else 'NOT '}BICOLORABLE.")
 	
