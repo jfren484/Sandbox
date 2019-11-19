@@ -1,15 +1,15 @@
 import sys
 
-def calcCycleLength(x):
-	length = 1
-	n = x
+cycleLengths = {1:1}
 
-	while n != 1:
-		if n % 2 == 0: n = n // 2
-		else: n = n * 3 + 1
-		length += 1
+def calc_cycle_length(n):
+	global cycleLengths
 
-	return length
+	if n not in cycleLengths:
+		newN = n * 3 + 1 if n % 2 else n // 2
+		cycleLengths[n] = 1 + calc_cycle_length(newN)
+		
+	return cycleLengths[n]
 
 line = sys.stdin.readline()
 while len(line) > 0:
@@ -21,7 +21,7 @@ while len(line) > 0:
 	max = 0
 
 	for n in range(start, end + 1):
-		cycleLength = calcCycleLength(n)
+		cycleLength = calc_cycle_length(n)
 		if cycleLength > max: max = cycleLength
 
 	print(f"{i} {j} {max}")
