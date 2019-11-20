@@ -46,6 +46,8 @@ int main(int argc, const char* argv[])
 		return 1;
 	}
 
+	bool debug = argc >= 3 && _stricmp(argv[2], "DEBUG") == 0;
+
 	string word;
 	int freq;
 	vector<string> words;
@@ -57,14 +59,44 @@ int main(int argc, const char* argv[])
 		words.push_back(word);
 		wordFreqs[word] = freq;
 	}
-
 	sort(words.begin(), words.end());
+	int wordCount = words.size();
 
-	high_resolution_clock::time_point t2 = high_resolution_clock::now();
-	duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-	cout << "Time taken for " << words.size() << " values: " << time_span.count()  << " seconds." << endl;
+	// Rows = wordCount, Cols = wordCount + 1
+	vector<vector<int>> costs(wordCount + 1, vector<int>(wordCount + 1));
+	vector<vector<int>> roots(wordCount, vector<int>(wordCount + 1));
 
-	//for (auto pr : wordFreqs) {
-	//	cout << '(' << pr.first << ',' << pr.second << ")\n";
-	//}
+	for (int i = 0; i < wordCount; ++i) {
+		costs[i][i + 1] = wordFreqs[words[i]];
+	}
+
+	for (int d = 0; d < wordCount - 1; ++d) {
+		for (int e = 0; e < wordCount - d - 1; ++e) {
+			int row = e;
+			int col = e + d + 2;
+
+			costs[row][col] = INT32_MAX;
+
+			for (int k = 0; k < d + 2; ++k) {
+				int cost = costs[row][col - d - 2 + k] + costs[row + 1 + k][col];
+				if (cost < costs[row][col]) {
+					costs[row][col] = cost;
+					roots[row][col] = row + k;
+				}
+			}
+
+			for (int x = row; x < row + d + 2; ++x) {
+				costs[row][col] += wordFreqs[words[x]];
+			}
+		}
+	}
+
+	if (debug) {
+		high_resolution_clock::time_point t2 = high_resolution_clock::now();
+		duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+
+		cout << "Time taken for " << words.size() << " values: " << time_span.count() << " seconds." << endl;
+	}
+
+	cout << words[roots[0][wordCount]] << " " << costs[0][wordCount] << endl;
 }
