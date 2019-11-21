@@ -156,6 +156,7 @@
   <ItemGroup>
     <Text Include="f1.txt" />
     <Text Include="TestData1.txt" />
+    <Text Include="TestData100.txt" />
     <Text Include="TestData2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
