@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="adjlist.h" />
     <ClInclude Include="adjmatrix.h" />
+    <ClInclude Include="multilist.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
