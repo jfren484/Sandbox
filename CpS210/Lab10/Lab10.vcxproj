@@ -153,6 +153,10 @@
   <ItemGroup>
     <ClCompile Include="Lab10.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adjlist.h" />
+    <ClInclude Include="adjmatrix.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
