@@ -15,10 +15,10 @@ public:
 		bool operator >(VertexWeight rhs) const { return (w > rhs.w); }			
 	};
 private:
-	std::vector<std::vector<VertexWeight> > adj;
+	std::vector<std::vector<VertexWeight>> adj;
 	unsigned int nEdges;
 public:
-	AdjList() { ; }
+	AdjList(): nEdges(0) { ; }
 	
 	void addVertex(Vertex u) { 
 		// u+1 needs to be <= size

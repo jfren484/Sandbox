@@ -5,13 +5,16 @@ using namespace std;
 
 int main()
 {
+	AdjList<int> adjlist;
+
 	int a, b, weight;
-	vector<int> weights;
 	while (cin >> a >> b >> weight) {
-		weights.push_back(weight);
+		adjlist.addEdge(a, b, weight);
 	}
 
-	for (unsigned int i = 0; i < weights.size(); ++i) {
-		cout << weights[i] << endl;
-	}
+	vector<unsigned int> foundBy;
+	vector<int> dist;
+	adjlist.dijkstra(0, foundBy, dist, 0);
+
+	//cout << weights[i] << endl;
 }
