@@ -153,6 +153,13 @@
   <ItemGroup>
     <ClCompile Include="Program4.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TestData1.txt" />
+    <Text Include="TestData2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adjlist.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

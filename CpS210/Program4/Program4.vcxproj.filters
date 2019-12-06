@@ -19,4 +19,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TestData1.txt" />
+    <Text Include="TestData2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adjlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
