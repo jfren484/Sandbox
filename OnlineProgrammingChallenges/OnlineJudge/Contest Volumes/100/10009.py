@@ -1,27 +1,27 @@
 import sys
 
 class Graph:
-	def __init__(self):
-		self.graph = {}
+    def __init__(self):
+        self.graph = {}
 
-	def add+vertex(self, v):
-		if not self.graph.has_key(v):
-			self.graph[v] = set()
+    def add_vertex(self, v):
+        if not v in self.graph:
+            self.graph[v] = set()
 
-	def add_edge(self, src, dest):
-		self.addVertex(src)
-		self.addVertex(dest)
-		
-		self.graph[src].add(dest)
-		self.graph[dest].add(src)
+    def add_edge(self, src, dest):
+        self.add_vertex(src)
+        self.add_vertex(dest)
+        
+        self.graph[src].add(dest)
+        self.graph[dest].add(src)
 
-	def find_shortest_path(self, start, end, path=[]):
-        path = path + [start]
-		
+    def find_shortest_path(self, start, end, path=[]):
+        path += [ start ]
+        
         if start == end:
             return path
 
-        if not self.graph.has_key(start):
+        if not start in self.graph:
             return None
 
         shortest = None
@@ -39,23 +39,23 @@ testCases = int(sys.stdin.readline())
 sys.stdin.readline() # read the blank line
 
 for tc in range(testCases):
-	vals = sys.stdin.readline().split()
-	roads = int(parts[0])
-	queries = int(parts[1])
+    parts = sys.stdin.readline().split()
+    roads = int(parts[0])
+    queries = int(parts[1])
 
-	g = Graph()
+    g = Graph()
 
-	for i in range(roads):
-		cities = sys.stdin.readline().split()
-		a = cities[0][0]
-		b = cities[1][0]
-		g.addEdge(a, b)
+    for i in range(roads):
+        cities = sys.stdin.readline().split()
+        a = cities[0][0]
+        b = cities[1][0]
+        g.add_edge(a, b)
 
-	for i in range(queries):
-		cities = sys.stdin.readline().split()
-		a = cities[0][0]
-		b = cities[1][0]
-		
-		shortest = g.find_shortest_path(a, b)
+    for i in range(queries):
+        cities = sys.stdin.readline().split()
+        a = cities[0][0]
+        b = cities[1][0]
+        
+        shortest = g.find_shortest_path(a, b)
 
-		print(shortest)
+        print(shortest)
