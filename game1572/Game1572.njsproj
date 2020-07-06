@@ -52,6 +52,9 @@
     <Content Include="src\gameConstants.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\gameMethods.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\index.css" />
     <Content Include="src\Game.js">
       <SubType>Code</SubType>

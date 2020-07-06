@@ -74,7 +74,7 @@ export class Game1572Board extends React.Component {
     render() {
         return (
             <div className="board">
-                <Header boardProps={this.props} />
+                <Header expeditionType={this.props.G.expeditionType} />
                 <div className="map">
                 </div>
                 <DiceTray mode={this.state.diceTray.mode} dice={this.state.diceTray.dice} onRollClick={this.onRollClick} onComplete={this.onRollComplete} />

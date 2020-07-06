@@ -5,7 +5,8 @@ export class ExpeditionLabel extends React.Component {
         return (
             <div className="expeditionLabel">
                 <div>Type of Expedition:</div>
-                <div>{this.props.boardProps.G.expeditionType.label}</div>
+                <div>{this.props.expeditionType.label}</div>
+                <div>{this.props.expeditionType.description}</div>
             </div>
         );
     }

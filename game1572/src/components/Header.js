@@ -5,7 +5,7 @@ export class Header extends React.Component {
     render() {
         return (
             <div className="header">
-                <ExpeditionLabel boardProps={this.props.boardProps} />
+                <ExpeditionLabel expeditionType={this.props.expeditionType} />
             </div>
         );
     }
