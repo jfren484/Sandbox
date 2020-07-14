@@ -3,296 +3,456 @@
 import * as gameConstants from './gameConstants';
 
 export function generateMap() {
-    return {
-        '0, 0.5': {
+	return {
+		'0, 0.5': {
 			x: 0,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.mountains,
 			interests: []
 		},
-        '0, 1.5': {
+		'0, 1.5': {
 			x: 0,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.mountains,
 			cataract: true,
 			interests: [],
-			river: 1
+			river: {
+				index: 1,
+				start: {
+					xRatio: 0.5,
+					yRatio: 0.5
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '0, 2.5': {
+		'0, 2.5': {
 			x: 0,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '1, 0': {
+		'1, 0': {
 			x: 1,
 			y: 0,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '1, 1': {
+		'1, 1': {
 			x: 1,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 2
+			river: {
+				index: 2,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '1, 2': {
+		'1, 2': {
 			x: 1,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '2, 0.5': {
+		'2, 0.5': {
 			x: 2,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '2, 1.5': {
+		'2, 1.5': {
 			x: 2,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.mountains,
 			interests: [],
-			river: 3
+			river: {
+				index: 3,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '2, 2.5': {
+		'2, 2.5': {
 			x: 2,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '3, 0': {
+		'3, 0': {
 			x: 3,
 			y: 0,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '3, 1': {
+		'3, 1': {
 			x: 3,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 4
+			river: {
+				index: 4,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '3, 2': {
+		'3, 2': {
 			x: 3,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '4, 0.5': {
+		'4, 0.5': {
 			x: 4,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '4, 1.5': {
+		'4, 1.5': {
 			x: 4,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 5
+			river: {
+				index: 5,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '4, 2.5': {
+		'4, 2.5': {
 			x: 4,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '5, 0': {
+		'5, 0': {
 			x: 5,
 			y: 0,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '5, 1': {
+		'5, 1': {
 			x: 5,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 6
+			river: {
+				index: 6,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '5, 2': {
+		'5, 2': {
 			x: 5,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '6, 0.5': {
+		'6, 0.5': {
 			x: 6,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [gameConstants.interestTypes.pending]
 		},
-        '6, 1.5': {
+		'6, 1.5': {
 			x: 6,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 7
+			river: {
+				index: 7,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '6, 2.5': {
+		'6, 2.5': {
 			x: 6,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '7, 1': {
+		'7, 1': {
 			x: 7,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '7, 2': {
+		'7, 2': {
 			x: 7,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 8
+			river: {
+				index: 8,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '7, 3': {
+		'7, 3': {
 			x: 7,
 			y: 3,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '8, 0.5': {
+		'8, 0.5': {
 			x: 8,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '8, 1.5': {
+		'8, 1.5': {
 			x: 8,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 9
+			river: {
+				index: 9,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '8, 2.5': {
+		'8, 2.5': {
 			x: 8,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '9, 0': {
+		'9, 0': {
 			x: 9,
 			y: 0,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '9, 1': {
+		'9, 1': {
 			x: 9,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 10
+			river: {
+				index: 10,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '9, 2': {
+		'9, 2': {
 			x: 9,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '10, 0.5': {
+		'10, 0.5': {
 			x: 10,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '10, 1.5': {
+		'10, 1.5': {
 			x: 10,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 11
+			river: {
+				index: 11,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '10, 2.5': {
+		'10, 2.5': {
 			x: 10,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '11, 1': {
+		'11, 1': {
 			x: 11,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '11, 2': {
+		'11, 2': {
 			x: 11,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 12
+			river: {
+				index: 12,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.25
+				}
+			}
 		},
-        '11, 3': {
+		'11, 3': {
 			x: 11,
 			y: 3,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '12, 0.5': {
+		'12, 0.5': {
 			x: 12,
 			y: 0.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '12, 1.5': {
+		'12, 1.5': {
 			x: 12,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 13
+			river: {
+				index: 13,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.75
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '12, 2.5': {
+		'12, 2.5': {
 			x: 12,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '13, 1': {
+		'13, 1': {
 			x: 13,
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '13, 2': {
+		'13, 2': {
 			x: 13,
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 14
+			river: {
+				index: 14,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.5,
+					yRatio: 1.0
+				}
+			}
 		},
-        '13, 3': {
+		'13, 3': {
 			x: 13,
 			y: 3,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 15
+			river: {
+				index: 15,
+				start: {
+					xRatio: 0.5,
+					yRatio: 0.0
+				},
+				end: {
+					xRatio: 0.875,
+					yRatio: 0.75
+				}
+			}
 		},
-        '14, 1.5': {
+		'14, 1.5': {
 			x: 14,
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '14, 2.5': {
+		'14, 2.5': {
 			x: 14,
 			y: 2.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
-        '14, 3.5': {
+		'14, 3.5': {
 			x: 14,
 			y: 3.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: 16,
+			river: {
+				index: 16,
+				start: {
+					xRatio: 0.125,
+					yRatio: 0.25
+				},
+				end: {
+					xRatio: 0.5,
+					yRatio: 1.0
+				}
+			},
 			winGame: true
 		}
-    };
+	};
 }
 
 export function setConquistadors(G, value) {

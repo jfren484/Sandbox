@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
@@ -97,7 +99,15 @@ export const terrainTypes = {
     },
     mountains: {
         movementProgress: -1,
-        hunting: 1
+        hunting: 1,
+        draw(x, y) {
+            const mt1 = (x + 12) + ',' + (y + 44) + ' ' + (x + 30) + ',' + (y + 8) + ' ' + (x + 45) + ',' + (y + 55);
+            const mt2 = (x + 40) + ',' + (y + 34) + ' ' + (x + 50) + ',' + (y + 13) + ' ' + (x + 67) + ',' + (y + 55);
+            return <g key={"MT-" + x + "-" + y} stroke="black" strokeWidth="2" fill="transparent">
+                <polyline key={"MT-" + x + "-" + y + "-1"} points={mt1} />
+                <polyline key={"MT-" + x + "-" + y + "-2"} points={mt2} />
+            </g>;
+        }
     },
     plains: {
         movementProgress: 1

@@ -19,6 +19,7 @@ export const Game1572 = {
             description: ''
         },
         fever: false,
+        map: gameMethods.generateMap(),
         planningDice: {
             2: 0,
             3: 0,

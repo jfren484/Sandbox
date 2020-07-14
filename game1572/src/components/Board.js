@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header } from './Header';
 import { DiceTray } from './DiceTray';
+import { Header } from './Header';
+import { Map } from './Map';
 import * as gameConstants from '../gameConstants';
 
 export class Game1572Board extends React.Component {
@@ -75,9 +76,8 @@ export class Game1572Board extends React.Component {
         return (
             <div className="board">
                 <Header expeditionType={this.props.G.expeditionType} />
-                <div className="map">
-                </div>
                 <DiceTray mode={this.state.diceTray.mode} dice={this.state.diceTray.dice} onRollClick={this.onRollClick} onComplete={this.onRollComplete} />
+                <Map mapData={this.props.G.map} />
             </div>
         );
     }
