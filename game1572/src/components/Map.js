@@ -28,7 +28,7 @@ export class Map extends React.Component {
                 const x2 = xBase + hexWidth * hex.river.end.xRatio;
                 const y2 = yBase + hexHeight * hex.river.end.yRatio;
 
-                shapes.push(<line key={"RIVER-" + hex.x + "-" + hex.y} x1={x1} y1={y1} x2={x2} y2={y2} stroke="blue" strokeWidth="4" />);
+                shapes.push(<line key={"RIVER-" + hex.x + "-" + hex.y} x1={x1} y1={y1} x2={x2} y2={y2} stroke="blue" strokeWidth="2" />);
             }
 
             if (hex.terrainType.draw) {
