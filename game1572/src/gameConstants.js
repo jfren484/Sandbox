@@ -85,8 +85,8 @@ export const terrainTypes = {
     forest: {
         hunting: 1,
         draw(x, y) {
-            const baseX = x + 24;
-            const treeY = y + 37;
+            const baseX = x + 22;
+            const treeY = y + 35;
             const lineHeight = 20;
             const treeRadius = 8;
 
@@ -107,9 +107,9 @@ export const terrainTypes = {
         nativeContact: 1,
         draw(x, y) {
             const offsets = [
-                { x: 17, y: 38 },
-                { x: 43, y: 38 },
-                { x: 30, y: 56 }
+                { x: 15, y: 36 },
+                { x: 41, y: 36 },
+                { x: 28, y: 54 }
             ];
             const hillRadius = 25;
 
@@ -133,8 +133,8 @@ export const terrainTypes = {
         movementProgress: -1,
         exploring: -1,
         draw(x, y) {
-            const baseX = x + 29;
-            const baseY = y + 28;
+            const baseX = x + 27;
+            const baseY = y + 26;
             const lineHeight = 25;
             const branchWidth = 10;
             const branchHeight = 8;
@@ -157,6 +157,8 @@ export const terrainTypes = {
         movementProgress: 1,
         noVillages: true,
         draw(x, y) {
+            return <rect x={x} y={y} width="80" height="70" fill="url(#Terrain.lake)" stroke="red" />;
+
             const waveWidth = 6;
             const waveHeight = 3;
             const lakeRadius = 31;
@@ -164,8 +166,8 @@ export const terrainTypes = {
             let parts = [];
             parts.push(<circle key={"TER-" + x + "-" + y + "-c"} cx={x + 42} cy={y + 37} r={lakeRadius} />);
             for (let i = 0; i < 3; ++i) {
-                const waveX = x + 29 + i * 13;
-                const waveY = y + 10 + (i === 0 ? 3 : i) * 12;
+                const waveX = x + 27 + i * 13;
+                const waveY = y + 8 + (i === 0 ? 3 : i) * 12;
                 parts.push(<line key={"TER-" + x + "-" + y + "-l1-" + i} x1={waveX - waveWidth} y1={waveY + waveHeight} x2={waveX} y2={waveY} />);
                 parts.push(<line key={"TER-" + x + "-" + y + "-l2-" + i} x1={waveX} y1={waveY} x2={waveX + waveWidth} y2={waveY + waveHeight} />);
             }
@@ -179,8 +181,8 @@ export const terrainTypes = {
         movementProgress: -1,
         hunting: 1,
         draw(x, y) {
-            const mt1 = (x + 12) + ',' + (y + 44) + ' ' + (x + 30) + ',' + (y + 8) + ' ' + (x + 45) + ',' + (y + 55);
-            const mt2 = (x + 40) + ',' + (y + 34) + ' ' + (x + 50) + ',' + (y + 13) + ' ' + (x + 67) + ',' + (y + 55);
+            const mt1 = (x + 10) + ',' + (y + 42) + ' ' + (x + 28) + ',' + (y + 6) + ' ' + (x + 43) + ',' + (y + 53);
+            const mt2 = (x + 38) + ',' + (y + 32) + ' ' + (x + 48) + ',' + (y + 11) + ' ' + (x + 65) + ',' + (y + 53);
             return <g key={"TER-" + x + "-" + y} stroke="black" strokeWidth="1" fill="transparent">
                 <polyline key={"TER-" + x + "-" + y + "-0"} points={mt1} />
                 <polyline key={"TER-" + x + "-" + y + "-1"} points={mt2} />
@@ -190,8 +192,8 @@ export const terrainTypes = {
     plains: {
         movementProgress: 1,
         draw(x, y) {
-            const baseX = x + 20;
-            const baseY = y + 25;
+            const baseX = x + 18;
+            const baseY = y + 23;
             const lineWidth = 20;
 
             let lines = [];
@@ -215,8 +217,8 @@ export const terrainTypes = {
 
             let plants = [];
             for (let i = 0; i < 2; ++i) {
-                const plantX = x + 29 + i * 25;
-                const plantY = y + 32 + i * 5;
+                const plantX = x + 27 + i * 25;
+                const plantY = y + 30 + i * 5;
                 plants.push(<line key={"TER-" + x + "-" + y + "-l0-" + i} x1={plantX} y1={plantY - plantHeight} x2={plantX} y2={plantY + plantHeight} />);
                 plants.push(<line key={"TER-" + x + "-" + y + "-l1-" + i} x1={plantX - plantWidth} y1={plantY + plantHeight + 1} x2={plantX + plantWidth} y2={plantY + plantHeight + 1} />);
                 plants.push(<line key={"TER-" + x + "-" + y + "-l2-" + i} x1={plantX - plantWidth} y1={plantY} x2={plantX} y2={plantY + plantHeight} />);
