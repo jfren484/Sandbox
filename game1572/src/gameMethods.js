@@ -13,20 +13,10 @@ export function generateMap() {
 		'0, 1.5': {
 			x: 0,
 			y: 1.5,
-			terrainType: gameConstants.terrainTypes.mountains,
+            terrainType: gameConstants.terrainTypes.mountains,
+            riverType: gameConstants.riverTypes.source,
 			cataract: true,
-			interests: [],
-			river: {
-				index: 1,
-				start: {
-					xRatio: 0.5,
-					yRatio: 0.5
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			interests: []
 		},
 		'0, 2.5': {
 			x: 0,

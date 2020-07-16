@@ -52,12 +52,16 @@
     <Content Include="src\components\Map.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\components\patterns\RiverPatterns.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\gameConstants.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\gameMethods.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\components\patterns\TerrainPatterns.js" />
     <Content Include="src\index.css" />
     <Content Include="src\Game.js">
       <SubType>Code</SubType>
@@ -72,6 +76,7 @@
     <Folder Include="public" />
     <Folder Include="src" />
     <Folder Include="src\components\" />
+    <Folder Include="src\components\patterns\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

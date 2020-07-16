@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
@@ -49,6 +47,15 @@ export const expeditionTypes = {
     }
 }
 
+export const hexSides = {
+    northwest: { name: 'northwest' },
+    north: { name: 'north' },
+    northeast: { name: 'northeast' },
+    southeast: { name: 'southeast' },
+    south: { name: 'south' },
+    southwest: { name: 'southwest' }
+}
+
 export const interestTypes = {
     diegoMendoza: {
         label: 'Deigo Mendoza',
@@ -78,6 +85,22 @@ export const interestTypes = {
     ruinedMission: {
         label: 'Ruined Mission',
         description: 'You find a crate of Muskets. Gain 5 Muskets. Add a Trail to any adjacent hex.'
+    }
+}
+
+export const map = {
+    cols: 15,
+    rows: 4.5,
+    hexPad: 2,
+    hexWidth: 80,
+    hexHeight: 70,
+    renderViewBox: '0 0 80 70'
+}
+
+export const riverTypes = {
+    source: {
+        name: 'source',
+        downstream: hexSides.northeast
     }
 }
 
