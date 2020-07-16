@@ -37,7 +37,7 @@ export function generateMap() {
 		'1, 0': {
 			x: 1,
 			y: 0,
-			terrainType: gameConstants.terrainTypes.lake,
+			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: []
 		},
 		'1, 1': {
