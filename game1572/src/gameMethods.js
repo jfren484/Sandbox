@@ -35,17 +35,7 @@ export function generateMap() {
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 2,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.swse
 		},
 		'1, 2': {
 			x: 1,
@@ -64,17 +54,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.mountains,
 			interests: [],
-			river: {
-				index: 3,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			riverType: gameConstants.riverTypes.nwne
 		},
 		'2, 2.5': {
 			x: 2,
@@ -93,17 +73,7 @@ export function generateMap() {
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 4,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.swse
 		},
 		'3, 2': {
 			x: 3,
@@ -122,17 +92,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 5,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			riverType: gameConstants.riverTypes.nwne
 		},
 		'4, 2.5': {
 			x: 4,
@@ -151,17 +111,7 @@ export function generateMap() {
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 6,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.swse
 		},
 		'5, 2': {
 			x: 5,
@@ -180,17 +130,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 7,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.nwse
 		},
 		'6, 2.5': {
 			x: 6,
@@ -209,17 +149,7 @@ export function generateMap() {
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 8,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			riverType: gameConstants.riverTypes.nwne
 		},
 		'7, 3': {
 			x: 7,
@@ -238,17 +168,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 9,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			riverType: gameConstants.riverTypes.swne
 		},
 		'8, 2.5': {
 			x: 8,
@@ -267,17 +187,7 @@ export function generateMap() {
 			y: 1,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 10,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.swse
 		},
 		'9, 2': {
 			x: 9,
@@ -296,17 +206,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 11,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.nwse
 		},
 		'10, 2.5': {
 			x: 10,
@@ -325,17 +225,7 @@ export function generateMap() {
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 12,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.25
-				}
-			}
+			riverType: gameConstants.riverTypes.nwne
 		},
 		'11, 3': {
 			x: 11,
@@ -354,17 +244,7 @@ export function generateMap() {
 			y: 1.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 13,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.75
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.swse
 		},
 		'12, 2.5': {
 			x: 12,
@@ -383,34 +263,14 @@ export function generateMap() {
 			y: 2,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 14,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.5,
-					yRatio: 1.0
-				}
-			}
+			riverType: gameConstants.riverTypes.nws
 		},
 		'13, 3': {
 			x: 13,
 			y: 3,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 15,
-				start: {
-					xRatio: 0.5,
-					yRatio: 0.0
-				},
-				end: {
-					xRatio: 0.875,
-					yRatio: 0.75
-				}
-			}
+			riverType: gameConstants.riverTypes.nse
 		},
 		'14, 1.5': {
 			x: 14,
@@ -429,17 +289,7 @@ export function generateMap() {
 			y: 3.5,
 			terrainType: gameConstants.terrainTypes.unexplored,
 			interests: [],
-			river: {
-				index: 16,
-				start: {
-					xRatio: 0.125,
-					yRatio: 0.25
-				},
-				end: {
-					xRatio: 0.5,
-					yRatio: 1.0
-				}
-			},
+			riverType: gameConstants.riverTypes.delta,
 			winGame: true
 		}
 	};

@@ -26,15 +26,6 @@ export class Map extends React.Component {
             const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
             const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
 
-            if (hex.river) {
-                const x1 = xBase + gameConstants.map.hexWidth * hex.river.start.xRatio;
-                const y1 = yBase + gameConstants.map.hexHeight * hex.river.start.yRatio;
-                const x2 = xBase + gameConstants.map.hexWidth * hex.river.end.xRatio;
-                const y2 = yBase + gameConstants.map.hexHeight * hex.river.end.yRatio;
-
-                shapes.push(<line key={"RIVER-" + hex.x + "-" + hex.y} x1={x1} y1={y1} x2={x2} y2={y2} stroke="blue" strokeWidth="2" />);
-            }
-
             const points = hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
 
             if (hex.riverType) {

@@ -98,9 +98,37 @@ export const map = {
 }
 
 export const riverTypes = {
+    delta: {
+        name: 'delta',
+        downstream: hexSides.south
+    },
     source: {
         name: 'source',
         downstream: hexSides.northeast
+    },
+    swse: {
+        name: 'swse',
+        downstream: hexSides.southeast
+    },
+    swne: {
+        name: 'swne',
+        downstream: hexSides.northeast
+    },
+    nse: {
+        name: 'nse',
+        downstream: hexSides.southeast
+    },
+    nwne: {
+        name: 'nwne',
+        downstream: hexSides.northeast
+    },
+    nws: {
+        name: 'nws',
+        downstream: hexSides.south
+    },
+    nwse: {
+        name: 'nwse',
+        downstream: hexSides.southeast
     }
 }
 
