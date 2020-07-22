@@ -2,6 +2,29 @@
 
 import * as gameConstants from './gameConstants';
 
+export function addConquistadorInPlanning(G) {
+	if (G.diceTray.dice.count < 4) {
+		return;
+	}
+
+	const required = 4;
+	const val = G.diceTray.dice[2].value;
+	if (G.diceTray.dice.filter(d6 => d6.value === val).length >= required) {
+		++G.counts.conquistadors;
+		G.diceTray.dice = G.diceTray.dice.filter(d6 => d6.value === val);
+
+		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
+	}
+}
+
+export function cureFever(G) {
+	const onesRequired = 3 + G.expeditionType.wildAdjust;
+	if (G.diceTray.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
+		G.fever = false;
+		G.diceTray.dice = G.diceTray.dice.slice(onesRequired - 1);
+	}
+}
+
 export function generateMap() {
 	return {
 		'0, 0.5': {
@@ -295,6 +318,15 @@ export function generateMap() {
 	};
 }
 
+export function getStage(ctx) {
+	return ctx.activePlayers ? ctx.activePlayers[0] : '';
+}
+
+export function rollDice(G, mode) {
+	G.diceTray.dice = G.diceTray.dice.map(d6 => d6.locked ? d6 : { value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
+	G.diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
+}
+
 export function setConquistadors(G, value) {
     G.counts.conquistadors = Math.max(0, Math.min(6, value));
 }
@@ -313,4 +345,13 @@ export function setMovementProgress(G, value) {
 
 export function setMuskets(G, value) {
     G.counts.muskets = Math.max(0, Math.min(6, value));
+}
+
+export function setupDiceTray(G, count) {
+	G.diceTray.dice = Array(count).fill({ value: '?' });
+	G.diceTray.mode = gameConstants.diceTrayModes.preroll;
+}
+
+export function startPhasePlanning(G, ctx) {
+	ctx.events.setStage('planning');
 }

@@ -13,6 +13,12 @@ export const Game1572 = {
             movementProgress: 6
         },
         days: 0,
+        diceTray: {
+            mode: gameConstants.diceTrayModes.preroll,
+            dice: [{
+                value: '?'
+            }]
+        },
         expeditionType: {
             id: 0,
             label: '',
@@ -20,7 +26,7 @@ export const Game1572 = {
         },
         fever: false,
         map: gameMethods.generateMap(),
-        planningDice: {
+        planningDiceAllocated: {
             2: 0,
             3: 0,
             4: 0,
@@ -34,8 +40,15 @@ export const Game1572 = {
             start: true,
             next: 'mainGame',
             moves: {
+                rollDice: (G, ctx) => {
+                    gameMethods.rollDice(G);
+                },
                 setExpeditionType: (G, ctx, id) => {
                     G.expeditionType = gameConstants.expeditionTypes[id];
+
+                    ctx.events.endPhase();
+                    ctx.events.setStage('planning');
+                    gameMethods.setupDiceTray(G, 5);
                 }
             }
         },
@@ -45,16 +58,47 @@ export const Game1572 = {
                 stages: {
                     planning: {
                         moves: {
+                            rollDice: (G, ctx) => {
+                                gameMethods.rollDice(G, gameConstants.diceTrayModes.rerollPartial);
+                                ctx.events.endStage();
+                            },
+                        },
+                        next: 'planningMidRoll'
+                    },
+                    planningMidRoll: {
+                        moves: {
+                            toggleDieLock: (G, ctx, id) => {
+                                G.diceTray.dice[id].locked = !G.diceTray.dice[id].locked;
+                            },
+                            rerollDice: (G, ctx) => {
+                                gameMethods.rollDice(G);
+                                ctx.events.endStage();
+                            },
                             addConquistador: (G, ctx) => {
                                 ++G.counts.conquistadors;
                             },
                             allocateDice: (G, ctx, dice) => {
-                                for (let i = 2; i < 7; ++i) {
-                                    G.planningDice[i] = dice[i];
-                                }
+                                // TODO
                             },
                             cureFever: (G, ctx) => {
-                                G.fever = false;
+                                gameMethods.cureFever(G);
+                            }
+                        },
+                        next: 'planningPostRoll'
+                    },
+                    planningPostRoll: {
+                        moves: {
+                            addConquistador: (G, ctx) => {
+                                ++G.counts.conquistadors;
+                            },
+                            allocateDice: (G, ctx, dice) => {
+                                // TODO
+                            },
+                            cureFever: (G, ctx) => {
+                                gameMethods.cureFever(G);
+                            },
+                            unlockDice: (G, ctx) => {
+                                G.diceTray.dice.forEach(d6 => d6.locked = false);
                             }
                         }
                     },

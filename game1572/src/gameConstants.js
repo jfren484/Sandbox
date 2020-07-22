@@ -2,6 +2,8 @@ export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
     rolling: 'rolling',
+    rerollAll: 'rerollAll',
+    rerollPartial: 'rerollPartial',
     postroll: 'postroll',
     confirmed: 'confirmed'
 };
@@ -88,13 +90,24 @@ export const interestTypes = {
     }
 }
 
+const hexWidth = 80;
+const hexHeight = 70;
+
 export const map = {
     cols: 15,
     rows: 4.5,
     hexPad: 2,
-    hexWidth: 80,
-    hexHeight: 70,
-    renderViewBox: '0 0 80 70'
+    hexWidth: hexWidth,
+    hexHeight: hexHeight,
+    renderViewBox: '0 0 80 70',
+    hexPoints: [
+        { x: 0, y: hexHeight / 2 },
+        { x: hexWidth / 4, y: 0 },
+        { x: hexWidth * 3 / 4, y: 0 },
+        { x: hexWidth, y: hexHeight / 2 },
+        { x: hexWidth * 3 / 4, y: hexHeight },
+        { x: hexWidth / 4, y: hexHeight },
+    ]
 }
 
 export const riverTypes = {
