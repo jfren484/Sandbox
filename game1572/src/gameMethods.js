@@ -3,15 +3,15 @@
 import * as gameConstants from './gameConstants';
 
 export function addConquistadorInPlanning(G) {
-	if (G.diceTray.dice.count < 4) {
+	if (G.diceTrayPlanning.dice.count < 4) {
 		return;
 	}
 
 	const required = 4;
-	const val = G.diceTray.dice[2].value;
-	if (G.diceTray.dice.filter(d6 => d6.value === val).length >= required) {
+	const val = G.diceTrayPlanning.dice[2].value;
+	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
 		++G.counts.conquistadors;
-		G.diceTray.dice = G.diceTray.dice.filter(d6 => d6.value === val);
+		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value === val);
 
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
 	}
@@ -19,9 +19,9 @@ export function addConquistadorInPlanning(G) {
 
 export function cureFever(G) {
 	const onesRequired = 3 + G.expeditionType.wildAdjust;
-	if (G.diceTray.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
+	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
 		G.fever = false;
-		G.diceTray.dice = G.diceTray.dice.slice(onesRequired - 1);
+		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired - 1);
 	}
 }
 
@@ -318,13 +318,19 @@ export function generateMap() {
 	};
 }
 
+export function getAdjacentUnexplored(G) {
+	// TODO
+
+	return [0];
+}
+
 export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }
 
-export function rollDice(G, mode) {
-	G.diceTray.dice = G.diceTray.dice.map(d6 => d6.locked ? d6 : { value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
-	G.diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
+export function rollDice(diceTray, mode) {
+	diceTray.dice = diceTray.dice.map(d6 => d6.locked ? d6 : { value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
+	diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
 }
 
 export function setConquistadors(G, value) {
@@ -347,9 +353,9 @@ export function setMuskets(G, value) {
     G.counts.muskets = Math.max(0, Math.min(6, value));
 }
 
-export function setupDiceTray(G, count) {
-	G.diceTray.dice = Array(count).fill({ value: '?' });
-	G.diceTray.mode = gameConstants.diceTrayModes.preroll;
+export function setupDiceTray(diceTray, count) {
+	diceTray.dice = Array(count).fill({ value: '?' });
+	diceTray.mode = gameConstants.diceTrayModes.preroll;
 }
 
 export function startPhasePlanning(G, ctx) {

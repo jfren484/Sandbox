@@ -12,12 +12,17 @@ export const Game1572 = {
             morale: 6,
             movementProgress: 6
         },
+        currentLocation: '0, 0.5',
         days: 0,
         diceTray: {
             mode: gameConstants.diceTrayModes.preroll,
             dice: [{
                 value: '?'
             }]
+        },
+        diceTrayPlanning: {
+            mode: gameConstants.diceTrayModes.preroll,
+            dice: Array(5).fill({ value: '?' })
         },
         expeditionType: {
             id: 0,
@@ -41,14 +46,15 @@ export const Game1572 = {
             next: 'mainGame',
             moves: {
                 rollDice: (G, ctx) => {
-                    gameMethods.rollDice(G);
+                    gameMethods.rollDice(G.diceTray);
                 },
                 setExpeditionType: (G, ctx, id) => {
+                    G.diceTray.dice = [];
                     G.expeditionType = gameConstants.expeditionTypes[id];
 
                     ctx.events.endPhase();
                     ctx.events.setStage('planning');
-                    gameMethods.setupDiceTray(G, 5);
+                    gameMethods.setupDiceTray(G.diceTrayPlanning, 5);
                 }
             }
         },
@@ -59,7 +65,7 @@ export const Game1572 = {
                     planning: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G, gameConstants.diceTrayModes.rerollPartial);
+                                gameMethods.rollDice(G.diceTrayPlanning, gameConstants.diceTrayModes.rerollPartial);
                                 ctx.events.endStage();
                             },
                         },
@@ -68,16 +74,16 @@ export const Game1572 = {
                     planningMidRoll: {
                         moves: {
                             toggleDieLock: (G, ctx, id) => {
-                                G.diceTray.dice[id].locked = !G.diceTray.dice[id].locked;
+                                G.diceTrayPlanning.dice[id].locked = !G.diceTrayPlanning.dice[id].locked;
                             },
                             rerollDice: (G, ctx) => {
-                                gameMethods.rollDice(G);
+                                gameMethods.rollDice(G.diceTrayPlanning);
                                 ctx.events.endStage();
                             },
                             addConquistador: (G, ctx) => {
-                                ++G.counts.conquistadors;
+                                gameMethods.addConquistadorInPlanning(G);
                             },
-                            allocateDice: (G, ctx, dice) => {
+                            allocateDice: (G, ctx) => {
                                 // TODO
                             },
                             cureFever: (G, ctx) => {
@@ -89,16 +95,36 @@ export const Game1572 = {
                     planningPostRoll: {
                         moves: {
                             addConquistador: (G, ctx) => {
-                                ++G.counts.conquistadors;
+                                gameMethods.addConquistadorInPlanning(G);
                             },
-                            allocateDice: (G, ctx, dice) => {
-                                // TODO
+                            allocateDice: (G, ctx) => {
+                                for (let i = 2; i <= 6; ++i) {
+                                    G.planningDiceAllocated[i] = 0;
+                                }
+
+                                for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
+                                    ++G.planningDiceAllocated[G.diceTrayPlanning.dice[i].value];
+                                }
+
+                                let nextStage = 'eatRations';
+                                if (G.planningDiceAllocated[2] > 0) {
+                                    nextStage = 'movementProgress';
+                                } else if (G.planningDiceAllocated[3] > 0 && gameMethods.getAdjacentUnexplored(this).length > 0) {
+                                    nextStage = 'mapping';
+                                } else if (G.planningDiceAllocated[4] > 0) {
+                                    nextStage = 'exploring';
+                                } else if (G.planningDiceAllocated[5] > 0) {
+                                    nextStage = 'nativeContact';
+                                } else if (G.planningDiceAllocated[6] > 0) {
+                                    nextStage = 'hunting';
+                                } else if (G.map[G.currentLocation].interests.filter(i => i === gameConstants.interestTypes.pending).length > 0) {
+                                    nextStage = 'interests';
+                                }
+
+                                ctx.events.setStage(nextStage);
                             },
                             cureFever: (G, ctx) => {
                                 gameMethods.cureFever(G);
-                            },
-                            unlockDice: (G, ctx) => {
-                                G.diceTray.dice.forEach(d6 => d6.locked = false);
                             }
                         }
                     },

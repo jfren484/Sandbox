@@ -13,20 +13,18 @@ export class DiceTray extends React.Component {
 
         let buttons = [];
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
-            buttons.push(<button onClick={() => this.props.onRollClick()}>Roll</button>);
+            buttons.push(<button key="0" onClick={() => this.props.onRollClick()}>Roll</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            buttons.push(<button onClick={() => this.props.onComplete()}>OK</button>);
-        } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
-            buttons.push(<button onClick={() => this.props.onRerollClick()}>Reroll</button>);
-            buttons.push(<button onClick={() => this.props.onComplete()}>Don't Reroll Any</button>);
+            buttons.push(<button key="0" onClick={() => this.props.onComplete()}>OK</button>);
+        } else if (this.props.mode === gameConstants.diceTrayModes.rerollAll) {
+            buttons.push(<button key="0" onClick={() => this.props.onRerollClick()}>Reroll with Musket</button>);
+            buttons.push(<button key="1" onClick={() => this.props.onComplete()}>OK</button>);
         }
-
-        // TODO: Cure Fever and Add Conquistador
 
         return (
             <div>
                 <div>
-                    {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} locked={d6.locked} onClick={() => this.props.onDieClick(i)} />)}
+                    {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}
                 </div>
                 <div>
                     {buttons}

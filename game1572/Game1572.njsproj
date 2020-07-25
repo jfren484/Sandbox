@@ -37,6 +37,7 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\manifest.json" />
     <Content Include="src\components\Board.js" />
+    <Content Include="src\components\PlanningDiceTray.js" />
     <Content Include="src\components\DiceTray.js">
       <SubType>Code</SubType>
     </Content>
