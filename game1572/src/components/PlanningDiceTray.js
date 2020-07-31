@@ -17,28 +17,64 @@ export class PlanningDiceTray extends React.Component {
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
             buttons.push(<button key="0" onClick={() => this.props.onComplete()}>OK</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
-            buttons.push(<button key="0" onClick={() => this.props.onRerollClick()}>Reroll</button>);
-            buttons.push(<button key="1" onClick={() => this.props.onComplete()}>Don't Reroll Any</button>);
+            if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
+                buttons.push(<button key="0" onClick={() => this.props.onRerollClick()}>Reroll</button>);
+            }
+
+            if (this.props.dice.filter(d6 => !d6.locked).length === 0 || this.props.dice.filter(d6 => d6.locked).length === 0) {
+                buttons.push(<button key="1" onClick={() => this.props.onSkipRerollClick()}>Don't Reroll Any</button>);
+            }
         }
 
         // TODO: Cure Fever and Add Conquistador
 
-        let dice = this.props.dice.map((d6, i) => {
-            return {
-                i: i,
-                die: d6
-            };
-        });
+        let diceLeft, diceRight, headerLeft, headerRight;
+
+        if (this.props.mode == gameConstants.diceTrayModes.postroll) {
+            diceLeft = this.props.dice
+                .filter(d6 => !d6.allocated)
+                .sort((a, b) => a.value - b.value)
+                .map(d6 => {
+                    return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
+                });
+            diceRight = this.props.dice
+                .filter(d6 => d6.allocated)
+                .sort((a, b) => a.value - b.value)
+                .map(d6 => {
+                    return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
+                });
+
+            headerLeft = 'Pending';
+            headerRight = 'Allocated';
+        } else {
+            diceLeft = this.props.dice
+                .filter(d6 => !d6.locked)
+                .sort((a, b) => a.value - b.value)
+                .map(d6 => {
+                    return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
+                });
+            diceRight = this.props.dice
+                .filter(d6 => d6.locked)
+                .sort((a, b) => a.value - b.value)
+                .map(d6 => {
+                    return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
+                });
+
+            headerLeft = 'To Reroll';
+            headerRight = 'Locked';
+        }
 
         return (
-            <div>
-                <div>
-                    {dice.filter(d6 => !d6.die.locked).map(d6 => <Die key={d6.i} value={d6.die.value} locked={d6.die.locked} onClick={() => this.props.onDieClick(d6.i)} />)}
+            <div className="planningDiceTrayContainer">
+                <div className="planningDiceTray">
+                    <h3>{headerLeft}</h3>
+                    {diceLeft}
                 </div>
-                <div>
-                    {dice.filter(d6 => d6.die.locked).map(d6 => <Die key={d6.i} value={d6.die.value} locked={d6.die.locked} onClick={() => this.props.onDieClick(d6.i)} />)}
+                <div className="planningDiceTray">
+                    <h3>{headerRight}</h3>
+                    {diceRight}
                 </div>
-                <div>
+                <div className="planningDiceActions">
                     {buttons}
                 </div>
             </div>

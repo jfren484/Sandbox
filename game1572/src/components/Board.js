@@ -11,7 +11,7 @@ export class Game1572Board extends React.Component {
         super(props);
 
         this.state = {
-            dice: [{ value: '?' }],
+            dice: [{ id: 0, value: '?' }],
             diceAnimationTarget: null,
             counter: 0
         };
@@ -50,6 +50,10 @@ export class Game1572Board extends React.Component {
         this.props.moves.allocateDice();
     };
 
+    onPlanningSkipRerollClick = () => {
+        this.props.moves.skipReroll();
+    }
+
     onRerollClick = () => {
         this.animateDice(this.props.G.diceTray, 'diceTray');
         this.props.moves.rerollDice();
@@ -77,17 +81,25 @@ export class Game1572Board extends React.Component {
 
     animateDice(diceTray, diceAnimationTarget) {
         this.setState({
-            dice: diceTray.dice.map(d6 => d6.locked ? d6 : { value: Math.floor(Math.random() * 6) + 1 }),
+            dice: diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: Math.floor(Math.random() * 6) + 1 }),
             diceAnimationTarget: diceAnimationTarget,
             counter: 8
         });
     }
 
     tick() {
+        if (this.state.counter === 0 && gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
+            setTimeout(() => {
+                if (gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
+                    this.props.moves.startAllocation();
+                }
+            }, 500);
+        }
+
         if (this.state.counter > 0) {
             this.setState(state => {
                 return {
-                    dice: state.dice.map(d6 => d6.locked ? d6 : { value: (d6.value + Math.floor(Math.random() * 5)) % 6 + 1 }),
+                    dice: state.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: (d6.value + Math.floor(Math.random() * 5)) % 6 + 1 }),
                     counter: state.counter - 1
                 }
             });
@@ -112,6 +124,7 @@ export class Game1572Board extends React.Component {
                     onRollClick={this.onPlanningRollClick}
                     onDieClick={this.onPlanningDieClick}
                     onRerollClick={this.onPlanningRerollClick}
+                    onSkipRerollClick={this.onPlanningSkipRerollClick}
                     onComplete={this.onPlanningRollComplete} />
             </div>
         );

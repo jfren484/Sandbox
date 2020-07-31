@@ -328,8 +328,35 @@ export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }
 
+export function phasePlanningFinish(G, ctx) {
+	for (let i = 2; i <= 6; ++i) {
+		G.planningDiceAllocated[i] = 0;
+	}
+
+	for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
+		++G.planningDiceAllocated[G.diceTrayPlanning.dice[i].value];
+	}
+
+	let nextStage = 'eatRations';
+	if (G.planningDiceAllocated[2] > 0) {
+		nextStage = 'movementProgress';
+	} else if (G.planningDiceAllocated[3] > 0 && getAdjacentUnexplored(G).length > 0) {
+		nextStage = 'mapping';
+	} else if (G.planningDiceAllocated[4] > 0) {
+		nextStage = 'exploring';
+	} else if (G.planningDiceAllocated[5] > 0) {
+		nextStage = 'nativeContact';
+	} else if (G.planningDiceAllocated[6] > 0) {
+		nextStage = 'hunting';
+	} else if (G.map[G.currentLocation].interests.filter(i => i === gameConstants.interestTypes.pending).length > 0) {
+		nextStage = 'interests';
+	}
+
+	return nextStage;
+}
+
 export function rollDice(diceTray, mode) {
-	diceTray.dice = diceTray.dice.map(d6 => d6.locked ? d6 : { value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
+	diceTray.dice = diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
 	diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
 }
 
@@ -354,7 +381,7 @@ export function setMuskets(G, value) {
 }
 
 export function setupDiceTray(diceTray, count) {
-	diceTray.dice = Array(count).fill({ value: '?' });
+	diceTray.dice = Array(count).fill('?').map((d6, i) => { return { id: i, value: d6 }; });
 	diceTray.mode = gameConstants.diceTrayModes.preroll;
 }
 

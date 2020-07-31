@@ -22,7 +22,7 @@ export const Game1572 = {
         },
         diceTrayPlanning: {
             mode: gameConstants.diceTrayModes.preroll,
-            dice: Array(5).fill({ value: '?' })
+            dice: []
         },
         expeditionType: {
             id: 0,
@@ -73,58 +73,50 @@ export const Game1572 = {
                     },
                     planningMidRoll: {
                         moves: {
-                            toggleDieLock: (G, ctx, id) => {
-                                G.diceTrayPlanning.dice[id].locked = !G.diceTrayPlanning.dice[id].locked;
+                            addConquistador: (G, ctx) => {
+                                gameMethods.addConquistadorInPlanning(G);
+                            },
+                            cureFever: (G, ctx) => {
+                                gameMethods.cureFever(G);
                             },
                             rerollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTrayPlanning);
                                 ctx.events.endStage();
                             },
-                            addConquistador: (G, ctx) => {
-                                gameMethods.addConquistadorInPlanning(G);
+                            skipReroll: (G, ctx) => {
+                                G.diceTrayPlanning.mode = gameConstants.diceTrayModes.postroll;
+                                ctx.events.endStage();
                             },
-                            allocateDice: (G, ctx) => {
-                                // TODO
-                            },
-                            cureFever: (G, ctx) => {
-                                gameMethods.cureFever(G);
+                            toggleDieLock: (G, ctx, id) => {
+                                const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
+                                die.locked = !die.locked;
                             }
                         },
                         next: 'planningPostRoll'
                     },
                     planningPostRoll: {
                         moves: {
+                            startAllocation: (G, ctx) => {
+                                G.diceTrayPlanning.dice.forEach(d6 => d6.allocated = d6.value !== 1);
+                                ctx.events.endStage();
+                            },
+                        },
+                        next: 'planningAllocation'
+                    },
+                    planningAllocation: {
+                        moves: {
                             addConquistador: (G, ctx) => {
                                 gameMethods.addConquistadorInPlanning(G);
                             },
                             allocateDice: (G, ctx) => {
-                                for (let i = 2; i <= 6; ++i) {
-                                    G.planningDiceAllocated[i] = 0;
-                                }
-
-                                for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
-                                    ++G.planningDiceAllocated[G.diceTrayPlanning.dice[i].value];
-                                }
-
-                                let nextStage = 'eatRations';
-                                if (G.planningDiceAllocated[2] > 0) {
-                                    nextStage = 'movementProgress';
-                                } else if (G.planningDiceAllocated[3] > 0 && gameMethods.getAdjacentUnexplored(this).length > 0) {
-                                    nextStage = 'mapping';
-                                } else if (G.planningDiceAllocated[4] > 0) {
-                                    nextStage = 'exploring';
-                                } else if (G.planningDiceAllocated[5] > 0) {
-                                    nextStage = 'nativeContact';
-                                } else if (G.planningDiceAllocated[6] > 0) {
-                                    nextStage = 'hunting';
-                                } else if (G.map[G.currentLocation].interests.filter(i => i === gameConstants.interestTypes.pending).length > 0) {
-                                    nextStage = 'interests';
-                                }
-
+                                const nextStage = gameMethods.phasePlanningFinish(G, ctx);
                                 ctx.events.setStage(nextStage);
                             },
                             cureFever: (G, ctx) => {
                                 gameMethods.cureFever(G);
+                            },
+                            toggleDieAllocated: (G, ctx, id) => {
+                                G.diceTrayPlanning.dice[id].locked = !G.diceTrayPlanning.dice[id].locked;
                             }
                         }
                     },

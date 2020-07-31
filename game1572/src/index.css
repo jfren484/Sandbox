@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.planningDiceTrayContainer {
+    width: 200px;
+}
+
+.planningDiceTray {
+    float: left;
+    width: 80px;
+    margin: 10px;
+}
+
+.planningDiceActions {
+    clear: both;
+    text-align: center;
+}
+
+.planningDiceActions button {
+    margin: 5px;
+}

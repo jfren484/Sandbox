@@ -29,10 +29,6 @@ export class Die extends React.Component {
             <svg className={'die' + (this.props.locked ? ' locked' : '')} width={this.props.dieSize} height={this.props.dieSize} onClick={() => this.props.onClick()}>
                 <rect x="0" y="0" rx={this.props.dieRounding} ry={this.props.dieRounding} width={this.props.dieSize} height={this.props.dieSize} fill={this.props.dieColor} />
                 {pips}
-                {(this.props.locked
-                    ? <rect x="0" y="0" rx={this.props.dieRounding} ry={this.props.dieRounding} width={this.props.dieSize} height={this.props.dieSize}
-                        stroke="red" strokeWidth="10" fill="transparent" />
-                    : '')}
             </svg>
         );
     }
