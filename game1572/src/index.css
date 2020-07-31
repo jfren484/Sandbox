@@ -15,7 +15,7 @@ code {
 
 
 .planningDiceTrayContainer {
-    width: 200px;
+    /*width: 200px;*/
 }
 
 .planningDiceTray {
@@ -24,8 +24,17 @@ code {
     margin: 10px;
 }
 
+.planningDiceTray.allocating {
+    width: 430px;
+}
+
+.planningDiceTray svg {
+    margin: 3px;
+}
+
 .planningDiceActions {
     clear: both;
+    width: 200px;
     text-align: center;
 }
 

@@ -26,8 +26,8 @@ export class Die extends React.Component {
         }
 
         return (
-            <svg className={'die' + (this.props.locked ? ' locked' : '')} width={this.props.dieSize} height={this.props.dieSize} onClick={() => this.props.onClick()}>
-                <rect x="0" y="0" rx={this.props.dieRounding} ry={this.props.dieRounding} width={this.props.dieSize} height={this.props.dieSize} fill={this.props.dieColor} />
+            <svg className={'die' + (this.props.locked ? ' locked' : '')} width={this.props.dieSize} height={this.props.dieSize} onClick={() => { if (this.props.onClick) { this.props.onClick(); } }}>
+                <rect x="0" y="0" rx={this.props.dieRounding} ry={this.props.dieRounding} width={this.props.dieSize} height={this.props.dieSize} fill={this.props.dieColor} strokeWidth={this.props.borderWidth} stroke={this.props.borderColor} />
                 {pips}
             </svg>
         );
@@ -35,9 +35,11 @@ export class Die extends React.Component {
 }
 
 Die.defaultProps = {
-    dieColor: "black",
+    borderWidth: 0,
+    borderColor: 'black',
+    dieColor: 'black',
     dieRounding: 10,
     dieSize: 80,
-    pipColor: "white",
+    pipColor: 'white',
     pipSize: 8
 };
