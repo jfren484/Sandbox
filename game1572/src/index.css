@@ -24,8 +24,17 @@ code {
     margin: 10px;
 }
 
-.planningDiceTray.allocating {
+.planningDiceTray.assigning {
     width: 430px;
+}
+
+.planningDiceTray .assigned, .planningDiceTray .wild {
+    float: left;
+}
+
+.planningDiceTray .bucket {
+    clear: both;
+    height: 90px;
 }
 
 .planningDiceTray svg {

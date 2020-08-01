@@ -4,28 +4,11 @@ import * as gameConstants from '../gameConstants';
 
 export class PlanningDiceTray extends React.Component {
     onDragStart = (event, id) => {
-        console.log('dragstart on die: ', id);
         event.dataTransfer.setData("id", id);
     }
 
     onDragOver = (event) => {
         event.preventDefault();
-    }
-
-    onDrop = (event, cat) => {
-        let id = event.dataTransfer.getData("id");
-
-        //let tasks = this.state.tasks.filter((task) => {
-        //    if (task.id == id) {
-        //        task.type = cat;
-        //    }
-        //    return task;
-        //});
-
-        //this.setState({
-        //    ...this.state,
-        //    tasks
-        //});
     }
 
     render() {
@@ -54,46 +37,62 @@ export class PlanningDiceTray extends React.Component {
         // TODO: Cure Fever and Add Conquistador
 
         let diceLeft, diceRight, headerLeft, headerRight;
-        const allocating = this.props.mode === gameConstants.diceTrayModes.postroll;
+        const assigning = this.props.mode === gameConstants.diceTrayModes.postroll;
 
-        if (allocating) {
+        if (assigning) {
             diceLeft = this.props.dice
-                .filter(d6 => !d6.allocated)
-                .sort((a, b) => a.value - b.value)
+                .filter(d6 => !d6.assignedValue)
                 .map(d6 => {
-                    return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} onDragStart={(event) => this.onDragStart(event, d6.id)} />);
+                    return (
+                        <div key={'die-' + d6.id} className="wild" draggable onDragStart={(event) => this.onDragStart(event, d6.id)}>
+                            <Die key={d6.id} value={d6.value} />
+                        </div>
+                    );
                 });
             diceRight = [2, 3, 4, 5, 6]
                 .map(i => {
                     let bucket = this.props.dice
-                        .filter(d6 => d6.value === i)
+                        .filter(d6 => d6.assignedValue === i)
+                        .sort((a, b) => b.value - a.value)
                         .map(d6 => {
-                            return i > 1
-                                ? (<Die key={d6.id} value={d6.value} />)
-                                : (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
+                            return d6.value > 1
+                                ? (<div key={'die-' + d6.id} className="assigned">
+                                    <Die key={d6.id} value={d6.value} />
+                                </div>)
+                                : (<div key={'die-' + d6.id} className="assigned" draggable onDragStart={(event) => this.onDragStart(event, d6.id)}>
+                                    <Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />
+                                </div>);
                         });
+
                     if (bucket.length === 0) {
-                        bucket.push(<Die key={'bucket-' + i} value={i} dieColor="#eee" pipColor="#ccc" />);
+                        bucket.push(<div key={'dieph-' + i} className="assigned">
+                            <Die key={'placeholder-' + i} value={i} dieColor="#eee" pipColor="#ccc" />
+                        </div>);
                     }
+
                     return (
-                        <div>
+                        <div key={'bucket-' + i} className="bucket" onDragOver={(event) => this.onDragOver(event)} onDrop={(event) => { this.props.onDieDrop(event, i) }}>
                             {bucket}
                         </div>
-                        );
+                    );
                 });
 
-            headerLeft = 'Pending';
-            headerRight = 'Allocated';
+            headerLeft = 'Wild';
+            headerRight = 'Assigned';
         } else {
-            diceLeft = this.props.dice
-                .filter(d6 => !d6.locked)
-                .sort((a, b) => a.value - b.value)
+            diceLeft = this.props.dice.filter(d6 => !d6.locked);
+            diceRight = this.props.dice.filter(d6 => d6.locked);
+
+            if (this.props.mode !== gameConstants.diceTrayModes.rolling) {
+                diceLeft = diceLeft.sort((a, b) => a.value - b.value);
+                diceRight = diceRight.sort((a, b) => a.value - b.value);
+            }
+
+            diceLeft = diceLeft
                 .map(d6 => {
                     return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
                 });
-            diceRight = this.props.dice
-                .filter(d6 => d6.locked)
-                .sort((a, b) => a.value - b.value)
+            diceRight = diceRight
                 .map(d6 => {
                     return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
                 });
@@ -108,7 +107,7 @@ export class PlanningDiceTray extends React.Component {
                     <h3>{headerLeft}</h3>
                     {diceLeft}
                 </div>
-                <div className={'planningDiceTray' + (allocating ? ' allocating' : '')}>
+                <div className={'planningDiceTray' + (assigning ? ' assigning' : '')}>
                     <h3>{headerRight}</h3>
                     {diceRight}
                 </div>

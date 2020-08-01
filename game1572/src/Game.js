@@ -31,7 +31,7 @@ export const Game1572 = {
         },
         fever: false,
         map: gameMethods.generateMap(),
-        planningDiceAllocated: {
+        planningDiceAssigned: {
             2: 0,
             3: 0,
             4: 0,
@@ -96,27 +96,28 @@ export const Game1572 = {
                     },
                     planningPostRoll: {
                         moves: {
-                            startAllocation: (G, ctx) => {
-                                G.diceTrayPlanning.dice.forEach(d6 => d6.allocated = d6.value !== 1);
+                            startAssignment: (G, ctx) => {
+                                G.diceTrayPlanning.dice.forEach(d6 => d6.assignedValue = d6.value > 1 ? d6.value : null);
                                 ctx.events.endStage();
                             },
                         },
-                        next: 'planningAllocation'
+                        next: 'planningAssignment'
                     },
-                    planningAllocation: {
+                    planningAssignment: {
                         moves: {
                             addConquistador: (G, ctx) => {
                                 gameMethods.addConquistadorInPlanning(G);
                             },
-                            allocateDice: (G, ctx) => {
+                            assignedice: (G, ctx) => {
                                 const nextStage = gameMethods.phasePlanningFinish(G, ctx);
                                 ctx.events.setStage(nextStage);
                             },
                             cureFever: (G, ctx) => {
                                 gameMethods.cureFever(G);
                             },
-                            toggleDieAllocated: (G, ctx, id) => {
-                                G.diceTrayPlanning.dice[id].locked = !G.diceTrayPlanning.dice[id].locked;
+                            toggleDieAssigned: (G, ctx, id, i) => {
+                                const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
+                                die.assignedValue = i;
                             }
                         }
                     },

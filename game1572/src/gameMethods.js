@@ -330,23 +330,25 @@ export function getStage(ctx) {
 
 export function phasePlanningFinish(G, ctx) {
 	for (let i = 2; i <= 6; ++i) {
-		G.planningDiceAllocated[i] = 0;
+		G.planningDiceAssigned[i] = 0;
 	}
 
 	for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
-		++G.planningDiceAllocated[G.diceTrayPlanning.dice[i].value];
+		++G.planningDiceAssigned[G.diceTrayPlanning.dice[i].assignedValue];
 	}
 
+	G.diceTrayPlanning.dice = []; 
+
 	let nextStage = 'eatRations';
-	if (G.planningDiceAllocated[2] > 0) {
+	if (G.planningDiceAssigned[2] > 0) {
 		nextStage = 'movementProgress';
-	} else if (G.planningDiceAllocated[3] > 0 && getAdjacentUnexplored(G).length > 0) {
+	} else if (G.planningDiceAssigned[3] > 0 && getAdjacentUnexplored(G).length > 0) {
 		nextStage = 'mapping';
-	} else if (G.planningDiceAllocated[4] > 0) {
+	} else if (G.planningDiceAssigned[4] > 0) {
 		nextStage = 'exploring';
-	} else if (G.planningDiceAllocated[5] > 0) {
+	} else if (G.planningDiceAssigned[5] > 0) {
 		nextStage = 'nativeContact';
-	} else if (G.planningDiceAllocated[6] > 0) {
+	} else if (G.planningDiceAssigned[6] > 0) {
 		nextStage = 'hunting';
 	} else if (G.map[G.currentLocation].interests.filter(i => i === gameConstants.interestTypes.pending).length > 0) {
 		nextStage = 'interests';

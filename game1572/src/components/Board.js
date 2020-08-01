@@ -31,9 +31,19 @@ export class Game1572Board extends React.Component {
     }
 
     onPlanningDieClick = id => {
-        if (gameMethods.getStage(this.props.ctx) === 'planningMidRoll') {
-            this.props.moves.toggleDieLock(id);
+        switch (gameMethods.getStage(this.props.ctx)) {
+            case 'planningMidRoll':
+                this.props.moves.toggleDieLock(id);
+                break;
+            case 'planningAssignment':
+                this.props.moves.toggleDieAssigned(id, null);
+                break;
         }
+    }
+
+    onPlanningDieDrop = (event, i) => {
+        let id = parseInt(event.dataTransfer.getData("id"));
+        this.props.moves.toggleDieAssigned(id, i);
     }
 
     onPlanningRerollClick = () => {
@@ -47,7 +57,7 @@ export class Game1572Board extends React.Component {
     }
 
     onPlanningRollComplete = () => {
-        this.props.moves.allocateDice();
+        this.props.moves.assignedice();
     };
 
     onPlanningSkipRerollClick = () => {
@@ -91,9 +101,9 @@ export class Game1572Board extends React.Component {
         if (this.state.counter === 0 && gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
             setTimeout(() => {
                 if (gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
-                    this.props.moves.startAllocation();
+                    this.props.moves.startAssignment();
                 }
-            }, 500);
+            }, 10);
         }
 
         if (this.state.counter > 0) {
@@ -123,6 +133,7 @@ export class Game1572Board extends React.Component {
                     dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
                     onRollClick={this.onPlanningRollClick}
                     onDieClick={this.onPlanningDieClick}
+                    onDieDrop={this.onPlanningDieDrop}
                     onRerollClick={this.onPlanningRerollClick}
                     onSkipRerollClick={this.onPlanningSkipRerollClick}
                     onComplete={this.onPlanningRollComplete} />
