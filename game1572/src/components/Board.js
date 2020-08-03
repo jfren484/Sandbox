@@ -122,13 +122,15 @@ export class Game1572Board extends React.Component {
 
         return (
             <div className="board">
-                <Header expeditionType={this.props.G.expeditionType} />
+                <Header expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
+                <Map mapData={this.props.G.map} />
                 <DiceTray mode={animateDiceTray ? gameConstants.diceTrayModes.rolling : this.props.G.diceTray.mode}
                     dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
+                    instructions={this.props.G.diceTray.instructions}
+                    extraContent={this.props.G.diceTray.extraContent}
                     onRollClick={this.onRollClick}
                     onRerollClick={this.onRerollClick}
                     onComplete={this.onRollComplete} />
-                <Map mapData={this.props.G.map} />
                 <PlanningDiceTray mode={animateDiceTrayPlanning ? gameConstants.diceTrayModes.rolling : this.props.G.diceTrayPlanning.mode}
                     dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
                     onRollClick={this.onPlanningRollClick}

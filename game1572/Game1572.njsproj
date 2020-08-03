@@ -31,12 +31,20 @@
   <ItemGroup>
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
+    <Content Include="public\images\conquistador.png" />
+    <Content Include="public\images\food.png" />
+    <Content Include="public\images\morale.png" />
+    <Content Include="public\images\movement.png" />
+    <Content Include="public\images\muskets.png" />
     <Content Include="README.md" />
     <Content Include="public\robots.txt" />
     <Content Include="public\index.html" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\manifest.json" />
     <Content Include="src\components\Board.js" />
+    <Content Include="src\components\Counter.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\PlanningDiceTray.js" />
     <Content Include="src\components\DiceTray.js">
       <SubType>Code</SubType>
@@ -75,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public" />
+    <Folder Include="public\images\" />
     <Folder Include="src" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\patterns\" />

@@ -8,11 +8,80 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 
+.counter {
+    display: inline-block;
+    border: solid 1px black;
+    padding: 10px;
+    text-align: center;
+    width: 180px;
+}
+
+.counter h3 {
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+.counter img {
+    margin-right: 10px;
+}
+
+.expeditionType {
+    padding: 10px;
+    border: solid black;
+    border-width: 1px 1px 0 1px;
+    width: 988px;
+}
+
+.expeditionTypeLabelLabel {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.expeditionTypeLabel {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.map {
+    padding: 10px;
+}
+
+.modal {
+    background-color: #fefefe;
+    margin: 30% auto; /* centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 320px;
+    text-align: center;
+}
+
+.modal div {
+    margin-top: 15px;
+}
+
+.modal h3 {
+    margin: 0;
+}
+
+.modal .buttons {
+    height: 23px;
+}
+
+.modalBackground {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
 .planningDiceTrayContainer {
     /*width: 200px;*/

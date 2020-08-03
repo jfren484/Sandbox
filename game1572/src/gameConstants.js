@@ -8,6 +8,10 @@ export const diceTrayModes = {
     confirmed: 'confirmed'
 };
 
+export const diceTrayInstructions = {
+    expeditionType: 'Roll to determine Expedition Type'
+};
+
 export const expeditionTypes = {
     1: {
         id: 1,

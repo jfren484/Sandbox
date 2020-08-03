@@ -3,10 +3,10 @@ import React from 'react';
 export class ExpeditionLabel extends React.Component {
     render() {
         return (
-            <div className="expeditionLabel">
-                <div>Type of Expedition:</div>
-                <div>{this.props.expeditionType.label}</div>
-                <div>{this.props.expeditionType.description}</div>
+            <div className="expeditionType">
+                <span className="expeditionTypeLabelLabel">Type of Expedition:</span>
+                <span className="expeditionTypeLabel">{this.props.expeditionType.label}</span> 
+                <span className="expeditionTypeDesc"> - {this.props.expeditionType.description}</span>
             </div>
         );
     }

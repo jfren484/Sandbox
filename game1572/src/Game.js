@@ -5,17 +5,38 @@ export const Game1572 = {
     setup: () => ({
         name: '1572: The Lost Expedition',
 
-        counts: {
-            conquistadors: 6,
-            muskets: 6,
-            food: 6,
-            morale: 6,
-            movementProgress: 6
+        counters: {
+            conquistadors: {
+                label: 'Conquistadors',
+                image: 'conquistador.png',
+                value: 6
+            },
+            muskets: {
+                label: 'Muskets',
+                image: 'muskets.png',
+                value: 6
+            },
+            food: {
+                label: 'Food',
+                image: 'food.png',
+                value: 6
+            },
+            morale: {
+                label: 'Morale',
+                image: 'morale.png',
+                value: 6
+            },
+            movementProgress: {
+                label: 'Movement Progress',
+                image: 'movement.png',
+                value: 6
+            }
         },
         currentLocation: '0, 0.5',
         days: 0,
         diceTray: {
             mode: gameConstants.diceTrayModes.preroll,
+            instructions: gameConstants.diceTrayInstructions.expeditionType,
             dice: [{
                 value: '?'
             }]
@@ -47,6 +68,9 @@ export const Game1572 = {
             moves: {
                 rollDice: (G, ctx) => {
                     gameMethods.rollDice(G.diceTray);
+
+                    const expeditionType = gameConstants.expeditionTypes[G.diceTray.dice[0].value];
+                    G.diceTray.extraContent = expeditionType.label + ' - ' + expeditionType.description;
                 },
                 setExpeditionType: (G, ctx, id) => {
                     G.diceTray.dice = [];
