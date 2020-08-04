@@ -13,16 +13,16 @@ export class PlanningDiceTray extends React.Component {
 
     render() {
         if (this.props.dice.length === 0) {
-            return (
-                <div>
-                </div>
-            );
+            return null;
         }
 
         let buttons = [];
+        let extraContent = [];
+
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
             buttons.push(<button key="0" onClick={() => this.props.onRollClick()}>Roll</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
+            extraContent.push(<div>{this.props.extraContent}</div>);
             buttons.push(<button key="0" onClick={() => this.props.onComplete()}>OK</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
             if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
@@ -36,7 +36,7 @@ export class PlanningDiceTray extends React.Component {
 
         // TODO: Cure Fever and Add Conquistador
 
-        let diceLeft, diceRight, headerLeft, headerRight;
+        let diceLeft, diceRight, headerLeft, headerRight, instructions;
         const assigning = this.props.mode === gameConstants.diceTrayModes.postroll;
 
         if (assigning) {
@@ -79,6 +79,10 @@ export class PlanningDiceTray extends React.Component {
 
             headerLeft = 'Wild';
             headerRight = 'Assigned';
+
+            instructions = this.props.dice.filter(d6 => d6.value === 1).length > 0
+                ? 'Assign wild cards'
+                : '';
         } else {
             diceLeft = this.props.dice.filter(d6 => !d6.locked);
             diceRight = this.props.dice.filter(d6 => d6.locked);
@@ -102,17 +106,24 @@ export class PlanningDiceTray extends React.Component {
         }
 
         return (
-            <div className="planningDiceTrayContainer">
-                <div className="planningDiceTray">
-                    <h3>{headerLeft}</h3>
-                    {diceLeft}
-                </div>
-                <div className={'planningDiceTray' + (assigning ? ' assigning' : '')}>
-                    <h3>{headerRight}</h3>
-                    {diceRight}
-                </div>
-                <div className="planningDiceActions">
-                    {buttons}
+            <div class="modalBackground">
+                <div class="modal planning">
+                    <h3>Phase 1: Planning</h3>
+                    {instructions}
+                    <div className={'planningDiceTrayContainer ' + (assigning ? 'assigning' : 'firstRoll')}>
+                        <div className="planningDiceTray">
+                            <h3>{headerLeft}</h3>
+                            {diceLeft}
+                        </div>
+                        <div className={'planningDiceTray' + (assigning ? ' assigning' : '')}>
+                            <h3>{headerRight}</h3>
+                            {diceRight}
+                        </div>
+                        {extraContent}
+                        <div className="buttons">
+                            {buttons}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

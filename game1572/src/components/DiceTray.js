@@ -22,7 +22,7 @@ export class DiceTray extends React.Component {
 
         return (
             <div class="modalBackground">
-                <div class="modal">
+                <div class="modal diceTray">
                     <h3>{this.props.instructions}</h3>
                     <div>
                         {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}

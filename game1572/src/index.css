@@ -51,15 +51,19 @@ code {
 }
 
 .modal {
+    display: inline-block;
     background-color: #fefefe;
-    margin: 30% auto; /* centered */
+    margin: 20% 0 0 10%;
     padding: 20px;
     border: 1px solid #888;
-    width: 320px;
     text-align: center;
 }
 
-.modal div {
+.modal.diceTray {
+    width: 320px;
+}
+
+.modal > div {
     margin-top: 15px;
 }
 
@@ -68,7 +72,7 @@ code {
 }
 
 .modal .buttons {
-    height: 23px;
+    height: 31px;
 }
 
 .modalBackground {
@@ -83,13 +87,14 @@ code {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.planningDiceTrayContainer {
-    /*width: 200px;*/
+.planningDiceTrayContainer.firstRoll {
+    width: 200px;
 }
 
 .planningDiceTray {
     float: left;
     width: 80px;
+    height: 475px;
     margin: 10px;
 }
 
@@ -99,6 +104,7 @@ code {
 
 .planningDiceTray .assigned, .planningDiceTray .wild {
     float: left;
+    margin: 3px;
 }
 
 .planningDiceTray .bucket {
@@ -106,16 +112,12 @@ code {
     height: 90px;
 }
 
-.planningDiceTray svg {
-    margin: 3px;
-}
-
-.planningDiceActions {
+.planningDiceTrayContainer .buttons {
     clear: both;
     width: 200px;
     text-align: center;
 }
 
-.planningDiceActions button {
+.planningDiceTrayContainer .buttons button {
     margin: 5px;
 }
