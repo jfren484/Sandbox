@@ -131,7 +131,11 @@ export class Game1572Board extends React.Component {
                     onRollClick={this.onRollClick}
                     onRerollClick={this.onRerollClick}
                     onComplete={this.onRollComplete} />
-                <PlanningDiceTray mode={animateDiceTrayPlanning ? gameConstants.diceTrayModes.rolling : this.props.G.diceTrayPlanning.mode}
+                <PlanningDiceTray mode={animateDiceTrayPlanning
+                    ? this.props.G.diceTrayPlanning.mode === gameConstants.diceTrayModes.rerollPartial
+                        ? gameConstants.diceTrayModes.rolling
+                        : gameConstants.diceTrayModes.rerolling
+                    : this.props.G.diceTrayPlanning.mode}
                     dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
                     onRollClick={this.onPlanningRollClick}
                     onDieClick={this.onPlanningDieClick}

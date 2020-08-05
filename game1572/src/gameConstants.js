@@ -4,6 +4,7 @@ export const diceTrayModes = {
     rolling: 'rolling',
     rerollAll: 'rerollAll',
     rerollPartial: 'rerollPartial',
+    rerolling: 'rerolling',
     postroll: 'postroll',
     confirmed: 'confirmed'
 };

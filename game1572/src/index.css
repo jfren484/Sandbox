@@ -51,24 +51,62 @@ code {
 }
 
 .modal {
-    display: inline-block;
     background-color: #fefefe;
-    margin: 20% 0 0 10%;
+    margin: 30% auto 0 auto; /* centered */
     padding: 20px;
     border: 1px solid #888;
     text-align: center;
 }
 
 .modal.diceTray {
+    margin: 30% auto; /* centered */
     width: 320px;
 }
 
-.modal > div {
-    margin-top: 15px;
+.modal.diceTray > div {
+    margin-bottom: 15px;
+}
+
+.modal.diceTray > div.buttons {
+    margin-bottom: 0;
+}
+
+.modal.planning {
+    margin: 10% auto 0 auto; /* centered */
+    width: 550px;
+}
+
+.modal.planning .planningDiceTray h3,
+.modal.planning .instructions,
+.modal.planning.preroll .planningDiceTray.right,
+.modal.planning.rolling .planningDiceTray.right {
+    display: none;
+}
+
+.modal.planning.preroll .planningDiceTray.left,
+.modal.planning.rolling .planningDiceTray.left {
+    margin-left: 236px;
+}
+
+.modal.planning.preroll .planningDiceTray h3.preroll,
+.modal.planning.preroll .instructions.preroll,
+.modal.planning.rolling .planningDiceTray h3.rolling,
+.modal.planning.rolling .instructions.rolling,
+.modal.planning.rerollPartial .planningDiceTray h3.rerollPartial,
+.modal.planning.rerollPartial .instructions.rerollPartial,
+.modal.planning.rerolling .planningDiceTray h3.rerolling,
+.modal.planning.rerolling .instructions.rerolling,
+.modal.planning.postroll .planningDiceTray h3.postroll,
+.modal.planning.postroll .instructions.postroll {
+    display: block;
+}
+
+.modal.planning.postroll .planningDiceTray.right {
+    width: 430px;
 }
 
 .modal h3 {
-    margin: 0;
+    margin-top: 0;
 }
 
 .modal .buttons {
@@ -87,19 +125,10 @@ code {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.planningDiceTrayContainer.firstRoll {
-    width: 200px;
-}
-
 .planningDiceTray {
     float: left;
     width: 80px;
-    height: 475px;
     margin: 10px;
-}
-
-.planningDiceTray.assigning {
-    width: 430px;
 }
 
 .planningDiceTray .assigned, .planningDiceTray .wild {
@@ -114,7 +143,6 @@ code {
 
 .planningDiceTrayContainer .buttons {
     clear: both;
-    width: 200px;
     text-align: center;
 }
 

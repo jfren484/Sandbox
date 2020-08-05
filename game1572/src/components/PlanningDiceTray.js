@@ -17,12 +17,10 @@ export class PlanningDiceTray extends React.Component {
         }
 
         let buttons = [];
-        let extraContent = [];
 
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
             buttons.push(<button key="0" onClick={() => this.props.onRollClick()}>Roll</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            extraContent.push(<div>{this.props.extraContent}</div>);
             buttons.push(<button key="0" onClick={() => this.props.onComplete()}>OK</button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
             if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
@@ -34,12 +32,13 @@ export class PlanningDiceTray extends React.Component {
             }
         }
 
+        // TODO: Confirm unassigned wilds?
+
         // TODO: Cure Fever and Add Conquistador
 
-        let diceLeft, diceRight, headerLeft, headerRight, instructions;
-        const assigning = this.props.mode === gameConstants.diceTrayModes.postroll;
+        let diceLeft, diceRight;
 
-        if (assigning) {
+        if (this.props.mode === gameConstants.diceTrayModes.postroll) {
             diceLeft = this.props.dice
                 .filter(d6 => !d6.assignedValue)
                 .map(d6 => {
@@ -76,18 +75,11 @@ export class PlanningDiceTray extends React.Component {
                         </div>
                     );
                 });
-
-            headerLeft = 'Wild';
-            headerRight = 'Assigned';
-
-            instructions = this.props.dice.filter(d6 => d6.value === 1).length > 0
-                ? 'Assign wild cards'
-                : '';
         } else {
             diceLeft = this.props.dice.filter(d6 => !d6.locked);
             diceRight = this.props.dice.filter(d6 => d6.locked);
 
-            if (this.props.mode !== gameConstants.diceTrayModes.rolling) {
+            if (this.props.mode !== gameConstants.diceTrayModes.rolling && this.props.mode !== gameConstants.diceTrayModes.rerolling) {
                 diceLeft = diceLeft.sort((a, b) => a.value - b.value);
                 diceRight = diceRight.sort((a, b) => a.value - b.value);
             }
@@ -100,26 +92,28 @@ export class PlanningDiceTray extends React.Component {
                 .map(d6 => {
                     return (<Die key={d6.id} value={d6.value} onClick={() => this.props.onDieClick(d6.id)} />);
                 });
-
-            headerLeft = 'To Reroll';
-            headerRight = 'Locked';
         }
 
         return (
             <div class="modalBackground">
-                <div class="modal planning">
+                <div className={'modal planning ' + this.props.mode}>
                     <h3>Phase 1: Planning</h3>
-                    {instructions}
-                    <div className={'planningDiceTrayContainer ' + (assigning ? 'assigning' : 'firstRoll')}>
-                        <div className="planningDiceTray">
-                            <h3>{headerLeft}</h3>
+                    <div class="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</div>
+                    <div class="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll.</div>
+                    <div class="instructions postroll">Assign wild cards.</div>
+                    <div class="planningDiceTrayContainer">
+                        <div class="planningDiceTray left">
+                            <h3 class="rolling rerolling">Rolling</h3>
+                            <h3 class="rerollPartial">To Reroll</h3>
+                            <h3 class="postroll">Wild</h3>
                             {diceLeft}
                         </div>
-                        <div className={'planningDiceTray' + (assigning ? ' assigning' : '')}>
-                            <h3>{headerRight}</h3>
+                        <div class="planningDiceTray right">
+                            <h3 class="rolling rerollPartial rerolling">Locked</h3>
+                            <h3 class="postroll">Assigned</h3>
                             {diceRight}
                         </div>
-                        {extraContent}
+                        <div class="postroll">{this.props.extraContent}</div>
                         <div className="buttons">
                             {buttons}
                         </div>
