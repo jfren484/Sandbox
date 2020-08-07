@@ -6,9 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Grow from '@material-ui/core/Grow';
 import { PaperComponent } from './PaperComponent';
 import { Die } from './Die';
 import * as gameConstants from '../gameConstants';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Grow ref={ref} {...props} />;
+});
 
 export class DiceTray extends React.Component {
     render() {
@@ -27,7 +32,8 @@ export class DiceTray extends React.Component {
         return (
             <Dialog
                 open={this.props.dice.length > 0}
-                PaperComponent={PaperComponent}>
+                PaperComponent={PaperComponent}
+                TransitionComponent={Transition}>
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                     {this.props.instructions}
                 </DialogTitle>
@@ -38,7 +44,7 @@ export class DiceTray extends React.Component {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>
-                    <ButtonGroup>
+                    <ButtonGroup color="primary">
                         {buttons}
                     </ButtonGroup>
                 </DialogActions>

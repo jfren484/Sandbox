@@ -64,9 +64,26 @@ code {
     display: none;
 }
 
+.dialog.planning {
+    height: 745px;
+}
+
+.dialog.planning .instructionsContainer {
+    height: 72px;
+}
+
+.dialog.planning .instructionsContainer p {
+    margin-bottom: 0;
+}
+
 .dialog.planning.preroll .planningDiceTray.left,
 .dialog.planning.rolling .planningDiceTray.left {
     margin-left: 236px;
+}
+
+.dialog.planning.rerollPartial .planningDiceTray.left,
+.dialog.planning.rerolling .planningDiceTray.left {
+    margin-left: 186px;
 }
 
 .dialog.preroll .planningDiceTray h3.preroll,
@@ -82,12 +99,18 @@ code {
     display: block;
 }
 
-.dialog .planningDiceTray.right {
+.dialog.postroll .planningDiceTray.right {
     width: 430px;
 }
 
 .dialog h3 {
     margin-top: 0;
+}
+
+.planningDiceTrayContainer {
+    width: 560px;
+    height: 520px;
+    overflow: auto;
 }
 
 .planningDiceTray {
@@ -96,18 +119,17 @@ code {
     margin: 10px;
 }
 
-.planningDiceTray .assigned, .planningDiceTray .wild {
+.planningDiceTray .assigned {
     float: left;
-    margin: 3px;
+    margin-right: 10px;
+    transform: translate(0, 0);
+}
+
+.planningDiceTray .assigned, .planningDiceTray .wild {
+    transform: translate(0, 0);
 }
 
 .planningDiceTray .bucket {
     clear: both;
     height: 90px;
-}
-
-.planningDiceTrayContainer .buttons {
-    clear: both;
-    display: block;
-    text-align: center;
 }
