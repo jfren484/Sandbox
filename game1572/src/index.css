@@ -1,10 +1,9 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
@@ -79,7 +78,8 @@ code {
 .modal.planning .planningDiceTray h3,
 .modal.planning .instructions,
 .modal.planning.preroll .planningDiceTray.right,
-.modal.planning.rolling .planningDiceTray.right {
+.modal.planning.rolling .planningDiceTray.right,
+.board > * {
     display: none;
 }
 
@@ -97,7 +97,10 @@ code {
 .modal.planning.rerolling .planningDiceTray h3.rerolling,
 .modal.planning.rerolling .instructions.rerolling,
 .modal.planning.postroll .planningDiceTray h3.postroll,
-.modal.planning.postroll .instructions.postroll {
+.modal.planning.postroll .instructions.postroll,
+.board.preGame .preGame,
+.board.determineExpeditionType .determineExpeditionType,
+.board.mainGame .mainGame  {
     display: block;
 }
 
@@ -107,10 +110,6 @@ code {
 
 .modal h3 {
     margin-top: 0;
-}
-
-.modal .buttons {
-    height: 31px;
 }
 
 .modalBackground {
@@ -143,9 +142,6 @@ code {
 
 .planningDiceTrayContainer .buttons {
     clear: both;
+    display: block;
     text-align: center;
-}
-
-.planningDiceTrayContainer .buttons button {
-    margin: 5px;
 }

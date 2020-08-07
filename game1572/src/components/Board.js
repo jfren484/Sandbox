@@ -1,4 +1,8 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { DiceTray } from './DiceTray';
 import { Header } from './Header';
 import { Map } from './Map';
@@ -30,6 +34,10 @@ export class Game1572Board extends React.Component {
         clearInterval(this.timerID);
     }
 
+    onGameStart = () => {
+        this.props.moves.beginGame();
+    }
+
     onPlanningDieClick = id => {
         switch (gameMethods.getStage(this.props.ctx)) {
             case 'planningMidRoll':
@@ -37,6 +45,8 @@ export class Game1572Board extends React.Component {
                 break;
             case 'planningAssignment':
                 this.props.moves.toggleDieAssigned(id, null);
+                break;
+            default:
                 break;
         }
     }
@@ -121,29 +131,42 @@ export class Game1572Board extends React.Component {
         const animateDiceTrayPlanning = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTrayPlanning';
 
         return (
-            <div className="board">
-                <Header expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                <Map mapData={this.props.G.map} />
-                <DiceTray mode={animateDiceTray ? gameConstants.diceTrayModes.rolling : this.props.G.diceTray.mode}
-                    dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
-                    instructions={this.props.G.diceTray.instructions}
-                    extraContent={this.props.G.diceTray.extraContent}
-                    onRollClick={this.onRollClick}
-                    onRerollClick={this.onRerollClick}
-                    onComplete={this.onRollComplete} />
-                <PlanningDiceTray mode={animateDiceTrayPlanning
-                    ? this.props.G.diceTrayPlanning.mode === gameConstants.diceTrayModes.rerollPartial
-                        ? gameConstants.diceTrayModes.rolling
-                        : gameConstants.diceTrayModes.rerolling
-                    : this.props.G.diceTrayPlanning.mode}
-                    dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
-                    onRollClick={this.onPlanningRollClick}
-                    onDieClick={this.onPlanningDieClick}
-                    onDieDrop={this.onPlanningDieDrop}
-                    onRerollClick={this.onPlanningRerollClick}
-                    onSkipRerollClick={this.onPlanningSkipRerollClick}
-                    onComplete={this.onPlanningRollComplete} />
-            </div>
+            <Container className={'board ' + this.props.ctx.phase}>
+                <Box className="preGame">
+                    <h3>1572: The Lost Expedition</h3>
+                    <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of
+                    you survive. Now you have to make it down the mountain and to the coastline where you can signal for help. The way is
+                    dangerous though; you're short food and muskets. The natives will likely want you dead as offer any help.</p>
+                    <ButtonGroup color="primary" className="buttons">
+                        <Button onClick={() => this.onGameStart()}>OK</Button>
+                    </ButtonGroup>
+                </Box>
+                <div className="mainGame determineExpeditionType">
+                    <DiceTray mode={animateDiceTray ? gameConstants.diceTrayModes.rolling : this.props.G.diceTray.mode}
+                        dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
+                        instructions={this.props.G.diceTray.instructions}
+                        extraContent={this.props.G.diceTray.extraContent}
+                        onRollClick={this.onRollClick}
+                        onRerollClick={this.onRerollClick}
+                        onComplete={this.onRollComplete} />
+                </div>
+                <div className="mainGame">
+                    <PlanningDiceTray mode={animateDiceTrayPlanning
+                        ? this.props.G.diceTrayPlanning.mode === gameConstants.diceTrayModes.rerollPartial
+                            ? gameConstants.diceTrayModes.rolling
+                            : gameConstants.diceTrayModes.rerolling
+                        : this.props.G.diceTrayPlanning.mode}
+                        dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
+                        onRollClick={this.onPlanningRollClick}
+                        onDieClick={this.onPlanningDieClick}
+                        onDieDrop={this.onPlanningDieDrop}
+                        onRerollClick={this.onPlanningRerollClick}
+                        onSkipRerollClick={this.onPlanningSkipRerollClick}
+                        onComplete={this.onPlanningRollComplete} />
+                    <Header className="mainGame" expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
+                    <Map className="mainGame" mapData={this.props.G.map} />
+                </div>
+            </Container>
         );
     }
 }

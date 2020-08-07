@@ -37,9 +37,7 @@ export const Game1572 = {
         diceTray: {
             mode: gameConstants.diceTrayModes.preroll,
             instructions: gameConstants.diceTrayInstructions.expeditionType,
-            dice: [{
-                value: '?'
-            }]
+            dice: []
         },
         diceTrayPlanning: {
             mode: gameConstants.diceTrayModes.preroll,
@@ -62,8 +60,18 @@ export const Game1572 = {
     }),
 
     phases: {
-        determineExpeditionType: {
+        preGame: {
             start: true,
+            next: 'determineExpeditionType',
+            moves: {
+                beginGame: (G, ctx) => {
+                    ctx.events.endPhase();
+                    gameMethods.setupDiceTray(G.diceTray, 1);
+                }
+            }
+        },
+
+        determineExpeditionType: {
             next: 'mainGame',
             moves: {
                 rollDice: (G, ctx) => {

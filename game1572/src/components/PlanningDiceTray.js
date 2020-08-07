@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Die } from './Die';
 import * as gameConstants from '../gameConstants';
 
@@ -19,16 +21,16 @@ export class PlanningDiceTray extends React.Component {
         let buttons = [];
 
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
-            buttons.push(<button key="0" onClick={() => this.props.onRollClick()}>Roll</button>);
+            buttons.push(<Button key="0" onClick={() => this.props.onRollClick()}>Roll</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            buttons.push(<button key="0" onClick={() => this.props.onComplete()}>OK</button>);
+            buttons.push(<Button key="0" onClick={() => this.props.onComplete()}>OK</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
             if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
-                buttons.push(<button key="0" onClick={() => this.props.onRerollClick()}>Reroll</button>);
+                buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()}>Reroll</Button>);
             }
 
             if (this.props.dice.filter(d6 => !d6.locked).length === 0 || this.props.dice.filter(d6 => d6.locked).length === 0) {
-                buttons.push(<button key="1" onClick={() => this.props.onSkipRerollClick()}>Don't Reroll Any</button>);
+                buttons.push(<Button key="1" onClick={() => this.props.onSkipRerollClick()}>Don't Reroll Any</Button>);
             }
         }
 
@@ -95,28 +97,27 @@ export class PlanningDiceTray extends React.Component {
         }
 
         return (
-            <div class="modalBackground">
+            <div className="modalBackground">
                 <div className={'modal planning ' + this.props.mode}>
                     <h3>Phase 1: Planning</h3>
-                    <div class="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</div>
-                    <div class="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll.</div>
-                    <div class="instructions postroll">Assign wild cards.</div>
-                    <div class="planningDiceTrayContainer">
-                        <div class="planningDiceTray left">
-                            <h3 class="rolling rerolling">Rolling</h3>
-                            <h3 class="rerollPartial">To Reroll</h3>
-                            <h3 class="postroll">Wild</h3>
+                    <p className="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</p>
+                    <p className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll.</p>
+                    <p className="instructions postroll">Assign wild cards.</p>
+                    <div className="planningDiceTrayContainer">
+                        <div className="planningDiceTray left">
+                            <h3 className="rolling rerolling">Rolling</h3>
+                            <h3 className="rerollPartial">To Reroll</h3>
+                            <h3 className="postroll">Wild</h3>
                             {diceLeft}
                         </div>
-                        <div class="planningDiceTray right">
-                            <h3 class="rolling rerollPartial rerolling">Locked</h3>
-                            <h3 class="postroll">Assigned</h3>
+                        <div className="planningDiceTray right">
+                            <h3 className="rolling rerollPartial rerolling">Locked</h3>
+                            <h3 className="postroll">Assigned</h3>
                             {diceRight}
                         </div>
-                        <div class="postroll">{this.props.extraContent}</div>
-                        <div className="buttons">
+                        <ButtonGroup color="primary" className="buttons">
                             {buttons}
-                        </div>
+                        </ButtonGroup>
                     </div>
                 </div>
             </div>
