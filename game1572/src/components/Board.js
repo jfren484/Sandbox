@@ -133,7 +133,7 @@ export class Game1572Board extends React.Component {
         return (
             <Container className={'board ' + this.props.ctx.phase}>
                 <Box className="preGame">
-                    <h3>1572: The Lost Expedition</h3>
+                    <h1>1572: The Lost Expedition</h1>
                     <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of
                     you survive. Now you have to make it down the mountain and to the coastline where you can signal for help. The way is
                     dangerous though; you're short food and muskets. The natives will likely want you dead as offer any help.</p>

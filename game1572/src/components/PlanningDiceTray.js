@@ -1,6 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { PaperComponent } from './PaperComponent';
 import { Die } from './Die';
 import * as gameConstants from '../gameConstants';
 
@@ -97,30 +103,42 @@ export class PlanningDiceTray extends React.Component {
         }
 
         return (
-            <div className="modalBackground">
-                <div className={'modal planning ' + this.props.mode}>
-                    <h3>Phase 1: Planning</h3>
-                    <p className="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</p>
-                    <p className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll.</p>
-                    <p className="instructions postroll">Assign wild cards.</p>
-                    <div className="planningDiceTrayContainer">
-                        <div className="planningDiceTray left">
-                            <h3 className="rolling rerolling">Rolling</h3>
-                            <h3 className="rerollPartial">To Reroll</h3>
-                            <h3 className="postroll">Wild</h3>
-                            {diceLeft}
+            <Dialog
+                open={this.props.dice.length > 0}
+                PaperComponent={PaperComponent}>
+                <div className={'dialog ' + this.props.mode}>
+                    <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+                        Phase 1: Planning
+                    </DialogTitle>
+                    <DialogContent style={{ textAlign: 'center' }}>
+                        <DialogContentText>
+                            <p className="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</p>
+                            <p className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll.</p>
+                            <p className="instructions postroll">Assign wild cards.</p>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogContent style={{ textAlign: 'center', justifyContent: 'center' }}>
+                        <div className="planningDiceTrayContainer">
+                            <div className="planningDiceTray left">
+                                <h3 className="rolling rerolling">Rolling</h3>
+                                <h3 className="rerollPartial">To Reroll</h3>
+                                <h3 className="postroll">Wild</h3>
+                                {diceLeft}
+                            </div>
+                            <div className="planningDiceTray right">
+                                <h3 className="rolling rerollPartial rerolling">Locked</h3>
+                                <h3 className="postroll">Assigned</h3>
+                                {diceRight}
+                            </div>
                         </div>
-                        <div className="planningDiceTray right">
-                            <h3 className="rolling rerollPartial rerolling">Locked</h3>
-                            <h3 className="postroll">Assigned</h3>
-                            {diceRight}
-                        </div>
-                        <ButtonGroup color="primary" className="buttons">
+                    </DialogContent>
+                    <DialogActions style={{ justifyContent: 'center' }}>
+                        <ButtonGroup color="primary">
                             {buttons}
                         </ButtonGroup>
-                    </div>
+                    </DialogActions>
                 </div>
-            </div>
+            </Dialog>
         );
     }
 }

@@ -1,15 +1,17 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { PaperComponent } from './PaperComponent';
 import { Die } from './Die';
 import * as gameConstants from '../gameConstants';
 
 export class DiceTray extends React.Component {
     render() {
-        if (this.props.dice.length === 0) {
-            return null;
-        }
-
         let buttons = [];
         let extraContent = [];
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
@@ -23,18 +25,24 @@ export class DiceTray extends React.Component {
         }
 
         return (
-            <div className="modalBackground">
-                <div className="modal diceTray">
-                    <h3>{this.props.instructions}</h3>
-                    <div>
-                        {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}
-                    </div>
-                    {extraContent}
-                    <ButtonGroup color="primary" className="buttons">
+            <Dialog
+                open={this.props.dice.length > 0}
+                PaperComponent={PaperComponent}>
+                <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+                    {this.props.instructions}
+                </DialogTitle>
+                <DialogContent style={{ textAlign: 'center' }}>
+                    {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}
+                    <DialogContentText>
+                        {extraContent}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions style={{ justifyContent: 'center' }}>
+                    <ButtonGroup>
                         {buttons}
                     </ButtonGroup>
-                </div>
-            </div>
+                </DialogActions>
+            </Dialog>
         );
     }
 }

@@ -11,6 +11,16 @@ code {
 }
 
 
+.board > * {
+    display: none;
+}
+
+.board.preGame .preGame,
+.board.determineExpeditionType .determineExpeditionType,
+.board.mainGame .mainGame {
+    display: block;
+}
+
 .counter {
     display: inline-block;
     border: solid 1px black;
@@ -49,79 +59,35 @@ code {
     padding: 10px;
 }
 
-.modal {
-    background-color: #fefefe;
-    margin: 30% auto 0 auto; /* centered */
-    padding: 20px;
-    border: 1px solid #888;
-    text-align: center;
-}
-
-.modal.diceTray {
-    margin: 30% auto; /* centered */
-    width: 320px;
-}
-
-.modal.diceTray > div {
-    margin-bottom: 15px;
-}
-
-.modal.diceTray > div.buttons {
-    margin-bottom: 0;
-}
-
-.modal.planning {
-    margin: 10% auto 0 auto; /* centered */
-    width: 550px;
-}
-
-.modal.planning .planningDiceTray h3,
-.modal.planning .instructions,
-.modal.planning.preroll .planningDiceTray.right,
-.modal.planning.rolling .planningDiceTray.right,
-.board > * {
+.dialog .planningDiceTray h3,
+.dialog .instructions {
     display: none;
 }
 
-.modal.planning.preroll .planningDiceTray.left,
-.modal.planning.rolling .planningDiceTray.left {
+.dialog.planning.preroll .planningDiceTray.left,
+.dialog.planning.rolling .planningDiceTray.left {
     margin-left: 236px;
 }
 
-.modal.planning.preroll .planningDiceTray h3.preroll,
-.modal.planning.preroll .instructions.preroll,
-.modal.planning.rolling .planningDiceTray h3.rolling,
-.modal.planning.rolling .instructions.rolling,
-.modal.planning.rerollPartial .planningDiceTray h3.rerollPartial,
-.modal.planning.rerollPartial .instructions.rerollPartial,
-.modal.planning.rerolling .planningDiceTray h3.rerolling,
-.modal.planning.rerolling .instructions.rerolling,
-.modal.planning.postroll .planningDiceTray h3.postroll,
-.modal.planning.postroll .instructions.postroll,
-.board.preGame .preGame,
-.board.determineExpeditionType .determineExpeditionType,
-.board.mainGame .mainGame  {
+.dialog.preroll .planningDiceTray h3.preroll,
+.dialog.preroll .instructions.preroll,
+.dialog.rolling .planningDiceTray h3.rolling,
+.dialog.rolling .instructions.rolling,
+.dialog.rerollPartial .planningDiceTray h3.rerollPartial,
+.dialog.rerollPartial .instructions.rerollPartial,
+.dialog.rerolling .planningDiceTray h3.rerolling,
+.dialog.rerolling .instructions.rerolling,
+.dialog.postroll .planningDiceTray h3.postroll,
+.dialog.postroll .instructions.postroll  {
     display: block;
 }
 
-.modal.planning.postroll .planningDiceTray.right {
+.dialog .planningDiceTray.right {
     width: 430px;
 }
 
-.modal h3 {
+.dialog h3 {
     margin-top: 0;
-}
-
-.modalBackground {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .planningDiceTray {
