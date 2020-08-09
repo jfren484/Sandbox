@@ -10,7 +10,7 @@ export function addConquistadorInPlanning(G) {
 	const required = 4;
 	const val = G.diceTrayPlanning.dice[2].value;
 	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
-		++G.counts.conquistadors;
+		setConquistadors(G.counters.conquistadors + 1);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value === val);
 
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
@@ -318,14 +318,192 @@ export function generateMap() {
 	};
 }
 
-export function getAdjacentUnexplored(G) {
-	// TODO
+export function getAdjacentUnmapped(G) {
+	let adjacentUnmappedCells = [];
+	const currentCell = G.map[G.currentLocation];
 
-	return [0];
+	for (let cellRef in G.map) {
+		if (cellRef != G.currentLocation) {
+			const cell = G.map[cellRef];
+
+			if (Math.abs(cell.x - currentCell.x) <= 1 && Math.abs(cell.y - currentCell.y) <= 1 && cell.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
+				adjacentUnmappedCells.push(cellRef);
+			}
+		}
+	}
+
+	return adjacentUnmappedCells;
 }
 
 export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
+}
+
+export function handleMappingRoll(G, confirmed) {
+	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
+	const bonus = G.planningDiceAssigned[3] - 1;
+	const value = roll + bonus;
+
+	G.diceTray.extraContent = [
+		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
+		'Result: '
+	];
+
+	switch (value) {
+		case 2:
+			if (confirmed) {
+				// TODO: set terrain to Swamp
+			}
+
+			G.diceTray.extraContent[1] += 'Swamp';
+			break;
+
+		case 3:
+			if (confirmed) {
+				// TODO: set terrain to Hills
+			}
+
+			G.diceTray.extraContent[1] += 'Hills';
+			break;
+
+		case 4:
+			if (confirmed) {
+				// TODO: set terrain to Mountains
+			}
+
+			G.diceTray.extraContent[1] += 'Mountains';
+			break;
+
+		case 5:
+			if (confirmed) {
+				// TODO: set terrain to Jungle
+			}
+
+			G.diceTray.extraContent[1] += 'Jungle';
+			break;
+
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+			if (confirmed) {
+				// TODO: set terrain to ???
+			}
+
+			G.diceTray.extraContent[1] += 'Same as current hex (' + /* TODO */ ')';
+			break;
+
+		case 10:
+			if (confirmed) {
+				// TODO: set terrain to Forest
+			}
+
+			G.diceTray.extraContent[1] += 'Forest';
+			break;
+
+		case 11:
+			if (confirmed) {
+				// TODO: set terrain to Lake
+			}
+
+			G.diceTray.extraContent[1] += 'Lake';
+			break;
+
+		case 12:
+		default:
+			if (confirmed) {
+				// TODO: set terrain to Plains
+			}
+
+			G.diceTray.extraContent[1] += 'Plains';
+			break;
+	}
+}
+
+export function handleMovementRoll(G, confirmed) {
+	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
+	const bonus = G.planningDiceAssigned[2] - 1;
+	const value = roll + bonus;
+
+	G.diceTray.extraContent = [
+		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
+		'Result: '
+	];
+
+	switch (value) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			if (G.expeditionType.deathRemovesFood) {
+				if (confirmed) {
+					setFood(G, G.counters.food.value - 1);
+				}
+
+				G.diceTray.extraContent[1] += 'Food -1';
+			} else {
+				if (confirmed) {
+					setConquistadors(G, G.counters.conquistadors.value - 1);
+				}
+
+				G.diceTray.extraContent[1] += 'Conquistadors -1';
+			}
+			break;
+
+		case 4:
+		case 5:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 1);
+				G.fever = true;
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +1, Fever';
+			break;
+
+		case 6:
+		case 7:
+		case 8:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 1);
+				setMorale(G, G.counters.morale.value - 1);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +1, Morale -1';
+			break;
+
+		case 9:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 1);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +1';
+			break;
+
+		case 10:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 2);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +2';
+			break;
+
+		case 11:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 3);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +3';
+			break;
+
+		case 12:
+		default:
+			if (confirmed) {
+				setMovementProgress(G, G.counters.movementProgress.value + 4);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement +4';
+			break;
+	}
 }
 
 export function phasePlanningFinish(G, ctx) {
@@ -337,24 +515,7 @@ export function phasePlanningFinish(G, ctx) {
 		++G.planningDiceAssigned[G.diceTrayPlanning.dice[i].assignedValue];
 	}
 
-	G.diceTrayPlanning.dice = []; 
-
-	let nextStage = 'eatRations';
-	if (G.planningDiceAssigned[2] > 0) {
-		nextStage = 'movementProgress';
-	} else if (G.planningDiceAssigned[3] > 0 && getAdjacentUnexplored(G).length > 0) {
-		nextStage = 'mapping';
-	} else if (G.planningDiceAssigned[4] > 0) {
-		nextStage = 'exploring';
-	} else if (G.planningDiceAssigned[5] > 0) {
-		nextStage = 'nativeContact';
-	} else if (G.planningDiceAssigned[6] > 0) {
-		nextStage = 'hunting';
-	} else if (G.map[G.currentLocation].interests.filter(i => i === gameConstants.interestTypes.pending).length > 0) {
-		nextStage = 'interests';
-	}
-
-	return nextStage;
+	G.diceTrayPlanning.dice = [];
 }
 
 export function rollDice(diceTray, mode) {
@@ -363,30 +524,30 @@ export function rollDice(diceTray, mode) {
 }
 
 export function setConquistadors(G, value) {
-    G.counts.conquistadors = Math.max(0, Math.min(6, value));
+    G.counters.conquistadors.value = Math.max(0, Math.min(6, value));
 }
 
 export function setFood(G, value) {
-    G.counts.food = Math.max(0, Math.min(6, value));
+    G.counters.food.value = Math.max(0, Math.min(6, value));
 }
 
 export function setMorale(G, value) {
-    G.counts.morale = Math.max(0, Math.min(6, value));
+	console.log('morale change');
+    G.counters.morale.value = Math.max(0, Math.min(6, value));
 }
 
 export function setMovementProgress(G, value) {
-    G.counts.movementProgress = Math.max(0, Math.min(6, value));
+	console.log('movementProgress change');
+    G.counters.movementProgress.value = Math.max(0, Math.min(6, value));
 }
 
 export function setMuskets(G, value) {
-    G.counts.muskets = Math.max(0, Math.min(6, value));
+    G.counters.muskets.value = Math.max(0, Math.min(6, value));
 }
 
-export function setupDiceTray(diceTray, count) {
-	diceTray.dice = Array(count).fill('?').map((d6, i) => { return { id: i, value: d6 }; });
+export function setupDiceTray(diceTray, count, title) {
 	diceTray.mode = gameConstants.diceTrayModes.preroll;
-}
-
-export function startPhasePlanning(G, ctx) {
-	ctx.events.setStage('planning');
+	diceTray.title = title ?? '';
+	diceTray.dice = Array(count).fill('?').map((d6, i) => { return { id: i, value: d6 }; });
+	diceTray.extraContent = '';
 }

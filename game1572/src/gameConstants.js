@@ -9,7 +9,7 @@ export const diceTrayModes = {
     confirmed: 'confirmed'
 };
 
-export const diceTrayInstructions = {
+export const diceTrayTitles = {
     expeditionType: 'Roll to determine Expedition Type'
 };
 
@@ -51,6 +51,57 @@ export const expeditionTypes = {
         description: 'Two or more WILDs break the Fever. Death Icons remove Food instead of Conquistadors.',
         wildAdjust: -1,
         deathRemovesFood: true
+    }
+}
+
+export const gamePhases = {
+    planning: {
+        index: 1,
+        label: 'Planning'
+    },
+    movement: {
+        index: 2,
+        label: 'Movement'
+    },
+    mapping: {
+        index: 3,
+        label: 'Mapping'
+    },
+    exploring: {
+        index: 4,
+        label: 'Exploring'
+    },
+    nativeContact: {
+        index: 5,
+        label: 'Native Contact'
+    },
+    hunting: {
+        index: 6,
+        label: 'Hunting'
+    },
+    interests: {
+        index: 7,
+        label: 'Interests'
+    },
+    eatRations: {
+        index: 8,
+        label: 'Eat Rations'
+    },
+    mapTravel: {
+        index: 9,
+        label: 'Map Travel'
+    },
+    moraleAdjustment: {
+        index: 10,
+        label: 'Morale Adjustment'
+    },
+    trackDay: {
+        index: 11,
+        label: 'Track Day'
+    },
+    journalEntry: {
+        index: 12,
+        label: 'Journal Entry'
     }
 }
 

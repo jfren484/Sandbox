@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,15 +19,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export class DiceTray extends React.Component {
     render() {
         let buttons = [];
-        let extraContent = [];
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
             buttons.push(<Button key="0" onClick={() => this.props.onRollClick()}>Roll</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            extraContent.push(<div key="ec0">{this.props.extraContent}</div>);
             buttons.push(<Button key="0" onClick={() => this.props.onComplete()}>OK</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollAll) {
             buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()}>Reroll with Musket</Button>);
-            buttons.push(<Button key="1" onClick={() => this.props.onComplete()}>OK</Button>);
+            buttons.push(<Button key="1" onClick={() => this.props.onComplete()}>Accept Roll</Button>);
+        }
+
+        let extraContent = [];
+        for (let i = 0; i < (this.props.extraContent ?? []).length; ++i) {
+            extraContent.push(<DialogContentText key={i} hidden={this.props.mode === gameConstants.diceTrayModes.rolling}>
+                {this.props.extraContent[i]}
+            </DialogContentText>);
         }
 
         return (
@@ -35,13 +41,11 @@ export class DiceTray extends React.Component {
                 PaperComponent={PaperComponent}
                 TransitionComponent={Transition}>
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    {this.props.instructions}
+                    {this.props.title}
                 </DialogTitle>
-                <DialogContent style={{ textAlign: 'center' }}>
+                <DialogContent className="diceTrayContent" style={{ textAlign: 'center' }}>
                     {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}
-                    <DialogContentText>
-                        {extraContent}
-                    </DialogContentText>
+                    {extraContent}
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>
                     <ButtonGroup color="primary">

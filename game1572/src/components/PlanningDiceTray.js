@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
@@ -112,7 +113,7 @@ export class PlanningDiceTray extends React.Component {
                 open={this.props.dice.length > 0}
                 PaperComponent={PaperComponent}
                 TransitionComponent={Transition}>
-                <div className={'dialog planning ' + this.props.mode}>
+                <Box className={'dialog planning ' + this.props.mode}>
                     <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                         Phase 1: Planning
                     </DialogTitle>
@@ -144,7 +145,7 @@ export class PlanningDiceTray extends React.Component {
                             {buttons}
                         </ButtonGroup>
                     </DialogActions>
-                </div>
+                </Box>
             </Dialog>
         );
     }

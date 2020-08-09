@@ -92,6 +92,15 @@ export class Game1572Board extends React.Component {
 
         const stage = gameMethods.getStage(this.props.ctx);
         switch (stage) {
+            case 'movementMidRoll':
+            case 'movementPostRoll':
+                this.props.moves.updateMovementProgress();
+                break;
+
+            case 'mappingPostRoll':
+                this.props.moves.updateMapping();
+                break;
+
             default:
                 console.error('Don\'t know how to complete stage: ' + stage);
         }
@@ -108,12 +117,22 @@ export class Game1572Board extends React.Component {
     }
 
     tick() {
-        if (this.state.counter === 0 && gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
+        const stage = gameMethods.getStage(this.props.ctx);
+
+        if (this.state.counter === 0 && stage === 'planningPostRoll') {
             setTimeout(() => {
                 if (gameMethods.getStage(this.props.ctx) === 'planningPostRoll') {
                     this.props.moves.startAssignment();
                 }
             }, 10);
+        }
+
+        if (stage.startsWith('pre')) {
+            setTimeout(() => {
+                if (gameMethods.getStage(this.props.ctx) === stage) {
+                    this.props.moves.beginPhase();
+                }
+            }, 1000);
         }
 
         if (this.state.counter > 0) {
@@ -132,8 +151,10 @@ export class Game1572Board extends React.Component {
 
         return (
             <Container className={'board ' + this.props.ctx.phase}>
-                <Box className="preGame">
+                <Box className="preGame determineExpeditionType mainGame">
                     <h1>1572: The Lost Expedition</h1>
+                </Box>
+                <Box className="preGame">
                     <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of
                     you survive. Now you have to make it down the mountain and to the coastline where you can signal for help. The way is
                     dangerous though; you're short food and muskets. The natives will likely want you dead as offer any help.</p>
@@ -141,16 +162,16 @@ export class Game1572Board extends React.Component {
                         <Button onClick={() => this.onGameStart()}>OK</Button>
                     </ButtonGroup>
                 </Box>
-                <div className="mainGame determineExpeditionType">
+                <Box className="mainGame determineExpeditionType">
                     <DiceTray mode={animateDiceTray ? gameConstants.diceTrayModes.rolling : this.props.G.diceTray.mode}
                         dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
-                        instructions={this.props.G.diceTray.instructions}
+                        title={this.props.G.diceTray.title}
                         extraContent={this.props.G.diceTray.extraContent}
                         onRollClick={this.onRollClick}
                         onRerollClick={this.onRerollClick}
                         onComplete={this.onRollComplete} />
-                </div>
-                <div className="mainGame">
+                </Box>
+                <Box className="mainGame">
                     <PlanningDiceTray mode={animateDiceTrayPlanning
                         ? this.props.G.diceTrayPlanning.mode === gameConstants.diceTrayModes.rerollPartial
                             ? gameConstants.diceTrayModes.rolling
@@ -165,7 +186,9 @@ export class Game1572Board extends React.Component {
                         onComplete={this.onPlanningRollComplete} />
                     <Header className="mainGame" expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
                     <Map className="mainGame" mapData={this.props.G.map} />
-                </div>
+                    <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
+                    <p className="phaseComment">{this.props.G.phaseComment}</p>
+                </Box>
             </Container>
         );
     }

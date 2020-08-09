@@ -107,6 +107,19 @@ code {
     margin-top: 0;
 }
 
+.diceTrayContent {
+    text-align: center;
+}
+
+.diceTrayContent svg {
+    margin: 0 5px 10px;
+}
+
+.phase {
+    margin-top: -50px;
+    padding-left: 10px;
+}
+
 .planningDiceTrayContainer {
     width: 560px;
     height: 520px;
