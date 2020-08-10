@@ -34,6 +34,7 @@ export const Game1572 = {
             }
         },
         days: 0,
+        dialog: {},
         diceTray: {
             mode: gameConstants.diceTrayModes.preroll,
             title: gameConstants.diceTrayTitles.expeditionType,
@@ -106,6 +107,16 @@ export const Game1572 = {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.planning;
                                 G.phaseComment = '';
+                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            },
+                        },
+                        next: 'planningInstructions'
+                    },
+                    planningInstructions: {
+                        moves: {
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
                                 gameMethods.setupDiceTray(G.diceTrayPlanning, 5);
                                 ctx.events.endStage();
                             },
@@ -176,11 +187,21 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.movement;
+                                G.phaseComment = G.planningDiceAssigned[2] === 0 ? 'No dice assigned to ' + G.phase.label : '';
+                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            },
+                        },
+                        next: 'movementInstructions'
+                    },
+                    movementInstructions: {
+                        moves: {
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+
                                 if (G.planningDiceAssigned[2] === 0) {
-                                    G.phaseComment = 'No dice assigned to ' + G.phase.label;
                                     ctx.events.setStage('preMapping');
                                 } else {
-                                    G.phaseComment = '';
                                     gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
                                     ctx.events.endStage();
                                 }
@@ -469,7 +490,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.interests;
-                                if (G.map.currentLocation().interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
+                                if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                                     G.phaseComment = 'No interests to resolve';
                                     ctx.events.setStage('eatRations');
                                 } else {

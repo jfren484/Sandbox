@@ -345,6 +345,14 @@ export function getAdjacentUnmapped(G) {
 	return G.map.adjacentUnmappedHexes;
 }
 
+export function generatePhaseDialog(G) {
+    return {
+        title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
+        content: G.phase.content,
+        text: G.phase.instructions
+    };
+}
+
 export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }

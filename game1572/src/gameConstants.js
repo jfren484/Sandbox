@@ -57,51 +57,63 @@ export const expeditionTypes = {
 export const gamePhases = {
     planning: {
         index: 1,
-        label: 'Planning'
+        label: 'Planning',
+        instructions: 'You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.'
     },
     movement: {
         index: 2,
-        label: 'Movement'
+        label: 'Movement',
+        instructions: 'The only way to get out of this is to keep moving. In this environment sloth is more than a deadly sin, it’s a deadly consequence.'
     },
     mapping: {
         index: 3,
-        label: 'Mapping'
+        label: 'Mapping',
+        instructions: 'From this vista point you can clearly see the lands below. You take a moment to admire the natural beauty before you get back to your map.'
     },
     exploring: {
         index: 4,
-        label: 'Exploring'
+        label: 'Exploring',
+        instructions: 'There has to be something of use in this wilderness.'
     },
     nativeContact: {
         index: 5,
-        label: 'Native Contact'
+        label: 'Native Contact',
+        instructions: 'They have been trailing you for miles. You realize that there’s no way to outdistance them, so you approach to parley.'
     },
     hunting: {
         index: 6,
-        label: 'Hunting'
+        label: 'Hunting',
+        instructions: 'The creatures of this land are exotic and voracious. What really makes them dangerous is that they have no fear of man.'
     },
     interests: {
         index: 7,
-        label: 'Interests'
+        label: 'Interests',
+        instructions: ''
     },
     eatRations: {
         index: 8,
-        label: 'Eat Rations'
+        label: 'Eat Rations',
+        instructions: 'Only one meal a day. You know that with fewer people you’ll be able to eat better. That thought has become more frequent — and more enticing — over the past few days...'
     },
     mapTravel: {
         index: 9,
-        label: 'Map Travel'
+        label: 'Map Travel',
+        instructions: 'You catch a glimpse of the Atlantic off in the distance, closer now.'
     },
     moraleAdjustment: {
         index: 10,
-        label: 'Morale Adjustment'
+        label: 'Morale Adjustment',
+        instructions: 'Only by the grace of God will we survive.'
     },
     trackDay: {
         index: 11,
-        label: 'Track Day'
+        label: 'Track Day',
+        instructions: 'The Trade Winds will die down at the end of the season and there won’t be any ships until next year.'
     },
     journalEntry: {
         index: 12,
-        label: 'Journal Entry'
+        label: 'Journal Entry',
+        instructions: ''
     }
 }
 

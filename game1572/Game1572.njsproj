@@ -45,6 +45,7 @@
     <Content Include="src\components\Counter.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\components\BasicDialog.js" />
     <Content Include="src\components\PaperComponent.js">
       <SubType>Code</SubType>
     </Content>

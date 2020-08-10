@@ -65,7 +65,7 @@ code {
 }
 
 .dialog.planning {
-    height: 745px;
+    height: 760px;
 }
 
 .dialog.planning .instructionsContainer {
@@ -100,7 +100,7 @@ code {
 }
 
 .dialog.postroll .planningDiceTray.right {
-    width: 430px;
+    width: 450px;
 }
 
 .dialog h3 {
@@ -124,12 +124,11 @@ g:hover .highlight {
 }
 
 .phase {
-    margin-top: -50px;
-    padding-left: 10px;
+    margin-top: -65px;
 }
 
 .planningDiceTrayContainer {
-    width: 560px;
+    width: 575px;
     height: 520px;
     overflow: auto;
 }

@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { BasicDialog } from './BasicDialog';
 import { DiceTray } from './DiceTray';
 import { Header } from './Header';
 import { Map } from './Map';
@@ -33,6 +34,10 @@ export class Game1572Board extends React.Component {
     componentWillUnmount() {
         clearInterval(this.timerID);
     }
+
+    onBasicDialogComplete = () => {
+        this.props.moves.confirmDialog();
+    };
 
     onGameStart = () => {
         this.props.moves.beginGame();
@@ -193,6 +198,9 @@ export class Game1572Board extends React.Component {
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>
                 </Box>
+                <BasicDialog
+                    dialogData={this.props.G.dialog}
+                    onComplete={this.onBasicDialogComplete} />
             </Container>
         );
     }
