@@ -33,7 +33,6 @@ export const Game1572 = {
                 value: 6
             }
         },
-        currentLocation: '0, 0.5',
         days: 0,
         diceTray: {
             mode: gameConstants.diceTrayModes.preroll,
@@ -50,7 +49,11 @@ export const Game1572 = {
             description: ''
         },
         fever: false,
-        map: gameMethods.generateMap(),
+        map: {
+            hexes: gameMethods.generateMapHexes(),
+            currentLocationKey: '0, 0.5',
+            adjacentUnmappedHexes: []
+        },
         phase: gameConstants.gamePhases.planning,
         phaseComment: '',
         planningDiceAssigned: {
@@ -156,8 +159,7 @@ export const Game1572 = {
                                 gameMethods.addConquistadorInPlanning(G);
                             },
                             assignedice: (G, ctx) => {
-                                const nextStage = gameMethods.phasePlanningFinish(G, ctx);
-                                //ctx.events.setStage(nextStage);
+                                gameMethods.phasePlanningFinish(G, ctx);
                                 ctx.events.endStage();
                             },
                             cureFever: (G, ctx) => {
@@ -232,21 +234,23 @@ export const Game1572 = {
                                     G.phaseComment = 'No dice assigned to ' + G.phase.label;
                                     ctx.events.setStage('preExploring');
                                 } else if (gameMethods.getAdjacentUnmapped(G).length === 0) {
-                                    G.phaseComment = 'No unmapped adjacent cells';
+                                    G.phaseComment = 'No unmapped adjacent hexes';
                                     ctx.events.setStage('preExploring');
                                 } else {
-                                    G.phaseComment = '';
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    G.phaseComment = 'Choose hex to Map';
                                     ctx.events.endStage();
                                 }
                             },
                         },
-                        next: 'mappingChooseCell'
+                        next: 'mappingChooseHex'
                     },
-                    mappingChooseCell: {
+                    mappingChooseHex: {
                         moves: {
-                            chooseCell: (G, ctx) => {
-                                // TODO
+                            chooseHex: (G, ctx, key) => {
+                                G.phaseComment = '';
+                                G.map.target = key;
+                                G.map.adjacentUnmappedHexes = [];
+                                gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
                                 ctx.events.endStage();
                             }
                         },
@@ -289,7 +293,7 @@ export const Game1572 = {
                     },
                     exploringRoll: {
                         moves: {
-                            updateExploring: (G, ctx, value, cellB) => {
+                            updateExploring: (G, ctx, value, hexB) => {
                                 switch (value) {
                                     case 0:
                                     case 1:
@@ -355,7 +359,7 @@ export const Game1572 = {
                     },
                     nativeContactRoll: {
                         moves: {
-                            updateNativeContact: (G, ctx, value, cellB) => {
+                            updateNativeContact: (G, ctx, value, hexB) => {
                                 switch (value) {
                                     case 0:
                                     case 1:
@@ -465,7 +469,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.interests;
-                                if (G.currentLocation.interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
+                                if (G.map.currentLocation().interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                                     G.phaseComment = 'No interests to resolve';
                                     ctx.events.setStage('eatRations');
                                 } else {
@@ -535,7 +539,7 @@ export const Game1572 = {
                     },
                     mapTravel: {
                         moves: {
-                            travelTo: (G, ctx, cell) => {
+                            travelTo: (G, ctx, hex) => {
                                 // TODO: update location, set morale adj value
                             }
                         }
@@ -567,7 +571,7 @@ export const Game1572 = {
                     },
                     cartographerSpecial: {
                         moves: {
-                            addTrailTo: (G, ctx, cellB) => {
+                            addTrailTo: (G, ctx, hexB) => {
                                 // TODO: place trail
                             }
                         }
@@ -592,6 +596,6 @@ export const Game1572 = {
             };
         }
 
-        // TODO: location is last map cell => win
+        // TODO: location is last map hex => win
     }
 };

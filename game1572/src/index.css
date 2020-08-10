@@ -115,6 +115,14 @@ code {
     margin: 0 5px 10px;
 }
 
+.highlight {
+    fill: #ffffcc;
+}
+
+g:hover .highlight {
+    fill: #ffff00;
+}
+
 .phase {
     margin-top: -50px;
     padding-left: 10px;

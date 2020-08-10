@@ -17,6 +17,14 @@ export function addConquistadorInPlanning(G) {
 	}
 }
 
+export function canAddCataract(G, hex) {
+	if (!hex.riverType || hex.cataract) {
+		return false;
+	}
+
+	// TODO: check for path along river downstream
+}
+
 export function cureFever(G) {
 	const onesRequired = 3 + G.expeditionType.wildAdjust;
 	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
@@ -25,7 +33,7 @@ export function cureFever(G) {
 	}
 }
 
-export function generateMap() {
+export function generateMapHexes() {
 	return {
 		'0, 0.5': {
 			x: 0,
@@ -319,20 +327,22 @@ export function generateMap() {
 }
 
 export function getAdjacentUnmapped(G) {
-	let adjacentUnmappedCells = [];
-	const currentCell = G.map[G.currentLocation];
+	G.map.adjacentUnmappedHexes = [];
+	const currentHex = G.map.hexes[G.map.currentLocationKey];
 
-	for (let cellRef in G.map) {
-		if (cellRef != G.currentLocation) {
-			const cell = G.map[cellRef];
+	for (let hexKey in G.map.hexes) {
+		if (hexKey != G.map.currentLocationKey) {
+			const hex = G.map.hexes[hexKey];
 
-			if (Math.abs(cell.x - currentCell.x) <= 1 && Math.abs(cell.y - currentCell.y) <= 1 && cell.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
-				adjacentUnmappedCells.push(cellRef);
+			if (Math.abs(hex.x - currentHex.x) <= 1 &&
+				Math.abs(hex.y - currentHex.y) <= 1 &&
+				hex.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
+				G.map.adjacentUnmappedHexes.push(hexKey);
 			}
 		}
 	}
 
-	return adjacentUnmappedCells;
+	return G.map.adjacentUnmappedHexes;
 }
 
 export function getStage(ctx) {
@@ -349,10 +359,13 @@ export function handleMappingRoll(G, confirmed) {
 		'Result: '
 	];
 
+	const currentHex = G.map.hexes[G.map.currentLocationKey];
+	const hex = G.map.hexes[G.map.target];
+
 	switch (value) {
 		case 2:
 			if (confirmed) {
-				// TODO: set terrain to Swamp
+				hex.terrainType = gameConstants.terrainTypes.swamp;
 			}
 
 			G.diceTray.extraContent[1] += 'Swamp';
@@ -360,7 +373,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 3:
 			if (confirmed) {
-				// TODO: set terrain to Hills
+				hex.terrainType = gameConstants.terrainTypes.hills;
 			}
 
 			G.diceTray.extraContent[1] += 'Hills';
@@ -368,7 +381,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 4:
 			if (confirmed) {
-				// TODO: set terrain to Mountains
+				hex.terrainType = gameConstants.terrainTypes.mountains;
 			}
 
 			G.diceTray.extraContent[1] += 'Mountains';
@@ -376,7 +389,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 5:
 			if (confirmed) {
-				// TODO: set terrain to Jungle
+				hex.terrainType = gameConstants.terrainTypes.jungle;
 			}
 
 			G.diceTray.extraContent[1] += 'Jungle';
@@ -386,16 +399,18 @@ export function handleMappingRoll(G, confirmed) {
 		case 7:
 		case 8:
 		case 9:
+			const currentTerrainType = currentHex.terrainType;
+
 			if (confirmed) {
-				// TODO: set terrain to ???
+				hex.terrainType = currentTerrainType;
 			}
 
-			G.diceTray.extraContent[1] += 'Same as current hex (' + /* TODO */ ')';
+			G.diceTray.extraContent[1] += 'Same as current hex (' + currentTerrainType.name + ')';
 			break;
 
 		case 10:
 			if (confirmed) {
-				// TODO: set terrain to Forest
+				hex.terrainType = gameConstants.terrainTypes.forest;
 			}
 
 			G.diceTray.extraContent[1] += 'Forest';
@@ -403,7 +418,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 11:
 			if (confirmed) {
-				// TODO: set terrain to Lake
+				hex.terrainType = gameConstants.terrainTypes.lake;
 			}
 
 			G.diceTray.extraContent[1] += 'Lake';
@@ -412,11 +427,23 @@ export function handleMappingRoll(G, confirmed) {
 		case 12:
 		default:
 			if (confirmed) {
-				// TODO: set terrain to Plains
+				hex.terrainType = gameConstants.terrainTypes.plains;
 			}
 
 			G.diceTray.extraContent[1] += 'Plains';
 			break;
+	}
+
+	if (G.diceTray.dice.includes(1) && canAddCataract(currentHex)) {
+		if (confirmed) {
+			currentHex.cataract = true;
+		}
+
+		G.diceTray.extraContent[1] += '; +Cataract';
+    }
+
+	if (confirmed) {
+		G.diceTray.dice = [];
 	}
 }
 
@@ -503,6 +530,10 @@ export function handleMovementRoll(G, confirmed) {
 
 			G.diceTray.extraContent[1] += 'Movement +4';
 			break;
+	}
+
+	if (confirmed) {
+		G.diceTray.dice = [];
 	}
 }
 

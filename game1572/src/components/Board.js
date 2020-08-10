@@ -38,6 +38,10 @@ export class Game1572Board extends React.Component {
         this.props.moves.beginGame();
     }
 
+    onHexClick = (key) => {
+        this.props.moves.chooseHex(key);
+    }
+
     onPlanningDieClick = id => {
         switch (gameMethods.getStage(this.props.ctx)) {
             case 'planningMidRoll':
@@ -185,7 +189,7 @@ export class Game1572Board extends React.Component {
                         onSkipRerollClick={this.onPlanningSkipRerollClick}
                         onComplete={this.onPlanningRollComplete} />
                     <Header className="mainGame" expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                    <Map className="mainGame" mapData={this.props.G.map} />
+                    <Map className="mainGame" mapData={this.props.G.map} onHexClick={this.onHexClick} />
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>
                 </Box>

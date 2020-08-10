@@ -10,21 +10,39 @@ export class Map extends React.Component {
         const mapHeight = gameConstants.map.hexHeight * (gameConstants.map.rows) + gameConstants.map.hexPad * 2;
 
         let shapes = [];
-        const keys = Object.keys(this.props.mapData);
+        let currentHexShape;
+
+        const keys = Object.keys(this.props.mapData.hexes);
         for (let i = 0; i < keys.length; ++i) {
             const key = keys[i];
-            const hex = this.props.mapData[key];
+            const hex = this.props.mapData.hexes[key];
             const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
             const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
 
+            const adj = this.props.mapData.adjacentUnmappedHexes.includes(key);
+
             const points = gameConstants.map.hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
+            const stroke = key === this.props.mapData.currentLocationKey ? 'red' : 'black';
+            const cursor = adj ? 'pointer' : 'auto';
 
-            if (hex.riverType) {
-                shapes.push(<polygon key={'RIVER ' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />);
+            const shape = (<g key={'G-' + key} cursor={cursor} pointer-events="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
+                {adj
+                    ? <polygon className="highlight" key={'HL-' + key} points={points} />
+                    : null}
+                {hex.riverType
+                    ? <polygon key={'RIVER-' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />
+                    : null}
+                <polygon key={'HEX-' + key} points={points} stroke={stroke} strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />
+            </g>);
+
+            if (key === this.props.mapData.currentLocationKey) {
+                currentHexShape = shape;
+            } else {
+                shapes.push(shape);
             }
-
-            shapes.push(<polygon key={'HEX ' + key} points={points} stroke="black" strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />);
         }
+
+        shapes.push(currentHexShape);
 
         return (
             <div className="map">
