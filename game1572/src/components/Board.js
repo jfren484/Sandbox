@@ -110,6 +110,11 @@ export class Game1572Board extends React.Component {
                 this.props.moves.updateMapping();
                 break;
 
+            case 'exploringMidRoll':
+            case 'exploringPostRoll':
+                this.props.moves.updateExploring();
+                break;
+
             default:
                 console.error('Don\'t know how to complete stage: ' + stage);
         }

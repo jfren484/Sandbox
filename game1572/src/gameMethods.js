@@ -34,6 +34,21 @@ export function cureFever(G) {
 }
 
 export function generateMapHexes() {
+    /*
+     * Template for map hex:
+     * {
+	 *     x: <int>,
+	 *     y: <int>,
+     *     terrainType: gameConstants.terrainTypes.*,
+     *     riverType: gameConstants.riverTypes.*,
+	 *     cataract: <bool>,
+	 *     interests: <array of gameConstants.interestTypes.*],
+     *     villages: <int>,
+     *     friendlyVillages: <int>,
+     *     lagosDeOro: gameConstants.terrainTypes.* | undefined,
+     *     advancedCiv: <bool> // TODO: ?
+	 * }
+     */
 	return {
 		'0, 0.5': {
 			x: 0,
@@ -375,9 +390,9 @@ export function handleExploringRoll(G, confirmed) {
 		case 2:
 			if (confirmed) {
 				if (G.expeditionType.deathRemovesFood) {
-					gameMethods.setFood(G, G.counts.food - 1);
+					setFood(G, G.counts.food - 1);
 				} else {
-					gameMethods.setConquistadors(G, G.counts.conquistadors - 1);
+					setConquistadors(G, G.counts.conquistadors - 1);
 				}
 			}
 
@@ -395,7 +410,7 @@ export function handleExploringRoll(G, confirmed) {
 		case 4:
 		case 5:
 			if (confirmed) {
-				gameMethods.setMovementProgress(G, G.counts.movementProgress - 1);
+				setMovementProgress(G, G.counts.movementProgress - 1);
 			}
 
 			G.diceTray.extraContent[1] += 'Movement -1';
@@ -416,7 +431,7 @@ export function handleExploringRoll(G, confirmed) {
 
 		case 8:
 			if (confirmed) {
-				gameMethods.setMorale(G, G.counts.morale + 1);
+				setMorale(G, G.counts.morale + 1);
 			}
 
 			G.diceTray.extraContent[1] += 'Morale +1';

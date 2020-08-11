@@ -119,7 +119,7 @@ export class PlanningDiceTray extends React.Component {
                     </DialogTitle>
                     <DialogContent className="instructionsContainer" style={{ textAlign: 'center' }}>
                         <DialogContentText>
-                            <span className="instructions preroll">You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.</span>
+                            <span className="instructions preroll">Roll 5 dice to determine the actions you take today.</span>
                             <span className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll. Click dice to move between Locked and To Reroll.</span>
                             <span className="instructions postroll">Assign wild cards. A die roll of "1" can be used as a wild card for other values. Drag dice to the row you wish to assign them to, or click the assigned wild cards to unassign.</span>
                         </DialogContentText>
