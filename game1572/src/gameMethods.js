@@ -357,6 +357,92 @@ export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }
 
+export function handleExploringRoll(G, confirmed) {
+	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
+	const bonus = G.planningDiceAssigned[3] - 1;
+	const value = roll + bonus;
+
+	G.diceTray.extraContent = [
+		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
+		'Result: '
+	];
+
+	const currentHex = G.map.hexes[G.map.currentLocationKey];
+
+	switch (value) {
+		case 0:
+		case 1:
+		case 2:
+			if (confirmed) {
+				if (G.expeditionType.deathRemovesFood) {
+					gameMethods.setFood(G, G.counts.food - 1);
+				} else {
+					gameMethods.setConquistadors(G, G.counts.conquistadors - 1);
+				}
+			}
+
+			G.diceTray.extraContent[1] += G.expeditionType.deathRemovesFood ? 'Food -1' : 'Conquistador -1';
+			break;
+
+		case 3:
+			if (confirmed && !G.fever) {
+				G.fever = true;
+			}
+
+			G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : '+Fever';
+			break;
+
+		case 4:
+		case 5:
+			if (confirmed) {
+				gameMethods.setMovementProgress(G, G.counts.movementProgress - 1);
+			}
+
+			G.diceTray.extraContent[1] += 'Movement -1';
+			break;
+
+		case 6:
+		case 7:
+			if (confirmed) {
+				if (G.expeditionType.allVillagesPeaceful) {
+					// TODO: add peaceful village
+				} else {
+					// TODO: add village
+				}
+			}
+
+			G.diceTray.extraContent[1] += G.expeditionType.allVillagesPeaceful ? '+Village (Peaceful)' : '+Village';
+			break;
+
+		case 8:
+			if (confirmed) {
+				gameMethods.setMorale(G, G.counts.morale + 1);
+			}
+
+			G.diceTray.extraContent[1] += 'Morale +1';
+			break;
+
+		case 9:
+			if (confirmed) {
+				// TODO: place trail
+			}
+
+			G.diceTray.extraContent[1] += '+Trail';
+			break;
+
+		case 10:
+		case 11:
+		case 12:
+		default:
+			if (confirmed) {
+				currentHex.interests.push(gameConstants.interestTypes.pending);
+			}
+
+			G.diceTray.extraContent[1] += '+Interest';
+			break;
+	}
+}
+
 export function handleMappingRoll(G, confirmed) {
 	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
 	const bonus = G.planningDiceAssigned[3] - 1;
