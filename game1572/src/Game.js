@@ -368,7 +368,8 @@ export const Game1572 = {
                     exploringPostRoll: {
                         moves: {
                             updateExploring: (G, ctx) => {
-                                if (gameMethods.handleExploringRoll(G, true) === 'trail') {
+                                gameMethods.handleExploringRoll(G, true);
+                                if (G.map.trailPending) {
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preNativeContact');

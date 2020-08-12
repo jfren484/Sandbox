@@ -420,13 +420,13 @@ export function handleExploringRoll(G, confirmed) {
 		case 7:
 			if (confirmed) {
 				if (G.expeditionType.allVillagesPeaceful) {
-					// TODO: add peaceful village
+					++currentHex.friendlyVillages;
 				} else {
-					// TODO: add village
+					++currentHex.villages;
 				}
 			}
 
-			G.diceTray.extraContent[1] += G.expeditionType.allVillagesPeaceful ? '+Village (Peaceful)' : '+Village';
+			G.diceTray.extraContent[1] += '+Village' + (G.expeditionType.allVillagesPeaceful ? ' (Friendly)' : '');
 			break;
 
 		case 8:
@@ -439,7 +439,7 @@ export function handleExploringRoll(G, confirmed) {
 
 		case 9:
 			if (confirmed) {
-				// TODO: place trail
+				G.map.trailPending = true;
 			}
 
 			G.diceTray.extraContent[1] += '+Trail';
@@ -455,6 +455,10 @@ export function handleExploringRoll(G, confirmed) {
 
 			G.diceTray.extraContent[1] += '+Interest';
 			break;
+	}
+
+	if (confirmed) {
+		G.diceTray.dice = [];
 	}
 }
 
