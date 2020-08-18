@@ -107,7 +107,7 @@ export const Game1572 = {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.planning;
                                 G.phaseComment = '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             },
                         },
@@ -187,8 +187,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.movement;
-                                G.phaseComment = G.planningDiceAssigned[2] === 0 ? 'No dice assigned to ' + G.phase.label : '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             },
                         },
@@ -250,13 +249,12 @@ export const Game1572 = {
                     preMapping: {
                         moves: {
                             beginPhase: (G, ctx) => {
+                                gameMethods.getAdjacentUnmapped(G);
                                 G.phase = gameConstants.gamePhases.mapping;
-                                G.phaseComment = G.planningDiceAssigned[3] === 0
-                                    ? 'No dice assigned to ' + G.phase.label
-                                    : gameMethods.getAdjacentUnmapped(G).length === 0
-                                        ? 'No unmapped adjacent hexes'
-                                        : 'Choose hex to Map';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
+                                if (G.phaseComment === '') {
+                                    G.phaseComment = 'Choose hex to Map';
+                                }
                                 ctx.events.endStage();
                             },
                         },
@@ -311,8 +309,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.exploring;
-                                G.phaseComment = G.planningDiceAssigned[4] === 0 ? 'No dice assigned to ' + G.phase.label : '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             }
                         },
@@ -392,8 +389,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.nativeContact;
-                                G.phaseComment = G.planningDiceAssigned[5] === 0 ? 'No dice assigned to ' + G.phase.label : '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             },
                         },
@@ -465,8 +461,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.hunting;
-                                G.phaseComment = G.planningDiceAssigned[6] === 0 ? 'No dice assigned to ' + G.phase.label : '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             }
                         },
@@ -536,10 +531,7 @@ export const Game1572 = {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.interests;
-                                G.phaseComment = G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0
-                                    ? 'No interests to resolve'
-                                    : '';
-                                G.dialog = gameMethods.generatePhaseDialog(G);
+                                gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             }
                         },

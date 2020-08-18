@@ -24,10 +24,10 @@ export class BasicDialog extends React.Component {
                     {this.props.dialogData.title}
                 </DialogTitle>
                 <DialogContent style={{ textAlign: 'center' }}>
-                    {this.props.dialogData.content}
                     <DialogContentText>
                         {this.props.dialogData.text}
                     </DialogContentText>
+                    {this.props.dialogData.content}
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>
                     <ButtonGroup color="primary">

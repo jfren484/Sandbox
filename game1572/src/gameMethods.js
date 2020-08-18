@@ -346,7 +346,7 @@ export function getAdjacentUnmapped(G) {
 	const currentHex = G.map.hexes[G.map.currentLocationKey];
 
 	for (let hexKey in G.map.hexes) {
-		if (hexKey != G.map.currentLocationKey) {
+		if (hexKey !== G.map.currentLocationKey) {
 			const hex = G.map.hexes[hexKey];
 
 			if (Math.abs(hex.x - currentHex.x) <= 1 &&
@@ -361,9 +361,40 @@ export function getAdjacentUnmapped(G) {
 }
 
 export function generatePhaseDialog(G) {
-    return {
+    G.phaseComment = '';
+    let skip = false;
+
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.mapping.index:
+            if (G.map.adjacentUnmappedHexes.length === 0) {
+                G.phaseComment = 'No unmapped adjacent hexes';
+                skip = true;
+            }
+            // No break
+        case gameConstants.gamePhases.movement.index:
+        case gameConstants.gamePhases.exploring.index:
+        case gameConstants.gamePhases.nativeContact.index:
+        case gameConstants.gamePhases.hunting.index:
+            if (G.planningDiceAssigned[G.phase.index] === 0) {
+                G.phaseComment = 'No dice assigned to ' + G.phase.label;
+                skip = true;
+            }
+            break;
+        case gameConstants.gamePhases.interests:
+            if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
+                G.phaseComment = 'No interests to resolve';
+                skip = true;
+            }
+            break;
+    }
+
+    if (skip) {
+        G.phaseComment += '; skipping phase.';
+    }
+
+    G.dialog = {
         title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
-        content: G.phase.content,
+        content: G.phaseComment,
         text: G.phase.instructions
     };
 }
@@ -372,19 +403,28 @@ export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }
 
+function handle_base(G) {
+    let data = {
+        roll: G.diceTray.dice.reduce((acc, val) => acc + val.value, 0),
+        bonus: G.planningDiceAssigned[G.phase.index] - 1,
+        value: 0,
+        currentHex: G.map.hexes[G.map.currentLocationKey]
+    };
+
+    data.value = data.roll + data.bonus;
+
+    G.diceTray.extraContent = [
+        'Roll: ' + data.roll + (data.bonus ? ', + ' + data.bonus + ' extra dice = ' + data.value : ''),
+        'Result: '
+    ];
+
+    return data;
+}
+
 export function handleExploringRoll(G, confirmed) {
-	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
-	const bonus = G.planningDiceAssigned[3] - 1;
-	const value = roll + bonus;
+    const data = handle_base(G);
 
-	G.diceTray.extraContent = [
-		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
-		'Result: '
-	];
-
-	const currentHex = G.map.hexes[G.map.currentLocationKey];
-
-	switch (value) {
+	switch (data.value) {
 		case 0:
 		case 1:
 		case 2:
@@ -420,9 +460,9 @@ export function handleExploringRoll(G, confirmed) {
 		case 7:
 			if (confirmed) {
 				if (G.expeditionType.allVillagesPeaceful) {
-					++currentHex.friendlyVillages;
+					++data.currentHex.friendlyVillages;
 				} else {
-					++currentHex.villages;
+                    ++data.currentHex.villages;
 				}
 			}
 
@@ -450,7 +490,7 @@ export function handleExploringRoll(G, confirmed) {
 		case 12:
 		default:
 			if (confirmed) {
-				currentHex.interests.push(gameConstants.interestTypes.pending);
+                data.currentHex.interests.push(gameConstants.interestTypes.pending);
 			}
 
 			G.diceTray.extraContent[1] += '+Interest';
@@ -463,22 +503,13 @@ export function handleExploringRoll(G, confirmed) {
 }
 
 export function handleMappingRoll(G, confirmed) {
-	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
-	const bonus = G.planningDiceAssigned[3] - 1;
-	const value = roll + bonus;
+    const data = handle_base(G);
+	const targetHex = G.map.hexes[G.map.target];
 
-	G.diceTray.extraContent = [
-		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
-		'Result: '
-	];
-
-	const currentHex = G.map.hexes[G.map.currentLocationKey];
-	const hex = G.map.hexes[G.map.target];
-
-	switch (value) {
+	switch (data.value) {
 		case 2:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.swamp;
+                targetHex.terrainType = gameConstants.terrainTypes.swamp;
 			}
 
 			G.diceTray.extraContent[1] += 'Swamp';
@@ -486,7 +517,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 3:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.hills;
+                targetHex.terrainType = gameConstants.terrainTypes.hills;
 			}
 
 			G.diceTray.extraContent[1] += 'Hills';
@@ -494,7 +525,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 4:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.mountains;
+                targetHex.terrainType = gameConstants.terrainTypes.mountains;
 			}
 
 			G.diceTray.extraContent[1] += 'Mountains';
@@ -502,7 +533,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 5:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.jungle;
+                targetHex.terrainType = gameConstants.terrainTypes.jungle;
 			}
 
 			G.diceTray.extraContent[1] += 'Jungle';
@@ -512,10 +543,10 @@ export function handleMappingRoll(G, confirmed) {
 		case 7:
 		case 8:
 		case 9:
-			const currentTerrainType = currentHex.terrainType;
+            const currentTerrainType = data.currentHex.terrainType;
 
 			if (confirmed) {
-				hex.terrainType = currentTerrainType;
+                targetHex.terrainType = currentTerrainType;
 			}
 
 			G.diceTray.extraContent[1] += 'Same as current hex (' + currentTerrainType.name + ')';
@@ -523,7 +554,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 10:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.forest;
+                targetHex.terrainType = gameConstants.terrainTypes.forest;
 			}
 
 			G.diceTray.extraContent[1] += 'Forest';
@@ -531,7 +562,7 @@ export function handleMappingRoll(G, confirmed) {
 
 		case 11:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.lake;
+                targetHex.terrainType = gameConstants.terrainTypes.lake;
 			}
 
 			G.diceTray.extraContent[1] += 'Lake';
@@ -540,16 +571,16 @@ export function handleMappingRoll(G, confirmed) {
 		case 12:
 		default:
 			if (confirmed) {
-				hex.terrainType = gameConstants.terrainTypes.plains;
+                targetHex.terrainType = gameConstants.terrainTypes.plains;
 			}
 
 			G.diceTray.extraContent[1] += 'Plains';
 			break;
 	}
 
-	if (G.diceTray.dice.includes(1) && canAddCataract(currentHex)) {
+    if (G.diceTray.dice.includes(1) && canAddCataract(data.currentHex)) {
 		if (confirmed) {
-			currentHex.cataract = true;
+			data.currentHex.cataract = true;
 		}
 
 		G.diceTray.extraContent[1] += '; +Cataract';
@@ -561,16 +592,9 @@ export function handleMappingRoll(G, confirmed) {
 }
 
 export function handleMovementRoll(G, confirmed) {
-	const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
-	const bonus = G.planningDiceAssigned[2] - 1;
-	const value = roll + bonus;
+    const data = handle_base(G);
 
-	G.diceTray.extraContent = [
-		'Roll: ' + roll + (bonus ? ', + ' + bonus + ' extra dice = ' + value : ''),
-		'Result: '
-	];
-
-	switch (value) {
+	switch (data.value) {
 		case 0:
 		case 1:
 		case 2:

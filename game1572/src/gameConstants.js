@@ -48,7 +48,7 @@ export const expeditionTypes = {
     6: {
         id: 6,
         label: 'Doctor',
-        description: 'Two or more WILDs break the Fever. Death Icons remove Food instead of Conquistadors.',
+        description: 'Two or more WILDs break a Fever. Death Icons remove Food instead of Conquistadors.',
         wildAdjust: -1,
         deathRemovesFood: true
     }
@@ -63,7 +63,7 @@ export const gamePhases = {
     movement: {
         index: 2,
         label: 'Movement',
-        instructions: 'The only way to get out of this is to keep moving. In this environment sloth is more than a deadly sin, it’s a deadly consequence.'
+        instructions: 'The only way to get out of this is to keep moving. In this environment sloth is more than a deadly sin, it\'s a deadly consequence.'
     },
     mapping: {
         index: 3,
@@ -78,7 +78,7 @@ export const gamePhases = {
     nativeContact: {
         index: 5,
         label: 'Native Contact',
-        instructions: 'They have been trailing you for miles. You realize that there’s no way to outdistance them, so you approach to parley.'
+        instructions: 'They have been trailing you for miles. You realize that there\'s no way to outdistance them, so you approach to parley.'
     },
     hunting: {
         index: 6,
@@ -93,7 +93,7 @@ export const gamePhases = {
     eatRations: {
         index: 8,
         label: 'Eat Rations',
-        instructions: 'Only one meal a day. You know that with fewer people you’ll be able to eat better. That thought has become more frequent — and more enticing — over the past few days...'
+        instructions: 'Only one meal a day. You know that with fewer people you\'ll be able to eat better. That thought has become more frequent — and more enticing — over the past few days...'
     },
     mapTravel: {
         index: 9,
@@ -108,7 +108,7 @@ export const gamePhases = {
     trackDay: {
         index: 11,
         label: 'Track Day',
-        instructions: 'The Trade Winds will die down at the end of the season and there won’t be any ships until next year.'
+        instructions: 'The Trade Winds will die down at the end of the season and there won\'t be any ships until next year.'
     },
     journalEntry: {
         index: 12,
