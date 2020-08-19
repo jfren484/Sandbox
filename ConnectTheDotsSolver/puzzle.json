@@ -1,0 +1,53 @@
+{
+  "Size": "8, 8",
+  "Endpoints": [
+    {
+      "Location": "0, 1",
+      "Color": "255, 10, 52"
+    },
+    {
+      "Location": "5, 7",
+      "Color": "255, 10, 52"
+    },
+    {
+      "Location": "6, 0",
+      "Color": "173, 20, 86"
+    },
+    {
+      "Location": "6, 5",
+      "Color": "173, 20, 86"
+    },
+    {
+      "Location": "0, 0",
+      "Color": "53, 196, 64"
+    },
+    {
+      "Location": "6, 7",
+      "Color": "53, 196, 64"
+    },
+    {
+      "Location": "2, 0",
+      "Color": "255, 241, 50"
+    },
+    {
+      "Location": "5, 0",
+      "Color": "255, 241, 50"
+    },
+    {
+      "Location": "3, 0",
+      "Color": "255, 89, 0"
+    },
+    {
+      "Location": "4, 0",
+      "Color": "255, 89, 0"
+    },
+    {
+      "Location": "7, 0",
+      "Color": "48, 57, 230"
+    },
+    {
+      "Location": "7, 7",
+      "Color": "48, 57, 230"
+    }
+  ]
+}
