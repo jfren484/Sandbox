@@ -1,3 +1,6 @@
+const hexWidth = 80;
+const hexHeight = 70;
+
 export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
@@ -118,12 +121,12 @@ export const gamePhases = {
 }
 
 export const hexNeighborOffsets = [
-    { x: -1, y: -0.5 }, // Northwest
-    { x:  0, y: -1   }, // North
-    { x:  1, y: -0.5 }, // Northeast
-    { x: -1, y:  0.5 }, // Southwest
-    { x:  0, y:  1   }, // South
-    { x:  1, y:  0.5 }  // Southeast
+    { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4     }, // Northwest
+    { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0                 }, // North
+    { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4     }, // Northeast
+    { x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4 }, // Southwest
+    { x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight         }, // South
+    { x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4 }  // Southeast
 ]
 
 export const hexSides = {
@@ -166,9 +169,6 @@ export const interestTypes = {
         description: 'You find a crate of Muskets. Gain 5 Muskets. Add a Trail to any adjacent hex.'
     }
 }
-
-const hexWidth = 80;
-const hexHeight = 70;
 
 export const map = {
     cols: 15,

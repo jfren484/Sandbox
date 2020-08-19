@@ -10,7 +10,7 @@ export function addConquistadorInPlanning(G) {
 	const required = 4;
 	const val = G.diceTrayPlanning.dice[2].value;
 	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
-		setConquistadors(G.counters.conquistadors + 1);
+        setConquistadors(G.counters.conquistadors.value + 1);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value === val);
 
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
@@ -34,311 +34,269 @@ export function cureFever(G) {
 }
 
 export function generateMapHexes() {
-    /*
-     * Template for map hex:
-     * {
-	 *     x: <int>,
-	 *     y: <int>,
-     *     terrainType: gameConstants.terrainTypes.*,
-     *     riverType: gameConstants.riverTypes.*,
-	 *     cataract: <bool>,
-	 *     interests: <array of gameConstants.interestTypes.*],
-     *     villages: <int>,
-     *     friendlyVillages: <int>,
-     *     lagosDeOro: gameConstants.terrainTypes.* | undefined,
-     *     advancedCiv: <bool> // TODO: ?
-	 * }
-     */
-	return {
-		'0, 0.5': {
-			x: 0,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.mountains,
-			interests: []
-		},
-		'0, 1.5': {
-			x: 0,
-			y: 1.5,
+    const hexTemplate = {
+        x: 0,
+        y: 0,
+        terrainType: gameConstants.terrainTypes.unexplored,
+        riverType: undefined,
+        cataract: false,
+        interests: [],
+        villages: 0,
+        friendlyVillages: 0
+
+        //lagosDeOro: gameConstants.terrainTypes.* | undefined,
+        //advancedCiv: <bool> // TODO: ?
+    };
+
+    return {
+        '0, 0.5': {
+            ...hexTemplate,
+            x: 0,
+            y: 0.5,
+            terrainType: gameConstants.terrainTypes.mountains
+        },
+        '0, 1.5': {
+            ...hexTemplate,
+            x: 0,
+            y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.source,
-			cataract: true,
-			interests: []
-		},
-		'0, 2.5': {
-			x: 0,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'1, 0': {
-			x: 1,
-			y: 0,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'1, 1': {
-			x: 1,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swse
-		},
-		'1, 2': {
-			x: 1,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'2, 0.5': {
-			x: 2,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'2, 1.5': {
-			x: 2,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.mountains,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwne
-		},
-		'2, 2.5': {
-			x: 2,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'3, 0': {
-			x: 3,
-			y: 0,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'3, 1': {
-			x: 3,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swse
-		},
-		'3, 2': {
-			x: 3,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'4, 0.5': {
-			x: 4,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'4, 1.5': {
-			x: 4,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwne
-		},
-		'4, 2.5': {
-			x: 4,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'5, 0': {
-			x: 5,
-			y: 0,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'5, 1': {
-			x: 5,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swse
-		},
-		'5, 2': {
-			x: 5,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'6, 0.5': {
-			x: 6,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [gameConstants.interestTypes.pending]
-		},
-		'6, 1.5': {
-			x: 6,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwse
-		},
-		'6, 2.5': {
-			x: 6,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'7, 1': {
-			x: 7,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'7, 2': {
-			x: 7,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwne
-		},
-		'7, 3': {
-			x: 7,
-			y: 3,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'8, 0.5': {
-			x: 8,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'8, 1.5': {
-			x: 8,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swne
-		},
-		'8, 2.5': {
-			x: 8,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'9, 0': {
-			x: 9,
-			y: 0,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'9, 1': {
-			x: 9,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swse
-		},
-		'9, 2': {
-			x: 9,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'10, 0.5': {
-			x: 10,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'10, 1.5': {
-			x: 10,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwse
-		},
-		'10, 2.5': {
-			x: 10,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'11, 1': {
-			x: 11,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'11, 2': {
-			x: 11,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nwne
-		},
-		'11, 3': {
-			x: 11,
-			y: 3,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'12, 0.5': {
-			x: 12,
-			y: 0.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'12, 1.5': {
-			x: 12,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.swse
-		},
-		'12, 2.5': {
-			x: 12,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'13, 1': {
-			x: 13,
-			y: 1,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'13, 2': {
-			x: 13,
-			y: 2,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nws
-		},
-		'13, 3': {
-			x: 13,
-			y: 3,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.nse
-		},
-		'14, 1.5': {
-			x: 14,
-			y: 1.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'14, 2.5': {
-			x: 14,
-			y: 2.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: []
-		},
-		'14, 3.5': {
-			x: 14,
-			y: 3.5,
-			terrainType: gameConstants.terrainTypes.unexplored,
-			interests: [],
-			riverType: gameConstants.riverTypes.delta,
-			winGame: true
-		}
-	};
+            cataract: true
+        },
+        '0, 2.5': {
+            ...hexTemplate,
+            x: 0,
+            y: 2.5
+        },
+        '1, 0': {
+            ...hexTemplate,
+            x: 1,
+            y: 0
+        },
+        '1, 1': {
+            ...hexTemplate,
+            x: 1,
+            y: 1,
+            riverType: gameConstants.riverTypes.swse
+        },
+        '1, 2': {
+            ...hexTemplate,
+            x: 1,
+            y: 2
+        },
+        '2, 0.5': {
+            ...hexTemplate,
+            x: 2,
+            y: 0.5
+        },
+        '2, 1.5': {
+            ...hexTemplate,
+            x: 2,
+            y: 1.5,
+            terrainType: gameConstants.terrainTypes.mountains,
+            riverType: gameConstants.riverTypes.nwne
+        },
+        '2, 2.5': {
+            ...hexTemplate,
+            x: 2,
+            y: 2.5
+        },
+        '3, 0': {
+            ...hexTemplate,
+            x: 3,
+            y: 0
+        },
+        '3, 1': {
+            ...hexTemplate,
+            x: 3,
+            y: 1,
+            riverType: gameConstants.riverTypes.swse
+        },
+        '3, 2': {
+            ...hexTemplate,
+            x: 3,
+            y: 2
+        },
+        '4, 0.5': {
+            ...hexTemplate,
+            x: 4,
+            y: 0.5
+        },
+        '4, 1.5': {
+            ...hexTemplate,
+            x: 4,
+            y: 1.5,
+            riverType: gameConstants.riverTypes.nwne
+        },
+        '4, 2.5': {
+            ...hexTemplate,
+            x: 4,
+            y: 2.5
+        },
+        '5, 0': {
+            ...hexTemplate,
+            x: 5,
+            y: 0
+        },
+        '5, 1': {
+            ...hexTemplate,
+            x: 5,
+            y: 1,
+            riverType: gameConstants.riverTypes.swse
+        },
+        '5, 2': {
+            ...hexTemplate,
+            x: 5,
+            y: 2
+        },
+        '6, 0.5': {
+            ...hexTemplate,
+            x: 6,
+            y: 0.5,
+            interests: [gameConstants.interestTypes.pending]
+        },
+        '6, 1.5': {
+            ...hexTemplate,
+            x: 6,
+            y: 1.5,
+            riverType: gameConstants.riverTypes.nwse
+        },
+        '6, 2.5': {
+            ...hexTemplate,
+            x: 6,
+            y: 2.5
+        },
+        '7, 1': {
+            ...hexTemplate,
+            x: 7,
+            y: 1
+        },
+        '7, 2': {
+            ...hexTemplate,
+            x: 7,
+            y: 2,
+            riverType: gameConstants.riverTypes.nwne
+        },
+        '7, 3': {
+            ...hexTemplate,
+            x: 7,
+            y: 3
+        },
+        '8, 0.5': {
+            ...hexTemplate,
+            x: 8,
+            y: 0.5
+        },
+        '8, 1.5': {
+            ...hexTemplate,
+            x: 8,
+            y: 1.5,
+            riverType: gameConstants.riverTypes.swne
+        },
+        '8, 2.5': {
+            ...hexTemplate,
+            x: 8,
+            y: 2.5
+        },
+        '9, 0': {
+            ...hexTemplate,
+            x: 9,
+            y: 0
+        },
+        '9, 1': {
+            ...hexTemplate,
+            x: 9,
+            y: 1,
+            riverType: gameConstants.riverTypes.swse
+        },
+        '9, 2': {
+            ...hexTemplate,
+            x: 9,
+            y: 2
+        },
+        '10, 0.5': {
+            ...hexTemplate,
+            x: 10,
+            y: 0.5
+        },
+        '10, 1.5': {
+            ...hexTemplate,
+            x: 10,
+            y: 1.5,
+            riverType: gameConstants.riverTypes.nwse
+        },
+        '10, 2.5': {
+            ...hexTemplate,
+            x: 10,
+            y: 2.5
+        },
+        '11, 1': {
+            ...hexTemplate,
+            x: 11,
+            y: 1
+        },
+        '11, 2': {
+            ...hexTemplate,
+            x: 11,
+            y: 2,
+            riverType: gameConstants.riverTypes.nwne
+        },
+        '11, 3': {
+            ...hexTemplate,
+            x: 11,
+            y: 3
+        },
+        '12, 0.5': {
+            ...hexTemplate,
+            x: 12,
+            y: 0.5
+        },
+        '12, 1.5': {
+            ...hexTemplate,
+            x: 12,
+            y: 1.5,
+            riverType: gameConstants.riverTypes.swse
+        },
+        '12, 2.5': {
+            ...hexTemplate,
+            x: 12,
+            y: 2.5
+        },
+        '13, 1': {
+            ...hexTemplate,
+            x: 13,
+            y: 1
+        },
+        '13, 2': {
+            ...hexTemplate,
+            x: 13,
+            y: 2,
+            riverType: gameConstants.riverTypes.nws
+        },
+        '13, 3': {
+            ...hexTemplate,
+            x: 13,
+            y: 3,
+            riverType: gameConstants.riverTypes.nse
+        },
+        '14, 1.5': {
+            ...hexTemplate,
+            x: 14,
+            y: 1.5
+        },
+        '14, 2.5': {
+            ...hexTemplate,
+            x: 14,
+            y: 2.5
+        },
+        '14, 3.5': {
+            ...hexTemplate,
+            x: 14,
+            y: 3.5,
+            riverType: gameConstants.riverTypes.delta,
+            winGame: true
+        }
+    };
 }
 
 export function getAdjacentUnmapped(G) {
@@ -359,10 +317,11 @@ export function getAdjacentUnmapped(G) {
 }
 
 export function getAvailableTrailLocations(G) {
-	G.map.availableTrailLocations = [];
+    G.map.availableTrailLocations = [];
 	const currentHex = G.map.hexes[G.map.currentLocationKey];
 
-	for (let hexNeighborOffset in gameConstants.hexNeighborOffsets) {
+    for (let i = 0; i < gameConstants.hexNeighborOffsets.length; ++i) {
+        const hexNeighborOffset = gameConstants.hexNeighborOffsets[i];
 		const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
 
 		if (G.map.hexes[hexKey]) {
@@ -372,6 +331,10 @@ export function getAvailableTrailLocations(G) {
 				G.map.availableTrailLocations.push(hexNeighborOffset);
             }
         }
+    }
+
+    if (G.map.availableTrailLocations.length > 0) {
+        G.phaseComment = 'Choose location for trail';
     }
 }
 
@@ -390,9 +353,15 @@ export function generatePhaseDialog(G) {
         case gameConstants.gamePhases.exploring.index:
         case gameConstants.gamePhases.nativeContact.index:
         case gameConstants.gamePhases.hunting.index:
-            if (G.planningDiceAssigned[G.phase.index] === 0) {
+            const diceAssigned = G.planningDiceAssigned[G.phase.index];
+
+            if (diceAssigned === 0) {
                 G.phaseComment = 'No dice assigned to ' + G.phase.label;
                 skip = true;
+            }
+
+            if (G.phaseComment === '') {
+                G.phaseComment = 'Dice assigned: ' + diceAssigned + (diceAssigned > 1 ? ', bonus to roll: +' + (diceAssigned - 1) : '');
             }
             break;
         case gameConstants.gamePhases.interests:
@@ -447,9 +416,9 @@ export function handleExploringRoll(G, confirmed) {
 		case 2:
 			if (confirmed) {
 				if (G.expeditionType.deathRemovesFood) {
-					setFood(G, G.counts.food - 1);
+					setFood(G, G.counters.food.value - 1);
 				} else {
-					setConquistadors(G, G.counts.conquistadors - 1);
+                    setConquistadors(G, G.counters.conquistadors.value - 1);
 				}
 			}
 
@@ -467,7 +436,7 @@ export function handleExploringRoll(G, confirmed) {
 		case 4:
 		case 5:
 			if (confirmed) {
-				setMovementProgress(G, G.counts.movementProgress - 1);
+                setMovementProgress(G, G.counters.movementProgress.value - 1);
 			}
 
 			G.diceTray.extraContent[1] += 'Movement -1';
@@ -488,7 +457,7 @@ export function handleExploringRoll(G, confirmed) {
 
 		case 8:
 			if (confirmed) {
-				setMorale(G, G.counts.morale + 1);
+                setMorale(G, G.counters.morale.value + 1);
 			}
 
 			G.diceTray.extraContent[1] += 'Morale +1';

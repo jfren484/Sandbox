@@ -51,9 +51,11 @@ export const Game1572 = {
         },
         fever: false,
         map: {
-            hexes: gameMethods.generateMapHexes(),
-            currentLocationKey: '0, 0.5',
             adjacentUnmappedHexes: [],
+            availableTrailLocations: [],
+            currentLocationKey: '0, 0.5',
+            hexes: gameMethods.generateMapHexes(),
+            trailPending: false,
             trails: []
         },
         phase: gameConstants.gamePhases.planning,
@@ -250,7 +252,9 @@ export const Game1572 = {
                     preMapping: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                gameMethods.getAdjacentUnmapped(G);
+                                if (G.planningDiceAssigned[3] > 0) {
+                                    gameMethods.getAdjacentUnmapped(G);
+                                }
                                 G.phase = gameConstants.gamePhases.mapping;
                                 gameMethods.generatePhaseDialog(G);
                                 if (G.phaseComment === '') {
@@ -354,7 +358,9 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             },
                             updateExploring: (G, ctx) => {
-                                if (gameMethods.handleExploringRoll(G, true) === 'trail') {
+                                gameMethods.handleExploringRoll(G, true);
+                                if (G.map.trailPending) {
+                                    gameMethods.getAvailableTrailLocations(G);
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preNativeContact');

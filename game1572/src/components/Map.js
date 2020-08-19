@@ -40,10 +40,10 @@ export class Map extends React.Component {
             if (key === this.props.mapData.currentLocationKey) {
                 currentHexShape = shape;
 
-                if (this.props.mapData.trailPending) {
-                    for (let trailOffset in this.props.mapData.trails) {
-
-                    }
+                let trail = 0;
+                for (let t = 0; t < this.props.mapData.availableTrailLocations.length; ++t) {
+                    const trailOffset = this.props.mapData.availableTrailLocations[t];
+                    shapes.push(<circle key={'TRAIL-' + (trail++)} cx={xBase + trailOffset.pX} cy={yBase + trailOffset.pY} r="10" fill="yellow" />);
                 }
             } else {
                 shapes.push(shape);
