@@ -356,8 +356,23 @@ export function getAdjacentUnmapped(G) {
 			}
 		}
 	}
+}
 
-	return G.map.adjacentUnmappedHexes;
+export function getAvailableTrailLocations(G) {
+	G.map.availableTrailLocations = [];
+	const currentHex = G.map.hexes[G.map.currentLocationKey];
+
+	for (let hexNeighborOffset in gameConstants.hexNeighborOffsets) {
+		const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
+
+		if (G.map.hexes[hexKey]) {
+			const trailKey = [hexKey, G.map.currentLocationKey].sort();
+
+			if (!G.map.trails.includes[trailKey]) {
+				G.map.availableTrailLocations.push(hexNeighborOffset);
+            }
+        }
+    }
 }
 
 export function generatePhaseDialog(G) {
@@ -370,7 +385,7 @@ export function generatePhaseDialog(G) {
                 G.phaseComment = 'No unmapped adjacent hexes';
                 skip = true;
             }
-            // No break
+            // fall through
         case gameConstants.gamePhases.movement.index:
         case gameConstants.gamePhases.exploring.index:
         case gameConstants.gamePhases.nativeContact.index:
@@ -385,7 +400,9 @@ export function generatePhaseDialog(G) {
                 G.phaseComment = 'No interests to resolve';
                 skip = true;
             }
-            break;
+			break;
+		default:
+			break;
     }
 
     if (skip) {

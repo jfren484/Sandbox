@@ -53,7 +53,8 @@ export const Game1572 = {
         map: {
             hexes: gameMethods.generateMapHexes(),
             currentLocationKey: '0, 0.5',
-            adjacentUnmappedHexes: []
+            adjacentUnmappedHexes: [],
+            trails: []
         },
         phase: gameConstants.gamePhases.planning,
         phaseComment: '',
@@ -367,6 +368,7 @@ export const Game1572 = {
                             updateExploring: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
                                 if (G.map.trailPending) {
+                                    gameMethods.getAvailableTrailLocations(G);
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -377,9 +379,10 @@ export const Game1572 = {
                     },
                     exploringChooseTrailLocation: {
                         moves: {
-                            chooseLocation: (G, ctx, edge) => {
+                            chooseLocation: (G, ctx, trailKey) => {
                                 G.phaseComment = '';
-                                // TODO: set trail
+                                G.map.availableTrailLocations = [];
+                                G.map.trails.push(trailKey);
                                 ctx.events.endStage();
                             }
                         },

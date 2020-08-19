@@ -117,6 +117,15 @@ export const gamePhases = {
     }
 }
 
+export const hexNeighborOffsets = [
+    { x: -1, y: -0.5 }, // Northwest
+    { x:  0, y: -1   }, // North
+    { x:  1, y: -0.5 }, // Northeast
+    { x: -1, y:  0.5 }, // Southwest
+    { x:  0, y:  1   }, // South
+    { x:  1, y:  0.5 }  // Southeast
+]
+
 export const hexSides = {
     northwest: { name: 'northwest' },
     north: { name: 'north' },

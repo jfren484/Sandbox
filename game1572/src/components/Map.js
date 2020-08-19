@@ -27,7 +27,7 @@ export class Map extends React.Component {
 
             const shape = (<g key={'G-' + key} cursor={cursor} pointer-events="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
                 {adj
-                    ? <polygon className="highlight" key={'HL-' + key} points={points} />
+                    ? <polygon className="highlightHex" key={'HL-' + key} points={points} />
                     : null}
                 {hex.riverType
                     ? <polygon key={'RIVER-' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />
@@ -35,12 +35,22 @@ export class Map extends React.Component {
                 <polygon key={'HEX-' + key} points={points} stroke={stroke} strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />
             </g>);
 
+            // TODO: cataract
+
             if (key === this.props.mapData.currentLocationKey) {
                 currentHexShape = shape;
+
+                if (this.props.mapData.trailPending) {
+                    for (let trailOffset in this.props.mapData.trails) {
+
+                    }
+                }
             } else {
                 shapes.push(shape);
             }
         }
+
+        // TODO: trails
 
         shapes.push(currentHexShape);
 
