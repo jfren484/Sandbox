@@ -1,5 +1,6 @@
 import React from 'react';
 import { RiverPatterns } from './patterns/RiverPatterns';
+import { OtherPatterns } from './patterns/OtherPatterns';
 import { TerrainPatterns } from './patterns/TerrainPatterns';
 import * as gameConstants from '../gameConstants';
 
@@ -10,7 +11,7 @@ export class Map extends React.Component {
         const mapHeight = gameConstants.map.hexHeight * (gameConstants.map.rows) + gameConstants.map.hexPad * 2;
 
         let shapes = [];
-        let currentHexShape;
+        let currentHexShapes = [];
 
         const keys = Object.keys(this.props.mapData.hexes);
         for (let i = 0; i < keys.length; ++i) {
@@ -23,9 +24,8 @@ export class Map extends React.Component {
 
             const points = gameConstants.map.hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
             const stroke = key === this.props.mapData.currentLocationKey ? 'red' : 'black';
-            const cursor = adj ? 'pointer' : 'auto';
 
-            const shape = (<g key={'G-' + key} cursor={cursor} pointer-events="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
+            const shape = (<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointer-events="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
                 {adj
                     ? <polygon className="highlightHex" key={'HL-' + key} points={points} />
                     : null}
@@ -38,12 +38,13 @@ export class Map extends React.Component {
             // TODO: cataract
 
             if (key === this.props.mapData.currentLocationKey) {
-                currentHexShape = shape;
+                currentHexShapes.push(shape);
 
-                let trail = 0;
                 for (let t = 0; t < this.props.mapData.availableTrailLocations.length; ++t) {
                     const trailOffset = this.props.mapData.availableTrailLocations[t];
-                    shapes.push(<circle key={'TRAIL-' + (trail++)} cx={xBase + trailOffset.pX} cy={yBase + trailOffset.pY} r="10" fill="yellow" />);
+                    currentHexShapes.push(<g key={'ATRL-' + t} cursor="pointer" pointer-events="visible" onClick={() => this.props.onHexClick(key)}>
+                        <rect x={xBase + trailOffset.pX} y={yBase + trailOffset.pY} width="10" height="20" fill={'url(#Trail.' + trailOffset.pattern + ')'} className="highlightTrail" />
+                    </g>);
                 }
             } else {
                 shapes.push(shape);
@@ -52,7 +53,7 @@ export class Map extends React.Component {
 
         // TODO: trails
 
-        shapes.push(currentHexShape);
+        shapes = shapes.concat(currentHexShapes);
 
         return (
             <div className="map">
@@ -60,6 +61,7 @@ export class Map extends React.Component {
                     <defs>
                         <TerrainPatterns />
                         <RiverPatterns />
+                        <OtherPatterns />
                     </defs>
                     {shapes}
                 </svg>

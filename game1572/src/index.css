@@ -120,7 +120,7 @@ code {
 }
 
 .highlightTrail {
-    color: #ffffcc;
+    stroke: #888;
 }
 
 g:hover .highlightHex {
@@ -128,7 +128,7 @@ g:hover .highlightHex {
 }
 
 g:hover .highlightTrail {
-    color: #ffff00;
+    stroke: black;
 }
 
 .phase {
