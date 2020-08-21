@@ -1,6 +1,5 @@
 import React from 'react';
 import { RiverPatterns } from './patterns/RiverPatterns';
-import { OtherPatterns } from './patterns/OtherPatterns';
 import { TerrainPatterns } from './patterns/TerrainPatterns';
 import * as gameConstants from '../gameConstants';
 
@@ -43,7 +42,7 @@ export class Map extends React.Component {
                 for (let t = 0; t < this.props.mapData.availableTrailLocations.length; ++t) {
                     const trailOffset = this.props.mapData.availableTrailLocations[t];
                     currentHexShapes.push(<g key={'ATRL-' + t} cursor="pointer" pointer-events="visible" onClick={() => this.props.onHexClick(key)}>
-                        <rect x={xBase + trailOffset.pX} y={yBase + trailOffset.pY} width="10" height="20" fill={'url(#Trail.' + trailOffset.pattern + ')'} className="highlightTrail" />
+                        <use href="#trail" transform={'translate(' + (xBase + trailOffset.pX) + ', ' + (yBase + trailOffset.pY) + ') rotate(' + trailOffset.rotate + ')'} />
                     </g>);
                 }
             } else {
@@ -61,8 +60,13 @@ export class Map extends React.Component {
                     <defs>
                         <TerrainPatterns />
                         <RiverPatterns />
-                        <OtherPatterns />
                     </defs>
+                    <g visibility="hidden">
+                        <g id="trail">
+                            <line x1="2" y1="0" x2="2" y2="20" stroke="black" strokeWidth="2" />
+                            <line x1="12" y1="0" x2="12" y2="20" stroke="black" strokeWidth="2" />
+                        </g>
+                    </g>
                     {shapes}
                 </svg>
             </div>
