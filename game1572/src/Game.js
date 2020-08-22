@@ -56,7 +56,7 @@ export const Game1572 = {
             currentLocationKey: '0, 0.5',
             hexes: gameMethods.generateMapHexes(),
             trailPending: false,
-            trails: []
+            trails: {}
         },
         phase: gameConstants.gamePhases.planning,
         phaseComment: '',
@@ -385,14 +385,17 @@ export const Game1572 = {
                     },
                     exploringChooseTrailLocation: {
                         moves: {
-                            chooseLocation: (G, ctx, trailKey) => {
+                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
                                 G.phaseComment = '';
                                 G.map.availableTrailLocations = [];
-                                G.map.trails.push(trailKey);
+                                G.map.trails[trailKey] = {
+                                    hexKey: G.map.currentLocationKey,
+                                    offset: offsetRec
+                                };
                                 ctx.events.endStage();
                             }
                         },
-                        next: 'mappingRoll'
+                        next: 'preNativeContact'
                     },
                     preNativeContact: {
                         moves: {

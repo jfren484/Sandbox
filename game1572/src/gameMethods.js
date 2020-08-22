@@ -327,8 +327,8 @@ export function getAvailableTrailLocations(G) {
 		if (G.map.hexes[hexKey]) {
 			const trailKey = [hexKey, G.map.currentLocationKey].sort();
 
-			if (!G.map.trails.includes[trailKey]) {
-				G.map.availableTrailLocations.push(hexNeighborOffset);
+			if (!G.map.trails[trailKey]) {
+                G.map.availableTrailLocations.push({ key: trailKey, offset: hexNeighborOffset });
             }
         }
     }

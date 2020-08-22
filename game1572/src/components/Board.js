@@ -120,6 +120,10 @@ export class Game1572Board extends React.Component {
         }
     };
 
+    onTrailClick = (key, offsetRec) => {
+        this.props.moves.chooseTrailLocation(key, offsetRec);
+    }
+
     /* Methods */
 
     animateDice(diceTray, diceAnimationTarget) {
@@ -199,7 +203,7 @@ export class Game1572Board extends React.Component {
                         onSkipRerollClick={this.onPlanningSkipRerollClick}
                         onComplete={this.onPlanningRollComplete} />
                     <Header className="mainGame" expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                    <Map className="mainGame" mapData={this.props.G.map} onHexClick={this.onHexClick} />
+                    <Map className="mainGame" mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>
                 </Box>

@@ -121,12 +121,12 @@ export const gamePhases = {
 }
 
 export const hexNeighborOffsets = [
-    { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 }, // Northwest
-    { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 }, // North
-    { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 }, // Northeast
-    { x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 }, // Southwest
-    { x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 }, // South
-    { x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 }  // Southeast
+    { label: 'nw', x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 }, // Northwest
+    { label: 'n',  x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 }, // North
+    { label: 'ne', x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 }, // Northeast
+    { label: 'sw', x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 }, // Southwest
+    { label: 's',  x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 }, // South
+    { label: 'se', x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 }  // Southeast
 ]
 
 export const hexSides = {

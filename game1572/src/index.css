@@ -119,16 +119,20 @@ code {
     fill: #ffffcc;
 }
 
-.highlightTrail {
-    stroke: #888;
-}
-
 g:hover .highlightHex {
     fill: #ffff00;
 }
 
-g:hover .highlightTrail {
-    stroke: black;
+.highlightTrail .hl {
+    fill: #ffff8080;
+}
+
+.highlightTrail:hover {
+    opacity: 1;
+}
+
+.highlightTrail:hover .hl {
+    fill: #ffff00d0;
 }
 
 .phase {
