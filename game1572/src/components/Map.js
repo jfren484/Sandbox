@@ -20,7 +20,7 @@ export class Map extends React.Component {
             const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
             const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
 
-            shapes.push(<g key={'TRL-' + hexKey + '-' + trailOffset.label}>
+            shapes.push(<g key={'TRL-' + hexKey + '-' + trailOffset.key}>
                 <use href="#trail" transform={'translate(' + (xBase + trailOffset.pX - 8) + ', ' + (yBase + trailOffset.pY - 10) + ') rotate(' + trailOffset.rotate + ', 8, 10)'} />
             </g>);
         }
@@ -47,7 +47,12 @@ export class Map extends React.Component {
                 <polygon key={'HEX-' + key} points={points} stroke={stroke} strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />
             </g>);
 
-            // TODO: cataract
+            if (hex.cataract) {
+                const offset = gameConstants.hexNeighborOffsets.filter(o => o.key == hex.downstream)[0];
+                currentHexShapes.push(<g key={'CAT-' + key}>
+                    <use href="#cataract" transform={'translate(' + (xBase + offset.pX - 10) + ', ' + (yBase + offset.pY - 6) + ') rotate(' + offset.rotate + ', 10, 6)'} />
+                </g>);
+            }
 
             if (key === this.props.mapData.currentLocationKey) {
                 currentHexShapes.push(shape);
@@ -56,7 +61,7 @@ export class Map extends React.Component {
                     const availableTrailLocation = this.props.mapData.availableTrailLocations[t];
                     const trailKey = availableTrailLocation.key;
                     const trailOffset = availableTrailLocation.offset;
-                    currentHexShapes.push(<g key={'ATRL-' + trailOffset.label} className="highlightTrail">
+                    currentHexShapes.push(<g key={'ATRL-' + trailOffset.key} className="highlightTrail">
                         <rect x={xBase + trailOffset.pX - 8} y={yBase + trailOffset.pY - 12} width="16" height="24" className="hl"
                             transform={'rotate(' + trailOffset.rotate + ', ' + (xBase + trailOffset.pX) + ', ' + (yBase + trailOffset.pY) + ')'} />
                         <use href="#trail" className="highlightTrail" cursor="pointer" pointer-events="visible" onClick={() => this.props.onTrailClick(trailKey, trailOffset)} opacity="0.5"
@@ -82,6 +87,10 @@ export class Map extends React.Component {
                             <rect x="2" y="0" width="12" height="20" strokeWidth="0" fill="transparent" />
                             <polyline points="2,0 5,3 5,17 2,20" stroke="black" strokeWidth="1.5" fill="none" />
                             <polyline points="14,0 11,3 11,17 14,20" stroke="black" strokeWidth="1.5" fill="none" />
+                        </g>
+                        <g id="cataract">
+                            <line x1="0" y1="0" x2="20" y2="12" stroke="blue" strokeWidth="1.5" fill="none" />
+                            <line x1="0" y1="12" x2="20" y2="0" stroke="blue" strokeWidth="1.5" fill="none" />
                         </g>
                     </g>
                     {shapes}

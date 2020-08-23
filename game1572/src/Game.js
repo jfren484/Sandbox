@@ -51,6 +51,7 @@ export const Game1572 = {
         },
         fever: false,
         map: {
+            adjacentTravelCandidates: [],
             adjacentUnmappedHexes: [],
             availableTrailLocations: [],
             currentLocationKey: '0, 0.5',
@@ -424,49 +425,6 @@ export const Game1572 = {
                     },
                     nativeContactRoll: {
                         moves: {
-                            updateNativeContact: (G, ctx, value, hexB) => {
-                                switch (value) {
-                                    case 0:
-                                    case 1:
-                                    case 2:
-                                    case 3:
-                                    case 4:
-                                        // TODO: advanced civilization
-                                        break;
-
-                                    case 5:
-                                        G.fever = true;
-                                        break;
-
-                                    case 6:
-                                    case 7:
-                                    case 8:
-                                        if (G.expeditionType.allVillagesPeaceful) {
-                                            // TODO: add peaceful village
-                                        } else {
-                                            // TODO: add village
-                                        }
-                                        break;
-
-                                    case 9:
-                                        // TODO: place trail
-                                        break;
-
-                                    case 10:
-                                        gameMethods.setFood(G, G.counts.food + 1);
-                                        // TODO: add peaceful village
-                                        break;
-
-                                    case 11:
-                                    case 12:
-                                    default:
-                                        gameMethods.setMuskets(G, G.counts.muskets + 1);
-                                        gameMethods.setFood(G, G.counts.food + 1);
-                                        gameMethods.setMorale(G, G.counts.morale + 1);
-                                        // TODO: add peaceful village
-                                        break;
-                                }
-                            }
                         }
                     },
                     preHunting: {
@@ -496,48 +454,41 @@ export const Game1572 = {
                     },
                     huntingRoll: {
                         moves: {
-                            updateHunting: (G, ctx, value) => {
-                                switch (value) {
-                                    case 0:
-                                    case 1:
-                                    case 2:
-                                    case 3:
-                                        if (G.expeditionType.deathRemovesFood) {
-                                            gameMethods.setFood(G, G.counts.food - 1);
-                                        } else {
-                                            gameMethods.setConquistadors(G, G.counts.conquistadors - 1);
-                                        }
-                                        break;
-
-                                    case 4:
-                                        gameMethods.setMorale(G, G.counts.morale - 1);
-                                        break;
-
-                                    case 5:
-                                        gameMethods.setFood(G, G.counts.food + 1);
-                                        gameMethods.setMorale(G, G.counts.morale - 1);
-                                        break;
-
-                                    case 6:
-                                    case 7:
-                                    case 8:
-                                        gameMethods.setFood(G, G.counts.food + 1);
-                                        break;
-
-                                    case 9:
-                                    case 10:
-                                        gameMethods.setFood(G, G.counts.food + 2);
-                                        break;
-
-                                    case 11:
-                                    case 12:
-                                    default:
-                                        gameMethods.setFood(G, G.counts.food + 2);
-                                        gameMethods.setMorale(G, G.counts.morale + 1);
-                                        break;
-                                }
+                            rollDice: (G, ctx) => {
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handleHuntingRoll(G, false);
+                                ctx.events.endStage();
                             }
-                        }
+                        },
+                        next: 'huntingMidRoll'
+                    },
+                    huntingMidRoll: {
+                        moves: {
+                            rerollDice: (G, ctx) => {
+                                if (G.counters.muskets.value < 1) {
+                                    return INVALID_MOVE;
+                                }
+
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handleHuntingRoll(G, false);
+                                ctx.events.endStage();
+                            },
+                            updateHunting: (G, ctx) => {
+                                gameMethods.handleHuntingRoll(G, true);
+                                ctx.events.setStage('preInterests');
+                            }
+                        },
+                        next: 'huntingPostRoll'
+                    },
+                    huntingPostRoll: {
+                        moves: {
+                            updateHunting: (G, ctx) => {
+                                gameMethods.handleExploringRoll(G, true);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'exploringChooseTrailLocation'
                     },
                     preInterests: {
                         moves: {
@@ -566,74 +517,89 @@ export const Game1572 = {
                     },
                     interestsRoll: {
                         moves: {
-                            updateInterests: (G, ctx, value, data) => {
-                                // TODO: handle switching interest to wonder after use
-                                switch (value) {
-                                    case 2:
-                                    case 3:
-                                        // TODO: Lagos De Oro
-                                        break;
-
-                                    case 4:
-                                        gameMethods.setMuskets(G, G.counts.muskets + 5);
-                                        // TODO: Ruined Mission (add trail)
-                                        break;
-
-                                    case 5:
-                                        // TODO: Migration
-                                        break;
-
-                                    case 6:
-                                    case 7:
-                                    case 8:
-                                        gameMethods.setMorale(G, G.counts.morale + 5);
-                                        // TODO: Wonder
-                                        break;
-
-                                    case 9:
-                                        // TODO: Predict Eclipse
-                                        break;
-
-                                    case 10:
-                                        // TODO: Princess Kantyi
-                                        break;
-
-                                    case 11:
-                                    case 12:
-                                    default:
-                                        gameMethods.setConquistadors(G, G.counts.conquistadors + 1);
-                                        gameMethods.setMuskets(G, G.counts.muskets + 1);
-                                        // TODO: Diego Mendoza
-                                        break;
-                                }
+                            rollDice: (G, ctx) => {
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handleInterestsRoll(G, false);
+                                ctx.events.endStage();
                             }
-                        }
+                        },
+                        next: 'interestsPostRoll'
+                    },
+                    interestsPostRoll: {
+                        moves: {
+                            updateInterests: (G, ctx) => {
+                                gameMethods.handleInterestsRoll(G, true);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'preEatRations'
+                    },
+                    preEatRations: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                G.phase = gameConstants.gamePhases.eatRations;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'eatRations'
                     },
                     eatRations: {
                         moves: {
-                            eat: (G, ctx) => {
-                                if (G.counts.food === 0) {
-                                    gameMethods.setConquistadors(G, G.counts.conquistadors - 1);
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+
+                                if (G.counters.food > 0) {
+                                    gameMethods.setFood(G, G.counters.food - 1);
                                 } else {
-                                    gameMethods.setFood(G, G.counts.food - 1);
+                                    gameMethods.setConquistadors(G, G.counters.conquistadors - 1);
                                 }
+
+                                ctx.events.endStage();
                             }
-                        }
+                        },
+                        next: 'preMapTravel'
+                    },
+                    preMapTravel: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                gameMethods.getAdjacentTravelCandidates(G);
+                                G.phase = gameConstants.gamePhases.mapping;
+                                gameMethods.generatePhaseDialog(G);
+                                if (G.phaseComment === '') {
+                                    G.phaseComment = 'Choose hex to Map';
+                                }
+
+                                G.phase = gameConstants.gamePhases.mapTravel;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'mapTravelInstructions'
+                    },
+                    mapTravelInstructions: {
+                        moves: {
+                            travelTo: (G, ctx, hex) => {
+                                // TODO: update location, set morale adj value
+                            }
+                        },
+                        next: 'mapTravel'
                     },
                     mapTravel: {
                         moves: {
                             travelTo: (G, ctx, hex) => {
                                 // TODO: update location, set morale adj value
                             }
-                        }
+                        },
+                        next: 'preMoraleAdjustment'
                     },
                     moraleAdjustment: {
                         moves: {
                             adjustMorale: (G, ctx, value) => {
-                                gameMethods.setMorale(G, G.counts.morale + value);
+                                gameMethods.setMorale(G, G.counters.morale + value);
 
-                                if (G.counts.morale === 0) {
-                                    gameMethods.setConquistadors(G, G.counts.conquistadors - 1);
+                                if (G.counters.morale === 0) {
+                                    gameMethods.setConquistadors(G, G.counters.conquistadors - 1);
                                 }
                             }
                         }
@@ -665,7 +631,7 @@ export const Game1572 = {
     },
 
     endif: (G, ctx) => {
-        if (G.counts.conquistadors === 0) {
+        if (G.counters.conquistadors === 0) {
             return {
                 win: false,
                 allConquistadorsLost: true

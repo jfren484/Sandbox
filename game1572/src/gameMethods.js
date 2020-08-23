@@ -61,6 +61,7 @@ export function generateMapHexes() {
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.source,
+            downstream: 'ne',
             cataract: true
         },
         '0, 2.5': {
@@ -77,7 +78,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 1,
             y: 1,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            downstream: 'se'
         },
         '1, 2': {
             ...hexTemplate,
@@ -94,7 +96,8 @@ export function generateMapHexes() {
             x: 2,
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            downstream: 'ne'
         },
         '2, 2.5': {
             ...hexTemplate,
@@ -110,7 +113,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 3,
             y: 1,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            downstream: 'se'
         },
         '3, 2': {
             ...hexTemplate,
@@ -126,7 +130,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 4,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            downstream: 'ne'
         },
         '4, 2.5': {
             ...hexTemplate,
@@ -142,7 +147,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 5,
             y: 1,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            downstream: 'se'
         },
         '5, 2': {
             ...hexTemplate,
@@ -159,7 +165,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 6,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwse
+            riverType: gameConstants.riverTypes.nwse,
+            downstream: 'se'
         },
         '6, 2.5': {
             ...hexTemplate,
@@ -175,7 +182,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 7,
             y: 2,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            downstream: 'ne'
         },
         '7, 3': {
             ...hexTemplate,
@@ -191,7 +199,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 8,
             y: 1.5,
-            riverType: gameConstants.riverTypes.swne
+            riverType: gameConstants.riverTypes.swne,
+            downstream: 'ne'
         },
         '8, 2.5': {
             ...hexTemplate,
@@ -207,7 +216,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 9,
             y: 1,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            downstream: 'se'
         },
         '9, 2': {
             ...hexTemplate,
@@ -223,7 +233,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 10,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwse
+            riverType: gameConstants.riverTypes.nwse,
+            downstream: 'se'
         },
         '10, 2.5': {
             ...hexTemplate,
@@ -239,7 +250,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 11,
             y: 2,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            downstream: 'ne'
         },
         '11, 3': {
             ...hexTemplate,
@@ -255,7 +267,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 12,
             y: 1.5,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            downstream: 'se'
         },
         '12, 2.5': {
             ...hexTemplate,
@@ -271,13 +284,15 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 13,
             y: 2,
-            riverType: gameConstants.riverTypes.nws
+            riverType: gameConstants.riverTypes.nws,
+            downstream: 's'
         },
         '13, 3': {
             ...hexTemplate,
             x: 13,
             y: 3,
-            riverType: gameConstants.riverTypes.nse
+            riverType: gameConstants.riverTypes.nse,
+            downstream: 'se'
         },
         '14, 1.5': {
             ...hexTemplate,
@@ -297,6 +312,36 @@ export function generateMapHexes() {
             winGame: true
         }
     };
+}
+
+export function getAdjacentTravelCandidates(G) {
+    G.map.adjacentTravelCandidates = [];
+    if (G.counters.movementProgress < 3) {
+        // No chance of moving anywhere - abort
+        return;
+    }
+
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+
+    for (let hexKey in G.map.hexes) {
+        if (hexKey !== G.map.currentLocationKey) {
+            const hex = G.map.hexes[hexKey];
+
+            if (Math.abs(hex.x - currentHex.x) <= 1 &&
+                Math.abs(hex.y - currentHex.y) <= 1 &&
+                hex.terrainType.name !== gameConstants.terrainTypes.unexplored.name) {
+                const trailKey = [hexKey, G.map.currentLocationKey].sort();
+                const movementCost = G.map.trails[trailKey] ? 3 : 5;
+
+                if (G.counters.movementProgress >= movementCost) {
+                    G.map.adjacentTravelCandidates.push({
+                        trailKey: trailKey,
+                        movementCost: movementCost
+                    });
+                }
+            }
+        }
+    }
 }
 
 export function getAdjacentUnmapped(G) {
@@ -363,13 +408,29 @@ export function generatePhaseDialog(G) {
             if (G.phaseComment === '') {
                 G.phaseComment = 'Dice assigned: ' + diceAssigned + (diceAssigned > 1 ? ', bonus to roll: +' + (diceAssigned - 1) : '');
             }
+
             break;
         case gameConstants.gamePhases.interests:
             if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                 G.phaseComment = 'No interests to resolve';
                 skip = true;
             }
-			break;
+
+            break;
+        case gameConstants.gamePhases.eatRations:
+            if (G.counters.food > 0) {
+                G.phaseComment = 'Food -1';
+            } else {
+                G.phaseComment = 'No Food! Conquistadors -1';
+
+                if (G.counters.conquistadors === 0) {
+                    G.phaseComment += ', all Conquistadors have been lost';
+                }
+            }
+
+            break;
+        case gameConstants.gamePhases.mapTravel:
+            break;
 		default:
 			break;
     }
@@ -481,6 +542,158 @@ export function handleExploringRoll(G, confirmed) {
 
 			G.diceTray.extraContent[1] += '+Interest';
 			break;
+    }
+
+    if (confirmed) {
+        G.diceTray.dice = [];
+    }
+}
+
+export function handleInterestsRoll(G, confirmed) {
+    const data = handle_base(G);
+
+    switch (data.value) {
+        // TODO: handle switching interest to wonder after use
+        case 2:
+        case 3:
+            if (confirmed) {
+                // TODO: Lagos De Oro
+            }
+
+            G.diceTray.extraContent[1] += 'Lagos De Oro';
+            break;
+
+        case 4:
+            if (confirmed) {
+                setMuskets(G, G.counters.muskets + 5);
+                // TODO: Ruined Mission (add trail)
+            }
+
+            G.diceTray.extraContent[1] += 'Ruined Mission';
+            break;
+
+        case 5:
+            if (confirmed) {
+                // TODO: Migration
+            }
+
+            G.diceTray.extraContent[1] += 'Migration';
+            break;
+
+        case 6:
+        case 7:
+        case 8:
+            if (confirmed) {
+                setMorale(G, G.counters.morale + 5);
+                // TODO: Wonder
+            }
+
+            G.diceTray.extraContent[1] += 'Wonder';
+            break;
+
+        case 9:
+            if (confirmed) {
+                // TODO: Predict Eclipse
+            }
+
+            G.diceTray.extraContent[1] += 'Predict Eclipse';
+            break;
+
+        case 10:
+            if (confirmed) {
+                // TODO: Princess Kantyi
+            }
+
+            G.diceTray.extraContent[1] += 'Princess Kantyi';
+            break;
+
+        case 11:
+        case 12:
+        default:
+            if (confirmed) {
+                setConquistadors(G, G.counters.conquistadors + 1);
+                setMuskets(G, G.counters.muskets + 1);
+                // TODO: Diego Mendoza
+            }
+
+            G.diceTray.extraContent[1] += 'Diego Mendoza';
+            break;
+    }
+
+    if (confirmed) {
+        G.diceTray.dice = [];
+    }
+}
+
+export function handleHuntingRoll(G, confirmed) {
+    const data = handle_base(G);
+
+    switch (data.value) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            if (G.expeditionType.deathRemovesFood) {
+                if (confirmed) {
+                    setFood(G, G.counters.food.value - 1);
+                }
+
+                G.diceTray.extraContent[1] += 'Food -1';
+            } else {
+                if (confirmed) {
+                    setConquistadors(G, G.counters.conquistadors.value - 1);
+                }
+
+                G.diceTray.extraContent[1] += 'Conquistadors -1';
+            }
+            break;
+
+        case 4:
+            if (confirmed) {
+                setMorale(G, G.counters.morale.value - 1);
+            }
+
+            G.diceTray.extraContent[1] += 'Morale -1';
+            break;
+
+        case 5:
+            if (confirmed) {
+                setFood(G, G.counters.food + 1);
+                setMorale(G, G.counters.morale.value - 1);
+            }
+
+            G.diceTray.extraContent[1] += 'Morale -1, Food +1';
+            break;
+
+        case 6:
+        case 7:
+        case 8:
+            if (confirmed) {
+                setFood(G, G.counters.food + 1);
+           }
+
+            G.diceTray.extraContent[1] += 'Food +1';
+            break;
+
+        case 9:
+        case 10:
+            if (confirmed) {
+                setFood(G, G.counters.food + 2);
+            }
+
+            G.diceTray.extraContent[1] += 'Food +2';
+            break;
+
+        case 11:
+        case 12:
+        default:
+            if (confirmed) {
+                setFood(G, G.counters.food + 2);
+                setMorale(G, G.counters.morale + 1);
+            }
+
+            G.diceTray.extraContent[1] += 'Food +2, Morale +1';
+            break;
 	}
 
 	if (confirmed) {
@@ -653,6 +866,76 @@ export function handleMovementRoll(G, confirmed) {
 
 			G.diceTray.extraContent[1] += 'Movement +4';
 			break;
+    }
+
+    if (confirmed) {
+        G.diceTray.dice = [];
+    }
+}
+
+export function handleNativeContactRoll(G, confirmed) {
+    const data = handle_base(G);
+
+    switch (data.value) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            // TODO: advanced civilization
+            break;
+
+        case 5:
+            if (confirmed && !G.fever) {
+                G.fever = true;
+            }
+
+            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : '+Fever';
+            break;
+
+        case 6:
+        case 7:
+        case 8:
+            if (confirmed) {
+                if (G.expeditionType.allVillagesPeaceful) {
+                    ++data.currentHex.friendlyVillages;
+                } else {
+                    ++data.currentHex.villages;
+                }
+            }
+
+            G.diceTray.extraContent[1] += '+Village' + (G.expeditionType.allVillagesPeaceful ? ' (Friendly)' : '');
+            break;
+
+        case 9:
+            if (confirmed) {
+                G.map.trailPending = true;
+            }
+
+            G.diceTray.extraContent[1] += '+Trail';
+            break;
+
+        case 10:
+            if (confirmed) {
+                setFood(G, G.counters.food + 1);
+                ++data.currentHex.friendlyVillages;
+            }
+
+            G.diceTray.extraContent[1] += 'Food +1, +Village (Friendly)';
+            break;
+
+        case 11:
+        case 12:
+        default:
+            if (confirmed) {
+                setMuskets(G, G.counters.muskets + 1);
+                setFood(G, G.counters.food + 1);
+                setMorale(G, G.counters.morale + 1);
+                ++data.currentHex.friendlyVillages;
+            }
+
+            G.diceTray.extraContent[1] += 'Cache (Muskets, Food, and Morale + 1), +Village (Friendly)';
+            break;
 	}
 
 	if (confirmed) {
