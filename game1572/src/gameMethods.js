@@ -316,7 +316,7 @@ export function generateMapHexes() {
 
 export function getAdjacentTravelCandidates(G) {
     G.map.adjacentTravelCandidates = [];
-    if (G.counters.movementProgress < 3) {
+    if (G.counters.movementProgress.value < 3) {
         // No chance of moving anywhere - abort
         return;
     }
@@ -333,7 +333,7 @@ export function getAdjacentTravelCandidates(G) {
                 const trailKey = [hexKey, G.map.currentLocationKey].sort();
                 const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
-                if (G.counters.movementProgress >= movementCost) {
+                if (G.counters.movementProgress.value >= movementCost) {
                     G.map.adjacentTravelCandidates.push({
                         trailKey: trailKey,
                         movementCost: movementCost
@@ -410,26 +410,26 @@ export function generatePhaseDialog(G) {
             }
 
             break;
-        case gameConstants.gamePhases.interests:
+        case gameConstants.gamePhases.interests.index:
             if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                 G.phaseComment = 'No interests to resolve';
                 skip = true;
             }
 
             break;
-        case gameConstants.gamePhases.eatRations:
-            if (G.counters.food > 0) {
+        case gameConstants.gamePhases.eatRations.index:
+            if (G.counters.food.value > 0) {
                 G.phaseComment = 'Food -1';
             } else {
                 G.phaseComment = 'No Food! Conquistadors -1';
 
-                if (G.counters.conquistadors === 0) {
+                if (G.counters.conquistadors.value === 0) {
                     G.phaseComment += ', all Conquistadors have been lost';
                 }
             }
 
             break;
-        case gameConstants.gamePhases.mapTravel:
+        case gameConstants.gamePhases.mapTravel.index:
             break;
 		default:
 			break;
@@ -565,7 +565,7 @@ export function handleInterestsRoll(G, confirmed) {
 
         case 4:
             if (confirmed) {
-                setMuskets(G, G.counters.muskets + 5);
+                setMuskets(G, G.counters.muskets.value + 5);
                 // TODO: Ruined Mission (add trail)
             }
 
@@ -584,7 +584,7 @@ export function handleInterestsRoll(G, confirmed) {
         case 7:
         case 8:
             if (confirmed) {
-                setMorale(G, G.counters.morale + 5);
+                setMorale(G, G.counters.morale.value + 5);
                 // TODO: Wonder
             }
 
@@ -611,8 +611,8 @@ export function handleInterestsRoll(G, confirmed) {
         case 12:
         default:
             if (confirmed) {
-                setConquistadors(G, G.counters.conquistadors + 1);
-                setMuskets(G, G.counters.muskets + 1);
+                setConquistadors(G, G.counters.conquistadors.value + 1);
+                setMuskets(G, G.counters.muskets.value + 1);
                 // TODO: Diego Mendoza
             }
 
@@ -658,7 +658,7 @@ export function handleHuntingRoll(G, confirmed) {
 
         case 5:
             if (confirmed) {
-                setFood(G, G.counters.food + 1);
+                setFood(G, G.counters.food.value + 1);
                 setMorale(G, G.counters.morale.value - 1);
             }
 
@@ -669,7 +669,7 @@ export function handleHuntingRoll(G, confirmed) {
         case 7:
         case 8:
             if (confirmed) {
-                setFood(G, G.counters.food + 1);
+                setFood(G, G.counters.food.value + 1);
            }
 
             G.diceTray.extraContent[1] += 'Food +1';
@@ -678,7 +678,7 @@ export function handleHuntingRoll(G, confirmed) {
         case 9:
         case 10:
             if (confirmed) {
-                setFood(G, G.counters.food + 2);
+                setFood(G, G.counters.food.value + 2);
             }
 
             G.diceTray.extraContent[1] += 'Food +2';
@@ -688,8 +688,8 @@ export function handleHuntingRoll(G, confirmed) {
         case 12:
         default:
             if (confirmed) {
-                setFood(G, G.counters.food + 2);
-                setMorale(G, G.counters.morale + 1);
+                setFood(G, G.counters.food.value + 2);
+                setMorale(G, G.counters.morale.value + 1);
             }
 
             G.diceTray.extraContent[1] += 'Food +2, Morale +1';
@@ -917,7 +917,7 @@ export function handleNativeContactRoll(G, confirmed) {
 
         case 10:
             if (confirmed) {
-                setFood(G, G.counters.food + 1);
+                setFood(G, G.counters.food.value + 1);
                 ++data.currentHex.friendlyVillages;
             }
 
@@ -928,9 +928,9 @@ export function handleNativeContactRoll(G, confirmed) {
         case 12:
         default:
             if (confirmed) {
-                setMuskets(G, G.counters.muskets + 1);
-                setFood(G, G.counters.food + 1);
-                setMorale(G, G.counters.morale + 1);
+                setMuskets(G, G.counters.muskets.value + 1);
+                setFood(G, G.counters.food.value + 1);
+                setMorale(G, G.counters.morale.value + 1);
                 ++data.currentHex.friendlyVillages;
             }
 

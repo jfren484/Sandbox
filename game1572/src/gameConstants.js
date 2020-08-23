@@ -96,7 +96,7 @@ export const gamePhases = {
     eatRations: {
         index: 8,
         label: 'Eat Rations',
-        instructions: 'Only one meal a day. You know that with fewer people you\'ll be able to eat better. That thought has become more frequent — and more enticing — over the past few days...'
+        instructions: 'Only one meal a day. You know that with fewer people you\'ll be able to eat better. That thought has become more frequent - and more enticing - over the past few days...'
     },
     mapTravel: {
         index: 9,

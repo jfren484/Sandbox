@@ -549,10 +549,10 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.counters.food > 0) {
-                                    gameMethods.setFood(G, G.counters.food - 1);
+                                if (G.counters.food.value > 0) {
+                                    gameMethods.setFood(G, G.counters.food.value - 1);
                                 } else {
-                                    gameMethods.setConquistadors(G, G.counters.conquistadors - 1);
+                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
                                 }
 
                                 ctx.events.endStage();
@@ -596,10 +596,10 @@ export const Game1572 = {
                     moraleAdjustment: {
                         moves: {
                             adjustMorale: (G, ctx, value) => {
-                                gameMethods.setMorale(G, G.counters.morale + value);
+                                gameMethods.setMorale(G, G.counters.morale.value + value);
 
-                                if (G.counters.morale === 0) {
-                                    gameMethods.setConquistadors(G, G.counters.conquistadors - 1);
+                                if (G.counters.morale.value === 0) {
+                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
                                 }
                             }
                         }
@@ -631,7 +631,7 @@ export const Game1572 = {
     },
 
     endif: (G, ctx) => {
-        if (G.counters.conquistadors === 0) {
+        if (G.counters.conquistadors.value === 0) {
             return {
                 win: false,
                 allConquistadorsLost: true
