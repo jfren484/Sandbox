@@ -48,21 +48,12 @@ export class Game1572Board extends React.Component {
     }
 
     onPlanningDieClick = id => {
-        switch (gameMethods.getStage(this.props.ctx)) {
-            case 'planningMidRoll':
-                this.props.moves.toggleDieLock(id);
-                break;
-            case 'planningAssignment':
-                this.props.moves.toggleDieAssigned(id, null);
-                break;
-            default:
-                break;
-        }
+        this.props.moves.updateDie(id);
     }
 
     onPlanningDieDrop = (event, i) => {
         let id = parseInt(event.dataTransfer.getData("id"));
-        this.props.moves.toggleDieAssigned(id, i);
+        this.props.moves.updateDie(id, i);
     }
 
     onPlanningRerollClick = () => {
@@ -94,30 +85,7 @@ export class Game1572Board extends React.Component {
     }
 
     onRollComplete = () => {
-        if (this.props.ctx.phase === 'determineExpeditionType') {
-            this.props.moves.setExpeditionType(this.props.G.diceTray.dice[0].value);
-            return;
-        }
-
-        const stage = gameMethods.getStage(this.props.ctx);
-        switch (stage) {
-            case 'movementMidRoll':
-            case 'movementPostRoll':
-                this.props.moves.updateMovementProgress();
-                break;
-
-            case 'mappingPostRoll':
-                this.props.moves.updateMapping();
-                break;
-
-            case 'exploringMidRoll':
-            case 'exploringPostRoll':
-                this.props.moves.updateExploring();
-                break;
-
-            default:
-                console.error('Don\'t know how to complete stage: ' + stage);
-        }
+        this.props.moves.acceptRoll();
     };
 
     onTrailClick = (key, offsetRec) => {

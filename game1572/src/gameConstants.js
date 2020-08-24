@@ -187,6 +187,16 @@ export const map = {
     ]
 }
 
+export const travelMoraleAdjustment = {
+    '': -1,
+    'NW': -3,
+    'N': -1,
+    'NE': 1,
+    'SE': 3,
+    'S': 1,
+    'SW': -1
+}
+
 export const riverTypes = {
     delta: {
         name: 'delta',

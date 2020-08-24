@@ -67,6 +67,10 @@ export const Game1572 = {
             4: 0,
             5: 0,
             6: 0
+        },
+        travel: {
+            description: '',
+            moraleAdjustment: 0
         }
     }),
 
@@ -90,12 +94,11 @@ export const Game1572 = {
                 rollDice: (G, ctx) => {
                     gameMethods.rollDice(G.diceTray);
 
-                    const expeditionType = gameConstants.expeditionTypes[G.diceTray.dice[0].value];
-                    G.diceTray.extraContent = [expeditionType.label + ' - ' + expeditionType.description];
+                    G.expeditionType = gameConstants.expeditionTypes[G.diceTray.dice[0].value];
+                    G.diceTray.extraContent = [G.expeditionType.label + ' - ' + G.expeditionType.description];
                 },
-                setExpeditionType: (G, ctx, id) => {
+                acceptRoll: (G, ctx) => {
                     G.diceTray.dice = [];
-                    G.expeditionType = gameConstants.expeditionTypes[id];
 
                     ctx.events.endPhase();
                     ctx.events.setStage('prePlanning');
@@ -152,7 +155,7 @@ export const Game1572 = {
                                 G.diceTrayPlanning.mode = gameConstants.diceTrayModes.postroll;
                                 ctx.events.endStage();
                             },
-                            toggleDieLock: (G, ctx, id) => {
+                            updateDie: (G, ctx, id) => {
                                 const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
                                 die.locked = !die.locked;
                             }
@@ -180,7 +183,7 @@ export const Game1572 = {
                             cureFever: (G, ctx) => {
                                 gameMethods.cureFever(G);
                             },
-                            toggleDieAssigned: (G, ctx, id, i) => {
+                            updateDie: (G, ctx, id, i) => {
                                 const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
                                 die.assignedValue = i;
                             }
@@ -205,7 +208,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[2] === 0) {
                                     ctx.events.setStage('preMapping');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }
@@ -234,7 +237,7 @@ export const Game1572 = {
                                 gameMethods.handleMovementRoll(G, false);
                                 ctx.events.endStage();
                             },
-                            updateMovementProgress: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleMovementRoll(G, true);
                                 ctx.events.setStage('preMapping');
                             }
@@ -243,7 +246,7 @@ export const Game1572 = {
                     },
                     movementPostRoll: {
                         moves: {
-                            updateMovementProgress: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleMovementRoll(G, true);
                                 ctx.events.endStage();
                             }
@@ -253,10 +256,10 @@ export const Game1572 = {
                     preMapping: {
                         moves: {
                             beginPhase: (G, ctx) => {
+                                G.phase = gameConstants.gamePhases.mapping;
                                 if (G.planningDiceAssigned[3] > 0) {
                                     gameMethods.getAdjacentUnmapped(G);
                                 }
-                                G.phase = gameConstants.gamePhases.mapping;
                                 gameMethods.generatePhaseDialog(G);
                                 if (G.phaseComment === '') {
                                     G.phaseComment = 'Choose hex to Map';
@@ -286,7 +289,7 @@ export const Game1572 = {
                                 G.phaseComment = '';
                                 G.map.target = key;
                                 G.map.adjacentUnmappedHexes = [];
-                                gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                 ctx.events.endStage();
                             }
                         },
@@ -304,7 +307,7 @@ export const Game1572 = {
                     },
                     mappingPostRoll: {
                         moves: {
-                            updateMapping: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleMappingRoll(G, true);
                                 ctx.events.endStage();
                             }
@@ -329,7 +332,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[4] === 0) {
                                     ctx.events.setStage('preNativeContact');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }
@@ -358,7 +361,7 @@ export const Game1572 = {
                                 gameMethods.handleExploringRoll(G, false);
                                 ctx.events.endStage();
                             },
-                            updateExploring: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
@@ -372,7 +375,7 @@ export const Game1572 = {
                     },
                     exploringPostRoll: {
                         moves: {
-                            updateExploring: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
@@ -416,7 +419,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[5] === 0) {
                                     ctx.events.setStage('preHunting');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }
@@ -425,7 +428,65 @@ export const Game1572 = {
                     },
                     nativeContactRoll: {
                         moves: {
-                        }
+                            rollDice: (G, ctx) => {
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handleNativeContactRoll(G, false);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'nativeContactMidRoll'
+                    },
+                    nativeContactMidRoll: {
+                        moves: {
+                            rerollDice: (G, ctx) => {
+                                if (G.counters.muskets.value < 1) {
+                                    return INVALID_MOVE;
+                                }
+
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handleNativeContactRoll(G, false);
+                                ctx.events.endStage();
+                            },
+                            acceptRoll: (G, ctx) => {
+                                gameMethods.handleNativeContactRoll(G, true);
+                                if (G.map.trailPending) {
+                                    gameMethods.getAvailableTrailLocations(G);
+                                    ctx.events.setStage('nativeContactTrailLocation');
+                                } else {
+                                    ctx.events.setStage('preHunting');
+                                }
+                            }
+                        },
+                        next: 'nativeContactPostRoll'
+                    },
+                    nativeContactPostRoll: {
+                        moves: {
+                            acceptRoll: (G, ctx) => {
+                                gameMethods.handleNativeContactRoll(G, true);
+                                if (G.map.trailPending) {
+                                    gameMethods.getAvailableTrailLocations(G);
+                                    ctx.events.endStage();
+                                } else {
+                                    ctx.events.setStage('preHunting');
+                                }
+                            }
+                        },
+                        next: 'nativeContactTrailLocation'
+                    },
+                    nativeContactTrailLocation: {
+                        moves: {
+                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
+                                G.phaseComment = '';
+                                G.map.availableTrailLocations = [];
+                                G.map.trails[trailKey] = {
+                                    hexKey: G.map.currentLocationKey,
+                                    offset: offsetRec
+                                };
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'preHunting'
                     },
                     preHunting: {
                         moves: {
@@ -445,7 +506,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[5] === 0) {
                                     ctx.events.setStage('preInterests');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }
@@ -474,7 +535,7 @@ export const Game1572 = {
                                 gameMethods.handleHuntingRoll(G, false);
                                 ctx.events.endStage();
                             },
-                            updateHunting: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleHuntingRoll(G, true);
                                 ctx.events.setStage('preInterests');
                             }
@@ -483,7 +544,7 @@ export const Game1572 = {
                     },
                     huntingPostRoll: {
                         moves: {
-                            updateHunting: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
                                 ctx.events.endStage();
                             }
@@ -508,7 +569,7 @@ export const Game1572 = {
                                 if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                                     ctx.events.setStage('preEatRations');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label, true);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }
@@ -527,7 +588,7 @@ export const Game1572 = {
                     },
                     interestsPostRoll: {
                         moves: {
-                            updateInterests: (G, ctx) => {
+                            acceptRoll: (G, ctx) => {
                                 gameMethods.handleInterestsRoll(G, true);
                                 ctx.events.endStage();
                             }
@@ -563,14 +624,8 @@ export const Game1572 = {
                     preMapTravel: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                gameMethods.getAdjacentTravelCandidates(G);
-                                G.phase = gameConstants.gamePhases.mapping;
-                                gameMethods.generatePhaseDialog(G);
-                                if (G.phaseComment === '') {
-                                    G.phaseComment = 'Choose hex to Map';
-                                }
-
                                 G.phase = gameConstants.gamePhases.mapTravel;
+                                gameMethods.getAdjacentTravelCandidates(G);
                                 gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             }
@@ -579,24 +634,49 @@ export const Game1572 = {
                     },
                     mapTravelInstructions: {
                         moves: {
-                            travelTo: (G, ctx, hex) => {
-                                // TODO: update location, set morale adj value
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+
+                                if (G.map.adjacentTravelCandidates.length === 0) {
+                                    G.travel = {
+                                        description: 'none',
+                                        moraleAdjustment: gameConstants.travelMoraleAdjustment['']
+                                    };
+
+                                    ctx.events.setStage('preMoraleAdjustment');
+                                } else {
+                                    ctx.events.endStage();
+                                }
                             }
                         },
                         next: 'mapTravel'
                     },
                     mapTravel: {
                         moves: {
-                            travelTo: (G, ctx, hex) => {
-                                // TODO: update location, set morale adj value
+                            chooseHex: (G, ctx, key) => {
+                                G.phaseComment = '';
+                                G.map.target = key;
+                                G.map.adjacentTravelCandidates = [];
+                                gameMethods.travelTo(key);
+                                ctx.events.endStage();
                             }
                         },
                         next: 'preMoraleAdjustment'
                     },
+                    preMoraleAdjustment: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                G.phase = gameConstants.gamePhases.moraleAdjustment;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'moraleAdjustment'
+                    },
                     moraleAdjustment: {
                         moves: {
-                            adjustMorale: (G, ctx, value) => {
-                                gameMethods.setMorale(G, G.counters.morale.value + value);
+                            confirmDialog: (G, ctx) => {
+                                gameMethods.setMorale(G, G.counters.morale.value + G.travel.moraleAdjustment);
 
                                 if (G.counters.morale.value === 0) {
                                     gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);

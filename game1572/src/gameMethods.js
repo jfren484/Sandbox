@@ -334,13 +334,26 @@ export function getAdjacentTravelCandidates(G) {
                 const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
                 if (G.counters.movementProgress.value >= movementCost) {
+                    const direction = (hex.y < currentHex.y ? 'n' : hex.y > currentHex.y ? 's' : '') +
+                        (hex.x < currentHex.x ? 'w' : hex.x > currentHex.x ? 'e' : '');
                     G.map.adjacentTravelCandidates.push({
-                        trailKey: trailKey,
-                        movementCost: movementCost
+                        target: hexKey,
+                        direction: direction,
+                        movementCost: movementCost,
+                        moraleAdjustment: gameConstants.travelMoraleAdjustment[direction]
                     });
                 }
             }
         }
+    }
+
+    if (G.map.adjacentTravelCandidates.length > 0) {
+        G.map.adjacentTravelCandidates.push({
+            target: G.map.currentLocationKey,
+            direction: 'none',
+            movementCost: 0,
+            moraleAdjustment: gameConstants.travelMoraleAdjustment['']
+        });
     }
 }
 
@@ -394,6 +407,7 @@ export function generatePhaseDialog(G) {
                 skip = true;
             }
             // fall through
+
         case gameConstants.gamePhases.movement.index:
         case gameConstants.gamePhases.exploring.index:
         case gameConstants.gamePhases.nativeContact.index:
@@ -410,6 +424,7 @@ export function generatePhaseDialog(G) {
             }
 
             break;
+
         case gameConstants.gamePhases.interests.index:
             if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
                 G.phaseComment = 'No interests to resolve';
@@ -417,6 +432,7 @@ export function generatePhaseDialog(G) {
             }
 
             break;
+
         case gameConstants.gamePhases.eatRations.index:
             if (G.counters.food.value > 0) {
                 G.phaseComment = 'Food -1';
@@ -429,9 +445,22 @@ export function generatePhaseDialog(G) {
             }
 
             break;
+
         case gameConstants.gamePhases.mapTravel.index:
+            if (G.map.adjacentTravelCandidates.length === 0) {
+                G.phaseComment = 'Not enough Movement Progress to Travel';
+                skip = true;
+            } else {
+                G.phaseComment = 'Choose hex to Travel to; click current hex to skip travel phase and remain in the same hex.';
+            }
+
             break;
-		default:
+
+        case gameConstants.gamePhases.moraleAdjustment.index:
+            G.phaseComment = 'Travel direction: ' + G.travel.direction + '; Morale adjustment: ' + (G.travel.moraleAdjustment > 0 ? '+' : '') + G.travel.moraleAdjustment;
+            break;
+
+        default:
 			break;
     }
 
@@ -987,4 +1016,8 @@ export function setupDiceTray(diceTray, count, title) {
 	diceTray.title = title ?? '';
 	diceTray.dice = Array(count).fill('?').map((d6, i) => { return { id: i, value: d6 }; });
 	diceTray.extraContent = '';
+}
+
+export function travelTo(G, key) {
+    // TODO: update location, set morale adj value
 }
