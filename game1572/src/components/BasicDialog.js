@@ -17,7 +17,7 @@ export class BasicDialog extends React.Component {
     render() {
         return (
             <Dialog
-                open={this.props.dialogData.title}
+                open={this.props.dialogData.title ?? false}
                 PaperComponent={PaperComponent}
                 TransitionComponent={Transition}>
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">

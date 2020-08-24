@@ -38,7 +38,7 @@ export class Map extends React.Component {
             const points = gameConstants.map.hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
             const stroke = key === this.props.mapData.currentLocationKey ? 'red' : 'black';
 
-            const shape = (<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointer-events="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
+            const shape = (<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointerEvents="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
                 {adj
                     ? <polygon className="highlightHex" key={'HL-' + key} points={points} />
                     : null}
@@ -65,7 +65,7 @@ export class Map extends React.Component {
                     currentHexShapes.push(<g key={'ATRL-' + trailOffset.key} className="highlightTrail">
                         <rect x={xBase + trailOffset.pX - 8} y={yBase + trailOffset.pY - 12} width="16" height="24" className="hl"
                             transform={'rotate(' + trailOffset.rotate + ', ' + (xBase + trailOffset.pX) + ', ' + (yBase + trailOffset.pY) + ')'} />
-                        <use href="#trail" className="highlightTrail" cursor="pointer" pointer-events="visible" onClick={() => this.props.onTrailClick(trailKey, trailOffset)} opacity="0.5"
+                        <use href="#trail" className="highlightTrail" cursor="pointer" pointerEvents="visible" onClick={() => this.props.onTrailClick(trailKey, trailOffset)} opacity="0.5"
                             transform={'translate(' + (xBase + trailOffset.pX - 8) + ', ' + (yBase + trailOffset.pY - 10) + ') rotate(' + trailOffset.rotate + ', 8, 10)'} />
                     </g>);
                 }
