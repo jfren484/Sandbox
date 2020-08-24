@@ -32,7 +32,8 @@ export class Map extends React.Component {
             const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
             const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
 
-            const adj = this.props.mapData.adjacentUnmappedHexes.includes(key);
+            const adjTravel = this.props.mapData.adjacentTravelCandidates.find(adj => adj.target === key);
+            const adj = adjTravel || this.props.mapData.adjacentUnmappedHexes.includes(key);
 
             const points = gameConstants.map.hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
             const stroke = key === this.props.mapData.currentLocationKey ? 'red' : 'black';
@@ -48,7 +49,7 @@ export class Map extends React.Component {
             </g>);
 
             if (hex.cataract) {
-                const offset = gameConstants.hexNeighborOffsets.filter(o => o.key == hex.downstream)[0];
+                const offset = gameConstants.hexNeighborOffsets.find(o => o.key === hex.downstream);
                 currentHexShapes.push(<g key={'CAT-' + key}>
                     <use href="#cataract" transform={'translate(' + (xBase + offset.pX - 10) + ', ' + (yBase + offset.pY - 6) + ') rotate(' + offset.rotate + ', 10, 6)'} />
                 </g>);

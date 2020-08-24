@@ -342,7 +342,7 @@ export const Game1572 = {
                     exploringRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
                                 gameMethods.handleExploringRoll(G, false);
                                 ctx.events.endStage();
                             }
@@ -429,7 +429,7 @@ export const Game1572 = {
                     nativeContactRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
                                 gameMethods.handleNativeContactRoll(G, false);
                                 ctx.events.endStage();
                             }
@@ -503,7 +503,7 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.planningDiceAssigned[5] === 0) {
+                                if (G.planningDiceAssigned[6] === 0) {
                                     ctx.events.setStage('preInterests');
                                 } else {
                                     gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
@@ -516,7 +516,7 @@ export const Game1572 = {
                     huntingRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
                                 gameMethods.handleHuntingRoll(G, false);
                                 ctx.events.endStage();
                             }
@@ -545,11 +545,11 @@ export const Game1572 = {
                     huntingPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleExploringRoll(G, true);
+                                gameMethods.handleHuntingRoll(G, true);
                                 ctx.events.endStage();
                             }
                         },
-                        next: 'exploringChooseTrailLocation'
+                        next: 'preInterests'
                     },
                     preInterests: {
                         moves: {
@@ -654,10 +654,9 @@ export const Game1572 = {
                     mapTravel: {
                         moves: {
                             chooseHex: (G, ctx, key) => {
-                                G.phaseComment = '';
-                                G.map.target = key;
-                                G.map.adjacentTravelCandidates = [];
                                 gameMethods.travelTo(key);
+                                G.phaseComment = '';
+                                G.map.adjacentTravelCandidates = [];
                                 ctx.events.endStage();
                             }
                         },

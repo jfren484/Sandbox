@@ -22,7 +22,8 @@ export function canAddCataract(G, hex) {
 		return false;
 	}
 
-	// TODO: check for path along river downstream
+	// TODO: check for trail along river downstream
+    return true;
 }
 
 export function cureFever(G) {
@@ -61,7 +62,7 @@ export function generateMapHexes() {
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.source,
-            downstream: 'ne',
+            downstream: 'NE',
             cataract: true
         },
         '0, 2.5': {
@@ -79,7 +80,7 @@ export function generateMapHexes() {
             x: 1,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '1, 2': {
             ...hexTemplate,
@@ -97,7 +98,7 @@ export function generateMapHexes() {
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: 'ne'
+            downstream: 'NE'
         },
         '2, 2.5': {
             ...hexTemplate,
@@ -114,7 +115,7 @@ export function generateMapHexes() {
             x: 3,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '3, 2': {
             ...hexTemplate,
@@ -131,7 +132,7 @@ export function generateMapHexes() {
             x: 4,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: 'ne'
+            downstream: 'NE'
         },
         '4, 2.5': {
             ...hexTemplate,
@@ -148,7 +149,7 @@ export function generateMapHexes() {
             x: 5,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '5, 2': {
             ...hexTemplate,
@@ -166,7 +167,7 @@ export function generateMapHexes() {
             x: 6,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '6, 2.5': {
             ...hexTemplate,
@@ -183,7 +184,7 @@ export function generateMapHexes() {
             x: 7,
             y: 2,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: 'ne'
+            downstream: 'NE'
         },
         '7, 3': {
             ...hexTemplate,
@@ -200,7 +201,7 @@ export function generateMapHexes() {
             x: 8,
             y: 1.5,
             riverType: gameConstants.riverTypes.swne,
-            downstream: 'ne'
+            downstream: 'NE'
         },
         '8, 2.5': {
             ...hexTemplate,
@@ -217,7 +218,7 @@ export function generateMapHexes() {
             x: 9,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '9, 2': {
             ...hexTemplate,
@@ -234,7 +235,7 @@ export function generateMapHexes() {
             x: 10,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '10, 2.5': {
             ...hexTemplate,
@@ -251,7 +252,7 @@ export function generateMapHexes() {
             x: 11,
             y: 2,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: 'ne'
+            downstream: 'NE'
         },
         '11, 3': {
             ...hexTemplate,
@@ -268,7 +269,7 @@ export function generateMapHexes() {
             x: 12,
             y: 1.5,
             riverType: gameConstants.riverTypes.swse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '12, 2.5': {
             ...hexTemplate,
@@ -285,14 +286,14 @@ export function generateMapHexes() {
             x: 13,
             y: 2,
             riverType: gameConstants.riverTypes.nws,
-            downstream: 's'
+            downstream: 'S'
         },
         '13, 3': {
             ...hexTemplate,
             x: 13,
             y: 3,
             riverType: gameConstants.riverTypes.nse,
-            downstream: 'se'
+            downstream: 'SE'
         },
         '14, 1.5': {
             ...hexTemplate,
@@ -334,8 +335,8 @@ export function getAdjacentTravelCandidates(G) {
                 const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
                 if (G.counters.movementProgress.value >= movementCost) {
-                    const direction = (hex.y < currentHex.y ? 'n' : hex.y > currentHex.y ? 's' : '') +
-                        (hex.x < currentHex.x ? 'w' : hex.x > currentHex.x ? 'e' : '');
+                    const direction = (hex.y < currentHex.y ? 'N' : hex.y > currentHex.y ? 'S' : '') +
+                        (hex.x < currentHex.x ? 'W' : hex.x > currentHex.x ? 'E' : '');
                     G.map.adjacentTravelCandidates.push({
                         target: hexKey,
                         direction: direction,
@@ -998,7 +999,6 @@ export function setFood(G, value) {
 }
 
 export function setMorale(G, value) {
-	console.log('morale change');
     G.counters.morale.value = Math.max(0, Math.min(6, value));
 }
 
@@ -1019,5 +1019,15 @@ export function setupDiceTray(diceTray, count, title) {
 }
 
 export function travelTo(G, key) {
-    // TODO: update location, set morale adj value
+    const travel = G.map.adjacentTravelCandidates.find(adj => adj.target === key);
+    if (key !== G.map.currentLocationKey) {
+        G.map.currentLocationKey = key;
+        const currentHex = G.map.hexes[G.map.currentLocationKey];
+        const downstream = currentHex
+
+            setMovementProgress(G.counters.movementProgress.value - travel.movementCost);
+    }
+
+    G.map.travel.description = 'Morale adjustment for travel direction - ' + travel.direction + ': ' + travel.moraleAdjustment;
+    G.map.travel.moraleAdjustment = travel.moraleAdjustment;
 }
