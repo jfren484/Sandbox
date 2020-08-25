@@ -467,6 +467,8 @@ export function generatePhaseDialog(G) {
 
     if (skip) {
         G.phaseComment += '; skipping phase.';
+    } else if (G.phase.index === gameConstants.gamePhases.mapping.index) {
+        G.phaseComment += '; Choose hex to Map';
     }
 
     G.dialog = {
