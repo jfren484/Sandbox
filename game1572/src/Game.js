@@ -68,10 +68,7 @@ export const Game1572 = {
             5: 0,
             6: 0
         },
-        travel: {
-            description: '',
-            moraleAdjustment: 0
-        }
+        travelDirection: gameConstants.hexDirections.none
     }),
 
     phases: {
@@ -640,7 +637,7 @@ export const Game1572 = {
                                 if (G.map.adjacentTravelCandidates.length === 0) {
                                     G.travel = {
                                         description: 'none',
-                                        moraleAdjustment: gameConstants.travelMoraleAdjustment['']
+                                        moraleAdjustment: gameConstants.hexDirections.none.moraleAdjustment
                                     };
 
                                     ctx.events.setStage('preMoraleAdjustment');
@@ -654,7 +651,7 @@ export const Game1572 = {
                     mapTravel: {
                         moves: {
                             chooseHex: (G, ctx, key) => {
-                                gameMethods.travelTo(key);
+                                gameMethods.travelTo(G, key);
                                 G.phaseComment = '';
                                 G.map.adjacentTravelCandidates = [];
                                 ctx.events.endStage();
@@ -675,7 +672,7 @@ export const Game1572 = {
                     moraleAdjustment: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                gameMethods.setMorale(G, G.counters.morale.value + G.travel.moraleAdjustment);
+                                gameMethods.setMorale(G, G.counters.morale.value + G.travelDirection.moraleAdjustment);
 
                                 if (G.counters.morale.value === 0) {
                                     gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);

@@ -120,23 +120,44 @@ export const gamePhases = {
     }
 }
 
-export const hexNeighborOffsets = [
-    { key: 'NW', x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 }, // Northwest
-    { key: 'N',  x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 }, // North
-    { key: 'NE', x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 }, // Northeast
-    { key: 'SW', x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 }, // Southwest
-    { key: 'S',  x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 }, // South
-    { key: 'SE', x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 }  // Southeast
-]
-
-export const hexSides = {
-    northwest: { name: 'northwest' },
-    north: { name: 'north' },
-    northeast: { name: 'northeast' },
-    southeast: { name: 'southeast' },
-    south: { name: 'south' },
-    southwest: { name: 'southwest' }
+export const hexDirections = {
+    none: {
+        name: 'none',
+        moraleAdjustment: -1
+    },
+    northwest: {
+        name: 'northwest',
+        moraleAdjustment: -3
+    },
+    north: {
+        name: 'north',
+        moraleAdjustment: -1
+    },
+    northeast: {
+        name: 'northeast',
+        moraleAdjustment: 1
+    },
+    southeast: {
+        name: 'southeast',
+        moraleAdjustment: 3
+    },
+    south: {
+        name: 'south',
+        moraleAdjustment: 1
+    },
+    southwest: {
+        name: 'southwest',
+        moraleAdjustment: -1
+    }
 }
+
+export const hexNeighborOffsets = {};
+hexNeighborOffsets[hexDirections.northwest] = { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 };
+hexNeighborOffsets[hexDirections.north]     = { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 };
+hexNeighborOffsets[hexDirections.northeast] = { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 };
+hexNeighborOffsets[hexDirections.southwest] = { x: -1, y: 0.5,  pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 };
+hexNeighborOffsets[hexDirections.south]     = { x:  0, y: 1,    pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 };
+hexNeighborOffsets[hexDirections.southeast] = { x:  1, y: 0.5,  pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 };
 
 export const interestTypes = {
     diegoMendoza: {
@@ -187,48 +208,38 @@ export const map = {
     ]
 }
 
-export const travelMoraleAdjustment = {
-    '': -1,
-    'NW': -3,
-    'N': -1,
-    'NE': 1,
-    'SE': 3,
-    'S': 1,
-    'SW': -1
-}
-
 export const riverTypes = {
     delta: {
         name: 'delta',
-        downstream: hexSides.south
+        downstream: hexDirections.south
     },
     source: {
         name: 'source',
-        downstream: hexSides.northeast
+        downstream: hexDirections.northeast
     },
     swse: {
         name: 'swse',
-        downstream: hexSides.southeast
+        downstream: hexDirections.southeast
     },
     swne: {
         name: 'swne',
-        downstream: hexSides.northeast
+        downstream: hexDirections.northeast
     },
     nse: {
         name: 'nse',
-        downstream: hexSides.southeast
+        downstream: hexDirections.southeast
     },
     nwne: {
         name: 'nwne',
-        downstream: hexSides.northeast
+        downstream: hexDirections.northeast
     },
     nws: {
         name: 'nws',
-        downstream: hexSides.south
+        downstream: hexDirections.south
     },
     nwse: {
         name: 'nwse',
-        downstream: hexSides.southeast
+        downstream: hexDirections.southeast
     }
 }
 
