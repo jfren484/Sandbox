@@ -116,11 +116,11 @@ code {
 }
 
 .highlightHex {
-    fill: #ffffcc;
+    fill: #ffffcc80;
 }
 
 g:hover .highlightHex {
-    fill: #ffff00;
+    fill: #ffff0080;
 }
 
 .highlightTrail .hl {

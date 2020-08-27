@@ -117,6 +117,11 @@ export const gamePhases = {
         index: 12,
         label: 'Journal Entry',
         instructions: ''
+    },
+    cartographerTrail: {
+        index: 13,
+        label: 'Cartographer Trail Action',
+        instructions: ''
     }
 }
 
@@ -152,12 +157,15 @@ export const hexDirections = {
 }
 
 export const hexNeighborOffsets = {};
-hexNeighborOffsets[hexDirections.northwest] = { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 };
-hexNeighborOffsets[hexDirections.north]     = { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 };
-hexNeighborOffsets[hexDirections.northeast] = { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 };
-hexNeighborOffsets[hexDirections.southwest] = { x: -1, y: 0.5,  pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 };
-hexNeighborOffsets[hexDirections.south]     = { x:  0, y: 1,    pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 };
-hexNeighborOffsets[hexDirections.southeast] = { x:  1, y: 0.5,  pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 };
+hexNeighborOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 };
+hexNeighborOffsets[hexDirections.north.name]     = { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 };
+hexNeighborOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 };
+hexNeighborOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 };
+hexNeighborOffsets[hexDirections.south.name]     = { x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 };
+hexNeighborOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 };
+for (let key in hexNeighborOffsets) {
+    hexNeighborOffsets[key].key = key;
+}
 
 export const interestTypes = {
     diegoMendoza: {
@@ -245,39 +253,39 @@ export const riverTypes = {
 
 export const terrainTypes = {
     forest: {
-        name: 'forest',
+        name: 'Forest',
         hunting: 1
     },
     hills: {
-        name: 'hills',
+        name: 'Hills',
         movementProgress: -1,
         nativeContact: 1
     },
     jungle: {
-        name: 'jungle',
+        name: 'Jungle',
         movementProgress: -1,
         exploring: -1
     },
     lake: {
-        name: 'lake',
+        name: 'Lake',
         movementProgress: 1,
         noVillages: true
     },
     mountains: {
-        name: 'mountains',
+        name: 'Mountains',
         movementProgress: -1,
         hunting: 1
     },
     plains: {
-        name: 'plains',
+        name: 'Plains',
         movementProgress: 1
     },
     swamp: {
-        name: 'swamp',
+        name: 'Swamp',
         movementProgress: -1,
         cannotBreakFever: true
     },
     unexplored: {
-        name: 'unexplored'
+        name: 'Unexplored'
     }
 }

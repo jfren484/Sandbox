@@ -12,6 +12,19 @@ export class Map extends React.Component {
         let shapes = [];
         let currentHexShapes = [];
 
+        for (let trailKey in this.props.mapData.trails) {
+            const hexKey = this.props.mapData.trails[trailKey].hexKey;
+            const trailOffset = this.props.mapData.trails[trailKey].offset;
+
+            const hex = this.props.mapData.hexes[hexKey];
+            const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
+            const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
+
+            shapes.push(<g key={'TRL-' + hexKey + '-' + trailOffset.key}>
+                <use href="#trail" transform={'translate(' + (xBase + trailOffset.pX - 8) + ', ' + (yBase + trailOffset.pY - 10) + ') rotate(' + trailOffset.rotate + ', 8, 10)'} />
+            </g>);
+        }
+
         const keys = Object.keys(this.props.mapData.hexes);
         for (let i = 0; i < keys.length; ++i) {
             const key = keys[i];
@@ -59,19 +72,6 @@ export class Map extends React.Component {
             } else {
                 shapes.push(shape);
             }
-        }
-
-        for (let trailKey in this.props.mapData.trails) {
-            const hexKey = this.props.mapData.trails[trailKey].hexKey;
-            const trailOffset = this.props.mapData.trails[trailKey].offset;
-
-            const hex = this.props.mapData.hexes[hexKey];
-            const xBase = hex.x * hexDrawWidth + gameConstants.map.hexPad;
-            const yBase = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad;
-
-            shapes.push(<g key={'TRL-' + hexKey + '-' + trailOffset.key}>
-                <use href="#trail" transform={'translate(' + (xBase + trailOffset.pX - 8) + ', ' + (yBase + trailOffset.pY - 10) + ') rotate(' + trailOffset.rotate + ', 8, 10)'} />
-            </g>);
         }
 
         shapes = shapes.concat(currentHexShapes);

@@ -98,19 +98,20 @@ export const Game1572 = {
                     G.diceTray.dice = [];
 
                     ctx.events.endPhase();
-                    ctx.events.setStage('prePlanning');
                 }
             }
         },
 
         mainGame: {
             turn: {
+                onBegin: (G, ctx) => {
+                    ctx.events.setStage('prePlanning');
+                },
                 stages: {
                     prePlanning: {
                         moves: {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.planning;
-                                G.phaseComment = '';
                                 gameMethods.generatePhaseDialog(G);
                                 ctx.events.endStage();
                             },
@@ -283,7 +284,6 @@ export const Game1572 = {
                     mappingChooseHex: {
                         moves: {
                             chooseHex: (G, ctx, key) => {
-                                G.phaseComment = '';
                                 G.map.target = key;
                                 G.map.adjacentUnmappedHexes = [];
                                 gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
@@ -362,6 +362,7 @@ export const Game1572 = {
                                 gameMethods.handleExploringRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
+                                    // TODO: handle no available locations?
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -376,6 +377,7 @@ export const Game1572 = {
                                 gameMethods.handleExploringRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
+                                    // TODO: handle no available locations?
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -387,7 +389,6 @@ export const Game1572 = {
                     exploringChooseTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
-                                G.phaseComment = '';
                                 G.map.availableTrailLocations = [];
                                 G.map.trails[trailKey] = {
                                     hexKey: G.map.currentLocationKey,
@@ -449,6 +450,7 @@ export const Game1572 = {
                                 gameMethods.handleNativeContactRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
+                                    // TODO: handle no available locations?
                                     ctx.events.setStage('nativeContactTrailLocation');
                                 } else {
                                     ctx.events.setStage('preHunting');
@@ -463,6 +465,7 @@ export const Game1572 = {
                                 gameMethods.handleNativeContactRoll(G, true);
                                 if (G.map.trailPending) {
                                     gameMethods.getAvailableTrailLocations(G);
+                                    // TODO: handle no available locations?
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preHunting');
@@ -474,7 +477,6 @@ export const Game1572 = {
                     nativeContactTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
-                                G.phaseComment = '';
                                 G.map.availableTrailLocations = [];
                                 G.map.trails[trailKey] = {
                                     hexKey: G.map.currentLocationKey,
@@ -652,7 +654,6 @@ export const Game1572 = {
                         moves: {
                             chooseHex: (G, ctx, key) => {
                                 gameMethods.travelTo(G, key);
-                                G.phaseComment = '';
                                 G.map.adjacentTravelCandidates = [];
                                 ctx.events.endStage();
                             }
@@ -672,32 +673,95 @@ export const Game1572 = {
                     moraleAdjustment: {
                         moves: {
                             confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+
                                 gameMethods.setMorale(G, G.counters.morale.value + G.travelDirection.moraleAdjustment);
 
                                 if (G.counters.morale.value === 0) {
                                     gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
                                 }
+
+                                ctx.events.endStage();
                             }
-                        }
+                        },
+                        next: 'preTrackDay'
+                    },
+                    preTrackDay: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                G.phase = gameConstants.gamePhases.trackDay;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'trackDay'
                     },
                     trackDay: {
                         moves: {
-                            incrementDayCount: (G, ctx) => {
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
                                 ++G.days;
+                                ctx.events.endStage();
                             }
-                        }
+                        },
+                        next: 'preJournal'
+                    },
+                    preJournal: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                G.phase = gameConstants.gamePhases.journalEntry;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'journal'
                     },
                     journal: {
                         moves: {
-                            journal: (G, cts, entry) => {
+                            confirmDialog: (G, ctx, entry) => {
+                                G.dialog = {};
                                 // TODO: record entry
+
+                                if (G.expeditionType.placeTrail && G.counters.movementProgress.value >= 3) {
+                                    ctx.events.endStage();
+                                } else {
+                                    ctx.events.endTurn();
+                                }
                             }
-                        }
+                        },
+                        next: 'preCartographerTrail'
                     },
-                    cartographerSpecial: {
+                    preCartographerTrail: {
                         moves: {
-                            addTrailTo: (G, ctx, hexB) => {
-                                // TODO: place trail
+                            beginPhase: (G, ctx) => {
+                                gameMethods.getAvailableTrailLocations(G);
+                                // TODO: handle no available locations?
+                                G.phase = gameConstants.gamePhases.cartographerTrail;
+                                gameMethods.generatePhaseDialog(G);
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'cartographerTrailInstructions'
+                    },
+                    cartographerTrailInstructions: {
+                        moves: {
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'cartographerTrail'
+                    },
+                    cartographerTrail: {
+                        moves: {
+                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
+                                G.map.availableTrailLocations = [];
+                                G.map.trails[trailKey] = {
+                                    hexKey: G.map.currentLocationKey,
+                                    offset: offsetRec
+                                };
+
+                                ctx.events.endTurn();
                             }
                         }
                     }
@@ -710,17 +774,21 @@ export const Game1572 = {
         if (G.counters.conquistadors.value === 0) {
             return {
                 win: false,
-                allConquistadorsLost: true
+                reason: 'allConquistadorsLost'
             };
         }
 
         if (G.days === 42) {
             return {
                 win: false,
-                outOfTime: true
+                reason: 'outOfTime'
             };
         }
 
-        // TODO: location is last map hex => win
+        if (G.map.hexes[G.map.currentLocationKey].winGame) {
+            return {
+                win: true
+            };
+        }
     }
 };

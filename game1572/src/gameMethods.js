@@ -62,7 +62,7 @@ export function generateMapHexes() {
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.source,
-            downstream: gameConstants.hexDirections.northeast,
+            downstream: gameConstants.hexDirections.northeast.name,
             cataract: true
         },
         '0, 2.5': {
@@ -80,7 +80,7 @@ export function generateMapHexes() {
             x: 1,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '1, 2': {
             ...hexTemplate,
@@ -98,7 +98,7 @@ export function generateMapHexes() {
             y: 1.5,
             terrainType: gameConstants.terrainTypes.mountains,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: gameConstants.hexDirections.northeast
+            downstream: gameConstants.hexDirections.northeast.name
         },
         '2, 2.5': {
             ...hexTemplate,
@@ -115,7 +115,7 @@ export function generateMapHexes() {
             x: 3,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '3, 2': {
             ...hexTemplate,
@@ -132,7 +132,7 @@ export function generateMapHexes() {
             x: 4,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: gameConstants.hexDirections.northeast
+            downstream: gameConstants.hexDirections.northeast.name
         },
         '4, 2.5': {
             ...hexTemplate,
@@ -149,7 +149,7 @@ export function generateMapHexes() {
             x: 5,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '5, 2': {
             ...hexTemplate,
@@ -167,7 +167,7 @@ export function generateMapHexes() {
             x: 6,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '6, 2.5': {
             ...hexTemplate,
@@ -184,7 +184,7 @@ export function generateMapHexes() {
             x: 7,
             y: 2,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: gameConstants.hexDirections.northeast
+            downstream: gameConstants.hexDirections.northeast.name
         },
         '7, 3': {
             ...hexTemplate,
@@ -201,7 +201,7 @@ export function generateMapHexes() {
             x: 8,
             y: 1.5,
             riverType: gameConstants.riverTypes.swne,
-            downstream: gameConstants.hexDirections.northeast
+            downstream: gameConstants.hexDirections.northeast.name
         },
         '8, 2.5': {
             ...hexTemplate,
@@ -218,7 +218,7 @@ export function generateMapHexes() {
             x: 9,
             y: 1,
             riverType: gameConstants.riverTypes.swse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '9, 2': {
             ...hexTemplate,
@@ -235,7 +235,7 @@ export function generateMapHexes() {
             x: 10,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '10, 2.5': {
             ...hexTemplate,
@@ -252,7 +252,7 @@ export function generateMapHexes() {
             x: 11,
             y: 2,
             riverType: gameConstants.riverTypes.nwne,
-            downstream: gameConstants.hexDirections.northeast
+            downstream: gameConstants.hexDirections.northeast.name
         },
         '11, 3': {
             ...hexTemplate,
@@ -269,7 +269,7 @@ export function generateMapHexes() {
             x: 12,
             y: 1.5,
             riverType: gameConstants.riverTypes.swse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '12, 2.5': {
             ...hexTemplate,
@@ -293,7 +293,7 @@ export function generateMapHexes() {
             x: 13,
             y: 3,
             riverType: gameConstants.riverTypes.nse,
-            downstream: gameConstants.hexDirections.southeast
+            downstream: gameConstants.hexDirections.southeast.name
         },
         '14, 1.5': {
             ...hexTemplate,
@@ -334,6 +334,8 @@ export function getAdjacentTravelCandidates(G) {
                 const trailKey = [hexKey, G.map.currentLocationKey].sort();
                 const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
+                // TODO: check for cataract
+
                 if (G.counters.movementProgress.value >= movementCost) {
                     const direction = (hex.y < currentHex.y ? 'north' : hex.y > currentHex.y ? 'south' : '') +
                         (hex.x < currentHex.x ? 'west' : hex.x > currentHex.x ? 'east' : '');
@@ -341,7 +343,8 @@ export function getAdjacentTravelCandidates(G) {
                     G.map.adjacentTravelCandidates.push({
                         target: hexKey,
                         hexDirection: gameConstants.hexDirections[direction],
-                        movementCost: movementCost
+                        movementCost: movementCost,
+                        downstreamTravel: !!currentHex.riverType && hex.downstream === direction
                     });
                 }
             }
@@ -352,7 +355,8 @@ export function getAdjacentTravelCandidates(G) {
         G.map.adjacentTravelCandidates.push({
             target: G.map.currentLocationKey,
             hexDirection: gameConstants.hexDirections.none,
-            movementCost: 0
+            movementCost: 0,
+            downstreamTravel: false
         });
     }
 }
@@ -375,17 +379,19 @@ export function getAdjacentUnmapped(G) {
 }
 
 export function getAvailableTrailLocations(G) {
+    G.map.trailPending = false;
     G.map.availableTrailLocations = [];
-	const currentHex = G.map.hexes[G.map.currentLocationKey];
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
 
     for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
         const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
-		const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
+        const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
 
-		if (G.map.hexes[hexKey]) {
+        if (G.map.hexes[hexKey]) {
 			const trailKey = [hexKey, G.map.currentLocationKey].sort();
 
-			if (!G.map.trails[trailKey]) {
+            if (!G.map.trails[trailKey]) {
+                // TODO: check for cataract
                 G.map.availableTrailLocations.push({ key: trailKey, offset: hexNeighborOffset });
             }
         }
@@ -459,6 +465,18 @@ export function generatePhaseDialog(G) {
         case gameConstants.gamePhases.moraleAdjustment.index:
             G.phaseComment = 'Travel direction: ' + G.travelDirection.name +
                 '; Morale adjustment: ' + (G.travelDirection.moraleAdjustment > 0 ? '+' : '') + G.travelDirection.moraleAdjustment;
+            break;
+
+        case gameConstants.gamePhases.trackDay.index:
+            G.phaseComment = 'Day: ' + (G.days + 1);
+            break;
+
+        case gameConstants.gamePhases.journalEntry.index:
+            G.phaseComment = '<journal entry>';
+            break;
+
+        case gameConstants.gamePhases.cartographerTrail.index:
+            G.phaseComment = 'As a Cartography expedition, you may place a trail to an adjacent hex.';
             break;
 
         default:
@@ -737,37 +755,29 @@ export function handleMappingRoll(G, confirmed) {
     const data = handle_base(G);
 	const targetHex = G.map.hexes[G.map.target];
 
-	switch (data.value) {
-		case 2:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.swamp;
-			}
+    function setTerrainType(terrainType) {
+        if (confirmed) {
+            targetHex.terrainType = terrainType;
+        }
 
-			G.diceTray.extraContent[1] += 'Swamp';
+        G.diceTray.extraContent[1] += terrainType.name;
+    }
+
+	switch (data.value) {
+        case 2:
+            setTerrainType(gameConstants.terrainTypes.swamp);
 			break;
 
 		case 3:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.hills;
-			}
-
-			G.diceTray.extraContent[1] += 'Hills';
+            setTerrainType(gameConstants.terrainTypes.hills);
 			break;
 
 		case 4:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.mountains;
-			}
-
-			G.diceTray.extraContent[1] += 'Mountains';
+            setTerrainType(gameConstants.terrainTypes.mountains);
 			break;
 
 		case 5:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.jungle;
-			}
-
-			G.diceTray.extraContent[1] += 'Jungle';
+            setTerrainType(gameConstants.terrainTypes.jungle);
 			break;
 
 		case 6:
@@ -784,28 +794,16 @@ export function handleMappingRoll(G, confirmed) {
 			break;
 
 		case 10:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.forest;
-			}
-
-			G.diceTray.extraContent[1] += 'Forest';
+            setTerrainType(gameConstants.terrainTypes.forest);
 			break;
 
 		case 11:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.lake;
-			}
-
-			G.diceTray.extraContent[1] += 'Lake';
+            setTerrainType(gameConstants.terrainTypes.lake);
 			break;
 
 		case 12:
 		default:
-			if (confirmed) {
-                targetHex.terrainType = gameConstants.terrainTypes.plains;
-			}
-
-			G.diceTray.extraContent[1] += 'Plains';
+            setTerrainType(gameConstants.terrainTypes.plains);
 			break;
 	}
 
@@ -1021,14 +1019,12 @@ export function setupDiceTray(diceTray, count, title) {
 
 export function travelTo(G, key) {
     const travel = G.map.adjacentTravelCandidates.find(adj => adj.target === key);
+    console.log(JSON.stringify(travel));
     if (key !== G.map.currentLocationKey) {
-        // TODO: figure out if target is downstream| const downstream = currentHex
-        //const currentHex = G.map.hexes[G.map.currentLocationKey];
         G.map.currentLocationKey = key;
 
-        setMovementProgress(G, G.counters.movementProgress.value - travel.movementCost);
+        setMovementProgress(G, G.counters.movementProgress.value - travel.movementCost + (travel.downstreamTravel ? 1 : 0));
     }
 
-    //G.map.travel.description = 'Morale adjustment for travel direction - ' + travel.direction + ': ' + travel.moraleAdjustment;
-    //G.map.travelDirection = travel.moraleAdjustment;
+    G.travelDirection = travel.hexDirection;
 }
