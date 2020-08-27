@@ -315,6 +315,100 @@ export function generateMapHexes() {
     };
 }
 
+export function generatePhaseDialog(G) {
+    G.phaseComment = '';
+    let skip = false;
+
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.mapping.index:
+            if (G.map.adjacentUnmappedHexes.length === 0) {
+                G.phaseComment = 'No unmapped adjacent hexes';
+                skip = true;
+            }
+        // fall through
+
+        case gameConstants.gamePhases.movement.index:
+        case gameConstants.gamePhases.exploring.index:
+        case gameConstants.gamePhases.nativeContact.index:
+        case gameConstants.gamePhases.hunting.index:
+            const diceAssigned = G.planningDiceAssigned[G.phase.index];
+
+            if (diceAssigned === 0) {
+                G.phaseComment = 'No dice assigned to ' + G.phase.label;
+                skip = true;
+            }
+
+            if (G.phaseComment === '') {
+                G.phaseComment = 'Dice assigned: ' + diceAssigned + (diceAssigned > 1 ? ', bonus to roll: +' + (diceAssigned - 1) : '');
+            }
+
+            break;
+
+        case gameConstants.gamePhases.interests.index:
+            if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
+                G.phaseComment = 'No interests to resolve';
+                skip = true;
+            }
+
+            break;
+
+        case gameConstants.gamePhases.eatRations.index:
+            if (G.counters.food.value > 0) {
+                G.phaseComment = 'Food -1';
+            } else {
+                G.phaseComment = 'No Food! Conquistadors -1';
+
+                if (G.counters.conquistadors.value === 0) {
+                    G.phaseComment += ', all Conquistadors have been lost';
+                }
+            }
+
+            break;
+
+        case gameConstants.gamePhases.mapTravel.index:
+            if (G.map.adjacentTravelCandidates.length === 0) {
+                G.phaseComment = 'Not enough Movement Progress to Travel';
+                skip = true;
+            } else {
+                G.phaseComment = 'Choose hex to Travel to; click current hex to skip travel phase and remain in the same hex.';
+            }
+
+            break;
+
+        case gameConstants.gamePhases.moraleAdjustment.index:
+            G.phaseComment = 'Travel direction: ' + G.travelDirection.name +
+                '; Morale adjustment: ' + (G.travelDirection.moraleAdjustment > 0 ? '+' : '') + G.travelDirection.moraleAdjustment;
+            break;
+
+        case gameConstants.gamePhases.trackDay.index:
+            G.phaseComment = 'Day: ' + (G.days + 1);
+            break;
+
+        case gameConstants.gamePhases.journalEntry.index:
+            G.phaseComment = '<journal entry>';
+            break;
+
+        case gameConstants.gamePhases.cartographerTrail.index:
+            G.phaseComment = 'As a Cartography expedition, you may place a trail to an adjacent hex.';
+            break;
+
+        default:
+            break;
+    }
+
+    if (skip) {
+        G.phaseComment += '; skipping phase.';
+    } else if (G.phase.index === gameConstants.gamePhases.mapping.index) {
+        G.phaseComment += '; Choose hex to Map';
+    }
+
+    G.dialog = {
+        title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
+        content: G.phaseComment,
+        text: G.phase.instructions
+    };
+}
+
 export function getAdjacentTravelCandidates(G) {
     G.map.adjacentTravelCandidates = [];
     if (G.counters.movementProgress.value < 3) {
@@ -400,100 +494,6 @@ export function getAvailableTrailLocations(G) {
     if (G.map.availableTrailLocations.length > 0) {
         G.phaseComment = 'Choose location for trail';
     }
-}
-
-export function generatePhaseDialog(G) {
-    G.phaseComment = '';
-    let skip = false;
-
-    switch (G.phase.index) {
-        case gameConstants.gamePhases.mapping.index:
-            if (G.map.adjacentUnmappedHexes.length === 0) {
-                G.phaseComment = 'No unmapped adjacent hexes';
-                skip = true;
-            }
-            // fall through
-
-        case gameConstants.gamePhases.movement.index:
-        case gameConstants.gamePhases.exploring.index:
-        case gameConstants.gamePhases.nativeContact.index:
-        case gameConstants.gamePhases.hunting.index:
-            const diceAssigned = G.planningDiceAssigned[G.phase.index];
-
-            if (diceAssigned === 0) {
-                G.phaseComment = 'No dice assigned to ' + G.phase.label;
-                skip = true;
-            }
-
-            if (G.phaseComment === '') {
-                G.phaseComment = 'Dice assigned: ' + diceAssigned + (diceAssigned > 1 ? ', bonus to roll: +' + (diceAssigned - 1) : '');
-            }
-
-            break;
-
-        case gameConstants.gamePhases.interests.index:
-            if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
-                G.phaseComment = 'No interests to resolve';
-                skip = true;
-            }
-
-            break;
-
-        case gameConstants.gamePhases.eatRations.index:
-            if (G.counters.food.value > 0) {
-                G.phaseComment = 'Food -1';
-            } else {
-                G.phaseComment = 'No Food! Conquistadors -1';
-
-                if (G.counters.conquistadors.value === 0) {
-                    G.phaseComment += ', all Conquistadors have been lost';
-                }
-            }
-
-            break;
-
-        case gameConstants.gamePhases.mapTravel.index:
-            if (G.map.adjacentTravelCandidates.length === 0) {
-                G.phaseComment = 'Not enough Movement Progress to Travel';
-                skip = true;
-            } else {
-                G.phaseComment = 'Choose hex to Travel to; click current hex to skip travel phase and remain in the same hex.';
-            }
-
-            break;
-
-        case gameConstants.gamePhases.moraleAdjustment.index:
-            G.phaseComment = 'Travel direction: ' + G.travelDirection.name +
-                '; Morale adjustment: ' + (G.travelDirection.moraleAdjustment > 0 ? '+' : '') + G.travelDirection.moraleAdjustment;
-            break;
-
-        case gameConstants.gamePhases.trackDay.index:
-            G.phaseComment = 'Day: ' + (G.days + 1);
-            break;
-
-        case gameConstants.gamePhases.journalEntry.index:
-            G.phaseComment = '<journal entry>';
-            break;
-
-        case gameConstants.gamePhases.cartographerTrail.index:
-            G.phaseComment = 'As a Cartography expedition, you may place a trail to an adjacent hex.';
-            break;
-
-        default:
-			break;
-    }
-
-    if (skip) {
-        G.phaseComment += '; skipping phase.';
-    } else if (G.phase.index === gameConstants.gamePhases.mapping.index) {
-        G.phaseComment += '; Choose hex to Map';
-    }
-
-    G.dialog = {
-        title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
-        content: G.phaseComment,
-        text: G.phase.instructions
-    };
 }
 
 export function getStage(ctx) {
