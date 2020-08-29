@@ -55,6 +55,21 @@ export class Map extends React.Component {
                 </g>);
             }
 
+            let v = 0;
+            for (; v < hex.villages && v < gameConstants.villageInterestOffsets.length; ++v) {
+                const offset = gameConstants.villageInterestOffsets[v];
+                shapes.push(<circle key={'VIL-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="4" fill="black" />);
+            }
+            for (; v < hex.villages + hex.friendlyVillages && v < gameConstants.villageInterestOffsets.length; ++v) {
+                const offset = gameConstants.villageInterestOffsets[v];
+                shapes.push(<circle key={'FVIL-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="4" fill="black" />);
+                shapes.push(<circle key={'FVILS-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="6" fill="none" stroke="black" strokeWidth="1" />);
+            }
+            for (; v < hex.villages + hex.friendlyVillages + hex.interests.length && v < gameConstants.villageInterestOffsets.length; ++v) {
+                const offset = gameConstants.villageInterestOffsets[v];
+                shapes.push(<use href="#interest" key={'INT-' + v} transform={'translate(' + (xBase + offset.pX - 3) + ', ' + (yBase + offset.pY - 3) + ')'} />);
+            }
+
             if (key === this.props.mapData.currentLocationKey) {
                 currentHexShapes.push(shape);
 
@@ -90,8 +105,14 @@ export class Map extends React.Component {
                             <polyline points="14,0 11,3 11,17 14,20" stroke="black" strokeWidth="1.5" fill="none" />
                         </g>
                         <g id="cataract">
-                            <line x1="0" y1="0" x2="20" y2="12" stroke="blue" strokeWidth="1.5" fill="none" />
-                            <line x1="0" y1="12" x2="20" y2="0" stroke="blue" strokeWidth="1.5" fill="none" />
+                            <line x1="0" y1="0" x2="20" y2="12" stroke="blue" strokeWidth="1.5" />
+                            <line x1="0" y1="12" x2="20" y2="0" stroke="blue" strokeWidth="1.5" />
+                        </g>
+                        <g id="interest">
+                            <line x1="6" y1="0" x2="6" y2="12" stroke="black" strokeWidth="1" />
+                            <line x1="0" y1="6" x2="12" y2="6" stroke="black" strokeWidth="1" />
+                            <line x1="2" y1="2" x2="10" y2="10" stroke="black" strokeWidth="1" />
+                            <line x1="2" y1="10" x2="10" y2="2" stroke="black" strokeWidth="1" />
                         </g>
                     </g>
                     {shapes}

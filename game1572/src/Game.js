@@ -10,7 +10,8 @@ export const Game1572 = {
             conquistadors: {
                 label: 'Conquistadors',
                 image: 'conquistador.png',
-                value: 6
+                value: 6,
+                fever: true
             },
             muskets: {
                 label: 'Muskets',
@@ -49,7 +50,6 @@ export const Game1572 = {
             label: '',
             description: ''
         },
-        fever: false,
         map: {
             adjacentTravelCandidates: [],
             adjacentUnmappedHexes: [],

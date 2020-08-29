@@ -138,7 +138,9 @@ export class Game1572Board extends React.Component {
         return (
             <Container className={'board ' + this.props.ctx.phase}>
                 <Box className="preGame determineExpeditionType mainGame">
-                    <h1>1572: The Lost Expedition</h1>
+                    <h1 style={{ float: 'left' }}>1572: The Lost Expedition</h1>
+                    <h2 style={{ float: 'right' }}>Day {this.props.G.days + 1}</h2>
+                    <div style={{ clear: 'both' }}></div>
                 </Box>
                 <Box className="preGame">
                     <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of
@@ -170,8 +172,9 @@ export class Game1572Board extends React.Component {
                         onRerollClick={this.onPlanningRerollClick}
                         onSkipRerollClick={this.onPlanningSkipRerollClick}
                         onComplete={this.onPlanningRollComplete} />
-                    <Header className="mainGame" expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                    <Map className="mainGame" mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
+                    <Header expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
+                    <h2 class="feverLabel" hidden={ !this.props.G.fever }>FEVER</h2>
+                    <Map mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>
                 </Box>

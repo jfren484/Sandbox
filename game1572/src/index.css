@@ -115,6 +115,13 @@ code {
     margin: 0 5px 10px;
 }
 
+.feverLabel {
+    position: absolute;
+    left: 525px;
+    margin-top: 10px;
+    color: red;
+}
+
 .highlightHex {
     fill: #ffffcc80;
 }

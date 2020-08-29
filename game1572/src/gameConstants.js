@@ -289,3 +289,15 @@ export const terrainTypes = {
         name: 'Unexplored'
     }
 }
+
+export const villageInterestOffsets = [
+    { pX: hexWidth * 0.2, pY: hexHeight * 0.5,  },
+    { pX: hexWidth * 0.3, pY: hexHeight * 0.3,  },
+    { pX: hexWidth * 0.5, pY: hexHeight * 0.17, },
+    { pX: hexWidth * 0.7, pY: hexHeight * 0.3,  },
+    { pX: hexWidth * 0.8, pY: hexHeight * 0.5,  },
+    { pX: hexWidth * 0.7, pY: hexHeight * 0.7,  },
+    { pX: hexWidth * 0.5, pY: hexHeight * 0.83, },
+    { pX: hexWidth * 0.3, pY: hexHeight * 0.7,  },
+    { pX: hexWidth * 0.5, pY: hexHeight * 0.5,  },
+]

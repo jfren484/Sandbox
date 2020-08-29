@@ -461,7 +461,7 @@ export function getAdjacentUnmapped(G) {
 
 	for (let hexKey in G.map.hexes) {
 		if (hexKey !== G.map.currentLocationKey) {
-			const hex = G.map.hexes[hexKey];
+            const hex = G.map.hexes[hexKey];
 
 			if (Math.abs(hex.x - currentHex.x) <= 1 &&
 				Math.abs(hex.y - currentHex.y) <= 1 &&
@@ -1019,7 +1019,6 @@ export function setupDiceTray(diceTray, count, title) {
 
 export function travelTo(G, key) {
     const travel = G.map.adjacentTravelCandidates.find(adj => adj.target === key);
-    console.log(JSON.stringify(travel));
     if (key !== G.map.currentLocationKey) {
         G.map.currentLocationKey = key;
 
