@@ -155,6 +155,7 @@ export class Game1572Board extends React.Component {
                         dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
                         title={this.props.G.diceTray.title}
                         extraContent={this.props.G.diceTray.extraContent}
+                        disableExtraButton={this.props.G.counters.muskets.value === 0}
                         onRollClick={this.onRollClick}
                         onRerollClick={this.onRerollClick}
                         onComplete={this.onRollComplete} />

@@ -17,7 +17,7 @@ export function addConquistadorInPlanning(G) {
 	}
 }
 
-export function canAddCataract(G, hex) {
+function canAddCataract(G, hex) {
 	if (!hex.riverType || hex.cataract) {
 		return false;
 	}
@@ -28,8 +28,8 @@ export function canAddCataract(G, hex) {
 
 export function cureFever(G) {
 	const onesRequired = 3 + G.expeditionType.wildAdjust;
-	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
-		G.fever = false;
+    if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
+        setFever(G, false);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired - 1);
 	}
 }
@@ -325,7 +325,7 @@ export function generatePhaseDialog(G) {
                 G.phaseComment = 'No unmapped adjacent hexes';
                 skip = true;
             }
-        // fall through
+            // fall through
 
         case gameConstants.gamePhases.movement.index:
         case gameConstants.gamePhases.exploring.index:
@@ -339,7 +339,27 @@ export function generatePhaseDialog(G) {
             }
 
             if (G.phaseComment === '') {
-                G.phaseComment = 'Dice assigned: ' + diceAssigned + (diceAssigned > 1 ? ', bonus to roll: +' + (diceAssigned - 1) : '');
+                G.phaseComment = 'Dice assigned: ' + diceAssigned;
+
+                if (diceAssigned > 1) {
+                    G.phaseComment += ', bonus to roll: +' + (diceAssigned - 1);
+                }
+
+                if (G.phase.index === gameConstants.gamePhases.hunting.index && G.expeditionType.huntingBonus) {
+                    G.phaseComment += '; Botany Expedion bonus: +' + G.expeditionType.huntingBonus;
+                }
+
+                const currentHex = G.map.hexes[G.map.currentLocationKey];
+
+                const terrainAdj = currentHex.terrainType.diceRollAdjustments[G.phase.index];
+                if (terrainAdj) {
+                    G.phaseComment += '; terrain ' + (terrainAdj > 0 ? 'bonus' : 'penalty') + ': ' + (terrainAdj > 0 ? '+' : '') + terrainAdj;
+                }
+
+                const friendlyVillages = G.phase.friendlyVillagesHelp ? currentHex.friendlyVillages : 0;
+                if (friendlyVillages) {
+                    G.phaseComment += '; friendly village' + (friendlyVillages > 1 ? 's' : '') + ': +' + friendlyVillages;
+                }
             }
 
             break;
@@ -501,17 +521,42 @@ export function getStage(ctx) {
 }
 
 function handle_base(G) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+    const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
+    const diceBonus = G.planningDiceAssigned[G.phase.index] - 1;
+    const botanyBonus = G.phase.index === gameConstants.gamePhases.hunting.index && G.expeditionType.huntingBonus
+        ? G.expeditionType.huntingBonus
+        : 0;
+    const terrainAdj = currentHex.terrainType.diceRollAdjustments[G.phase.index] ?? 0;
+    const friendlyVillages = G.phase.friendlyVillagesHelp ? currentHex.friendlyVillages : 0;
+
     let data = {
-        roll: G.diceTray.dice.reduce((acc, val) => acc + val.value, 0),
-        bonus: G.planningDiceAssigned[G.phase.index] - 1,
-        value: 0,
-        currentHex: G.map.hexes[G.map.currentLocationKey]
+        currentHex: currentHex,
+        roll: roll,
+        value: roll + diceBonus + botanyBonus + terrainAdj + friendlyVillages + G.musketBonus
     };
 
-    data.value = data.roll + data.bonus;
+    const diceRollBonusDesc = diceBonus
+        ? ', +' + diceBonus + ' extra dice'
+        : '';
+    const botanyBonusDesc = botanyBonus
+        ? ', +' + botanyBonus + ' botany bonus'
+        : '';
+    const terrainAdjDesc = terrainAdj
+        ? ', ' + (terrainAdj > 0 ? '+' : '') + terrainAdj + ' terrain ' + (terrainAdj > 0 ? 'bonus' : 'penalty') 
+        : '';
+    const friendlyVillagesDesc = friendlyVillages
+        ? ', +' + friendlyVillages + ' friendly village' + (friendlyVillages > 1 ? 's' : '')
+        : '';
+    const musketBonusDesc = G.musketBonus
+        ? ', +' + G.musketBonus + ' musket bonus'
+        : '';
+    const sumDesc = diceBonus || botanyBonus || terrainAdj || friendlyVillages || G.musketBonus
+        ? ' = ' + data.value
+        : '';
 
     G.diceTray.extraContent = [
-        'Roll: ' + data.roll + (data.bonus ? ', + ' + data.bonus + ' extra dice = ' + data.value : ''),
+        'Roll: ' + data.roll + diceRollBonusDesc + botanyBonusDesc + terrainAdjDesc + friendlyVillagesDesc + musketBonusDesc + sumDesc,
         'Result: '
     ];
 
@@ -537,11 +582,11 @@ export function handleExploringRoll(G, confirmed) {
 			break;
 
 		case 3:
-			if (confirmed && !G.fever) {
-				G.fever = true;
+            if (confirmed) {
+                setFever(G, true);
 			}
 
-			G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : '+Fever';
+            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
 			break;
 
 		case 4:
@@ -560,10 +605,11 @@ export function handleExploringRoll(G, confirmed) {
 					++data.currentHex.friendlyVillages;
 				} else {
                     ++data.currentHex.villages;
+                    setMovementProgress(G, G.counters.movementProgress.value - 1);
 				}
 			}
 
-			G.diceTray.extraContent[1] += '+Village' + (G.expeditionType.allVillagesPeaceful ? ' (Friendly)' : '');
+            G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
 			break;
 
 		case 8:
@@ -596,6 +642,7 @@ export function handleExploringRoll(G, confirmed) {
 
     if (confirmed) {
         G.diceTray.dice = [];
+        G.musketBonus = 0;
     }
 }
 
@@ -683,19 +730,15 @@ export function handleHuntingRoll(G, confirmed) {
         case 1:
         case 2:
         case 3:
-            if (G.expeditionType.deathRemovesFood) {
-                if (confirmed) {
+            if (confirmed) {
+                if (G.expeditionType.deathRemovesFood) {
                     setFood(G, G.counters.food.value - 1);
-                }
-
-                G.diceTray.extraContent[1] += 'Food -1';
-            } else {
-                if (confirmed) {
+                } else {
                     setConquistadors(G, G.counters.conquistadors.value - 1);
                 }
-
-                G.diceTray.extraContent[1] += 'Conquistadors -1';
             }
+
+            G.diceTray.extraContent[1] += G.expeditionType.deathRemovesFood ? 'Food -1' : 'Conquistador -1';
             break;
 
         case 4:
@@ -828,29 +871,25 @@ export function handleMovementRoll(G, confirmed) {
 		case 1:
 		case 2:
 		case 3:
-			if (G.expeditionType.deathRemovesFood) {
-				if (confirmed) {
-					setFood(G, G.counters.food.value - 1);
-				}
+            if (confirmed) {
+                if (G.expeditionType.deathRemovesFood) {
+                    setFood(G, G.counters.food.value - 1);
+                } else {
+                    setConquistadors(G, G.counters.conquistadors.value - 1);
+                }
+            }
 
-				G.diceTray.extraContent[1] += 'Food -1';
-			} else {
-				if (confirmed) {
-					setConquistadors(G, G.counters.conquistadors.value - 1);
-				}
-
-				G.diceTray.extraContent[1] += 'Conquistadors -1';
-			}
+            G.diceTray.extraContent[1] += G.expeditionType.deathRemovesFood ? 'Food -1' : 'Conquistador -1';
 			break;
 
 		case 4:
 		case 5:
 			if (confirmed) {
 				setMovementProgress(G, G.counters.movementProgress.value + 1);
-				G.fever = true;
+                setFever(G, true);
 			}
 
-			G.diceTray.extraContent[1] += 'Movement +1, Fever';
+			G.diceTray.extraContent[1] += 'Movement +1, ' + G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
 			break;
 
 		case 6:
@@ -916,11 +955,11 @@ export function handleNativeContactRoll(G, confirmed) {
             break;
 
         case 5:
-            if (confirmed && !G.fever) {
-                G.fever = true;
+            if (confirmed && !G.fever && !G.expeditionType.immuneToFever) {
+                setFever(G, true);
             }
 
-            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : '+Fever';
+            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
             break;
 
         case 6:
@@ -931,10 +970,11 @@ export function handleNativeContactRoll(G, confirmed) {
                     ++data.currentHex.friendlyVillages;
                 } else {
                     ++data.currentHex.villages;
+                    setMovementProgress(G, G.counters.movementProgress.value - 1);
                 }
             }
 
-            G.diceTray.extraContent[1] += '+Village' + (G.expeditionType.allVillagesPeaceful ? ' (Friendly)' : '');
+            G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
             break;
 
         case 9:
@@ -1007,7 +1047,19 @@ export function setMovementProgress(G, value) {
 }
 
 export function setMuskets(G, value) {
-    G.counters.muskets.value = Math.max(0, Math.min(6, value));
+    const newValue = Math.max(0, Math.min(6, value));
+
+    if (newValue === G.counters.muskets.value - 1) {
+        G.musketBonus = G.expeditionType.musketBonus;
+    }
+
+    G.counters.muskets.value = newValue;
+}
+
+export function setFever(G, fevered) {
+    if (!fevered || !G.fever && !G.expeditionType.immuneToFever) {
+        G.fever = fevered;
+    }
 }
 
 export function setupDiceTray(diceTray, count, title) {

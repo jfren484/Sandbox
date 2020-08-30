@@ -16,14 +16,26 @@ export const diceTrayTitles = {
     expeditionType: 'Roll to determine Expedition Type'
 };
 
+const expeditionTypeTemplate = {
+    allVillagesPeaceful: false,
+    deathRemovesFood: false,
+    immuneToFever: false,
+    huntingBonus: 0,
+    musketBonus: 0,
+    placeTrail: false,
+    trailLeadsToInterestOnTerrainChange: false,
+    wildAdjust: 0
+}
 export const expeditionTypes = {
     1: {
+        ...expeditionTypeTemplate,
         id: 1,
         label: 'Cartography',
         description: 'You may place a trail once per hex if you end Phase 12 of your turn with 3 or more Movement Progress.',
         placeTrail: true
     },
     2: {
+        ...expeditionTypeTemplate,
         id: 2,
         label: 'Botany',
         description: 'You are immune to fever icons. Add 1 to your Hunting Score total (you are foraging instead).',
@@ -31,24 +43,28 @@ export const expeditionTypes = {
         huntingBonus: 1
     },
     3: {
+        ...expeditionTypeTemplate,
         id: 3,
         label: 'Military',
         description: 'Add 2 to your score when you use a Musket.',
         musketBonus: 2
     },
     4: {
+        ...expeditionTypeTemplate,
         id: 4,
         label: 'Archeology',
         description: 'Trails will always lead to an interest in the next hex if the terrain is different than your current hex.',
         trailLeadsToInterestOnTerrainChange: true
     },
     5: {
+        ...expeditionTypeTemplate,
         id: 5,
         label: 'Religious',
         description: 'All villages are peaceful villages (but not the empire).',
         allVillagesPeaceful: true
     },
     6: {
+        ...expeditionTypeTemplate,
         id: 6,
         label: 'Doctor',
         description: 'Two or more WILDs break a Fever. Death Icons remove Food instead of Conquistadors.',
@@ -76,7 +92,8 @@ export const gamePhases = {
     exploring: {
         index: 4,
         label: 'Exploring',
-        instructions: 'There has to be something of use in this wilderness.'
+        instructions: 'There has to be something of use in this wilderness.',
+        friendlyVillagesHelp: true
     },
     nativeContact: {
         index: 5,
@@ -86,7 +103,8 @@ export const gamePhases = {
     hunting: {
         index: 6,
         label: 'Hunting',
-        instructions: 'The creatures of this land are exotic and voracious. What really makes them dangerous is that they have no fear of man.'
+        instructions: 'The creatures of this land are exotic and voracious. What really makes them dangerous is that they have no fear of man.',
+        friendlyVillagesHelp: true
     },
     interests: {
         index: 7,
@@ -251,41 +269,62 @@ export const riverTypes = {
     }
 }
 
+const terrainTypeTemplate = {
+    cannotBreakFever: false,
+    diceRollAdjustments: {},
+    exploring: 0,
+    hunting: 0,
+    movementProgress: 0,
+    nativeContact: 0,
+    noVillages: false,
+};
+
 export const terrainTypes = {
     forest: {
+        ...terrainTypeTemplate,
         name: 'Forest',
-        hunting: 1
+        diceRollAdjustments: { 6: 1 }
     },
     hills: {
+        ...terrainTypeTemplate,
         name: 'Hills',
-        movementProgress: -1,
-        nativeContact: 1
+        diceRollAdjustments: { 2: -1, 5: 1 }
     },
     jungle: {
+        ...terrainTypeTemplate,
         name: 'Jungle',
-        movementProgress: -1,
-        exploring: -1
+        diceRollAdjustments: { 2: -1, 4: -1 }
+    },
+    lago: { // TODO: fill in
+        ...terrainTypeTemplate,
+        name: 'Lake',
+        diceRollAdjustments: { 2: 1 },
+        noVillages: true
     },
     lake: {
+        ...terrainTypeTemplate,
         name: 'Lake',
-        movementProgress: 1,
+        diceRollAdjustments: { 2: 1 },
         noVillages: true
     },
     mountains: {
+        ...terrainTypeTemplate,
         name: 'Mountains',
-        movementProgress: -1,
-        hunting: 1
+        diceRollAdjustments: { 2: -1, 6: 1 }
     },
     plains: {
+        ...terrainTypeTemplate,
         name: 'Plains',
-        movementProgress: 1
+        diceRollAdjustments: { 2: 1 }
     },
     swamp: {
+        ...terrainTypeTemplate,
         name: 'Swamp',
-        movementProgress: -1,
+        diceRollAdjustments: { 2: -1 },
         cannotBreakFever: true
     },
     unexplored: {
+        ...terrainTypeTemplate,
         name: 'Unexplored'
     }
 }

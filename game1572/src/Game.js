@@ -59,6 +59,7 @@ export const Game1572 = {
             trailPending: false,
             trails: {}
         },
+        musketBonus: 0,
         phase: gameConstants.gamePhases.planning,
         phaseComment: '',
         planningDiceAssigned: {
@@ -106,6 +107,9 @@ export const Game1572 = {
             turn: {
                 onBegin: (G, ctx) => {
                     ctx.events.setStage('prePlanning');
+                },
+                onEnd: (G, ctx) => {
+                    ++G.days;
                 },
                 stages: {
                     prePlanning: {
@@ -700,7 +704,7 @@ export const Game1572 = {
                         moves: {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
-                                ++G.days;
+                                // TODO: mark days?;
                                 ctx.events.endStage();
                             }
                         },

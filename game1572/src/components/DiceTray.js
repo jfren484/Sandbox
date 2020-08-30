@@ -23,7 +23,7 @@ export class DiceTray extends React.Component {
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
             buttons.push(<Button key="0" onClick={() => this.props.onComplete()}>OK</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollAll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()}>Reroll with Musket</Button>);
+            buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()} disabled={this.props.disableExtraButton}>Reroll with Musket</Button>);
             buttons.push(<Button key="1" onClick={() => this.props.onComplete()}>Accept Roll</Button>);
         }
 

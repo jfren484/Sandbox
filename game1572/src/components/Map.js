@@ -67,7 +67,7 @@ export class Map extends React.Component {
             }
             for (; v < hex.villages + hex.friendlyVillages + hex.interests.length && v < gameConstants.villageInterestOffsets.length; ++v) {
                 const offset = gameConstants.villageInterestOffsets[v];
-                shapes.push(<use href="#interest" key={'INT-' + v} transform={'translate(' + (xBase + offset.pX - 3) + ', ' + (yBase + offset.pY - 3) + ')'} />);
+                shapes.push(<use href="#interest" key={'INT-' + key + '-' + v} transform={'translate(' + (xBase + offset.pX - 3) + ', ' + (yBase + offset.pY - 3) + ')'} />);
             }
 
             if (key === this.props.mapData.currentLocationKey) {

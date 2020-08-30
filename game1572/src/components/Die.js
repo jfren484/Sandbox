@@ -21,7 +21,7 @@ export class Die extends React.Component {
             }
         }
 
-        if (pips.length === 0) {
+        if (pips.length === 0 && this.props.value !== 0) {
             pips.push(<text key="1" x="50%" y="65%" fill={this.props.pipColor} stroke={this.props.pipColor} textAnchor="middle" fontSize={this.props.dieSize / 2}>?</text>)
         }
 
