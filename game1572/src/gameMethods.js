@@ -17,12 +17,14 @@ export function addConquistadorInPlanning(G) {
 	}
 }
 
-function canAddCataract(G, hex) {
-	if (!hex.riverType || hex.cataract) {
+function canAddCataract(G) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+
+    if (!currentHex.riverType || currentHex.cataract) {
 		return false;
 	}
 
-    const downstreamOffset = gameConstants.hexNeighborOffsets[hex.riverType.downstream.name];
+    const downstreamOffset = gameConstants.hexNeighborOffsets[currentHex.riverType.downstream.name];
 
     const hexKey = (currentHex.x + downstreamOffset.x) + ', ' + (currentHex.y + downstreamOffset.y);
     const trailKey = [hexKey, G.map.currentLocationKey].sort();
@@ -838,7 +840,7 @@ export function handleMappingRoll(G, confirmed) {
 			break;
 	}
 
-    if (G.diceTray.dice.includes(1) && canAddCataract(data.currentHex)) {
+    if (G.diceTray.dice.includes(1) && canAddCataract(G)) {
 		if (confirmed) {
 			data.currentHex.cataract = true;
 		}
