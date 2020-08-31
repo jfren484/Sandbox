@@ -38,18 +38,29 @@ export class Map extends React.Component {
             const points = gameConstants.map.hexPoints.map(p => (xBase + p.x) + ',' + (yBase + p.y)).join(' ');
             const stroke = key === this.props.mapData.currentLocationKey ? 'red' : 'black';
 
+            const highlight = adj
+                ? <polygon className="highlightHex" key={'HL-' + key} points={points} />
+                : null;
+
+            const hlTooltip = adjTravel
+                ? <title>
+                    Movement Cost: {adjTravel.movementCost}, Morale Adjustment: {adjTravel.hexDirection.moraleAdjustment}
+                </title>
+                : null;
+
+            const river = hex.riverType
+                ? <polygon key={'RIVER-' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />
+                : null;
+
             const shape = (<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointerEvents="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
-                {adj
-                    ? <polygon className="highlightHex" key={'HL-' + key} points={points} />
-                    : null}
-                {hex.riverType
-                    ? <polygon key={'RIVER-' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />
-                    : null}
+                {highlight}
+                {hlTooltip}
+                {river}
                 <polygon key={'HEX-' + key} points={points} stroke={stroke} strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />
             </g>);
 
             if (hex.cataract) {
-                const offset = gameConstants.hexNeighborOffsets[hex.downstream];
+                const offset = gameConstants.hexNeighborOffsets[hex.riverType.downstream.name];
                 currentHexShapes.push(<g key={'CAT-' + key}>
                     <use href="#cataract" transform={'translate(' + (xBase + offset.pX - 10) + ', ' + (yBase + offset.pY - 6) + ') rotate(' + offset.rotate + ', 10, 6)'} />
                 </g>);

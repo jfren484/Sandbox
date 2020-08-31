@@ -146,31 +146,38 @@ export const gamePhases = {
 export const hexDirections = {
     none: {
         name: 'none',
-        moraleAdjustment: -1
+        moraleAdjustment: -1,
+        reverse: 'none'
     },
     northwest: {
         name: 'northwest',
-        moraleAdjustment: -3
+        moraleAdjustment: -3,
+        reverse: 'southeast'
     },
     north: {
         name: 'north',
-        moraleAdjustment: -1
+        moraleAdjustment: -1,
+        reverse: 'south'
     },
     northeast: {
         name: 'northeast',
-        moraleAdjustment: 1
+        moraleAdjustment: 1,
+        reverse: 'southwest'
     },
     southeast: {
         name: 'southeast',
-        moraleAdjustment: 3
+        moraleAdjustment: 3,
+        reverse: 'northwest'
     },
     south: {
         name: 'south',
-        moraleAdjustment: 1
+        moraleAdjustment: 1,
+        reverse: 'north'
     },
     southwest: {
         name: 'southwest',
-        moraleAdjustment: -1
+        moraleAdjustment: -1,
+        reverse: 'northeast'
     }
 }
 
