@@ -47,6 +47,14 @@ export class Game1572Board extends React.Component {
         this.props.moves.chooseHex(key);
     }
 
+    onPlanningAddConquistador = () => {
+        this.props.moves.addConquistador();
+    }
+
+    onPlanningBreakFever = () => {
+        this.props.moves.cureFever();
+    }
+
     onPlanningDieClick = id => {
         this.props.moves.updateDie(id);
     }
@@ -136,7 +144,7 @@ export class Game1572Board extends React.Component {
         const animateDiceTrayPlanning = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTrayPlanning';
 
         return (
-            <Container className={'board ' + this.props.ctx.phase}>
+            <Container className={'board ' + this.props.ctx.phase + (this.props.G.fever ? ' fevered' : '')}>
                 <Box className="preGame determineExpeditionType mainGame">
                     <h1 style={{ float: 'left' }}>1572: The Lost Expedition</h1>
                     <h2 style={{ float: 'right' }}>Day {this.props.G.days + 1}</h2>
@@ -167,14 +175,20 @@ export class Game1572Board extends React.Component {
                             : gameConstants.diceTrayModes.rerolling
                         : this.props.G.diceTrayPlanning.mode}
                         dice={animateDiceTrayPlanning ? this.state.dice : this.props.G.diceTrayPlanning.dice}
+                        canAddConquistador={this.props.G.counters.conquistadors.value < 6}
+                        fever={this.props.G.fever}
+                        feverBreakWildCount={3 + this.props.G.expeditionType.wildAdjust}
+                        cannotBreakFever={this.props.G.map.hexes[this.props.G.map.currentLocationKey].terrainType.cannotBreakFever}
                         onRollClick={this.onPlanningRollClick}
                         onDieClick={this.onPlanningDieClick}
                         onDieDrop={this.onPlanningDieDrop}
                         onRerollClick={this.onPlanningRerollClick}
                         onSkipRerollClick={this.onPlanningSkipRerollClick}
+                        onAddConquistador={this.onPlanningAddConquistador}
+                        onBreakFever={this.onPlanningBreakFever}
                         onComplete={this.onPlanningRollComplete} />
                     <Header expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                    <h2 class="feverLabel" hidden={ !this.props.G.fever }>FEVER</h2>
+                    <h2 class="feverLabel feverVisible">FEVER</h2>
                     <Map mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>

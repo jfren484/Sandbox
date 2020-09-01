@@ -8,8 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grow from '@material-ui/core/Grow';
-import { PaperComponent } from './PaperComponent';
 import { Die } from './Die';
+import { PaperComponent } from './PaperComponent';
 import * as gameConstants from '../gameConstants';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,15 +30,27 @@ export class PlanningDiceTray extends React.Component {
             return null;
         }
 
-        let buttons = [];
+        const oneCount = this.props.dice.filter(d6 => d6.value === 1).length;
 
+        let buttons = [];
+        if (this.props.mode === gameConstants.diceTrayModes.postroll || this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
+            if (this.props.fever) {
+                buttons.push(<Button key="btn-break" onClick={() => this.props.onBreakFever()}
+                    disabled={this.props.cannotBreakFever || oneCount < this.props.feverBreakWildCount}>Break Fever</Button>);
+            }
+
+            const val = this.props.dice.length === 5 ? this.props.dice[2].value : 1;
+            if (val !== 1 && this.props.canAddConquistador && this.props.dice.filter(d6 => d6.value === val).length >= 4) {
+                buttons.push(<Button key="btn-add" onClick={() => this.props.onAddConquistador()}>Add Conquistador</Button>);
+            }
+        }
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onRollClick()}>Roll</Button>);
+            buttons.push(<Button key="btn-roll" onClick={() => this.props.onRollClick()}>Roll</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onComplete()}>OK</Button>);
+            buttons.push(<Button key="btn-ok" onClick={() => this.props.onComplete()}>OK</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
             if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
-                buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()}>Reroll</Button>);
+                buttons.push(<Button key="btn-reroll" onClick={() => this.props.onRerollClick()}>Reroll</Button>);
             }
 
             if (this.props.dice.filter(d6 => !d6.locked).length === 0 || this.props.dice.filter(d6 => d6.locked).length === 0) {
@@ -47,8 +59,7 @@ export class PlanningDiceTray extends React.Component {
         }
 
         // TODO: Confirm unassigned wilds?
-
-        // TODO: Cure Fever and Add Conquistador
+        // TODO: don't allow wilds during turn where fever is broken
 
         let diceLeft, diceRight;
 
@@ -56,11 +67,9 @@ export class PlanningDiceTray extends React.Component {
             diceLeft = this.props.dice
                 .filter(d6 => !d6.assignedValue)
                 .map(d6 => {
-                    return (
-                        <div key={'die-' + d6.id} className="wild" draggable onDragStart={(event) => this.onDragStart(event, d6.id)}>
-                            <Die key={d6.id} value={d6.value} />
-                        </div>
-                    );
+                    return (<div key={'die-' + d6.id} className="wild" draggable={!this.props.fever} onDragStart={(event) => this.onDragStart(event, d6.id)}>
+                        <Die key={d6.id} value={d6.value} />
+                    </div>);
                 });
             diceRight = [2, 3, 4, 5, 6]
                 .map(i => {
@@ -113,7 +122,7 @@ export class PlanningDiceTray extends React.Component {
                 open={this.props.dice.length > 0}
                 PaperComponent={PaperComponent}
                 TransitionComponent={Transition}>
-                <Box className={'dialog planning ' + this.props.mode}>
+                <Box className={'dialog planning ' + this.props.mode + (this.props.fever ? ' fevered' : '')}>
                     <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                         Phase 1: Planning
                     </DialogTitle>
@@ -121,7 +130,10 @@ export class PlanningDiceTray extends React.Component {
                         <DialogContentText>
                             <span className="instructions preroll">Roll 5 dice to determine the actions you take today.</span>
                             <span className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll. Click dice to move between Locked and To Reroll.</span>
-                            <span className="instructions postroll">Assign wild cards. A die roll of "1" can be used as a wild card for other values. Drag dice to the row you wish to assign them to, or click the assigned wild cards to unassign.</span>
+                            <span className="instructions postroll">
+                                <span className="feverHidden">Assign wild cards. A die roll of "1" can be used as a wild card for other values. Drag dice to the row you wish to assign them to, or click the assigned wild cards to unassign.</span>
+                                <span className="feverVisible">If your expedition is suffering from fever, you CANNOT use 1's as wilds, but only to break the fever.</span>
+                            </span>
                         </DialogContentText>
                     </DialogContent>
                     <DialogContent style={{ textAlign: 'center', justifyContent: 'center' }}>
@@ -130,7 +142,7 @@ export class PlanningDiceTray extends React.Component {
                                 <h3 className="preroll">Unrolled</h3>
                                 <h3 className="rolling rerolling">Rolling</h3>
                                 <h3 className="rerollPartial">To Reroll</h3>
-                                <h3 className="postroll">Wild</h3>
+                                <h3 className="postroll">{this.props.fever ? 'Ones' : 'Wild'}</h3>
                                 {diceLeft}
                             </div>
                             <div className="planningDiceTray right">

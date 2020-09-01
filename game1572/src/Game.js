@@ -10,8 +10,7 @@ export const Game1572 = {
             conquistadors: {
                 label: 'Conquistadors',
                 image: 'conquistador.png',
-                value: 6,
-                fever: true
+                value: 6
             },
             muskets: {
                 label: 'Muskets',
@@ -50,6 +49,7 @@ export const Game1572 = {
             label: '',
             description: ''
         },
+        fever: false,
         map: {
             adjacentTravelCandidates: [],
             adjacentUnmappedHexes: [],
@@ -641,10 +641,7 @@ export const Game1572 = {
                                 G.dialog = {};
 
                                 if (G.map.adjacentTravelCandidates.length === 0) {
-                                    G.travel = {
-                                        description: 'none',
-                                        moraleAdjustment: gameConstants.hexDirections.none.moraleAdjustment
-                                    };
+                                    G.travelDirection = gameConstants.hexDirections.none;
 
                                     ctx.events.setStage('preMoraleAdjustment');
                                 } else {

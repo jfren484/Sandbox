@@ -115,11 +115,23 @@ code {
     margin: 0 5px 10px;
 }
 
+.feverVisible {
+    color: red;
+    display: none;
+}
+
+.fevered .feverVisible {
+    display: inline;
+}
+
+.fevered .feverHidden {
+    display: none;
+}
+
 .feverLabel {
     position: absolute;
     left: 525px;
     margin-top: 10px;
-    color: red;
 }
 
 .highlightHex {

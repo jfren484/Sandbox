@@ -9,9 +9,9 @@ export function addConquistadorInPlanning(G) {
 
 	const required = 4;
 	const val = G.diceTrayPlanning.dice[2].value;
-	if (G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
-        setConquistadors(G.counters.conquistadors.value + 1);
-		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value === val);
+    if (val !== 1 && G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
+        setConquistadors(G, G.counters.conquistadors.value + 1);
+		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value !== val);
 
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
 	}
@@ -39,7 +39,7 @@ export function cureFever(G) {
 	const onesRequired = 3 + G.expeditionType.wildAdjust;
     if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
         setFever(G, false);
-		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired - 1);
+		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired);
 	}
 }
 
@@ -879,7 +879,7 @@ export function handleMovementRoll(G, confirmed) {
                 setFever(G, true);
 			}
 
-			G.diceTray.extraContent[1] += 'Movement +1, ' + G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
+			G.diceTray.extraContent[1] += 'Movement +1, ' + (G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever');
 			break;
 
 		case 6:
