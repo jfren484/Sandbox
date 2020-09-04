@@ -1047,7 +1047,7 @@ export function setMuskets(G, value) {
 }
 
 export function setFever(G, fevered) {
-    if (!fevered || !G.fever && !G.expeditionType.immuneToFever) {
+    if (!fevered || (!G.fever && !G.expeditionType.immuneToFever)) {
         G.fever = fevered;
 
         if (fevered) {

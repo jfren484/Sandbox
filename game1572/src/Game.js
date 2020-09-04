@@ -69,6 +69,7 @@ export const Game1572 = {
             5: 0,
             6: 0
         },
+        startedTurnFevered: false,
         travelDirection: gameConstants.hexDirections.none
     }),
 
@@ -106,6 +107,7 @@ export const Game1572 = {
         mainGame: {
             turn: {
                 onBegin: (G, ctx) => {
+                    G.startedTurnFevered = G.fever;
                     ctx.events.setStage('prePlanning');
                 },
                 onEnd: (G, ctx) => {

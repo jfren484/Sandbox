@@ -38,25 +38,12 @@ code {
     margin-right: 10px;
 }
 
-.expeditionType {
-    padding: 10px;
-    border: solid black;
-    border-width: 1px 1px 0 1px;
-    width: 988px;
-}
-
-.expeditionTypeLabelLabel {
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-.expeditionTypeLabel {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.map {
-    padding: 10px;
+.dayLabel {
+    float: left;
+    margin-top: 27px;
+    margin-left: 535px;
+    width: 100px;
+    text-align: right;
 }
 
 .dialog .planningDiceTray h3,
@@ -115,6 +102,23 @@ code {
     margin: 0 5px 10px;
 }
 
+.expeditionType {
+    padding: 10px;
+    border: solid black;
+    border-width: 1px 1px 0 1px;
+    width: 988px;
+}
+
+.expeditionTypeLabelLabel {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.expeditionTypeLabel {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
 .feverVisible {
     color: red;
     display: none;
@@ -129,9 +133,12 @@ code {
 }
 
 .feverLabel {
-    position: absolute;
-    left: 525px;
-    margin-top: 10px;
+    float: left;
+    margin: 10px auto -29px 439px;
+}
+
+.gameTitle {
+    float: left;
 }
 
 .highlightHex {
@@ -152,6 +159,10 @@ g:hover .highlightHex {
 
 .highlightTrail:hover .hl {
     fill: #ffff00d0;
+}
+
+.map {
+    padding: 10px;
 }
 
 .phase {
@@ -183,4 +194,10 @@ g:hover .highlightHex {
 .planningDiceTray .bucket {
     clear: both;
     height: 90px;
+}
+
+.titleBar:after {
+    content: "";
+    display: table;
+    clear: both;
 }

@@ -145,10 +145,9 @@ export class Game1572Board extends React.Component {
 
         return (
             <Container className={'board ' + this.props.ctx.phase + (this.props.G.fever ? ' fevered' : '')}>
-                <Box className="preGame determineExpeditionType mainGame">
-                    <h1 style={{ float: 'left' }}>1572: The Lost Expedition</h1>
-                    <h2 style={{ float: 'right' }}>Day {this.props.G.days + 1}</h2>
-                    <div style={{ clear: 'both' }}></div>
+                <Box className="titleBar preGame determineExpeditionType mainGame">
+                    <h1 className="gameTitle">1572: The Lost Expedition</h1>
+                    <h2 className="dayLabel">Day {this.props.G.days + 1}</h2>
                 </Box>
                 <Box className="preGame">
                     <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of
@@ -179,6 +178,7 @@ export class Game1572Board extends React.Component {
                         fever={this.props.G.fever}
                         feverBreakWildCount={3 + this.props.G.expeditionType.wildAdjust}
                         cannotBreakFever={this.props.G.map.hexes[this.props.G.map.currentLocationKey].terrainType.cannotBreakFever}
+                        startedTurnFevered={this.props.G.startedTurnFevered}
                         onRollClick={this.onPlanningRollClick}
                         onDieClick={this.onPlanningDieClick}
                         onDieDrop={this.onPlanningDieDrop}

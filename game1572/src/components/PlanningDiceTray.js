@@ -59,7 +59,6 @@ export class PlanningDiceTray extends React.Component {
         }
 
         // TODO: Confirm unassigned wilds?
-        // TODO: don't allow wilds during turn where fever is broken
 
         let diceLeft, diceRight;
 
@@ -67,7 +66,7 @@ export class PlanningDiceTray extends React.Component {
             diceLeft = this.props.dice
                 .filter(d6 => !d6.assignedValue)
                 .map(d6 => {
-                    return (<div key={'die-' + d6.id} className="wild" draggable={!this.props.fever} onDragStart={(event) => this.onDragStart(event, d6.id)}>
+                    return (<div key={'die-' + d6.id} className="wild" draggable={!this.props.startedTurnFevered} onDragStart={(event) => this.onDragStart(event, d6.id)}>
                         <Die key={d6.id} value={d6.value} />
                     </div>);
                 });
@@ -122,7 +121,7 @@ export class PlanningDiceTray extends React.Component {
                 open={this.props.dice.length > 0}
                 PaperComponent={PaperComponent}
                 TransitionComponent={Transition}>
-                <Box className={'dialog planning ' + this.props.mode + (this.props.fever ? ' fevered' : '')}>
+                <Box className={'dialog planning ' + this.props.mode + (this.props.startedTurnFevered ? ' fevered' : '')}>
                     <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                         Phase 1: Planning
                     </DialogTitle>
@@ -132,7 +131,7 @@ export class PlanningDiceTray extends React.Component {
                             <span className="instructions rerollPartial">Choose which dice to Lock and which to Re-Roll. Click dice to move between Locked and To Reroll.</span>
                             <span className="instructions postroll">
                                 <span className="feverHidden">Assign wild cards. A die roll of "1" can be used as a wild card for other values. Drag dice to the row you wish to assign them to, or click the assigned wild cards to unassign.</span>
-                                <span className="feverVisible">If your expedition is suffering from fever, you CANNOT use 1's as wilds, but only to break the fever.</span>
+                                <span className="feverVisible">If your expedition is suffering from fever this turn, you CANNOT use 1's as wilds, but only to break the fever.</span>
                             </span>
                         </DialogContentText>
                     </DialogContent>
@@ -142,7 +141,7 @@ export class PlanningDiceTray extends React.Component {
                                 <h3 className="preroll">Unrolled</h3>
                                 <h3 className="rolling rerolling">Rolling</h3>
                                 <h3 className="rerollPartial">To Reroll</h3>
-                                <h3 className="postroll">{this.props.fever ? 'Ones' : 'Wild'}</h3>
+                                <h3 className="postroll">{this.props.startedTurnFevered ? 'Ones' : 'Wild'}</h3>
                                 {diceLeft}
                             </div>
                             <div className="planningDiceTray right">
