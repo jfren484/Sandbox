@@ -302,11 +302,10 @@ export const terrainTypes = {
         name: 'Jungle',
         diceRollAdjustments: { 2: -1, 4: -1 }
     },
-    lago: { // TODO: fill in
+    lagosDeOro: {
         ...terrainTypeTemplate,
-        name: 'Lake',
-        diceRollAdjustments: { 2: 1 },
-        noVillages: true
+        name: 'Lagos De Oro',
+        immuneToFever: true
     },
     lake: {
         ...terrainTypeTemplate,

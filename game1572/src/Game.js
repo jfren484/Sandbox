@@ -366,9 +366,7 @@ export const Game1572 = {
                             },
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
-                                if (G.map.trailPending) {
-                                    gameMethods.getAvailableTrailLocations(G);
-                                    // TODO: handle no available locations?
+                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -381,9 +379,7 @@ export const Game1572 = {
                         moves: {
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleExploringRoll(G, true);
-                                if (G.map.trailPending) {
-                                    gameMethods.getAvailableTrailLocations(G);
-                                    // TODO: handle no available locations?
+                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -454,9 +450,7 @@ export const Game1572 = {
                             },
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleNativeContactRoll(G, true);
-                                if (G.map.trailPending) {
-                                    gameMethods.getAvailableTrailLocations(G);
-                                    // TODO: handle no available locations?
+                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('nativeContactTrailLocation');
                                 } else {
                                     ctx.events.setStage('preHunting');
@@ -469,9 +463,7 @@ export const Game1572 = {
                         moves: {
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleNativeContactRoll(G, true);
-                                if (G.map.trailPending) {
-                                    gameMethods.getAvailableTrailLocations(G);
-                                    // TODO: handle no available locations?
+                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.endStage();
                                 } else {
                                     ctx.events.setStage('preHunting');
@@ -737,11 +729,13 @@ export const Game1572 = {
                     preCartographerTrail: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                gameMethods.getAvailableTrailLocations(G);
-                                // TODO: handle no available locations?
-                                G.phase = gameConstants.gamePhases.cartographerTrail;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                if (gameMethods.getAvailableTrailLocations(G)) {
+                                    G.phase = gameConstants.gamePhases.cartographerTrail;
+                                    gameMethods.generatePhaseDialog(G);
+                                    ctx.events.endStage();
+                                } else {
+                                    ctx.events.endTurn();
+                                }
                             }
                         },
                         next: 'cartographerTrailInstructions'

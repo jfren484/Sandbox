@@ -504,6 +504,8 @@ export function getAvailableTrailLocations(G) {
     if (G.map.availableTrailLocations.length > 0) {
         G.phaseComment = 'Choose location for trail';
     }
+
+    return G.map.availableTrailLocations.length > 0;
 }
 
 export function getStage(ctx) {
@@ -572,11 +574,15 @@ export function handleExploringRoll(G, confirmed) {
 			break;
 
 		case 3:
-            if (confirmed) {
+            if (confirmed && !G.fever && !G.expeditionType.immuneToFever && !data.currentHex.terrainType.immuneToFever) {
                 setFever(G, true);
 			}
 
-            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
+            G.diceTray.extraContent[1] += G.fever
+                ? '(Already Fevered)'
+                : (G.expeditionType.immuneToFever || data.currentHex.terrainType.immuneToFever)
+                    ? '(Immune to Fever)'
+                    : '+Fever';
 			break;
 
 		case 4:
@@ -647,16 +653,18 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Lagos De Oro
             }
 
-            G.diceTray.extraContent[1] += 'Lagos De Oro';
+            G.diceTray.extraContent[1] += 'Lagos De Oro: Draw a 3-hex lake halfway between your current location and the River Delta. ' +
+                'The 3 hexes must all be adjacent to each other. Then draw a tiny island at the corner where the three hexes meet. ' +
+                'The 3 hexes count as 1 hex for all purposes. You are immune to Fever while at Lagos De Oro.';
             break;
 
         case 4:
             if (confirmed) {
                 setMuskets(G, G.counters.muskets.value + 5);
-                // TODO: Ruined Mission (add trail)
+                G.map.trailPending = true;
             }
 
-            G.diceTray.extraContent[1] += 'Ruined Mission';
+            G.diceTray.extraContent[1] += 'Ruined Mission: You find a crate of Muskets. Gain 5 Muskets. Add a Trail to any adjacent hex.';
             break;
 
         case 5:
@@ -664,7 +672,7 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Migration
             }
 
-            G.diceTray.extraContent[1] += 'Migration';
+            G.diceTray.extraContent[1] += 'Migration: Skip the Ration Phase while in and adjacent to this hex. You may expend 1 musket to fill your Food Reserves to 6.';
             break;
 
         case 6:
@@ -675,7 +683,8 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Wonder
             }
 
-            G.diceTray.extraContent[1] += 'Wonder';
+            G.diceTray.extraContent[1] += 'Natural Wonder: Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural ' +
+                'Wonder discovered). Describe this Natural Wonder in detail in your journal.';
             break;
 
         case 9:
@@ -683,7 +692,7 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Predict Eclipse
             }
 
-            G.diceTray.extraContent[1] += 'Predict Eclipse';
+            G.diceTray.extraContent[1] += 'Predict Eclipse: The next two times you roll on the Native Contact Chart, choose any result instead of rolling.';
             break;
 
         case 10:
@@ -691,7 +700,8 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Princess Kantyi
             }
 
-            G.diceTray.extraContent[1] += 'Princess Kantyi';
+            G.diceTray.extraContent[1] += 'Princess Kantyi: Reroll 1s and 2s on either/both dice whenever rolling on the Native Contact Chart. This effect ' +
+                'persists until the end of the game.';
             break;
 
         case 11:
@@ -703,7 +713,8 @@ export function handleInterestsRoll(G, confirmed) {
                 // TODO: Diego Mendoza
             }
 
-            G.diceTray.extraContent[1] += 'Diego Mendoza';
+            G.diceTray.extraContent[1] += 'Diego Mendoza: Gain 1 Conquistador and 1 Musket. You may add 1 to a total once per turn whenever rolling on ' +
+                'Phases 2 - 7. This effect persists until the end of the game.';
             break;
     }
 
@@ -879,7 +890,11 @@ export function handleMovementRoll(G, confirmed) {
                 setFever(G, true);
 			}
 
-			G.diceTray.extraContent[1] += 'Movement +1, ' + (G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever');
+            G.diceTray.extraContent[1] += 'Movement +1, ' + (G.fever
+                ? '(Already Fevered)'
+                : (G.expeditionType.immuneToFever || data.currentHex.terrainType.immuneToFever)
+                    ? '(Immune to Fever)'
+                    : '+Fever');
 			break;
 
 		case 6:
@@ -945,11 +960,15 @@ export function handleNativeContactRoll(G, confirmed) {
             break;
 
         case 5:
-            if (confirmed && !G.fever && !G.expeditionType.immuneToFever) {
+            if (confirmed && !G.fever && !G.expeditionType.immuneToFever && !data.currentHex.terrainType.immuneToFever) {
                 setFever(G, true);
             }
 
-            G.diceTray.extraContent[1] += G.fever ? '(Already Fevered)' : G.expeditionType.immuneToFever ? '(Immune to Fever)' : '+Fever';
+            G.diceTray.extraContent[1] += G.fever
+                ? '(Already Fevered)'
+                : (G.expeditionType.immuneToFever || data.currentHex.terrainType.immuneToFever)
+                    ? '(Immune to Fever)'
+                    : '+Fever';
             break;
 
         case 6:
@@ -1047,7 +1066,7 @@ export function setMuskets(G, value) {
 }
 
 export function setFever(G, fevered) {
-    if (!fevered || (!G.fever && !G.expeditionType.immuneToFever)) {
+    if (!fevered || (!G.fever && !G.expeditionType.immuneToFever && !G.map.hexes[G.map.currentLocationKey].terrainType.immuneToFever)) {
         G.fever = fevered;
 
         if (fevered) {
