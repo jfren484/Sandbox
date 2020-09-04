@@ -4,7 +4,7 @@ import * as gameConstants from '../../gameConstants';
 export class RiverPatterns extends React.Component {
     render() {
         return (
-            <g stroke="blue" strokeWidth="2" fill="transparent">
+            <g stroke="blue" strokeWidth="2" fill="none">
                 <pattern id="River.delta" width="1" height="1" viewBox={gameConstants.map.renderViewBox}>
                     <path d="M 34.3 45 C 34 49, 43 52, 27 70" />
                     <line x1="36" y1="50" x2="50" y2="70" />

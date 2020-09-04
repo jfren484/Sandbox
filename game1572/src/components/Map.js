@@ -1,4 +1,5 @@
 import React from 'react';
+import { FeatureDefs } from './patterns/FeatureDefs';
 import { RiverPatterns } from './patterns/RiverPatterns';
 import { TerrainPatterns } from './patterns/TerrainPatterns';
 import * as gameConstants from '../gameConstants';
@@ -43,46 +44,41 @@ export class Map extends React.Component {
                 : null;
 
             const hlTooltip = adjTravel
-                ? <title>
-                    Movement Cost: {adjTravel.movementCost}, Morale Adjustment: {adjTravel.hexDirection.moraleAdjustment}
-                </title>
+                ? <title>Movement Cost: {adjTravel.movementCost}, Morale Adjustment: {adjTravel.hexDirection.moraleAdjustment}</title>
                 : null;
 
             const river = hex.riverType
                 ? <polygon key={'RIVER-' + key} points={points} fill={'url(#River.' + hex.riverType.name + ')'} />
                 : null;
 
-            const shape = (<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointerEvents="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
+            let hexShapes = [(<g key={'G-' + key} cursor={adj ? 'pointer' : 'auto'} pointerEvents="visible" onClick={adj ? () => this.props.onHexClick(key) : null}>
                 {highlight}
                 {hlTooltip}
                 {river}
                 <polygon key={'HEX-' + key} points={points} stroke={stroke} strokeWidth="2" fill={'url(#Terrain.' + hex.terrainType.name + ')'} />
-            </g>);
+            </g>)];
 
             if (hex.cataract) {
                 const offset = gameConstants.hexNeighborOffsets[hex.riverType.downstream.name];
-                currentHexShapes.push(<g key={'CAT-' + key}>
-                    <use href="#cataract" transform={'translate(' + (xBase + offset.pX - 10) + ', ' + (yBase + offset.pY - 6) + ') rotate(' + offset.rotate + ', 10, 6)'} />
-                </g>);
+                hexShapes.push(<use href="#cataract" key={'CAT-' + key} transform={'translate(' + (xBase + offset.pX - 10) + ', ' + (yBase + offset.pY - 6) + ') rotate(' + offset.rotate + ', 10, 6)'} />);
             }
 
             let v = 0;
             for (; v < hex.villages && v < gameConstants.villageInterestOffsets.length; ++v) {
                 const offset = gameConstants.villageInterestOffsets[v];
-                shapes.push(<circle key={'VIL-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="4" fill="black" />);
+                hexShapes.push(<use href="#village" key={'VIL-' + key + '-' + v} transform={'translate(' + (xBase + offset.pX - 2) + ', ' + (yBase + offset.pY - 2) + ')'} />);
             }
             for (; v < hex.villages + hex.friendlyVillages && v < gameConstants.villageInterestOffsets.length; ++v) {
                 const offset = gameConstants.villageInterestOffsets[v];
-                shapes.push(<circle key={'FVIL-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="4" fill="black" />);
-                shapes.push(<circle key={'FVILS-' + v} cx={xBase + offset.pX} cy={yBase + offset.pY} r="6" fill="none" stroke="black" strokeWidth="1" />);
+                hexShapes.push(<use href="#friendlyVillage" key={'FVIL-' + key + '-' + v} transform={'translate(' + (xBase + offset.pX - 3) + ', ' + (yBase + offset.pY - 3) + ')'} />);
             }
             for (; v < hex.villages + hex.friendlyVillages + hex.interests.length && v < gameConstants.villageInterestOffsets.length; ++v) {
                 const offset = gameConstants.villageInterestOffsets[v];
-                shapes.push(<use href="#interest" key={'INT-' + key + '-' + v} transform={'translate(' + (xBase + offset.pX - 3) + ', ' + (yBase + offset.pY - 3) + ')'} />);
+                hexShapes.push(<use href="#interest" key={'INT-' + key + '-' + v} transform={'translate(' + (xBase + offset.pX - 5) + ', ' + (yBase + offset.pY - 5) + ')'} />);
             }
 
             if (key === this.props.mapData.currentLocationKey) {
-                currentHexShapes.push(shape);
+                currentHexShapes = hexShapes;
 
                 for (let t = 0; t < this.props.mapData.availableTrailLocations.length; ++t) {
                     const availableTrailLocation = this.props.mapData.availableTrailLocations[t];
@@ -96,7 +92,7 @@ export class Map extends React.Component {
                     </g>);
                 }
             } else {
-                shapes.push(shape);
+                shapes = shapes.concat(hexShapes);
             }
         }
 
@@ -108,24 +104,8 @@ export class Map extends React.Component {
                     <defs>
                         <TerrainPatterns />
                         <RiverPatterns />
+                        <FeatureDefs />
                     </defs>
-                    <g visibility="hidden">
-                        <g id="trail">
-                            <rect x="2" y="0" width="12" height="20" strokeWidth="0" fill="transparent" />
-                            <polyline points="2,0 5,3 5,17 2,20" stroke="black" strokeWidth="1.5" fill="none" />
-                            <polyline points="14,0 11,3 11,17 14,20" stroke="black" strokeWidth="1.5" fill="none" />
-                        </g>
-                        <g id="cataract">
-                            <line x1="0" y1="0" x2="20" y2="12" stroke="blue" strokeWidth="1.5" />
-                            <line x1="0" y1="12" x2="20" y2="0" stroke="blue" strokeWidth="1.5" />
-                        </g>
-                        <g id="interest">
-                            <line x1="6" y1="0" x2="6" y2="12" stroke="black" strokeWidth="1" />
-                            <line x1="0" y1="6" x2="12" y2="6" stroke="black" strokeWidth="1" />
-                            <line x1="2" y1="2" x2="10" y2="10" stroke="black" strokeWidth="1" />
-                            <line x1="2" y1="10" x2="10" y2="2" stroke="black" strokeWidth="1" />
-                        </g>
-                    </g>
                     {shapes}
                 </svg>
             </div>
