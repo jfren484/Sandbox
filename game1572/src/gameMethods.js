@@ -54,11 +54,10 @@ export function generateMapHexes() {
         villages: 0,
         friendlyVillages: 0
 
-        //lagosDeOro: gameConstants.terrainTypes.* | undefined,
         //advancedCiv: <bool> // TODO: ?
     };
 
-    return {
+    let hexes = {
         '0, 0.5': {
             ...hexTemplate,
             x: 0,
@@ -307,6 +306,14 @@ export function generateMapHexes() {
             winGame: true
         }
     };
+
+    const keys = Object.keys(hexes);
+    for (let i = 0; i < keys.length; ++i) {
+        const hexKey = keys[i];
+        hexes[hexKey].key = hexKey;
+    }
+
+    return hexes;
 }
 
 export function generatePhaseDialog(G) {

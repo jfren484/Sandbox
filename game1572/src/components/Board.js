@@ -188,7 +188,7 @@ export class Game1572Board extends React.Component {
                         onBreakFever={this.onPlanningBreakFever}
                         onComplete={this.onPlanningRollComplete} />
                     <Header expeditionType={this.props.G.expeditionType} counters={this.props.G.counters} />
-                    <h2 class="feverLabel feverVisible">FEVER</h2>
+                    <h2 className="feverLabel feverVisible">FEVER</h2>
                     <Map mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
                     <p className="phaseComment">{this.props.G.phaseComment}</p>

@@ -66,7 +66,7 @@
     <Content Include="src\components\Map.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\components\patterns\RiverPatterns.js">
+    <Content Include="src\components\patterns\RiverDefs.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\gameConstants.js">
@@ -75,7 +75,7 @@
     <Content Include="src\gameMethods.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\components\patterns\TerrainPatterns.js" />
+    <Content Include="src\components\patterns\TerrainDefs.js" />
     <Content Include="src\index.css" />
     <Content Include="src\Game.js">
       <SubType>Code</SubType>

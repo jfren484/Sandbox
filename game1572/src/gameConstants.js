@@ -230,6 +230,8 @@ export const map = {
     hexPad: 2,
     hexWidth: hexWidth,
     hexHeight: hexHeight,
+    hexDrawWidth: hexWidth * 3 / 4,
+    // TODO: remove when rivers redone
     renderViewBox: '0 0 80 70',
     hexPoints: [
         { x: 0, y: hexHeight / 2 },
@@ -238,7 +240,15 @@ export const map = {
         { x: hexWidth, y: hexHeight / 2 },
         { x: hexWidth * 3 / 4, y: hexHeight },
         { x: hexWidth / 4, y: hexHeight },
-    ]
+    ],
+    cataract: {
+        rX: 10,
+        rY: 6
+    },
+    trail: {
+        rX: 8,
+        rY: 10
+    }
 }
 
 export const riverTypes = {
@@ -281,6 +291,7 @@ const terrainTypeTemplate = {
     diceRollAdjustments: {},
     exploring: 0,
     hunting: 0,
+    isWater: false,
     movementProgress: 0,
     nativeContact: 0,
     noVillages: false,
@@ -305,12 +316,14 @@ export const terrainTypes = {
     lagosDeOro: {
         ...terrainTypeTemplate,
         name: 'Lagos De Oro',
-        immuneToFever: true
+        immuneToFever: true,
+        isWater: true
     },
     lake: {
         ...terrainTypeTemplate,
         name: 'Lake',
         diceRollAdjustments: { 2: 1 },
+        isWater: true,
         noVillages: true
     },
     mountains: {
