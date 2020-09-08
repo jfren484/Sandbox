@@ -85,7 +85,7 @@ export class Map extends React.Component {
         this.generateCataract(hex, xBase, yBase, crossHexFeatureShapes);
         this.generateHexFeatures(hex, xBase, yBase, hexShapes);
 
-        this.generateHighlight(hexKey, highlightShapes);
+        this.generateHighlight(hexKey, xBase, yBase, highlightShapes);
         this.generateAdjacentTrailOptions(hexKey, xBase, yBase, highlightShapes);
     }
 
@@ -106,9 +106,7 @@ export class Map extends React.Component {
         let crossHexFeatureShapes = [];
         let highlightShapes = [];
 
-        const keys = Object.keys(this.props.mapData.hexes);
-        for (let i = 0; i < keys.length; ++i) {
-            const hexKey = keys[i];
+        for (let hexKey in this.props.mapData.hexes) {
             if (hexKey === this.props.mapData.currentLocationKey) {
                 // Do current hex last so red border isn't covered up.
                 continue;

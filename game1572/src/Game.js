@@ -54,7 +54,7 @@ export const Game1572 = {
             adjacentTravelCandidates: [],
             adjacentUnmappedHexes: [],
             availableTrailLocations: [],
-            currentLocationKey: '0, 0.5',
+            currentLocationKey: '0,0.5',
             hexes: gameMethods.generateMapHexes(),
             trailPending: false,
             trails: {}
@@ -419,7 +419,9 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[5] === 0) {
                                     ctx.events.setStage('preHunting');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    const currentHex = G.map.hexes[G.map.currentLocationKey];
+                                    const diceCount = currentHex.advancedCiv ? 1 : 2;
+                                    gameMethods.setupDiceTray(G.diceTray, diceCount, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                     ctx.events.endStage();
                                 }
                             }

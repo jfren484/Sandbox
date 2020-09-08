@@ -26,7 +26,7 @@ function canAddCataract(G) {
 
     const downstreamOffset = gameConstants.hexNeighborOffsets[currentHex.riverType.downstream.name];
 
-    const hexKey = (currentHex.x + downstreamOffset.x) + ', ' + (currentHex.y + downstreamOffset.y);
+    const hexKey = (currentHex.x + downstreamOffset.x) + ',' + (currentHex.y + downstreamOffset.y);
     const trailKey = [hexKey, G.map.currentLocationKey].sort();
     if (G.map.trails[trailKey]) {
         return false;
@@ -45,260 +45,263 @@ export function cureFever(G) {
 
 export function generateMapHexes() {
     const hexTemplate = {
+        key: '0,0',
         x: 0,
         y: 0,
-        terrainType: gameConstants.terrainTypes.unexplored,
-        riverType: undefined,
-        cataract: false,
-        interests: [],
-        villages: 0,
-        friendlyVillages: 0
 
-        //advancedCiv: <bool> // TODO: ?
+        advancedCiv: false,
+        cataract: false,
+        connections: [],
+        friendlyVillages: 0,
+        interests: [],
+        riverType: undefined,
+        terrainType: gameConstants.terrainTypes.unexplored,
+        villages: 0,
+        winGame: false
     };
 
     let hexes = {
-        '0, 0.5': {
+        '0,0.5': {
             ...hexTemplate,
             x: 0,
             y: 0.5,
             terrainType: gameConstants.terrainTypes.mountains
         },
-        '0, 1.5': {
+        '0,1.5': {
             ...hexTemplate,
             x: 0,
             y: 1.5,
-            terrainType: gameConstants.terrainTypes.mountains,
+            cataract: true,
             riverType: gameConstants.riverTypes.source,
-            cataract: true
+            terrainType: gameConstants.terrainTypes.mountains
         },
-        '0, 2.5': {
+        '0,2.5': {
             ...hexTemplate,
             x: 0,
             y: 2.5
         },
-        '1, 0': {
+        '1,0': {
             ...hexTemplate,
             x: 1,
             y: 0
         },
-        '1, 1': {
+        '1,1': {
             ...hexTemplate,
             x: 1,
             y: 1,
             riverType: gameConstants.riverTypes.swse
         },
-        '1, 2': {
+        '1,2': {
             ...hexTemplate,
             x: 1,
             y: 2
         },
-        '2, 0.5': {
+        '2,0.5': {
             ...hexTemplate,
             x: 2,
             y: 0.5
         },
-        '2, 1.5': {
+        '2,1.5': {
             ...hexTemplate,
             x: 2,
             y: 1.5,
-            terrainType: gameConstants.terrainTypes.mountains,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            terrainType: gameConstants.terrainTypes.mountains
         },
-        '2, 2.5': {
+        '2,2.5': {
             ...hexTemplate,
             x: 2,
             y: 2.5
         },
-        '3, 0': {
+        '3,0': {
             ...hexTemplate,
             x: 3,
             y: 0
         },
-        '3, 1': {
+        '3,1': {
             ...hexTemplate,
             x: 3,
             y: 1,
             riverType: gameConstants.riverTypes.swse
         },
-        '3, 2': {
+        '3,2': {
             ...hexTemplate,
             x: 3,
             y: 2
         },
-        '4, 0.5': {
+        '4,0.5': {
             ...hexTemplate,
             x: 4,
             y: 0.5
         },
-        '4, 1.5': {
+        '4,1.5': {
             ...hexTemplate,
             x: 4,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwne
         },
-        '4, 2.5': {
+        '4,2.5': {
             ...hexTemplate,
             x: 4,
             y: 2.5
         },
-        '5, 0': {
+        '5,0': {
             ...hexTemplate,
             x: 5,
             y: 0
         },
-        '5, 1': {
+        '5,1': {
             ...hexTemplate,
             x: 5,
             y: 1,
             riverType: gameConstants.riverTypes.swse
         },
-        '5, 2': {
+        '5,2': {
             ...hexTemplate,
             x: 5,
             y: 2
         },
-        '6, 0.5': {
+        '6,0.5': {
             ...hexTemplate,
             x: 6,
             y: 0.5,
             interests: [gameConstants.interestTypes.pending]
         },
-        '6, 1.5': {
+        '6,1.5': {
             ...hexTemplate,
             x: 6,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse
         },
-        '6, 2.5': {
+        '6,2.5': {
             ...hexTemplate,
             x: 6,
             y: 2.5
         },
-        '7, 1': {
+        '7,1': {
             ...hexTemplate,
             x: 7,
             y: 1
         },
-        '7, 2': {
+        '7,2': {
             ...hexTemplate,
             x: 7,
             y: 2,
             riverType: gameConstants.riverTypes.nwne
         },
-        '7, 3': {
+        '7,3': {
             ...hexTemplate,
             x: 7,
             y: 3
         },
-        '8, 0.5': {
+        '8,0.5': {
             ...hexTemplate,
             x: 8,
             y: 0.5
         },
-        '8, 1.5': {
+        '8,1.5': {
             ...hexTemplate,
             x: 8,
             y: 1.5,
             riverType: gameConstants.riverTypes.swne
         },
-        '8, 2.5': {
+        '8,2.5': {
             ...hexTemplate,
             x: 8,
             y: 2.5
         },
-        '9, 0': {
+        '9,0': {
             ...hexTemplate,
             x: 9,
             y: 0
         },
-        '9, 1': {
+        '9,1': {
             ...hexTemplate,
             x: 9,
             y: 1,
             riverType: gameConstants.riverTypes.swse
         },
-        '9, 2': {
+        '9,2': {
             ...hexTemplate,
             x: 9,
             y: 2
         },
-        '10, 0.5': {
+        '10,0.5': {
             ...hexTemplate,
             x: 10,
             y: 0.5
         },
-        '10, 1.5': {
+        '10,1.5': {
             ...hexTemplate,
             x: 10,
             y: 1.5,
             riverType: gameConstants.riverTypes.nwse
         },
-        '10, 2.5': {
+        '10,2.5': {
             ...hexTemplate,
             x: 10,
             y: 2.5
         },
-        '11, 1': {
+        '11,1': {
             ...hexTemplate,
             x: 11,
             y: 1
         },
-        '11, 2': {
+        '11,2': {
             ...hexTemplate,
             x: 11,
             y: 2,
             riverType: gameConstants.riverTypes.nwne
         },
-        '11, 3': {
+        '11,3': {
             ...hexTemplate,
             x: 11,
             y: 3
         },
-        '12, 0.5': {
+        '12,0.5': {
             ...hexTemplate,
             x: 12,
             y: 0.5
         },
-        '12, 1.5': {
+        '12,1.5': {
             ...hexTemplate,
             x: 12,
             y: 1.5,
             riverType: gameConstants.riverTypes.swse
         },
-        '12, 2.5': {
+        '12,2.5': {
             ...hexTemplate,
             x: 12,
             y: 2.5
         },
-        '13, 1': {
+        '13,1': {
             ...hexTemplate,
             x: 13,
             y: 1
         },
-        '13, 2': {
+        '13,2': {
             ...hexTemplate,
             x: 13,
             y: 2,
             riverType: gameConstants.riverTypes.nws
         },
-        '13, 3': {
+        '13,3': {
             ...hexTemplate,
             x: 13,
             y: 3,
             riverType: gameConstants.riverTypes.nse
         },
-        '14, 1.5': {
+        '14,1.5': {
             ...hexTemplate,
             x: 14,
             y: 1.5
         },
-        '14, 2.5': {
+        '14,2.5': {
             ...hexTemplate,
             x: 14,
             y: 2.5
         },
-        '14, 3.5': {
+        '14,3.5': {
             ...hexTemplate,
             x: 14,
             y: 3.5,
@@ -307,10 +310,28 @@ export function generateMapHexes() {
         }
     };
 
-    const keys = Object.keys(hexes);
-    for (let i = 0; i < keys.length; ++i) {
-        const hexKey = keys[i];
-        hexes[hexKey].key = hexKey;
+    for (let hexKey in hexes) {
+        const hex = hexes[hexKey];
+        hex.key = hexKey;
+
+        // Create new arrays (the above syntax has all hexes sharing the same arrays)
+        hex.connections = [];
+        if (hex.interests.length === 0) {
+            hex.interests = [];
+        }
+
+        // Build the connections
+        for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
+            const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
+            const neighborHexKey = (hex.x + hexNeighborOffset.x) + ',' + (hex.y + hexNeighborOffset.y);
+
+            if (hexes[neighborHexKey]) {
+                hex.connections.push({
+                    direction: hexNeighborOffsetKey,
+                    hexKey: neighborHexKey
+                });
+            }
+        }
     }
 
     return hexes;
@@ -360,6 +381,10 @@ export function generatePhaseDialog(G) {
                 const friendlyVillages = G.phase.friendlyVillagesHelp ? currentHex.friendlyVillages : 0;
                 if (friendlyVillages) {
                     G.phaseComment += '; friendly village' + (friendlyVillages > 1 ? 's' : '') + ': +' + friendlyVillages;
+                }
+
+                if (G.phase.index === gameConstants.gamePhases.exploring.index && currentHex.advancedCiv) {
+                    G.phaseComment += '; Advanced Civilization (only 1 die rolled)'
                 }
             }
 
@@ -439,13 +464,12 @@ export function getAdjacentTravelCandidates(G) {
 
     const currentHex = G.map.hexes[G.map.currentLocationKey];
 
-    for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
-        const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
-        const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
-        const hex = G.map.hexes[hexKey];
+    for (let i = 0; i < currentHex.connections.length; ++i) {
+        const connection = currentHex.connections[i];
+        const hex = G.map.hexes[connection.hexKey];
 
-        if (hex && hex.terrainType.name !== gameConstants.terrainTypes.unexplored.name && (!currentHex.cataract || currentHex.downstream.reverse !== hexNeighborOffsetKey)) {
-            const trailKey = [hexKey, G.map.currentLocationKey].sort();
+        if (hex.terrainType.name !== gameConstants.terrainTypes.unexplored.name && (!currentHex.cataract || currentHex.riverType.downstream.name !== connection.direction)) {
+            const trailKey = [connection.hexKey, G.map.currentLocationKey].sort();
             const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
             if (G.counters.movementProgress.value >= movementCost) {
@@ -453,7 +477,7 @@ export function getAdjacentTravelCandidates(G) {
                     (hex.x < currentHex.x ? 'west' : hex.x > currentHex.x ? 'east' : '');
 
                 G.map.adjacentTravelCandidates.push({
-                    target: hexKey,
+                    target: connection.hexKey,
                     hexDirection: gameConstants.hexDirections[direction],
                     movementCost: movementCost,
                     downstreamTravel: !!currentHex.riverType && hex.downstream === direction
@@ -476,17 +500,14 @@ export function getAdjacentUnmapped(G) {
 	G.map.adjacentUnmappedHexes = [];
 	const currentHex = G.map.hexes[G.map.currentLocationKey];
 
-	for (let hexKey in G.map.hexes) {
-		if (hexKey !== G.map.currentLocationKey) {
-            const hex = G.map.hexes[hexKey];
+    for (let i = 0; i < currentHex.connections.length; ++i) {
+        const hexKey = currentHex.connections[i].hexKey;
+        const hex = G.map.hexes[hexKey];
 
-			if (Math.abs(hex.x - currentHex.x) <= 1 &&
-				Math.abs(hex.y - currentHex.y) <= 1 &&
-				hex.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
-				G.map.adjacentUnmappedHexes.push(hexKey);
-			}
-		}
-	}
+        if (hex.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
+            G.map.adjacentUnmappedHexes.push(hexKey);
+        }
+    }
 }
 
 export function getAvailableTrailLocations(G) {
@@ -494,17 +515,21 @@ export function getAvailableTrailLocations(G) {
     G.map.availableTrailLocations = [];
     const currentHex = G.map.hexes[G.map.currentLocationKey];
 
-    for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
-        const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
-        const hexKey = (currentHex.x + hexNeighborOffset.x) + ', ' + (currentHex.y + hexNeighborOffset.y);
-        const hex = G.map.hexes[hexKey];
+    for (let i = 0; i < currentHex.connections.length; ++i) {
+        const connection = currentHex.connections[i];
 
-        if (hex && (!hex.cataract || hex.riverType.downstream.reverse !== hexNeighborOffsetKey)) {
-            const trailKey = [hexKey, G.map.currentLocationKey].sort();
+        if (currentHex.cataract && currentHex.riverType.downstream.name === connection.direction) {
+            continue;
+        }
 
-            if (!G.map.trails[trailKey]) {
-                G.map.availableTrailLocations.push({ key: trailKey, offset: hexNeighborOffset });
-            }
+        const hex = G.map.hexes[connection.hexKey];
+        if (hex.cataract && hex.riverType.downstream.reverse === connection.direction) {
+            continue;
+        }
+
+        const trailKey = [connection.hexKey, G.map.currentLocationKey].sort();
+        if (!G.map.trails[trailKey]) {
+            G.map.availableTrailLocations.push({ key: trailKey, offset: gameConstants.hexNeighborOffsets[connection.direction] });
         }
     }
 
