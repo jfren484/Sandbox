@@ -5,8 +5,8 @@ export class FeatureDefs extends React.Component {
         return (
             <g>
                 <g id="border">
-                    <rect x="0" y="0" width="36" height="3" stroke="none" fill="yellow" />
-                    <line x1="0" y1="1" x2="36" y2="1" stroke-width="1" stroke="black" />
+                    <line x1="0" y1="1" x2="36" y2="1" stroke-width="3" stroke="yellow" />
+                    <line x1="0" y1="1.3" x2="36" y2="1.3" stroke-width="1" stroke="black" strokeDasharray="4,2" />
                 </g>
 
                 <g id="bush">

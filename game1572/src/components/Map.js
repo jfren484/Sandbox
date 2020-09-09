@@ -27,15 +27,15 @@ export class Map extends React.Component {
             return;
         }
 
-        for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
-            const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
-            const neighborHexKey = (hex.x + hexNeighborOffset.x) + ',' + (hex.y + hexNeighborOffset.y);
+        for (let borderOffsetKey in gameConstants.borderOffsets) {
+            const borderOffset = gameConstants.borderOffsets[borderOffsetKey];
+            const neighborHexKey = (hex.x + borderOffset.x) + ',' + (hex.y + borderOffset.y);
 
             if (!this.props.mapData.hexes[neighborHexKey] || !this.props.mapData.hexes[neighborHexKey].advancedCiv) {
-                shapes.push(<use href="#border" key={'BORD-' + hex.key + '-' + hexNeighborOffset.key}
-                    transform={'translate(' + (xBase + hexNeighborOffset.pX - gameConstants.map.border.rX) + ', ' +
-                        (yBase + hexNeighborOffset.pY - gameConstants.map.border.rY) + ') ' +
-                        'rotate(' + hexNeighborOffset.rotate + ', ' + gameConstants.map.border.rX + ', ' + gameConstants.map.border.rY + ')'} />);
+                shapes.push(<use href="#border" key={'BORD-' + hex.key + '-' + borderOffset.key}
+                    transform={'translate(' + (xBase + borderOffset.pX - gameConstants.map.border.rX) + ', ' +
+                        (yBase + borderOffset.pY - gameConstants.map.border.rY) + ') ' +
+                        'rotate(' + borderOffset.rotate + ', ' + gameConstants.map.border.rX + ', ' + gameConstants.map.border.rY + ')'} />);
             }
         }
     }

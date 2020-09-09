@@ -1,6 +1,17 @@
 const hexWidth = 80;
 const hexHeight = 70;
 
+export const borderOffsets = {};
+borderOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, borderX: hexWidth / 8     + 1.5, borderY: hexHeight / 4 + 1,     rotate: 120 };
+borderOffsets[hexDirections.north.name]     = { x:  0, y: -1,   borderX: hexWidth / 2,           borderY: 3,                     rotate:   0 };
+borderOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight / 4 + 1,     rotate:  60 };
+borderOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, borderX: hexWidth / 8     + 1.5, borderY: hexHeight * 3 / 4 - 1, rotate:  60 };
+borderOffsets[hexDirections.south.name]     = { x:  0, y:  1,   borderX: hexWidth / 2,           borderY: hexHeight - 3,         rotate:   0 };
+borderOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight * 3 / 4 - 1, rotate: 120 };
+for (let key in borderOffsets) {
+    borderOffsets[key].key = key;
+}
+
 export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
@@ -147,47 +158,62 @@ export const hexDirections = {
     none: {
         name: 'none',
         moraleAdjustment: -1,
+        pX: 0,
+        pY: 0,
         reverse: 'none'
     },
     northwest: {
         name: 'northwest',
         moraleAdjustment: -3,
+        pX: hexWidth / 8,
+        pY: hexHeight / 4,
         reverse: 'southeast'
     },
     north: {
         name: 'north',
         moraleAdjustment: -1,
+        pX: hexWidth / 2,
+        pY: 0,
         reverse: 'south'
     },
     northeast: {
         name: 'northeast',
         moraleAdjustment: 1,
+        pX: hexWidth * 7 / 8,
+        pY: hexHeight / 4,
         reverse: 'southwest'
     },
     southeast: {
         name: 'southeast',
         moraleAdjustment: 3,
+        pX: hexWidth * 7 / 8,
+        pY: hexHeight * 3 / 4,
         reverse: 'northwest'
     },
     south: {
         name: 'south',
         moraleAdjustment: 1,
+        pX: hexWidth / 2,
+        pY: hexHeight,
         reverse: 'north'
     },
     southwest: {
         name: 'southwest',
         moraleAdjustment: -1,
+        pX: hexWidth / 8,
+        pY: hexHeight * 3 / 4,
         reverse: 'northeast'
     }
 }
 
+// TODO: finish:
 export const hexNeighborOffsets = {};
-hexNeighborOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, pX: hexWidth / 8,     pY: hexHeight / 4,     rotate: 120 };
-hexNeighborOffsets[hexDirections.north.name]     = { x:  0, y: -1,   pX: hexWidth / 2,     pY: 0,                 rotate:   0 };
-hexNeighborOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, pX: hexWidth * 7 / 8, pY: hexHeight / 4,     rotate:  60 };
-hexNeighborOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, pX: hexWidth / 8,     pY: hexHeight * 3 / 4, rotate:  60 };
-hexNeighborOffsets[hexDirections.south.name]     = { x:  0, y:  1,   pX: hexWidth / 2,     pY: hexHeight,         rotate:   0 };
-hexNeighborOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, pX: hexWidth * 7 / 8, pY: hexHeight * 3 / 4, rotate: 120 };
+hexNeighborOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, pX: hexDirections.northwest.pX, pY: hexHeight / 4,     borderX: hexWidth / 8     + 1.5, borderY: hexHeight / 4 + 1,     rotate: 120 };
+hexNeighborOffsets[hexDirections.north.name]     = { x:  0, y: -1,   pX: hexDirections.north.pX,     pY: 0,                 borderX: hexWidth / 2,           borderY: 3,                     rotate:   0 };
+hexNeighborOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, pX: hexDirections.northeast.pX, pY: hexHeight / 4,     borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight / 4 + 1,     rotate:  60 };
+hexNeighborOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, pX: hexDirections.southwest.pX, pY: hexHeight * 3 / 4, borderX: hexWidth / 8     + 1.5, borderY: hexHeight * 3 / 4 - 1, rotate:  60 };
+hexNeighborOffsets[hexDirections.south.name]     = { x:  0, y:  1,   pX: hexDirections.south.pX,     pY: hexHeight,         borderX: hexWidth / 2,           borderY: hexHeight - 3,         rotate:   0 };
+hexNeighborOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, pX: hexDirections.southeast.pX, pY: hexHeight * 3 / 4, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight * 3 / 4 - 1, rotate: 120 };
 for (let key in hexNeighborOffsets) {
     hexNeighborOffsets[key].key = key;
 }
@@ -231,19 +257,17 @@ export const map = {
     hexWidth: hexWidth,
     hexHeight: hexHeight,
     hexDrawWidth: hexWidth * 3 / 4,
-    // TODO: remove when rivers redone
-    renderViewBox: '0 0 80 70',
     hexPoints: [
-        { x: 0, y: hexHeight / 2 },
-        { x: hexWidth / 4, y: 0 },
+        { x: 0,                y: hexHeight / 2 },
+        { x: hexWidth / 4,     y: 0 },
         { x: hexWidth * 3 / 4, y: 0 },
-        { x: hexWidth, y: hexHeight / 2 },
+        { x: hexWidth,         y: hexHeight / 2 },
         { x: hexWidth * 3 / 4, y: hexHeight },
-        { x: hexWidth / 4, y: hexHeight },
+        { x: hexWidth / 4,     y: hexHeight },
     ],
     border: {
-        rX: 18,
-        rY: 1
+        rX: 19.5,
+        rY: 1.5
     },
     cataract: {
         rX: 10,
