@@ -241,6 +241,10 @@ export const map = {
         { x: hexWidth * 3 / 4, y: hexHeight },
         { x: hexWidth / 4, y: hexHeight },
     ],
+    border: {
+        rX: 18,
+        rY: 1
+    },
     cataract: {
         rX: 10,
         rY: 6

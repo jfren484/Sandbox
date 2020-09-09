@@ -4,6 +4,11 @@ export class FeatureDefs extends React.Component {
     render() {
         return (
             <g>
+                <g id="border">
+                    <rect x="0" y="0" width="36" height="3" stroke="none" fill="yellow" />
+                    <line x1="0" y1="1" x2="36" y2="1" stroke-width="1" stroke="black" />
+                </g>
+
                 <g id="bush">
                     <line x1="8" y1="0" x2="8" y2="16" />
                     <line x1="0" y1="17" x2="14" y2="17" />

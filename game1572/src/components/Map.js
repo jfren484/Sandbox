@@ -22,6 +22,24 @@ export class Map extends React.Component {
         }
     }
 
+    generateAdvancedCivBorder(hex, xBase, yBase, shapes) {
+        if (!hex.advancedCiv) {
+            return;
+        }
+
+        for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
+            const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
+            const neighborHexKey = (hex.x + hexNeighborOffset.x) + ',' + (hex.y + hexNeighborOffset.y);
+
+            if (!this.props.mapData.hexes[neighborHexKey] || !this.props.mapData.hexes[neighborHexKey].advancedCiv) {
+                shapes.push(<use href="#border" key={'BORD-' + hex.key + '-' + hexNeighborOffset.key}
+                    transform={'translate(' + (xBase + hexNeighborOffset.pX - gameConstants.map.border.rX) + ', ' +
+                        (yBase + hexNeighborOffset.pY - gameConstants.map.border.rY) + ') ' +
+                        'rotate(' + hexNeighborOffset.rotate + ', ' + gameConstants.map.border.rX + ', ' + gameConstants.map.border.rY + ')'} />);
+            }
+        }
+    }
+
     generateCataract(hex, xBase, yBase, shapes) {
         if (hex.cataract) {
             const offset = gameConstants.hexNeighborOffsets[hex.riverType.downstream.name];
@@ -84,6 +102,7 @@ export class Map extends React.Component {
         this.generateRiver(hex, xBase, yBase, hexShapes);
         this.generateCataract(hex, xBase, yBase, crossHexFeatureShapes);
         this.generateHexFeatures(hex, xBase, yBase, hexShapes);
+        this.generateAdvancedCivBorder(hex, xBase, yBase, hexShapes);
 
         this.generateHighlight(hexKey, xBase, yBase, highlightShapes);
         this.generateAdjacentTrailOptions(hexKey, xBase, yBase, highlightShapes);

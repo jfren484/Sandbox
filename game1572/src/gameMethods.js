@@ -2,6 +2,23 @@
 
 import * as gameConstants from './gameConstants';
 
+export function addAdvancedCivilization(G) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+    for (let i = 0; i < currentHex.connections.length; ++i) {
+        const dist1Hex = G.map.hexes[currentHex.connections[i].hexKey];
+        for (let i = 0; i < dist1Hex.connections.length; ++i) {
+            const dist2Hex = G.map.hexes[dist1Hex.connections[i].hexKey];
+            if (!dist2Hex.advancedCiv) {
+                dist2Hex.advancedCiv = true;
+            }
+        }
+
+        if (!dist1Hex.advancedCiv) {
+            dist1Hex.advancedCiv = true;
+        }
+    }
+}
+
 export function addConquistadorInPlanning(G) {
 	if (G.diceTrayPlanning.dice.count < 4) {
 		return;
@@ -132,13 +149,15 @@ export function generateMapHexes() {
         '4,0.5': {
             ...hexTemplate,
             x: 4,
-            y: 0.5
+            y: 0.5,
+            advancedCiv: true
         },
         '4,1.5': {
             ...hexTemplate,
             x: 4,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwne
+            riverType: gameConstants.riverTypes.nwne,
+            advancedCiv: true
         },
         '4,2.5': {
             ...hexTemplate,
@@ -148,13 +167,15 @@ export function generateMapHexes() {
         '5,0': {
             ...hexTemplate,
             x: 5,
-            y: 0
+            y: 0,
+            advancedCiv: true
         },
         '5,1': {
             ...hexTemplate,
             x: 5,
             y: 1,
-            riverType: gameConstants.riverTypes.swse
+            riverType: gameConstants.riverTypes.swse,
+            advancedCiv: true
         },
         '5,2': {
             ...hexTemplate,
@@ -165,13 +186,15 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 6,
             y: 0.5,
-            interests: [gameConstants.interestTypes.pending]
+            interests: [gameConstants.interestTypes.pending],
+            advancedCiv: true
         },
         '6,1.5': {
             ...hexTemplate,
             x: 6,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwse
+            riverType: gameConstants.riverTypes.nwse,
+            advancedCiv: true
         },
         '6,2.5': {
             ...hexTemplate,
@@ -988,7 +1011,11 @@ export function handleNativeContactRoll(G, confirmed) {
         case 2:
         case 3:
         case 4:
-            // TODO: advanced civilization
+            if (confirmed) {
+                addAdvancedCivilization(G);
+            }
+
+            G.diceTray.extraContent[1] += '+Advanced Civilization';
             break;
 
         case 5:
