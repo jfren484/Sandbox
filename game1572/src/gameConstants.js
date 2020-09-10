@@ -109,7 +109,7 @@ export const gamePhases = {
     interests: {
         index: 7,
         label: 'Interests',
-        instructions: ''
+        instructions: 'You come across a strange painting that appears to hold clues describing the location of something very interesting. '
     },
     eatRations: {
         index: 8,
@@ -134,12 +134,12 @@ export const gamePhases = {
     journalEntry: {
         index: 12,
         label: 'Journal Entry',
-        instructions: ''
+        instructions: 'Before you rest for the night, you record the event of the day in your journal.'
     },
     cartographerTrail: {
         index: 13,
         label: 'Cartographer Trail Action',
-        instructions: ''
+        instructions: 'As a cartographer, you can often find trails that appear invisible to others.'
     }
 }
 
@@ -232,36 +232,45 @@ export const hexDirections = {
 
 export const interestTypes = {
     diegoMendoza: {
+        id: 'diegoMendoza',
         label: 'Deigo Mendoza',
         description: 'Gain 1 Conquistador and 1 Musket. You may add 1 to a total once per turn whenever rolling on Phases 2-7. This effect persists until the end of the game.'
     },
     lagosDeOro: {
+        id: 'lagosDeOro',
         label: 'Lagos De Oro',
         description: 'Create a 3-hex lake halfway between your current location and the River Delta. The 3 hexes must all be adjacent to each other. Then indicate a tiny island at the corner where the three hexes meet. The three hexes count as 1 hex for all purposes.You are immune to Fever while at Lagos De Oro.'
     },
     migration: {
+        id: 'migration',
         label: 'Migration',
         description: 'Skip the Ration Phase while in and adjacent to this hex. You may expend 1 musket to fill your Food reserves to 6.'
     },
     naturalWonder: {
+        id: 'naturalWonder',
         label: 'Natural Wonder',
         description: 'Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural Wonder discovered). Describe this Natural Wonder in detail in your journal.'
     },
     none: {
+        id: 'none',
         isNone: true
     },
     pending: {
+        id: 'pending',
         isPending: true
     },
     predictEclipse: {
+        id: 'predictEclipse',
         label: 'Predict Eclipse',
         description: 'The next two times you roll on the Native Contact Chart, choose any result instead of rolling.'
     },
     princessKantyi: {
+        id: 'princessKantyi',
         label: 'Princess Kantyi',
         description: 'Reroll 1s and 2s on either/both dice whenever rolling on the Native Contact Chart. This effect persists until the end of the game.'
     },
     ruinedMission: {
+        id: 'ruinedMission',
         label: 'Ruined Mission',
         description: 'You find a crate of Muskets. Gain 5 Muskets. Add a Trail to any adjacent hex.'
     }

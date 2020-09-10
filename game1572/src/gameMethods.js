@@ -694,11 +694,18 @@ export function handleExploringRoll(G, confirmed) {
 
 export function handleInterestsRoll(G, confirmed) {
     const data = handle_base(G);
+    let interest = gameConstants.interestTypes.pending;
 
     switch (data.value) {
         // TODO: handle switching interest to wonder after use
         case 2:
         case 3:
+            interest = gameConstants.interestTypes.lagosDeOro;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
                 // TODO: Lagos De Oro
             }
@@ -709,6 +716,12 @@ export function handleInterestsRoll(G, confirmed) {
             break;
 
         case 4:
+            interest = gameConstants.interestTypes.ruinedMission;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
                 setMuskets(G, G.counters.muskets.value + 5);
                 G.map.trailPending = true;
@@ -718,6 +731,12 @@ export function handleInterestsRoll(G, confirmed) {
             break;
 
         case 5:
+            interest = gameConstants.interestTypes.migration;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
                 // TODO: Migration
             }
@@ -728,26 +747,34 @@ export function handleInterestsRoll(G, confirmed) {
         case 6:
         case 7:
         case 8:
-            if (confirmed) {
-                setMorale(G, G.counters.morale.value + 5);
-                // TODO: Wonder
-            }
+            interest = gameConstants.interestTypes.naturalWonder;
 
-            G.diceTray.extraContent[1] += 'Natural Wonder: Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural ' +
-                'Wonder discovered). Describe this Natural Wonder in detail in your journal.';
+            // Handle Wonder below
             break;
 
         case 9:
+            interest = gameConstants.interestTypes.predictEclipse;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
-                // TODO: Predict Eclipse
+                G.eclipsePredictionTurnsRemaining = 2;
             }
 
             G.diceTray.extraContent[1] += 'Predict Eclipse: The next two times you roll on the Native Contact Chart, choose any result instead of rolling.';
             break;
 
         case 10:
+            interest = gameConstants.interestTypes.princessKantyi;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
-                // TODO: Princess Kantyi
+                G.guides.princessKantyi = true;
             }
 
             G.diceTray.extraContent[1] += 'Princess Kantyi: Reroll 1s and 2s on either/both dice whenever rolling on the Native Contact Chart. This effect ' +
@@ -757,10 +784,16 @@ export function handleInterestsRoll(G, confirmed) {
         case 11:
         case 12:
         default:
+            interest = gameConstants.interestTypes.diegoMendoza;
+            if (G.interestIds.includes(interest.id)) {
+                interest = gameConstants.interestTypes.naturalWonder;
+                break;
+            }
+
             if (confirmed) {
                 setConquistadors(G, G.counters.conquistadors.value + 1);
                 setMuskets(G, G.counters.muskets.value + 1);
-                // TODO: Diego Mendoza
+                G.guides.diegoMendoza = true;
             }
 
             G.diceTray.extraContent[1] += 'Diego Mendoza: Gain 1 Conquistador and 1 Musket. You may add 1 to a total once per turn whenever rolling on ' +
@@ -768,7 +801,19 @@ export function handleInterestsRoll(G, confirmed) {
             break;
     }
 
+    if (interest.id === gameConstants.interestTypes.naturalWonder.id) {
+        if (confirmed) {
+            setMorale(G, G.counters.morale.value + 5);
+            // TODO: Wonder
+        }
+
+        G.diceTray.extraContent[1] += 'Natural Wonder: Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural ' +
+            'Wonder discovered). Describe this Natural Wonder in detail in your journal.';
+    }
+
     if (confirmed) {
+        data.currentHex.interestType = interest;
+        G.interestIds.push(interest.id);
         G.diceTray.dice = [];
     }
 }

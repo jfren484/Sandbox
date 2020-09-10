@@ -49,7 +49,13 @@ export const Game1572 = {
             label: '',
             description: ''
         },
+        eclipsePredictionTurnsRemaining: 0,
         fever: false,
+        guids: {
+            diegoMendoza: false,
+            princessKantyi: false
+        },
+        interestIds: [],
         map: {
             adjacentTravelCandidates: [],
             adjacentUnmappedHexes: [],
@@ -229,6 +235,7 @@ export const Game1572 = {
                         },
                         next: 'movementMidRoll'
                     },
+                    // TODO: Diego Mendoza
                     movementMidRoll: {
                         moves: {
                             rerollDice: (G, ctx) => {
@@ -438,6 +445,8 @@ export const Game1572 = {
                         },
                         next: 'nativeContactMidRoll'
                     },
+                    // TODO: Predict Eclipse
+                    // TODO: Princess Kantyi
                     nativeContactMidRoll: {
                         moves: {
                             rerollDice: (G, ctx) => {
@@ -453,7 +462,7 @@ export const Game1572 = {
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleNativeContactRoll(G, true);
                                 if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('nativeContactTrailLocation');
+                                    ctx.events.setStage('nativeContactChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preHunting');
                                 }
@@ -472,9 +481,9 @@ export const Game1572 = {
                                 }
                             }
                         },
-                        next: 'nativeContactTrailLocation'
+                        next: 'nativeContactChooseTrailLocation'
                     },
-                    nativeContactTrailLocation: {
+                    nativeContactChooseTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
                                 G.map.availableTrailLocations = [];
@@ -589,6 +598,23 @@ export const Game1572 = {
                         moves: {
                             acceptRoll: (G, ctx) => {
                                 gameMethods.handleInterestsRoll(G, true);
+                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                    ctx.events.endStage();
+                                } else {
+                                    ctx.events.setStage('preEatRations');
+                                }
+                            }
+                        },
+                        next: 'interestsChooseTrailLocation'
+                    },
+                    interestsChooseTrailLocation: {
+                        moves: {
+                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
+                                G.map.availableTrailLocations = [];
+                                G.map.trails[trailKey] = {
+                                    hexKey: G.map.currentLocationKey,
+                                    direction: trailDirection
+                                };
                                 ctx.events.endStage();
                             }
                         },
