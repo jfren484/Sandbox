@@ -9,14 +9,14 @@ export class Map extends React.Component {
         if (key === this.props.mapData.currentLocationKey && this.props.mapData.availableTrailLocations.length > 0) {
             for (let t = 0; t < this.props.mapData.availableTrailLocations.length; ++t) {
                 const availableTrailLocation = this.props.mapData.availableTrailLocations[t];
-                const trailOffset = availableTrailLocation.offset;
-                shapes.push(<g key={'ATRL-' + trailOffset.key} className="highlightTrail">
-                    <rect x={xBase + trailOffset.pX - 8} y={yBase + trailOffset.pY - 12} width="16" height="24" className="hl"
-                        transform={'rotate(' + trailOffset.rotate + ', ' + (xBase + trailOffset.pX) + ', ' + (yBase + trailOffset.pY) + ')'} />
+                const trailDirection = availableTrailLocation.direction;
+                shapes.push(<g key={'ATRL-' + trailDirection.name} className="highlightTrail">
+                    <rect x={xBase + trailDirection.pX - 8} y={yBase + trailDirection.pY - 12} width="16" height="24" className="hl"
+                        transform={'rotate(' + trailDirection.rotatationDegrees + ', ' + (xBase + trailDirection.pX) + ', ' + (yBase + trailDirection.pY) + ')'} />
                     <use href="#trail" className="highlightTrail" cursor="pointer" pointerEvents="visible" opacity="0.5"
-                        transform={'translate(' + (xBase + trailOffset.pX - gameConstants.map.trail.rX) + ', ' + (yBase + trailOffset.pY - gameConstants.map.trail.rY) + ') ' +
-                            'rotate(' + trailOffset.rotate + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'}
-                        onClick={() => this.props.onTrailClick(availableTrailLocation.key, trailOffset)} />
+                        transform={'translate(' + (xBase + trailDirection.pX - gameConstants.map.trail.rX) + ', ' + (yBase + trailDirection.pY - gameConstants.map.trail.rY) + ') ' +
+                            'rotate(' + trailDirection.rotatationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'}
+                        onClick={() => this.props.onTrailClick(availableTrailLocation.key, trailDirection)} />
                 </g>);
             }
         }
@@ -27,25 +27,29 @@ export class Map extends React.Component {
             return;
         }
 
-        for (let borderOffsetKey in gameConstants.borderOffsets) {
-            const borderOffset = gameConstants.borderOffsets[borderOffsetKey];
-            const neighborHexKey = (hex.x + borderOffset.x) + ',' + (hex.y + borderOffset.y);
+        for (let hexDirectionKey in gameConstants.hexDirections) {
+            if (hexDirectionKey === gameConstants.hexDirections.none.name) {
+                continue;
+            }
+
+            const hexDirection = gameConstants.hexDirections[hexDirectionKey];
+            const neighborHexKey = (hex.x + hexDirection.dirX) + ',' + (hex.y + hexDirection.dirY);
 
             if (!this.props.mapData.hexes[neighborHexKey] || !this.props.mapData.hexes[neighborHexKey].advancedCiv) {
-                shapes.push(<use href="#border" key={'BORD-' + hex.key + '-' + borderOffset.key}
-                    transform={'translate(' + (xBase + borderOffset.pX - gameConstants.map.border.rX) + ', ' +
-                        (yBase + borderOffset.pY - gameConstants.map.border.rY) + ') ' +
-                        'rotate(' + borderOffset.rotate + ', ' + gameConstants.map.border.rX + ', ' + gameConstants.map.border.rY + ')'} />);
+                shapes.push(<use href="#border" key={'BORD-' + hex.key + '-' + hexDirection.name} data={'BORD-' + hex.key + '-' + hexDirection.name}
+                    transform={'translate(' + (xBase + hexDirection.pX - gameConstants.map.border.rX + hexDirection.pOffX) + ', ' +
+                        (yBase + hexDirection.pY - gameConstants.map.border.rY + hexDirection.pOffY) + ') ' +
+                        'rotate(' + hexDirection.rotationDegrees + ', ' + gameConstants.map.border.rX + ', ' + gameConstants.map.border.rY + ')'} />);
             }
         }
     }
 
     generateCataract(hex, xBase, yBase, shapes) {
         if (hex.cataract) {
-            const offset = gameConstants.hexNeighborOffsets[hex.riverType.downstream.name];
+            const direction = gameConstants.hexDirections[hex.riverType.downstream.name];
             shapes.push(<use href="#cataract" key={'CAT-' + hex.key}
-                transform={'translate(' + (xBase + offset.pX - gameConstants.map.cataract.rX) + ', ' + (yBase + offset.pY - gameConstants.map.cataract.rY) + ') ' +
-                    'rotate(' + offset.rotate + ', ' + gameConstants.map.cataract.rX + ', ' + gameConstants.map.cataract.rY + ')'} />);
+                transform={'translate(' + (xBase + direction.pX - gameConstants.map.cataract.rX) + ', ' + (yBase + direction.pY - gameConstants.map.cataract.rY) + ') ' +
+                    'rotate(' + direction.rotationDegrees + ', ' + gameConstants.map.cataract.rX + ', ' + gameConstants.map.cataract.rY + ')'} />);
         }
     }
 
@@ -75,8 +79,10 @@ export class Map extends React.Component {
     }
 
     generateHighlight(key, xBase, yBase, shapes) {
+        console.log(JSON.stringify(this.props.mapData.adjacentTravelCandidates));
         const hlTravel = this.props.mapData.adjacentTravelCandidates.find(adj => adj.target === key);
         if (hlTravel || this.props.mapData.adjacentUnmappedHexes.includes(key)) {
+            console.log(JSON.stringify(hlTravel));
             shapes.push(<g key={'HL-' + key} cursor="pointer" pointerEvents="visible" onClick={() => this.props.onHexClick(key)}>
                 <use href="#hex" className="highlightHex" transform={'translate(' + xBase + ', ' + yBase + ')'} />
                 {hlTravel
@@ -110,13 +116,13 @@ export class Map extends React.Component {
 
     generateTrails(shapes) {
         for (let trailKey in this.props.mapData.trails) {
-            const trailOffset = this.props.mapData.trails[trailKey].offset;
+            const trailDirection = this.props.mapData.trails[trailKey].direction;
             const hex = this.props.mapData.hexes[this.props.mapData.trails[trailKey].hexKey];
 
             shapes.push(<use href="#trail" key={'TRL-' + trailKey}
-                transform={'translate(' + (hex.x * gameConstants.map.hexDrawWidth + trailOffset.pX + gameConstants.map.hexPad - gameConstants.map.trail.rX) + ', ' +
-                    (hex.y * gameConstants.map.hexHeight + trailOffset.pY + gameConstants.map.hexPad - gameConstants.map.trail.rY) + ') ' +
-                    'rotate(' + trailOffset.rotate + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'} />);
+                transform={'translate(' + (hex.x * gameConstants.map.hexDrawWidth + trailDirection.pX + gameConstants.map.hexPad - gameConstants.map.trail.rX) + ', ' +
+                    (hex.y * gameConstants.map.hexHeight + trailDirection.pY + gameConstants.map.hexPad - gameConstants.map.trail.rY) + ') ' +
+                    'rotate(' + trailDirection.rotatationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'} />);
         }
     }
 

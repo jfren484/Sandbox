@@ -3,10 +3,11 @@ import React from 'react';
 export class FeatureDefs extends React.Component {
     render() {
         return (
-            <g>
+            <g id="FeatureDefs">
                 <g id="border">
-                    <line x1="0" y1="1" x2="36" y2="1" stroke-width="3" stroke="yellow" />
-                    <line x1="0" y1="1.3" x2="36" y2="1.3" stroke-width="1" stroke="black" strokeDasharray="4,2" />
+                    <rect x="0" y="0" width="39" height="3" stroke="none" stroke="none" fill="none" />
+                    <line x1="0" y1="1" x2="39" y2="1" strokeWidth="3" stroke="yellow" />
+                    <line x1="0" y1="1.3" x2="39" y2="1.3" strokeWidth="1" stroke="black" strokeDasharray="4,4" />
                 </g>
 
                 <g id="bush">

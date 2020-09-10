@@ -390,11 +390,11 @@ export const Game1572 = {
                     },
                     exploringChooseTrailLocation: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
+                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
                                 G.map.availableTrailLocations = [];
                                 G.map.trails[trailKey] = {
                                     hexKey: G.map.currentLocationKey,
-                                    offset: offsetRec
+                                    direction: trailDirection
                                 };
                                 ctx.events.endStage();
                             }
@@ -476,11 +476,11 @@ export const Game1572 = {
                     },
                     nativeContactTrailLocation: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
+                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
                                 G.map.availableTrailLocations = [];
                                 G.map.trails[trailKey] = {
                                     hexKey: G.map.currentLocationKey,
-                                    offset: offsetRec
+                                    direction: trailDirection
                                 };
                                 ctx.events.endStage();
                             }
@@ -753,11 +753,11 @@ export const Game1572 = {
                     },
                     cartographerTrail: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, offsetRec) => {
+                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
                                 G.map.availableTrailLocations = [];
                                 G.map.trails[trailKey] = {
                                     hexKey: G.map.currentLocationKey,
-                                    offset: offsetRec
+                                    direction: trailDirection
                                 };
 
                                 ctx.events.endTurn();

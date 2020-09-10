@@ -41,9 +41,9 @@ function canAddCataract(G) {
 		return false;
 	}
 
-    const downstreamOffset = gameConstants.hexNeighborOffsets[currentHex.riverType.downstream.name];
+    const downstreamDirection = gameConstants.hexDirections[currentHex.riverType.downstream.name];
 
-    const hexKey = (currentHex.x + downstreamOffset.x) + ',' + (currentHex.y + downstreamOffset.y);
+    const hexKey = (currentHex.x + downstreamDirection.dirX) + ',' + (currentHex.y + downstreamDirection.dirY);
     const trailKey = [hexKey, G.map.currentLocationKey].sort();
     if (G.map.trails[trailKey]) {
         return false;
@@ -149,15 +149,13 @@ export function generateMapHexes() {
         '4,0.5': {
             ...hexTemplate,
             x: 4,
-            y: 0.5,
-            advancedCiv: true
+            y: 0.5
         },
         '4,1.5': {
             ...hexTemplate,
             x: 4,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwne,
-            advancedCiv: true
+            riverType: gameConstants.riverTypes.nwne
         },
         '4,2.5': {
             ...hexTemplate,
@@ -167,15 +165,13 @@ export function generateMapHexes() {
         '5,0': {
             ...hexTemplate,
             x: 5,
-            y: 0,
-            advancedCiv: true
+            y: 0
         },
         '5,1': {
             ...hexTemplate,
             x: 5,
             y: 1,
-            riverType: gameConstants.riverTypes.swse,
-            advancedCiv: true
+            riverType: gameConstants.riverTypes.swse
         },
         '5,2': {
             ...hexTemplate,
@@ -186,15 +182,13 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 6,
             y: 0.5,
-            interests: [gameConstants.interestTypes.pending],
-            advancedCiv: true
+            interests: [gameConstants.interestTypes.pending]
         },
         '6,1.5': {
             ...hexTemplate,
             x: 6,
             y: 1.5,
-            riverType: gameConstants.riverTypes.nwse,
-            advancedCiv: true
+            riverType: gameConstants.riverTypes.nwse
         },
         '6,2.5': {
             ...hexTemplate,
@@ -344,13 +338,17 @@ export function generateMapHexes() {
         }
 
         // Build the connections
-        for (let hexNeighborOffsetKey in gameConstants.hexNeighborOffsets) {
-            const hexNeighborOffset = gameConstants.hexNeighborOffsets[hexNeighborOffsetKey];
-            const neighborHexKey = (hex.x + hexNeighborOffset.x) + ',' + (hex.y + hexNeighborOffset.y);
+        for (let hexDirectionKey in gameConstants.hexDirections) {
+            if (hexDirectionKey === gameConstants.hexDirections.none.name) {
+                continue;
+            }
+
+            const hexDirection = gameConstants.hexDirections[hexDirectionKey];
+            const neighborHexKey = (hex.x + hexDirection.dirX) + ',' + (hex.y + hexDirection.dirY);
 
             if (hexes[neighborHexKey]) {
                 hex.connections.push({
-                    direction: hexNeighborOffsetKey,
+                    direction: hexDirectionKey,
                     hexKey: neighborHexKey
                 });
             }
@@ -406,7 +404,7 @@ export function generatePhaseDialog(G) {
                     G.phaseComment += '; friendly village' + (friendlyVillages > 1 ? 's' : '') + ': +' + friendlyVillages;
                 }
 
-                if (G.phase.index === gameConstants.gamePhases.exploring.index && currentHex.advancedCiv) {
+                if (G.phase.index === gameConstants.gamePhases.nativeContact.index && currentHex.advancedCiv) {
                     G.phaseComment += '; Advanced Civilization (only 1 die rolled)'
                 }
             }
@@ -552,7 +550,7 @@ export function getAvailableTrailLocations(G) {
 
         const trailKey = [connection.hexKey, G.map.currentLocationKey].sort();
         if (!G.map.trails[trailKey]) {
-            G.map.availableTrailLocations.push({ key: trailKey, offset: gameConstants.hexNeighborOffsets[connection.direction] });
+            G.map.availableTrailLocations.push({ key: trailKey, direction: gameConstants.hexDirections[connection.direction] });
         }
     }
 

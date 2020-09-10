@@ -1,17 +1,6 @@
 const hexWidth = 80;
 const hexHeight = 70;
 
-export const borderOffsets = {};
-borderOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, borderX: hexWidth / 8     + 1.5, borderY: hexHeight / 4 + 1,     rotate: 120 };
-borderOffsets[hexDirections.north.name]     = { x:  0, y: -1,   borderX: hexWidth / 2,           borderY: 3,                     rotate:   0 };
-borderOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight / 4 + 1,     rotate:  60 };
-borderOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, borderX: hexWidth / 8     + 1.5, borderY: hexHeight * 3 / 4 - 1, rotate:  60 };
-borderOffsets[hexDirections.south.name]     = { x:  0, y:  1,   borderX: hexWidth / 2,           borderY: hexHeight - 3,         rotate:   0 };
-borderOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight * 3 / 4 - 1, rotate: 120 };
-for (let key in borderOffsets) {
-    borderOffsets[key].key = key;
-}
-
 export const diceTrayModes = {
     empty: 'empty',
     preroll: 'preroll',
@@ -71,7 +60,7 @@ export const expeditionTypes = {
         ...expeditionTypeTemplate,
         id: 5,
         label: 'Religious',
-        description: 'All villages are peaceful villages (but not the empire).',
+        description: 'All villages are peaceful villages (but not advanced civilizations).',
         allVillagesPeaceful: true
     },
     6: {
@@ -157,65 +146,88 @@ export const gamePhases = {
 export const hexDirections = {
     none: {
         name: 'none',
+        dirX: 0,
+        dirY: 0,
         moraleAdjustment: -1,
         pX: 0,
         pY: 0,
-        reverse: 'none'
+		pOffX: 0,
+		pOffY: 0,
+        reverse: 'none',
+        rotationDegrees: 0
     },
     northwest: {
         name: 'northwest',
+        dirX: -1,
+        dirY: -0.5,
         moraleAdjustment: -3,
         pX: hexWidth / 8,
         pY: hexHeight / 4,
-        reverse: 'southeast'
+		pOffX: 1.5,
+		pOffY: 1,
+        reverse: 'southeast',
+        rotationDegrees: 120
     },
     north: {
         name: 'north',
+        dirX: 0,
+        dirY: -1,
         moraleAdjustment: -1,
         pX: hexWidth / 2,
         pY: 0,
-        reverse: 'south'
+		pOffX: 0,
+		pOffY: 3,
+        reverse: 'south',
+        rotationDegrees: 0
     },
     northeast: {
         name: 'northeast',
+        dirX: 1,
+        dirY: -0.5,
         moraleAdjustment: 1,
         pX: hexWidth * 7 / 8,
         pY: hexHeight / 4,
-        reverse: 'southwest'
+		pOffX: -2.5,
+		pOffY: 2,
+        reverse: 'southwest',
+        rotationDegrees: 60
     },
     southeast: {
         name: 'southeast',
+        dirX: 1,
+        dirY: 0.5,
         moraleAdjustment: 3,
         pX: hexWidth * 7 / 8,
         pY: hexHeight * 3 / 4,
-        reverse: 'northwest'
+		pOffX: -2.5,
+		pOffY: -1,
+        reverse: 'northwest',
+        rotationDegrees: 120
     },
     south: {
         name: 'south',
+        dirX: 0,
+        dirY: 1,
         moraleAdjustment: 1,
         pX: hexWidth / 2,
         pY: hexHeight,
-        reverse: 'north'
+		pOffX: 0,
+		pOffY: -2,
+        reverse: 'north',
+        rotationDegrees: 0
     },
     southwest: {
         name: 'southwest',
+        dirX: -1,
+        dirY: 0.5,
         moraleAdjustment: -1,
         pX: hexWidth / 8,
         pY: hexHeight * 3 / 4,
-        reverse: 'northeast'
+		pOffX: 1.5,
+		pOffY: -1,
+        reverse: 'northeast',
+        rotationDegrees: 60
     }
-}
-
-// TODO: finish:
-export const hexNeighborOffsets = {};
-hexNeighborOffsets[hexDirections.northwest.name] = { x: -1, y: -0.5, pX: hexDirections.northwest.pX, pY: hexHeight / 4,     borderX: hexWidth / 8     + 1.5, borderY: hexHeight / 4 + 1,     rotate: 120 };
-hexNeighborOffsets[hexDirections.north.name]     = { x:  0, y: -1,   pX: hexDirections.north.pX,     pY: 0,                 borderX: hexWidth / 2,           borderY: 3,                     rotate:   0 };
-hexNeighborOffsets[hexDirections.northeast.name] = { x:  1, y: -0.5, pX: hexDirections.northeast.pX, pY: hexHeight / 4,     borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight / 4 + 1,     rotate:  60 };
-hexNeighborOffsets[hexDirections.southwest.name] = { x: -1, y:  0.5, pX: hexDirections.southwest.pX, pY: hexHeight * 3 / 4, borderX: hexWidth / 8     + 1.5, borderY: hexHeight * 3 / 4 - 1, rotate:  60 };
-hexNeighborOffsets[hexDirections.south.name]     = { x:  0, y:  1,   pX: hexDirections.south.pX,     pY: hexHeight,         borderX: hexWidth / 2,           borderY: hexHeight - 3,         rotate:   0 };
-hexNeighborOffsets[hexDirections.southeast.name] = { x:  1, y:  0.5, pX: hexDirections.southeast.pX, pY: hexHeight * 3 / 4, borderX: hexWidth * 7 / 8 - 1.5, borderY: hexHeight * 3 / 4 - 1, rotate: 120 };
-for (let key in hexNeighborOffsets) {
-    hexNeighborOffsets[key].key = key;
 }
 
 export const interestTypes = {

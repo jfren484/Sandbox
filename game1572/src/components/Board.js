@@ -96,8 +96,8 @@ export class Game1572Board extends React.Component {
         this.props.moves.acceptRoll();
     };
 
-    onTrailClick = (key, offsetRec) => {
-        this.props.moves.chooseTrailLocation(key, offsetRec);
+    onTrailClick = (key, trailDirection) => {
+        this.props.moves.chooseTrailLocation(key, trailDirection);
     }
 
     /* Methods */
