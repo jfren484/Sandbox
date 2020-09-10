@@ -678,11 +678,11 @@ export function handleExploringRoll(G, confirmed) {
 		case 11:
 		case 12:
 		default:
-            if (confirmed && data.currentHex.interestType === gameConstants.interestTypes.none) {
+            if (confirmed && data.currentHex.interestType.isNone) {
                 data.currentHex.interestType = gameConstants.interestTypes.pending;
 			}
 
-            G.diceTray.extraContent[1] += data.currentHex.interestType === gameConstants.interestTypes.none ? '+Interest' : '(Hex already contains Interest)';
+            G.diceTray.extraContent[1] += data.currentHex.interestType.isNone ? '+Interest' : '(Hex already contains Interest)';
 			break;
     }
 
@@ -1139,6 +1139,14 @@ export function setupDiceTray(diceTray, count, title) {
 export function travelTo(G, key) {
     const travel = G.map.adjacentTravelCandidates.find(adj => adj.target === key);
     if (key !== G.map.currentLocationKey) {
+        const destHex = G.map.hexes[key];
+        if (G.expeditionType.trailLeadsToInterestOnTerrainChange &&
+            travel.movementCost === 3 &&
+            destHex.interestType.isNone &&
+            destHex.terrainType !== G.map.hexes[G.map.currentLocationKey].terrainType) {
+            destHex.interestType = gameConstants.interestTypes.pending;
+        }
+
         G.map.currentLocationKey = key;
 
         setMovementProgress(G, G.counters.movementProgress.value - travel.movementCost + (travel.downstreamTravel ? 1 : 0));

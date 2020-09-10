@@ -565,7 +565,7 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.map.hexes[G.map.currentLocationKey].interestType === gameConstants.interestTypes.pending) {
+                                if (!G.map.hexes[G.map.currentLocationKey].interestType.isPending) {
                                     ctx.events.setStage('preEatRations');
                                 } else {
                                     gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);

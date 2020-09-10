@@ -247,8 +247,12 @@ export const interestTypes = {
         label: 'Natural Wonder',
         description: 'Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural Wonder discovered). Describe this Natural Wonder in detail in your journal.'
     },
-    none: {},
-    pending: {},
+    none: {
+        isNone: true
+    },
+    pending: {
+        isPending: true
+    },
     predictEclipse: {
         label: 'Predict Eclipse',
         description: 'The next two times you roll on the Native Contact Chart, choose any result instead of rolling.'

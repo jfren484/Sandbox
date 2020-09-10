@@ -12,10 +12,10 @@ export class Map extends React.Component {
                 const trailDirection = availableTrailLocation.direction;
                 shapes.push(<g key={'ATRL-' + trailDirection.name} className="highlightTrail">
                     <rect x={xBase + trailDirection.pX - 8} y={yBase + trailDirection.pY - 12} width="16" height="24" className="hl"
-                        transform={'rotate(' + trailDirection.rotatationDegrees + ', ' + (xBase + trailDirection.pX) + ', ' + (yBase + trailDirection.pY) + ')'} />
+                        transform={'rotate(' + trailDirection.rotationDegrees + ', ' + (xBase + trailDirection.pX) + ', ' + (yBase + trailDirection.pY) + ')'} />
                     <use href="#trail" className="highlightTrail" cursor="pointer" pointerEvents="visible" opacity="0.5"
                         transform={'translate(' + (xBase + trailDirection.pX - gameConstants.map.trail.rX) + ', ' + (yBase + trailDirection.pY - gameConstants.map.trail.rY) + ') ' +
-                            'rotate(' + trailDirection.rotatationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'}
+                            'rotate(' + trailDirection.rotationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'}
                         onClick={() => this.props.onTrailClick(availableTrailLocation.key, trailDirection)} />
                 </g>);
             }
@@ -73,7 +73,7 @@ export class Map extends React.Component {
         for (; v < featureSpots && v < hex.villages + hex.friendlyVillages; ++v) {
             this.generateHexFeature(hex, xBase, yBase, 'friendlyVillage', 'FVIL', v, 3, gameConstants.villageInterestOffsets[v], shapes);
         }
-        const interestCount = hex.interestType === gameConstants.interestTypes.none ? 0 : 1;
+        const interestCount = hex.interestType.isNone ? 0 : 1;
         for (; v < featureSpots && v < hex.villages + hex.friendlyVillages + interestCount; ++v) {
             this.generateHexFeature(hex, xBase, yBase, 'interest', 'INT', v, 6, gameConstants.villageInterestOffsets[v], shapes);
         }
@@ -121,7 +121,7 @@ export class Map extends React.Component {
             shapes.push(<use href="#trail" key={'TRL-' + trailKey}
                 transform={'translate(' + (hex.x * gameConstants.map.hexDrawWidth + trailDirection.pX + gameConstants.map.hexPad - gameConstants.map.trail.rX) + ', ' +
                     (hex.y * gameConstants.map.hexHeight + trailDirection.pY + gameConstants.map.hexPad - gameConstants.map.trail.rY) + ') ' +
-                    'rotate(' + trailDirection.rotatationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'} />);
+                    'rotate(' + trailDirection.rotationDegrees + ', ' + gameConstants.map.trail.rX + ', ' + gameConstants.map.trail.rY + ')'} />);
         }
     }
 
