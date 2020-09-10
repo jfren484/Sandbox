@@ -73,16 +73,15 @@ export class Map extends React.Component {
         for (; v < featureSpots && v < hex.villages + hex.friendlyVillages; ++v) {
             this.generateHexFeature(hex, xBase, yBase, 'friendlyVillage', 'FVIL', v, 3, gameConstants.villageInterestOffsets[v], shapes);
         }
-        for (; v < featureSpots && v < hex.villages + hex.friendlyVillages + hex.interests.length; ++v) {
+        const interestCount = hex.interestType === gameConstants.interestTypes.none ? 0 : 1;
+        for (; v < featureSpots && v < hex.villages + hex.friendlyVillages + interestCount; ++v) {
             this.generateHexFeature(hex, xBase, yBase, 'interest', 'INT', v, 6, gameConstants.villageInterestOffsets[v], shapes);
         }
     }
 
     generateHighlight(key, xBase, yBase, shapes) {
-        console.log(JSON.stringify(this.props.mapData.adjacentTravelCandidates));
         const hlTravel = this.props.mapData.adjacentTravelCandidates.find(adj => adj.target === key);
         if (hlTravel || this.props.mapData.adjacentUnmappedHexes.includes(key)) {
-            console.log(JSON.stringify(hlTravel));
             shapes.push(<g key={'HL-' + key} cursor="pointer" pointerEvents="visible" onClick={() => this.props.onHexClick(key)}>
                 <use href="#hex" className="highlightHex" transform={'translate(' + xBase + ', ' + yBase + ')'} />
                 {hlTravel

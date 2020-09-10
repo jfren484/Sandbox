@@ -70,7 +70,7 @@ export function generateMapHexes() {
         cataract: false,
         connections: [],
         friendlyVillages: 0,
-        interests: [],
+        interestType: gameConstants.interestTypes.none,
         riverType: undefined,
         terrainType: gameConstants.terrainTypes.unexplored,
         villages: 0,
@@ -182,7 +182,7 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 6,
             y: 0.5,
-            interests: [gameConstants.interestTypes.pending]
+            interestType: gameConstants.interestTypes.pending
         },
         '6,1.5': {
             ...hexTemplate,
@@ -331,11 +331,8 @@ export function generateMapHexes() {
         const hex = hexes[hexKey];
         hex.key = hexKey;
 
-        // Create new arrays (the above syntax has all hexes sharing the same arrays)
+        // Create new array (the above syntax has all hexes sharing the same arrays)
         hex.connections = [];
-        if (hex.interests.length === 0) {
-            hex.interests = [];
-        }
 
         // Build the connections
         for (let hexDirectionKey in gameConstants.hexDirections) {
@@ -412,8 +409,8 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.interests.index:
-            if (G.map.hexes[G.map.currentLocationKey].interests.filter(i => gameConstants.interestTypes.pending).length === 0) {
-                G.phaseComment = 'No interests to resolve';
+            if (G.map.hexes[G.map.currentLocationKey].interestType !== gameConstants.interestTypes.pending) {
+                G.phaseComment = 'No interest to resolve';
                 skip = true;
             }
 
@@ -681,11 +678,11 @@ export function handleExploringRoll(G, confirmed) {
 		case 11:
 		case 12:
 		default:
-			if (confirmed) {
-                data.currentHex.interests.push(gameConstants.interestTypes.pending);
+            if (confirmed && data.currentHex.interestType === gameConstants.interestTypes.none) {
+                data.currentHex.interestType = gameConstants.interestTypes.pending;
 			}
 
-			G.diceTray.extraContent[1] += '+Interest';
+            G.diceTray.extraContent[1] += data.currentHex.interestType === gameConstants.interestTypes.none ? '+Interest' : '(Hex already contains Interest)';
 			break;
     }
 
