@@ -62,7 +62,6 @@ export const Game1572 = {
             availableTrailLocations: [],
             currentLocationKey: '0,0.5',
             hexes: gameMethods.generateMapHexes(),
-            trailPending: false,
             trails: {}
         },
         musketBonus: 0,
@@ -372,8 +371,8 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleExploringRoll(G, true);
-                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                const result = gameMethods.handleExploringRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preNativeContact');
@@ -385,15 +384,15 @@ export const Game1572 = {
                     exploringPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleExploringRoll(G, true);
-                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.endStage();
+                                const result = gameMethods.handleExploringRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                    ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
-                                    ctx.events.setStage('preNativeContact');
+                                    ctx.events.endStage();
                                 }
                             }
                         },
-                        next: 'exploringChooseTrailLocation'
+                        next: 'preNativeContact'
                     },
                     exploringChooseTrailLocation: {
                         moves: {
@@ -460,8 +459,8 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleNativeContactRoll(G, true);
-                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                const result = gameMethods.handleNativeContactRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('nativeContactChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preHunting');
@@ -473,15 +472,15 @@ export const Game1572 = {
                     nativeContactPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleNativeContactRoll(G, true);
-                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.endStage();
+                                const result = gameMethods.handleNativeContactRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                    ctx.events.setStage('nativeContactChooseTrailLocation');
                                 } else {
-                                    ctx.events.setStage('preHunting');
+                                    ctx.events.endStage();
                                 }
                             }
                         },
-                        next: 'nativeContactChooseTrailLocation'
+                        next: 'preHunting'
                     },
                     nativeContactChooseTrailLocation: {
                         moves: {
@@ -597,15 +596,20 @@ export const Game1572 = {
                     interestsPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleInterestsRoll(G, true);
-                                if (G.map.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.endStage();
+                                const result = gameMethods.handleInterestsRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                    ctx.events.setStage('interestsChooseTrailLocation');
+                                } else if (result.lagosDeOroPending /* TODO: && valid location available? */) {
+                                    // TODO: get valid 1st locations
+                                    ctx.events.setStage('interestsChooseLagosDeOro1');
+                                } else if (result.wonderPending) {
+                                    ctx.events.setStage('interestsDescribeWonder');
                                 } else {
-                                    ctx.events.setStage('preEatRations');
+                                    ctx.events.endStage();
                                 }
                             }
                         },
-                        next: 'interestsChooseTrailLocation'
+                        next: 'preEatRations'
                     },
                     interestsChooseTrailLocation: {
                         moves: {
@@ -615,6 +619,52 @@ export const Game1572 = {
                                     hexKey: G.map.currentLocationKey,
                                     direction: trailDirection
                                 };
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'preEatRations'
+                    },
+                    interestsChooseLagosDeOro1: {
+                        moves: {
+                            chooseLocation: (G, ctx, hexKey) => {
+                                // TODO: Get valid 2nd locations
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'interestsChooseLagosDeOro2'
+                    },
+                    interestsChooseLagosDeOro2: {
+                        moves: {
+                            chooseLocation: (G, ctx, hexKey) => {
+                                // TODO: Get valid 3rd locations
+                                ctx.events.endStage();
+                            },
+                            deselectLocation: (G, ctx, hexKey) => {
+                                // TODO: remove location from choices
+                                // TODO: get valid 1st locations
+                                ctx.events.setStage('interestsChooseLagosDeOro1');
+                            }
+                        },
+                        next: 'interestsChooseLagosDeOro3'
+                    },
+                    interestsChooseLagosDeOro3: {
+                        moves: {
+                            chooseLocation: (G, ctx, hexKey) => {
+                                // TODO: confirm Lagos De Oro locations
+                                ctx.events.endStage();
+                            },
+                            deselectLocation: (G, ctx, hexKey) => {
+                                // TODO: remove location from choices
+                                // TODO: get valid 2nd locations
+                                ctx.events.setStage('interestsChooseLagosDeOro2');
+                            }
+                        },
+                        next: 'preEatRations'
+                    },
+                    interestsDescribeWonder: {
+                        moves: {
+                            describeWonder: (G, ctx, description) => {
+                                // TODO: save description
                                 ctx.events.endStage();
                             }
                         },
@@ -635,11 +685,23 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.counters.food.value > 0) {
-                                    gameMethods.setFood(G, G.counters.food.value - 1);
-                                } else {
-                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                if (!G.map.hexes[G.map.currentLocationKey].migration) {
+                                    if (G.counters.food.value > 0) {
+                                        gameMethods.setFood(G, G.counters.food.value - 1);
+                                    } else {
+                                        gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                    }
                                 }
+
+                                ctx.events.endStage();
+                            },
+                            specialAction: (G, ctx) => {
+                                if (!G.map.hexes[G.map.currentLocationKey].migration || G.counters.muskets.value === 0) {
+                                    return INVALID_MOVE;
+                                }
+
+                                gameMethods.setFood(G, 6);
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
 
                                 ctx.events.endStage();
                             }

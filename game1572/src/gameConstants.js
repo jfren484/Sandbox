@@ -109,7 +109,7 @@ export const gamePhases = {
     interests: {
         index: 7,
         label: 'Interests',
-        instructions: 'You come across a strange painting that appears to hold clues describing the location of something very interesting. '
+        instructions: 'You come across strange painted images that appears to hold clues describing the location of something very interesting.'
     },
     eatRations: {
         index: 8,

@@ -39,6 +39,10 @@ export class Game1572Board extends React.Component {
         this.props.moves.confirmDialog();
     };
 
+    onBasicDialogSpecialAction = () => {
+        this.props.moves.specialAction();
+    };
+
     onGameStart = () => {
         this.props.moves.beginGame();
     }
@@ -195,7 +199,8 @@ export class Game1572Board extends React.Component {
                 </Box>
                 <BasicDialog
                     dialogData={this.props.G.dialog}
-                    onComplete={this.onBasicDialogComplete} />
+                    onComplete={this.onBasicDialogComplete}
+                    onSpecialAction={this.onBasicDialogSpecialAction} />
             </Container>
         );
     }

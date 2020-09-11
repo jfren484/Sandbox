@@ -4,13 +4,12 @@ import * as gameConstants from './gameConstants';
 
 export function addAdvancedCivilization(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
+    currentHex.advancedCiv = true;
+
     for (let i = 0; i < currentHex.connections.length; ++i) {
         const dist1Hex = G.map.hexes[currentHex.connections[i].hexKey];
         for (let i = 0; i < dist1Hex.connections.length; ++i) {
-            const dist2Hex = G.map.hexes[dist1Hex.connections[i].hexKey];
-            if (!dist2Hex.advancedCiv) {
-                dist2Hex.advancedCiv = true;
-            }
+            G.map.hexes[dist1Hex.connections[i].hexKey].advancedCiv = true;
         }
 
         if (!dist1Hex.advancedCiv) {
@@ -32,6 +31,15 @@ export function addConquistadorInPlanning(G) {
 
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
 	}
+}
+
+export function addMigration(G) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+    currentHex.migration = true;
+
+    for (let i = 0; i < currentHex.connections.length; ++i) {
+        G.map.hexes[currentHex.connections[i].hexKey].migration = true;
+    }
 }
 
 function canAddCataract(G) {
@@ -357,7 +365,9 @@ export function generateMapHexes() {
 
 export function generatePhaseDialog(G) {
     G.phaseComment = '';
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
     let skip = false;
+    let migrationBonus = false;
 
     switch (G.phase.index) {
         case gameConstants.gamePhases.mapping.index:
@@ -389,8 +399,6 @@ export function generatePhaseDialog(G) {
                     G.phaseComment += '; Botany Expedion bonus: +' + G.expeditionType.huntingBonus;
                 }
 
-                const currentHex = G.map.hexes[G.map.currentLocationKey];
-
                 const terrainAdj = currentHex.terrainType.diceRollAdjustments[G.phase.index];
                 if (terrainAdj) {
                     G.phaseComment += '; terrain ' + (terrainAdj > 0 ? 'bonus' : 'penalty') + ': ' + (terrainAdj > 0 ? '+' : '') + terrainAdj;
@@ -409,7 +417,7 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.interests.index:
-            if (G.map.hexes[G.map.currentLocationKey].interestType !== gameConstants.interestTypes.pending) {
+            if (currentHex.interestType.id !== gameConstants.interestTypes.pending.id) {
                 G.phaseComment = 'No interest to resolve';
                 skip = true;
             }
@@ -417,13 +425,21 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.eatRations.index:
-            if (G.counters.food.value > 0) {
-                G.phaseComment = 'Food -1';
+            if (currentHex.migration) {
+                G.phaseComment = 'Migration: No Food Consumed';
+                if (G.counters.muskets.value > 0) {
+                    migrationBonus = true;
+                    G.phaseComment += '; You may expend 1 musket to fill your Food reserves to 6.';
+                }
             } else {
-                G.phaseComment = 'No Food! Conquistadors -1';
+                if (G.counters.food.value > 0) {
+                    G.phaseComment = 'Food -1';
+                } else {
+                    G.phaseComment = 'No Food! Conquistadors -1';
 
-                if (G.counters.conquistadors.value === 0) {
-                    G.phaseComment += ', all Conquistadors have been lost';
+                    if (G.counters.conquistadors.value === 0) {
+                        G.phaseComment += ', all Conquistadors have been lost';
+                    }
                 }
             }
 
@@ -469,7 +485,10 @@ export function generatePhaseDialog(G) {
     G.dialog = {
         title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
         content: G.phaseComment,
-        text: G.phase.instructions
+        text: G.phase.instructions,
+        specialAction: migrationBonus
+            ? 'Hunt Migration with Musket'
+            : undefined
     };
 }
 
@@ -529,7 +548,6 @@ export function getAdjacentUnmapped(G) {
 }
 
 export function getAvailableTrailLocations(G) {
-    G.map.trailPending = false;
     G.map.availableTrailLocations = [];
     const currentHex = G.map.hexes[G.map.currentLocationKey];
 
@@ -565,7 +583,7 @@ export function getStage(ctx) {
 function handle_base(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
-    const diceBonus = G.planningDiceAssigned[G.phase.index] - 1;
+    const diceBonus = G.phase.index <= gameConstants.gamePhases.hunting.index ? G.planningDiceAssigned[G.phase.index] - 1 : 0;
     const botanyBonus = G.phase.index === gameConstants.gamePhases.hunting.index && G.expeditionType.huntingBonus
         ? G.expeditionType.huntingBonus
         : 0;
@@ -607,6 +625,9 @@ function handle_base(G) {
 
 export function handleExploringRoll(G, confirmed) {
     const data = handle_base(G);
+    let result = {
+        trailPending: false
+    };
 
 	switch (data.value) {
 		case 0:
@@ -668,7 +689,7 @@ export function handleExploringRoll(G, confirmed) {
 
 		case 9:
 			if (confirmed) {
-				G.map.trailPending = true;
+				result.trailPending = true;
 			}
 
 			G.diceTray.extraContent[1] += '+Trail';
@@ -690,14 +711,19 @@ export function handleExploringRoll(G, confirmed) {
         G.diceTray.dice = [];
         G.musketBonus = 0;
     }
+
+    return result;
 }
 
 export function handleInterestsRoll(G, confirmed) {
     const data = handle_base(G);
     let interest = gameConstants.interestTypes.pending;
+    let result = {
+        lagosDeOroPending: false,
+        trailPending: false
+    };
 
     switch (data.value) {
-        // TODO: handle switching interest to wonder after use
         case 2:
         case 3:
             interest = gameConstants.interestTypes.lagosDeOro;
@@ -707,7 +733,7 @@ export function handleInterestsRoll(G, confirmed) {
             }
 
             if (confirmed) {
-                // TODO: Lagos De Oro
+                result.lagosDeOroPending = true;
             }
 
             G.diceTray.extraContent[1] += 'Lagos De Oro: Draw a 3-hex lake halfway between your current location and the River Delta. ' +
@@ -724,7 +750,7 @@ export function handleInterestsRoll(G, confirmed) {
 
             if (confirmed) {
                 setMuskets(G, G.counters.muskets.value + 5);
-                G.map.trailPending = true;
+                result.trailPending = true;
             }
 
             G.diceTray.extraContent[1] += 'Ruined Mission: You find a crate of Muskets. Gain 5 Muskets. Add a Trail to any adjacent hex.';
@@ -738,7 +764,7 @@ export function handleInterestsRoll(G, confirmed) {
             }
 
             if (confirmed) {
-                // TODO: Migration
+                addMigration(G);
             }
 
             G.diceTray.extraContent[1] += 'Migration: Skip the Ration Phase while in and adjacent to this hex. You may expend 1 musket to fill your Food Reserves to 6.';
@@ -804,7 +830,7 @@ export function handleInterestsRoll(G, confirmed) {
     if (interest.id === gameConstants.interestTypes.naturalWonder.id) {
         if (confirmed) {
             setMorale(G, G.counters.morale.value + 5);
-            // TODO: Wonder
+            result.wonderPending = true;
         }
 
         G.diceTray.extraContent[1] += 'Natural Wonder: Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural ' +
@@ -816,6 +842,8 @@ export function handleInterestsRoll(G, confirmed) {
         G.interestIds.push(interest.id);
         G.diceTray.dice = [];
     }
+
+    return result;
 }
 
 export function handleHuntingRoll(G, confirmed) {
@@ -1044,6 +1072,9 @@ export function handleMovementRoll(G, confirmed) {
 
 export function handleNativeContactRoll(G, confirmed) {
     const data = handle_base(G);
+    let result = {
+        trailPending: false
+    };
 
     switch (data.value) {
         case 0:
@@ -1087,7 +1118,7 @@ export function handleNativeContactRoll(G, confirmed) {
 
         case 9:
             if (confirmed) {
-                G.map.trailPending = true;
+                result.trailPending = true;
             }
 
             G.diceTray.extraContent[1] += '+Trail';

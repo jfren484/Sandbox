@@ -15,6 +15,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export class BasicDialog extends React.Component {
     render() {
+        const specialActionButton = this.props.dialogData.specialAction
+            ? <Button onClick={() => this.props.onSpecialAction()}>{this.props.dialogData.specialAction}</Button>
+            : null;
+
         return (
             <Dialog
                 open={!!this.props.dialogData.title}
@@ -32,6 +36,7 @@ export class BasicDialog extends React.Component {
                 <DialogActions style={{ justifyContent: 'center' }}>
                     <ButtonGroup color="primary">
                         <Button onClick={() => this.props.onComplete()}>OK</Button>
+                        {specialActionButton}
                     </ButtonGroup>
                 </DialogActions>
             </Dialog>
