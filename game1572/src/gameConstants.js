@@ -279,6 +279,10 @@ export const interestTypes = {
 export const map = {
     cols: 15,
     rows: 4.5,
+    delta: {
+        x: 14,
+        y: 3.5
+    },
     hexPad: 2,
     hexWidth: hexWidth,
     hexHeight: hexHeight,
@@ -345,6 +349,7 @@ const terrainTypeTemplate = {
     diceRollAdjustments: {},
     exploring: 0,
     hunting: 0,
+    isUnexplored: false,
     isWater: false,
     movementProgress: 0,
     nativeContact: 0,
@@ -398,7 +403,8 @@ export const terrainTypes = {
     },
     unexplored: {
         ...terrainTypeTemplate,
-        name: 'Unexplored'
+        name: 'Unexplored',
+        isUnexplored: true
     }
 }
 

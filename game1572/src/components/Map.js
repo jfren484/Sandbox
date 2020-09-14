@@ -81,7 +81,7 @@ export class Map extends React.Component {
 
     generateHighlight(key, xBase, yBase, shapes) {
         const hlTravel = this.props.mapData.adjacentTravelCandidates.find(adj => adj.target === key);
-        if (hlTravel || this.props.mapData.adjacentUnmappedHexes.includes(key)) {
+        if (hlTravel || this.props.mapData.selectableHexes.includes(key)) {
             shapes.push(<g key={'HL-' + key} cursor="pointer" pointerEvents="visible" onClick={() => this.props.onHexClick(key)}>
                 <use href="#hex" className="highlightHex" transform={'translate(' + xBase + ', ' + yBase + ')'} />
                 {hlTravel

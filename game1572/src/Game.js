@@ -58,10 +58,11 @@ export const Game1572 = {
         interestIds: [],
         map: {
             adjacentTravelCandidates: [],
-            adjacentUnmappedHexes: [],
             availableTrailLocations: [],
             currentLocationKey: '0,0.5',
             hexes: gameMethods.generateMapHexes(),
+            lagosDeOroLocations: [],
+            selectableHexes: [],
             trails: {}
         },
         musketBonus: 0,
@@ -284,7 +285,7 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.planningDiceAssigned[3] === 0 || G.map.adjacentUnmappedHexes.length === 0) {
+                                if (G.planningDiceAssigned[3] === 0 || G.map.selectableHexes.length === 0) {
                                     ctx.events.setStage('preExploring');
                                 } else {
                                     ctx.events.endStage();
@@ -297,7 +298,7 @@ export const Game1572 = {
                         moves: {
                             chooseHex: (G, ctx, key) => {
                                 G.map.target = key;
-                                G.map.adjacentUnmappedHexes = [];
+                                G.map.selectableHexes = [];
                                 gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
                                 ctx.events.endStage();
                             }
@@ -599,8 +600,8 @@ export const Game1572 = {
                                 const result = gameMethods.handleInterestsRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('interestsChooseTrailLocation');
-                                } else if (result.lagosDeOroPending /* TODO: && valid location available? */) {
-                                    // TODO: get valid 1st locations
+                                } else if (result.lagosDeOroPending) {
+                                    gameMethods.getLagosDeOroFirstLocations(G);
                                     ctx.events.setStage('interestsChooseLagosDeOro1');
                                 } else if (result.wonderPending) {
                                     ctx.events.setStage('interestsDescribeWonder');
@@ -626,8 +627,9 @@ export const Game1572 = {
                     },
                     interestsChooseLagosDeOro1: {
                         moves: {
-                            chooseLocation: (G, ctx, hexKey) => {
-                                // TODO: Get valid 2nd locations
+                            chooseHex: (G, ctx, hexKey) => {
+                                G.map.lagosDeOroLocations = [hexKey];
+                                gameMethods.getLagosDeOroSecondLocations(G);
                                 ctx.events.endStage();
                             }
                         },
@@ -635,13 +637,14 @@ export const Game1572 = {
                     },
                     interestsChooseLagosDeOro2: {
                         moves: {
-                            chooseLocation: (G, ctx, hexKey) => {
-                                // TODO: Get valid 3rd locations
+                            chooseHex: (G, ctx, hexKey) => {
+                                G.map.lagosDeOroLocations.push(hexKey);
+                                gameMethods.getLagosDeOroThirdLocations(G);
                                 ctx.events.endStage();
                             },
                             deselectLocation: (G, ctx, hexKey) => {
-                                // TODO: remove location from choices
-                                // TODO: get valid 1st locations
+                                G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
+                                gameMethods.getLagosDeOroFirstLocations(G);
                                 ctx.events.setStage('interestsChooseLagosDeOro1');
                             }
                         },
@@ -649,13 +652,15 @@ export const Game1572 = {
                     },
                     interestsChooseLagosDeOro3: {
                         moves: {
-                            chooseLocation: (G, ctx, hexKey) => {
-                                // TODO: confirm Lagos De Oro locations
+                            chooseHex: (G, ctx, hexKey) => {
+                                G.map.selectableHexes = [];
+                                G.map.lagosDeOroLocations.push(hexKey);
+                                gameMethods.createLagosDeOro(G);
                                 ctx.events.endStage();
                             },
                             deselectLocation: (G, ctx, hexKey) => {
-                                // TODO: remove location from choices
-                                // TODO: get valid 2nd locations
+                                G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
+                                gameMethods.getLagosDeOroSecondLocations(G);
                                 ctx.events.setStage('interestsChooseLagosDeOro2');
                             }
                         },

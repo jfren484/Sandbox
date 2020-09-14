@@ -60,6 +60,28 @@ function canAddCataract(G) {
     return true;
 }
 
+export function createLagosDeOro(G) {
+    const lagos = G.map.lagosDeOroLocations
+        .reduce((acc, hexKey) => {
+            const hex = G.map.hexes[hexKey];
+            return {
+                ...acc,
+                x: Math.min(acc.x, hex.x),
+                y: Math.min(acc.y, hex.y),
+                // TODO
+                connections: null,
+                interestType: acc.interestType ?? hex.interestType
+            };
+        }, {
+            ...hexTemplate,
+            x: 99,
+            y: 99,
+            terrainType: gameConstants.terrainTypes.lagosDeOro
+        });
+
+    // TODO: replace hexes
+}
+
 export function cureFever(G) {
 	const onesRequired = 3 + G.expeditionType.wildAdjust;
     if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
@@ -68,23 +90,25 @@ export function cureFever(G) {
 	}
 }
 
+const hexTemplate = {
+    key: '0,0',
+    x: 0,
+    y: 0,
+
+    advancedCiv: false,
+    cataract: false,
+    connections: [],
+    friendlyVillages: 0,
+    interestType: gameConstants.interestTypes.none,
+    lagosDeOroCannotBeInitiator: false,
+    lagosDeOroCannotBeTarget: false,
+    riverType: undefined,
+    terrainType: gameConstants.terrainTypes.unexplored,
+    villages: 0,
+    winGame: false
+};
+
 export function generateMapHexes() {
-    const hexTemplate = {
-        key: '0,0',
-        x: 0,
-        y: 0,
-
-        advancedCiv: false,
-        cataract: false,
-        connections: [],
-        friendlyVillages: 0,
-        interestType: gameConstants.interestTypes.none,
-        riverType: undefined,
-        terrainType: gameConstants.terrainTypes.unexplored,
-        villages: 0,
-        winGame: false
-    };
-
     let hexes = {
         '0,0.5': {
             ...hexTemplate,
@@ -308,12 +332,14 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 13,
             y: 2,
+            lagosDeOroCannotBeInitiator: true,
             riverType: gameConstants.riverTypes.nws
         },
         '13,3': {
             ...hexTemplate,
             x: 13,
             y: 3,
+            lagosDeOroCannotBeInitiator: true,
             riverType: gameConstants.riverTypes.nse
         },
         '14,1.5': {
@@ -324,12 +350,15 @@ export function generateMapHexes() {
         '14,2.5': {
             ...hexTemplate,
             x: 14,
-            y: 2.5
+            y: 2.5,
+            lagosDeOroCannotBeInitiator: true
         },
         '14,3.5': {
             ...hexTemplate,
             x: 14,
             y: 3.5,
+            lagosDeOroCannotBeInitiator: true,
+            lagosDeOroCannotBeTarget: true,
             riverType: gameConstants.riverTypes.delta,
             winGame: true
         }
@@ -371,7 +400,7 @@ export function generatePhaseDialog(G) {
 
     switch (G.phase.index) {
         case gameConstants.gamePhases.mapping.index:
-            if (G.map.adjacentUnmappedHexes.length === 0) {
+            if (G.map.selectableHexes.length === 0) {
                 G.phaseComment = 'No unmapped adjacent hexes';
                 skip = true;
             }
@@ -505,7 +534,7 @@ export function getAdjacentTravelCandidates(G) {
         const connection = currentHex.connections[i];
         const hex = G.map.hexes[connection.hexKey];
 
-        if (hex.terrainType.name !== gameConstants.terrainTypes.unexplored.name && (!currentHex.cataract || currentHex.riverType.downstream.name !== connection.direction)) {
+        if (!hex.terrainType.isUnexplored && (!currentHex.cataract || currentHex.riverType.downstream.name !== connection.direction)) {
             const trailKey = [connection.hexKey, G.map.currentLocationKey].sort();
             const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
@@ -533,16 +562,16 @@ export function getAdjacentTravelCandidates(G) {
     }
 }
 
-export function getAdjacentUnmapped(G) {
-	G.map.adjacentUnmappedHexes = [];
-	const currentHex = G.map.hexes[G.map.currentLocationKey];
+export function getAdjacentUnmapped(G, baseHexKey = G.map.currentLocationKey) {
+	G.map.selectableHexes = [];
+    const baseHex = G.map.hexes[baseHexKey];
 
-    for (let i = 0; i < currentHex.connections.length; ++i) {
-        const hexKey = currentHex.connections[i].hexKey;
+    for (let i = 0; i < baseHex.connections.length; ++i) {
+        const hexKey = baseHex.connections[i].hexKey;
         const hex = G.map.hexes[hexKey];
 
-        if (hex.terrainType.name === gameConstants.terrainTypes.unexplored.name) {
-            G.map.adjacentUnmappedHexes.push(hexKey);
+        if (hex.terrainType.isUnexplored) {
+            G.map.selectableHexes.push(hexKey);
         }
     }
 }
@@ -574,6 +603,69 @@ export function getAvailableTrailLocations(G) {
     }
 
     return G.map.availableTrailLocations.length > 0;
+}
+
+export function getLagosDeOroFirstLocations(G) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+    const middle = {
+        x: (currentHex.x + 14.0) / 2,
+        y: (currentHex.y + 3.5) / 2
+    };
+
+    let minDist = 20;
+    G.map.selectableHexes = Object
+        .keys(G.map.hexes)
+        .filter(hexKey => G.map.hexes[hexKey].terrainType.isUnexplored)
+        .map(hexKey => {
+            const hex = G.map.hexes[hexKey];
+            const dist = Math.sqrt((middle.x - hex.x) ** 2 + (middle.y - hex.y) ** 2);
+
+            if (dist < minDist) {
+                minDist = dist;
+            }
+
+            return {
+                hexKey: hexKey,
+                distance: dist
+            }
+        })
+        .filter(hexDist => hexDist.distance === minDist)
+        .map(hexDist => hexDist.hexKey);
+}
+
+export function getLagosDeOroSecondLocations(G) {
+    getAdjacentUnmapped(G, G.map.lagosDeOroLocations[0]);
+}
+
+export function getLagosDeOroThirdLocations(G) {
+    G.map.lagosDeOroLocations.sort();
+
+    const a = G.map.hexes[G.map.lagosDeOroLocations[0]];
+    const b = G.map.hexes[G.map.lagosDeOroLocations[1]];
+
+    let selectableHexes;
+    if (a.y < b.y) {
+        selectableHexes = [
+            a.x + ',' + (a.y + 1),
+            b.x + ',' + (b.y - 1)
+        ];
+    } else if (a.y > b.y) {
+        selectableHexes = [
+            a.x + ',' + (a.y - 1),
+            b.x + ',' + (b.y + 1)
+        ];
+    } else {
+        const y = (a.y + b.y) / 2;
+        selectableHexes = [
+            (a.x - 1) + ',' + y,
+            (a.x + 1) + ',' + y
+        ];
+    }
+
+    console.log(JSON.stringify(selectableHexes));
+
+    G.map.selectableHexes = selectableHexes.filter(hexKey => G.map.hexes[hexKey] && G.map.hexes[hexKey].terrainType.isUnexplored);
+    console.log(JSON.stringify(G.map.selectableHexes));
 }
 
 export function getStage(ctx) {
@@ -727,7 +819,7 @@ export function handleInterestsRoll(G, confirmed) {
         case 2:
         case 3:
             interest = gameConstants.interestTypes.lagosDeOro;
-            if (G.interestIds.includes(interest.id)) {
+            if (G.interestIds.includes(interest.id) || data.currentHex.lagosDeOroCannotBeInitiator) {
                 interest = gameConstants.interestTypes.naturalWonder;
                 break;
             }
