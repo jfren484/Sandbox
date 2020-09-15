@@ -309,6 +309,7 @@ export const map = {
     }
 }
 
+// TODO: use name of direction instead of full object
 export const riverTypes = {
     delta: {
         name: 'delta',

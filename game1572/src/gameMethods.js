@@ -61,23 +61,45 @@ function canAddCataract(G) {
 }
 
 export function createLagosDeOro(G) {
-    const lagos = G.map.lagosDeOroLocations
-        .reduce((acc, hexKey) => {
-            const hex = G.map.hexes[hexKey];
-            return {
-                ...acc,
-                x: Math.min(acc.x, hex.x),
-                y: Math.min(acc.y, hex.y),
-                // TODO
-                connections: null,
-                interestType: acc.interestType ?? hex.interestType
-            };
-        }, {
-            ...hexTemplate,
-            x: 99,
-            y: 99,
-            terrainType: gameConstants.terrainTypes.lagosDeOro
-        });
+    const locations = G.map.lagosDeOroLocations;
+    const x = locations
+        .map(hexKey => G.map.hexes[hexKey].x)
+        .sort()[0];
+    const y = locations
+        .map(hexKey => G.map.hexes[hexKey].y)
+        .sort()[0];
+
+    // TODO: downstream needs to be added to connections
+    for (let i = 0; i < 3; ++i) {
+        const loc = G.map.lagosDeOroLocations[i];
+        if (loc.riverType) {
+            const downstreamConn = loc.connections.find(conn => conn.direction === loc.riverType.downstream.name);
+            if (downstreamConn) {
+                const downstreamKey = downstreamConn.hexKey;
+                if (!G.map.lagosDeOroLocations.includes(downstreamKey)) {
+                    riverType = loc.riverType;
+                }
+            }
+        }
+    }
+
+    const lagos = {
+        ...hexTemplate,
+        key: x + ',' + y,
+        x: x,
+        y: y,
+        connections: locations
+            .flatMap(hexKey => G.map.hexes[hexKey].connections)
+            .filter(conn => !locations.includes(conn.hexKey)),
+        interestType: locations
+            .map(hexKey => G.map.hexes[hexKey].interestType)
+            .find(it => it.isPending)
+            ?? gameConstants.interestTypes.none,
+        riverType: locations
+            .map(hexKey => G.map.hexes[hexKey].riverType),
+        terrainType: gameConstants.terrainTypes.lagosDeOro
+    };
+    lagos.key = lagos.x + ',' + lagos.y;
 
     // TODO: replace hexes
 }
@@ -546,7 +568,7 @@ export function getAdjacentTravelCandidates(G) {
                     target: connection.hexKey,
                     hexDirection: gameConstants.hexDirections[direction],
                     movementCost: movementCost,
-                    downstreamTravel: !!currentHex.riverType && hex.downstream === direction
+                    downstreamTravel: !!currentHex.riverType && hex.riverType.downstream.name === direction
                 });
             }
         }
