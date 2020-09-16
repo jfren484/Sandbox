@@ -153,7 +153,6 @@ export const hexDirections = {
         pY: 0,
 		pOffX: 0,
 		pOffY: 0,
-        reverse: 'none',
         rotationDegrees: 0
     },
     northwest: {
@@ -165,7 +164,6 @@ export const hexDirections = {
         pY: hexHeight / 4,
 		pOffX: 1.5,
 		pOffY: 1,
-        reverse: 'southeast',
         rotationDegrees: 120
     },
     north: {
@@ -177,8 +175,7 @@ export const hexDirections = {
         pY: 0,
 		pOffX: 0,
 		pOffY: 3,
-        reverse: 'south',
-        rotationDegrees: 0
+       rotationDegrees: 0
     },
     northeast: {
         name: 'northeast',
@@ -189,7 +186,6 @@ export const hexDirections = {
         pY: hexHeight / 4,
 		pOffX: -2.5,
 		pOffY: 2,
-        reverse: 'southwest',
         rotationDegrees: 60
     },
     southeast: {
@@ -201,7 +197,6 @@ export const hexDirections = {
         pY: hexHeight * 3 / 4,
 		pOffX: -2.5,
 		pOffY: -1,
-        reverse: 'northwest',
         rotationDegrees: 120
     },
     south: {
@@ -213,7 +208,6 @@ export const hexDirections = {
         pY: hexHeight,
 		pOffX: 0,
 		pOffY: -2,
-        reverse: 'north',
         rotationDegrees: 0
     },
     southwest: {
@@ -225,7 +219,6 @@ export const hexDirections = {
         pY: hexHeight * 3 / 4,
 		pOffX: 1.5,
 		pOffY: -1,
-        reverse: 'northeast',
         rotationDegrees: 60
     }
 }
@@ -309,40 +302,28 @@ export const map = {
     }
 }
 
-// TODO: use name of direction instead of full object
 export const riverTypes = {
-    delta: {
-        name: 'delta',
-        downstream: hexDirections.south
-    },
-    source: {
-        name: 'source',
-        downstream: hexDirections.northeast
-    },
-    swse: {
-        name: 'swse',
-        downstream: hexDirections.southeast
-    },
-    swne: {
-        name: 'swne',
-        downstream: hexDirections.northeast
-    },
-    nse: {
-        name: 'nse',
-        downstream: hexDirections.southeast
-    },
-    nwne: {
-        name: 'nwne',
-        downstream: hexDirections.northeast
-    },
-    nws: {
-        name: 'nws',
-        downstream: hexDirections.south
-    },
-    nwse: {
-        name: 'nwse',
-        downstream: hexDirections.southeast
-    }
+    bodyOfWater: 'bodyOfWater',
+    delta: 'delta',
+    source: 'source',
+    swse: 'swse',
+    swne: 'swne',
+    nse: 'nse',
+    nwne: 'nwne',
+    nws: 'nws',
+    nwse: 'nwse'
+}
+
+export const riverTypesDownstreamDirections = {
+    bodyOfWater: hexDirections.none.name, // Special case
+    delta: hexDirections.south.name,
+    source: hexDirections.northeast.name,
+    swse: hexDirections.southeast.name,
+    swne: hexDirections.northeast.name,
+    nse: hexDirections.southeast.name,
+    nwne: hexDirections.northeast.name,
+    nws: hexDirections.south.name,
+    nwse: hexDirections.southeast.name
 }
 
 const terrainTypeTemplate = {

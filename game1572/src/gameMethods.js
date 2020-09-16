@@ -49,7 +49,7 @@ function canAddCataract(G) {
 		return false;
 	}
 
-    const downstreamDirection = gameConstants.hexDirections[currentHex.riverType.downstream.name];
+    const downstreamDirection = gameConstants.hexDirections[currentHex.connections.find(conn => conn.isDownstream).direction];
 
     const hexKey = (currentHex.x + downstreamDirection.dirX) + ',' + (currentHex.y + downstreamDirection.dirY);
     const trailKey = [hexKey, G.map.currentLocationKey].sort();
@@ -68,40 +68,36 @@ export function createLagosDeOro(G) {
     const y = locations
         .map(hexKey => G.map.hexes[hexKey].y)
         .sort()[0];
-
-    // TODO: downstream needs to be added to connections
-    for (let i = 0; i < 3; ++i) {
-        const loc = G.map.lagosDeOroLocations[i];
-        if (loc.riverType) {
-            const downstreamConn = loc.connections.find(conn => conn.direction === loc.riverType.downstream.name);
-            if (downstreamConn) {
-                const downstreamKey = downstreamConn.hexKey;
-                if (!G.map.lagosDeOroLocations.includes(downstreamKey)) {
-                    riverType = loc.riverType;
-                }
-            }
-        }
-    }
+    const connections = locations
+        .flatMap(hexKey => G.map.hexes[hexKey].connections)
+        .filter(conn => !locations.includes(conn.hexKey));
 
     const lagos = {
         ...hexTemplate,
         key: x + ',' + y,
         x: x,
         y: y,
-        connections: locations
-            .flatMap(hexKey => G.map.hexes[hexKey].connections)
-            .filter(conn => !locations.includes(conn.hexKey)),
+        connections: connections,
         interestType: locations
             .map(hexKey => G.map.hexes[hexKey].interestType)
             .find(it => it.isPending)
             ?? gameConstants.interestTypes.none,
-        riverType: locations
-            .map(hexKey => G.map.hexes[hexKey].riverType),
+        riverType: gameConstants.riverTypes.bodyOfWater,
         terrainType: gameConstants.terrainTypes.lagosDeOro
     };
-    lagos.key = lagos.x + ',' + lagos.y;
 
-    // TODO: replace hexes
+    for (let hexKey in G.map.hexes) {
+        const hex = G.map.hexes[hexKey];
+        hex.connections
+            .filter(conn => locations.includes(conn.hexKey))
+            .forEach(conn => conn.hexKey = lagos.key);
+    }
+
+    delete G.map.hexes[locations[0]];
+    delete G.map.hexes[locations[1]];
+    delete G.map.hexes[locations[2]];
+
+    G.map.hexes[lagos.key] = lagos;
 }
 
 export function cureFever(G) {
@@ -394,18 +390,19 @@ export function generateMapHexes() {
         hex.connections = [];
 
         // Build the connections
-        for (let hexDirectionKey in gameConstants.hexDirections) {
-            if (hexDirectionKey === gameConstants.hexDirections.none.name) {
+        for (let hexDirectionName in gameConstants.hexDirections) {
+            if (hexDirectionName === gameConstants.hexDirections.none.name) {
                 continue;
             }
 
-            const hexDirection = gameConstants.hexDirections[hexDirectionKey];
+            const hexDirection = gameConstants.hexDirections[hexDirectionName];
             const neighborHexKey = (hex.x + hexDirection.dirX) + ',' + (hex.y + hexDirection.dirY);
 
             if (hexes[neighborHexKey]) {
                 hex.connections.push({
-                    direction: hexDirectionKey,
-                    hexKey: neighborHexKey
+                    direction: hexDirectionName,
+                    hexKey: neighborHexKey,
+                    isDownstream: hex.riverType ?? hexDirectionName === gameConstants.riverTypesDownstreamDirections[hex.riverType]
                 });
             }
         }
@@ -556,19 +553,16 @@ export function getAdjacentTravelCandidates(G) {
         const connection = currentHex.connections[i];
         const hex = G.map.hexes[connection.hexKey];
 
-        if (!hex.terrainType.isUnexplored && (!currentHex.cataract || currentHex.riverType.downstream.name !== connection.direction)) {
+        if (!hex.terrainType.isUnexplored && (!currentHex.cataract || !connection.isDownstream)) {
             const trailKey = [connection.hexKey, G.map.currentLocationKey].sort();
             const movementCost = G.map.trails[trailKey] ? 3 : 5;
 
             if (G.counters.movementProgress.value >= movementCost) {
-                const direction = (hex.y < currentHex.y ? 'north' : hex.y > currentHex.y ? 'south' : '') +
-                    (hex.x < currentHex.x ? 'west' : hex.x > currentHex.x ? 'east' : '');
-
                 G.map.adjacentTravelCandidates.push({
                     target: connection.hexKey,
-                    hexDirection: gameConstants.hexDirections[direction],
+                    hexDirection: gameConstants.hexDirections[connection.direction],
                     movementCost: movementCost,
-                    downstreamTravel: !!currentHex.riverType && hex.riverType.downstream.name === direction
+                    isDownstream: connection.isDownstream
                 });
             }
         }
@@ -579,7 +573,7 @@ export function getAdjacentTravelCandidates(G) {
             target: G.map.currentLocationKey,
             hexDirection: gameConstants.hexDirections.none,
             movementCost: 0,
-            downstreamTravel: false
+            isDownstream: false
         });
     }
 }
@@ -605,12 +599,12 @@ export function getAvailableTrailLocations(G) {
     for (let i = 0; i < currentHex.connections.length; ++i) {
         const connection = currentHex.connections[i];
 
-        if (currentHex.cataract && currentHex.riverType.downstream.name === connection.direction) {
+        if (currentHex.cataract && connection.isDownstream) {
             continue;
         }
 
         const hex = G.map.hexes[connection.hexKey];
-        if (hex.cataract && hex.riverType.downstream.reverse === connection.direction) {
+        if (hex.cataract && hex.connections.find(conn => conn.hexKey === G.map.currentLocationKey && conn.isDownstream)) {
             continue;
         }
 
@@ -1339,7 +1333,7 @@ export function travelTo(G, key) {
 
         G.map.currentLocationKey = key;
 
-        setMovementProgress(G, G.counters.movementProgress.value - travel.movementCost + (travel.downstreamTravel ? 1 : 0));
+        setMovementProgress(G, G.counters.movementProgress.value - travel.movementCost + (travel.isDownstream ? 1 : 0));
     }
 
     G.travelDirection = travel.hexDirection;

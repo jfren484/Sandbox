@@ -46,7 +46,7 @@ export class Map extends React.Component {
 
     generateCataract(hex, xBase, yBase, shapes) {
         if (hex.cataract) {
-            const direction = gameConstants.hexDirections[hex.riverType.downstream.name];
+            const direction = gameConstants.hexDirections[hex.connections.find(conn => conn.isDownstream).direction];
             shapes.push(<use href="#cataract" key={'CAT-' + hex.key}
                 transform={'translate(' + (xBase + direction.pX - gameConstants.map.cataract.rX) + ', ' + (yBase + direction.pY - gameConstants.map.cataract.rY) + ') ' +
                     'rotate(' + direction.rotationDegrees + ', ' + gameConstants.map.cataract.rX + ', ' + gameConstants.map.cataract.rY + ')'} />);
@@ -93,7 +93,7 @@ export class Map extends React.Component {
 
     generateRiver(hex, xBase, yBase, shapes) {
         if (hex.riverType && !hex.terrainType.isWater) {
-            shapes.push(<use href={'#River.' + hex.riverType.name} key={'RIVER-' + hex.key} transform={'translate(' + xBase + ', ' + yBase + ')'} />);
+            shapes.push(<use href={'#River.' + hex.riverType} key={'RIVER-' + hex.key} transform={'translate(' + xBase + ', ' + yBase + ')'} />);
         }
     }
 
