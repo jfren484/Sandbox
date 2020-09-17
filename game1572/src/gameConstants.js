@@ -336,6 +336,7 @@ const terrainTypeTemplate = {
     movementProgress: 0,
     nativeContact: 0,
     noVillages: false,
+    suffix: ''
 };
 
 export const terrainTypes = {

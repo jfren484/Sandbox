@@ -86,6 +86,10 @@ export function createLagosDeOro(G) {
         terrainType: gameConstants.terrainTypes.lagosDeOro
     };
 
+    lagos.terrainType.suffix = locations.filter(hexKey => G.map.hexes[hexKey].x === lagos.x).length > 1
+        ? ' A'
+        : ' B';
+
     for (let hexKey in G.map.hexes) {
         const hex = G.map.hexes[hexKey];
         hex.connections
@@ -98,6 +102,7 @@ export function createLagosDeOro(G) {
     delete G.map.hexes[locations[2]];
 
     G.map.hexes[lagos.key] = lagos;
+    G.map.lagosDeOroLocations = [];
 }
 
 export function cureFever(G) {
@@ -402,7 +407,7 @@ export function generateMapHexes() {
                 hex.connections.push({
                     direction: hexDirectionName,
                     hexKey: neighborHexKey,
-                    isDownstream: hex.riverType ?? hexDirectionName === gameConstants.riverTypesDownstreamDirections[hex.riverType]
+                    isDownstream: !!hex.riverType && hexDirectionName === gameConstants.riverTypesDownstreamDirections[hex.riverType]
                 });
             }
         }
@@ -660,28 +665,25 @@ export function getLagosDeOroThirdLocations(G) {
     const b = G.map.hexes[G.map.lagosDeOroLocations[1]];
 
     let selectableHexes;
-    if (a.y < b.y) {
-        selectableHexes = [
-            a.x + ',' + (a.y + 1),
-            b.x + ',' + (b.y - 1)
-        ];
-    } else if (a.y > b.y) {
-        selectableHexes = [
-            a.x + ',' + (a.y - 1),
-            b.x + ',' + (b.y + 1)
-        ];
-    } else {
+    if (a.x === b.x) {
         const y = (a.y + b.y) / 2;
         selectableHexes = [
             (a.x - 1) + ',' + y,
             (a.x + 1) + ',' + y
         ];
+    } else if (a.y < b.y) {
+        selectableHexes = [
+            a.x + ',' + (a.y + 1),
+            b.x + ',' + (b.y - 1)
+        ];
+    } else {
+        selectableHexes = [
+            a.x + ',' + (a.y - 1),
+            b.x + ',' + (b.y + 1)
+        ];
     }
 
-    console.log(JSON.stringify(selectableHexes));
-
     G.map.selectableHexes = selectableHexes.filter(hexKey => G.map.hexes[hexKey] && G.map.hexes[hexKey].terrainType.isUnexplored);
-    console.log(JSON.stringify(G.map.selectableHexes));
 }
 
 export function getStage(ctx) {
@@ -775,16 +777,20 @@ export function handleExploringRoll(G, confirmed) {
 
 		case 6:
 		case 7:
-			if (confirmed) {
-				if (G.expeditionType.allVillagesPeaceful) {
-					++data.currentHex.friendlyVillages;
-				} else {
-                    ++data.currentHex.villages;
-                    setMovementProgress(G, G.counters.movementProgress.value - 1);
-				}
-			}
+            if (data.currentHex.terrainType.noVillages) {
+                G.diceTray.extraContent[1] += '(Village results discarded)';
+            } else {
+                if (confirmed) {
+                    if (G.expeditionType.allVillagesPeaceful) {
+                        ++data.currentHex.friendlyVillages;
+                    } else {
+                        ++data.currentHex.villages;
+                        setMovementProgress(G, G.counters.movementProgress.value - 1);
+                    }
+                }
 
-            G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
+                G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
+            }
 			break;
 
 		case 8:
@@ -1212,16 +1218,20 @@ export function handleNativeContactRoll(G, confirmed) {
         case 6:
         case 7:
         case 8:
-            if (confirmed) {
-                if (G.expeditionType.allVillagesPeaceful) {
-                    ++data.currentHex.friendlyVillages;
-                } else {
-                    ++data.currentHex.villages;
-                    setMovementProgress(G, G.counters.movementProgress.value - 1);
+            if (data.currentHex.terrainType.noVillages) {
+                G.diceTray.extraContent[1] += '(Village results discarded)';
+            } else {
+                if (confirmed) {
+                    if (G.expeditionType.allVillagesPeaceful) {
+                        ++data.currentHex.friendlyVillages;
+                    } else {
+                        ++data.currentHex.villages;
+                        setMovementProgress(G, G.counters.movementProgress.value - 1);
+                    }
                 }
-            }
 
-            G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
+                G.diceTray.extraContent[1] += '+Village ' + (G.expeditionType.allVillagesPeaceful ? '(Friendly)' : '(Movement -1)');
+            }
             break;
 
         case 9:
@@ -1235,10 +1245,14 @@ export function handleNativeContactRoll(G, confirmed) {
         case 10:
             if (confirmed) {
                 setFood(G, G.counters.food.value + 1);
-                ++data.currentHex.friendlyVillages;
+                if (!data.currentHex.terrainType.noVillages) {
+                    ++data.currentHex.friendlyVillages;
+                }
             }
 
-            G.diceTray.extraContent[1] += 'Food +1, +Village (Friendly)';
+            G.diceTray.extraContent[1] += 'Food +1, ' + (data.currentHex.terrainType.noVillages
+                ? '(Village results discarded)'
+                : '+Village(Friendly)');
             break;
 
         case 11:
@@ -1248,16 +1262,22 @@ export function handleNativeContactRoll(G, confirmed) {
                 setMuskets(G, G.counters.muskets.value + 1);
                 setFood(G, G.counters.food.value + 1);
                 setMorale(G, G.counters.morale.value + 1);
-                ++data.currentHex.friendlyVillages;
+                if (!data.currentHex.terrainType.noVillages) {
+                    ++data.currentHex.friendlyVillages;
+                }
             }
 
-            G.diceTray.extraContent[1] += 'Cache (Muskets, Food, and Morale + 1), +Village (Friendly)';
+            G.diceTray.extraContent[1] += 'Cache (Muskets, Food, and Morale + 1), ' + (data.currentHex.terrainType.noVillages
+                ? '(Village results discarded)'
+                : '+Village(Friendly)');
             break;
 	}
 
 	if (confirmed) {
 		G.diceTray.dice = [];
-	}
+    }
+
+    return result;
 }
 
 export function phasePlanningFinish(G, ctx) {

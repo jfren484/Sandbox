@@ -638,14 +638,15 @@ export const Game1572 = {
                     interestsChooseLagosDeOro2: {
                         moves: {
                             chooseHex: (G, ctx, hexKey) => {
-                                G.map.lagosDeOroLocations.push(hexKey);
-                                gameMethods.getLagosDeOroThirdLocations(G);
-                                ctx.events.endStage();
-                            },
-                            deselectLocation: (G, ctx, hexKey) => {
-                                G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
-                                gameMethods.getLagosDeOroFirstLocations(G);
-                                ctx.events.setStage('interestsChooseLagosDeOro1');
+                                if (G.map.lagosDeOroLocations.includes(hexKey)) {
+                                    G.map.lagosDeOroLocations = [];
+                                    gameMethods.getLagosDeOroFirstLocations(G);
+                                    ctx.events.setStage('interestsChooseLagosDeOro1');
+                                } else {
+                                    G.map.lagosDeOroLocations.push(hexKey);
+                                    gameMethods.getLagosDeOroThirdLocations(G);
+                                    ctx.events.endStage();
+                                }
                             }
                         },
                         next: 'interestsChooseLagosDeOro3'
@@ -653,15 +654,16 @@ export const Game1572 = {
                     interestsChooseLagosDeOro3: {
                         moves: {
                             chooseHex: (G, ctx, hexKey) => {
-                                G.map.selectableHexes = [];
-                                G.map.lagosDeOroLocations.push(hexKey);
-                                gameMethods.createLagosDeOro(G);
-                                ctx.events.endStage();
-                            },
-                            deselectLocation: (G, ctx, hexKey) => {
-                                G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
-                                gameMethods.getLagosDeOroSecondLocations(G);
-                                ctx.events.setStage('interestsChooseLagosDeOro2');
+                                if (G.map.lagosDeOroLocations.includes(hexKey)) {
+                                    G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
+                                    gameMethods.getLagosDeOroSecondLocations(G);
+                                    ctx.events.setStage('interestsChooseLagosDeOro2');
+                                } else {
+                                    G.map.selectableHexes = [];
+                                    G.map.lagosDeOroLocations.push(hexKey);
+                                    gameMethods.createLagosDeOro(G);
+                                    ctx.events.endStage();
+                                }
                             }
                         },
                         next: 'preEatRations'

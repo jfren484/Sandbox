@@ -145,8 +145,16 @@ code {
     fill: #ffffcc80;
 }
 
+.highlightHex2 {
+    fill: #ccccff80;
+}
+
 g:hover .highlightHex {
     fill: #ffff0080;
+}
+
+g:hover .highlightHex2 {
+    fill: #0000ff80;
 }
 
 .highlightTrail .hl {

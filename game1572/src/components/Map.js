@@ -55,7 +55,8 @@ export class Map extends React.Component {
 
     generateHexBase(hex, xBase, yBase, shapes) {
         const stroke = hex.key === this.props.mapData.currentLocationKey ? 'red' : 'black';
-        shapes.push(<use href={'#Terrain.' + hex.terrainType.name} key={'HEX-' + hex.key} transform={'translate(' + xBase + ', ' + yBase + ')'} stroke={stroke} />);
+        shapes.push(<use href={'#Terrain.' + hex.terrainType.name + hex.terrainType.suffix} key={'HEX-' + hex.key}
+            transform={'translate(' + xBase + ', ' + yBase + ')'} stroke={stroke} />);
     }
 
     generateHexFeature(hex, xBase, yBase, feature, keyPrefix, v, r, offset, shapes) {
@@ -81,12 +82,16 @@ export class Map extends React.Component {
 
     generateHighlight(key, xBase, yBase, shapes) {
         const hlTravel = this.props.mapData.adjacentTravelCandidates.find(adj => adj.target === key);
-        if (hlTravel || this.props.mapData.selectableHexes.includes(key)) {
+        const lagosDeOroLoc = this.props.mapData.lagosDeOroLocations.includes(key);
+
+        if (hlTravel || this.props.mapData.selectableHexes.includes(key) || lagosDeOroLoc) {
             shapes.push(<g key={'HL-' + key} cursor="pointer" pointerEvents="visible" onClick={() => this.props.onHexClick(key)}>
-                <use href="#hex" className="highlightHex" transform={'translate(' + xBase + ', ' + yBase + ')'} />
+                <use href="#hex" className={'highlightHex' + (lagosDeOroLoc ? '2' : '')} transform={'translate(' + xBase + ', ' + yBase + ')'} />
                 {hlTravel
                     ? <title>Movement Cost: {hlTravel.movementCost}, Morale Adjustment: {hlTravel.hexDirection.moraleAdjustment}</title>
-                    : <title>Map this Hex?</title>}
+                    : lagosDeOroLoc
+                        ? <title>Deselect this Hex</title>
+                        : <title>Map this Hex?</title>}
             </g>);
         }
     }

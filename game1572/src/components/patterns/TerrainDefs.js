@@ -24,8 +24,8 @@ export class TerrainDefs extends React.Component {
                     <use href="#palm" transform="translate(17, 18)" />
                     <use href="#palm" transform="translate(42, 23)" />
                 </g>
-                <g id="Terrain.LagosDeOro">
-                    <use href="#threeHexRegion" stroke="black" strokeWidth="2" fill="lightskyblue" />
+                <g id="Terrain.Lagos De Oro A">
+                    <use href="#threeHexRegion" strokeWidth="2" fill="lightskyblue" />
 
                     <use href="#wave" transform="translate(33, 22)" stroke="white" />
                     <use href="#wave" transform="translate(19, 38)" stroke="white" />
@@ -45,6 +45,28 @@ export class TerrainDefs extends React.Component {
                     <use href="#wave" transform="translate(68, 89)" stroke="white" />
 
                     <use href="#island" transform="translate(43, 58) scale(0.006)" stroke="black" strokeWidth="70" fill="antiquewhite" />
+                </g>
+                <g id="Terrain.Lagos De Oro B">
+                    <use href="#threeHexRegion" strokeWidth="2" fill="lightskyblue" transform="translate(140, 0) scale(-1, 1)" />
+
+                    <use href="#wave" transform="translate(92, 22)" stroke="white" />
+                    <use href="#wave" transform="translate(106, 38)" stroke="white" />
+                    <use href="#wave" transform="translate(76, 34)" stroke="white" />
+                    <use href="#wave" transform="translate(95, 55)" stroke="white" />
+
+                    <use href="#wave" transform="translate(99, 81)" stroke="white" />
+                    <use href="#wave" transform="translate(82, 97)" stroke="white" />
+                    <use href="#wave" transform="translate(105, 108)" stroke="white" />
+                    <use href="#wave" transform="translate(81, 118)" stroke="white" />
+
+                    <use href="#wave" transform="translate(57, 46)" stroke="white" />
+                    <use href="#wave" transform="translate(32, 54)" stroke="white" />
+                    <use href="#wave" transform="translate(47, 66)" stroke="white" />
+                    <use href="#wave" transform="translate(16, 69)" stroke="white" />
+                    <use href="#wave" transform="translate(35, 83)" stroke="white" />
+                    <use href="#wave" transform="translate(57, 89)" stroke="white" />
+
+                    <use href="#island" transform="translate(62, 58) scale(0.006)" stroke="black" strokeWidth="70" fill="antiquewhite" />
                 </g>
                 <g id="Terrain.Lake">
                     <use href="#hex" strokeWidth="2" fill="lightskyblue" />
