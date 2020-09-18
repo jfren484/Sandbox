@@ -418,6 +418,8 @@ export function generateMapHexes() {
 
 export function generatePhaseDialog(G) {
     G.phaseComment = '';
+    G.diegoMendozaBonus = 0;
+
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     let skip = false;
     let migrationBonus = false;
@@ -690,7 +692,7 @@ export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
 }
 
-function handle_base(G) {
+export function handlePhaseRoll(G, confirmed) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
     const diceBonus = G.phase.index <= gameConstants.gamePhases.hunting.index ? G.planningDiceAssigned[G.phase.index] - 1 : 0;
@@ -703,7 +705,7 @@ function handle_base(G) {
     let data = {
         currentHex: currentHex,
         roll: roll,
-        value: roll + diceBonus + botanyBonus + terrainAdj + friendlyVillages + G.musketBonus
+        value: roll + diceBonus + botanyBonus + terrainAdj + friendlyVillages + G.musketBonus + G.diegoMendozaBonus
     };
 
     const diceRollBonusDesc = diceBonus
@@ -721,20 +723,47 @@ function handle_base(G) {
     const musketBonusDesc = G.musketBonus
         ? ', +' + G.musketBonus + ' musket bonus'
         : '';
+    const diegoMendozaBonusDesc = G.diegoMendozaBonus
+        ? ', +1 Diego Mendoza bonus'
+        : '';
     const sumDesc = diceBonus || botanyBonus || terrainAdj || friendlyVillages || G.musketBonus
         ? ' = ' + data.value
         : '';
 
     G.diceTray.extraContent = [
-        'Roll: ' + data.roll + diceRollBonusDesc + botanyBonusDesc + terrainAdjDesc + friendlyVillagesDesc + musketBonusDesc + sumDesc,
+        'Roll: ' + data.roll + diceRollBonusDesc + botanyBonusDesc + terrainAdjDesc + friendlyVillagesDesc + musketBonusDesc + diegoMendozaBonusDesc + sumDesc,
         'Result: '
     ];
 
-    return data;
+    let result;
+
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.movement.index:
+            result = handleMovementRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.mapping.index:
+            result = handleMappingRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.exploring.index:
+            result = handleExploringRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.nativeContact.index:
+            result = handleNativeContactRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.hunting.index:
+            result = handleHuntingRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.interests.index:
+            result = handleInterestsRoll(G, confirmed, data);
+            break;
+        default:
+            break;
+    }
+
+    return result;
 }
 
-export function handleExploringRoll(G, confirmed) {
-    const data = handle_base(G);
+function handleExploringRoll(G, confirmed, data) {
     let result = {
         trailPending: false
     };
@@ -829,8 +858,7 @@ export function handleExploringRoll(G, confirmed) {
     return result;
 }
 
-export function handleInterestsRoll(G, confirmed) {
-    const data = handle_base(G);
+function handleInterestsRoll(G, confirmed, data) {
     let interest = gameConstants.interestTypes.pending;
     let result = {
         lagosDeOroPending: false,
@@ -960,9 +988,7 @@ export function handleInterestsRoll(G, confirmed) {
     return result;
 }
 
-export function handleHuntingRoll(G, confirmed) {
-    const data = handle_base(G);
-
+function handleHuntingRoll(G, confirmed, data) {
     switch (data.value) {
         case 0:
         case 1:
@@ -1032,8 +1058,7 @@ export function handleHuntingRoll(G, confirmed) {
 	}
 }
 
-export function handleMappingRoll(G, confirmed) {
-    const data = handle_base(G);
+function handleMappingRoll(G, confirmed, data) {
 	const targetHex = G.map.hexes[G.map.target];
 
     function setTerrainType(terrainType) {
@@ -1101,9 +1126,7 @@ export function handleMappingRoll(G, confirmed) {
 	}
 }
 
-export function handleMovementRoll(G, confirmed) {
-    const data = handle_base(G);
-
+function handleMovementRoll(G, confirmed, data) {
 	switch (data.value) {
 		case 0:
 		case 1:
@@ -1184,8 +1207,7 @@ export function handleMovementRoll(G, confirmed) {
     }
 }
 
-export function handleNativeContactRoll(G, confirmed) {
-    const data = handle_base(G);
+function handleNativeContactRoll(G, confirmed, data) {
     let result = {
         trailPending: false
     };
@@ -1292,9 +1314,18 @@ export function phasePlanningFinish(G, ctx) {
 	G.diceTrayPlanning.dice = [];
 }
 
+export function randomD6() {
+    return Math.floor(Math.random() * 6) + 1;
+}
+
 export function rollDice(diceTray, mode) {
-	diceTray.dice = diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: Math.floor(Math.random() * 6) + 1 }).sort((a, b) => a.value - b.value);
+    diceTray.dice = diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: randomD6() }).sort((a, b) => a.value - b.value);
 	diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
+}
+
+export function rollDie(diceTray, index) {
+    diceTray.dice[1 - index].locked = true;
+    diceTray.dice[index].value = randomD6();
 }
 
 export function setConquistadors(G, value) {

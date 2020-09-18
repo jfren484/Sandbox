@@ -51,6 +51,10 @@ export class Game1572Board extends React.Component {
         this.props.moves.chooseHex(key);
     }
 
+    onIncrementRoll = () => {
+        this.props.moves.incrementRoll();
+    }
+
     onPlanningAddConquistador = () => {
         this.props.moves.addConquistador();
     }
@@ -86,9 +90,14 @@ export class Game1572Board extends React.Component {
         this.props.moves.skipReroll();
     }
 
-    onRerollClick = () => {
+    onRerollDiceClick = () => {
         this.animateDice(this.props.G.diceTray, 'diceTray');
         this.props.moves.rerollDice();
+    }
+
+    onRerollDieClick = (index) => {
+        this.props.moves.rerollDie(index);
+        this.animateDice(this.props.G.diceTray, 'diceTray');
     }
 
     onRollClick = () => {
@@ -108,7 +117,7 @@ export class Game1572Board extends React.Component {
 
     animateDice(diceTray, diceAnimationTarget) {
         this.setState({
-            dice: diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: Math.floor(Math.random() * 6) + 1 }),
+            dice: diceTray.dice.map(d6 => d6.locked ? d6 : { id: d6.id, value: gameMethods.randomD6() }),
             diceAnimationTarget: diceAnimationTarget,
             counter: 8
         });
@@ -167,9 +176,13 @@ export class Game1572Board extends React.Component {
                         title={this.props.G.diceTray.title}
                         extraContent={this.props.G.diceTray.extraContent}
                         disableExtraButton={this.props.G.counters.muskets.value === 0}
+                        enableIncrement={this.props.G.guides.diegoMendoza && !this.props.G.usedDiegoMendoza}
+                        enableRerollLow={this.props.G.guides.princessKantyi}
                         onRollClick={this.onRollClick}
-                        onRerollClick={this.onRerollClick}
-                        onComplete={this.onRollComplete} />
+                        onRerollDiceClick={this.onRerollDiceClick}
+                        onRerollDieClick={this.onRerollDieClick}
+                        onComplete={this.onRollComplete}
+                        onIncrementRoll={this.onIncrementRoll} />
                 </Box>
                 <Box className="mainGame">
                     <PlanningDiceTray mode={animateDiceTrayPlanning

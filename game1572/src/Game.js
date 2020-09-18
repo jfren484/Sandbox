@@ -51,7 +51,7 @@ export const Game1572 = {
         },
         eclipsePredictionTurnsRemaining: 0,
         fever: false,
-        guids: {
+        guides: {
             diegoMendoza: false,
             princessKantyi: false
         },
@@ -76,7 +76,8 @@ export const Game1572 = {
             6: 0
         },
         startedTurnFevered: false,
-        travelDirection: gameConstants.hexDirections.none
+        travelDirection: gameConstants.hexDirections.none,
+        usedDiegoMendoza: false
     }),
 
     phases: {
@@ -114,6 +115,7 @@ export const Game1572 = {
             turn: {
                 onBegin: (G, ctx) => {
                     G.startedTurnFevered = G.fever;
+                    G.usedDiegoMendoza = false;
                     ctx.events.setStage('prePlanning');
                 },
                 onEnd: (G, ctx) => {
@@ -229,13 +231,12 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handleMovementRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
                         next: 'movementMidRoll'
                     },
-                    // TODO: Diego Mendoza
                     movementMidRoll: {
                         moves: {
                             rerollDice: (G, ctx) => {
@@ -243,14 +244,19 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
                                 gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleMovementRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleMovementRoll(G, true);
+                                gameMethods.handlePhaseRoll(G, true);
                                 ctx.events.setStage('preMapping');
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'movementPostRoll'
@@ -258,8 +264,13 @@ export const Game1572 = {
                     movementPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleMovementRoll(G, true);
+                                gameMethods.handlePhaseRoll(G, true);
                                 ctx.events.endStage();
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preMapping'
@@ -309,7 +320,7 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleMappingRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
@@ -318,8 +329,13 @@ export const Game1572 = {
                     mappingPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleMappingRoll(G, true);
+                                gameMethods.handlePhaseRoll(G, true);
                                 ctx.events.endStage();
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preExploring'
@@ -353,7 +369,7 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handleExploringRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
@@ -366,18 +382,23 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
                                 gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleExploringRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             },
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handleExploringRoll(G, true);
+                                const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preNativeContact');
                                 }
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'exploringPostRoll'
@@ -385,12 +406,17 @@ export const Game1572 = {
                     exploringPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handleExploringRoll(G, true);
+                                const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('exploringChooseTrailLocation');
                                 } else {
                                     ctx.events.endStage();
                                 }
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preNativeContact'
@@ -439,33 +465,42 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handleNativeContactRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
                         next: 'nativeContactMidRoll'
                     },
                     // TODO: Predict Eclipse
-                    // TODO: Princess Kantyi
                     nativeContactMidRoll: {
                         moves: {
-                            rerollDice: (G, ctx) => {
-                                if (G.counters.muskets.value < 1) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleNativeContactRoll(G, false);
-                                ctx.events.endStage();
-                            },
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handleNativeContactRoll(G, true);
+                                const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('nativeContactChooseTrailLocation');
                                 } else {
                                     ctx.events.setStage('preHunting');
                                 }
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
+                            },
+                            rerollDice: (G, ctx) => {
+                                if (G.counters.muskets.value < 1) {
+                                    return INVALID_MOVE;
+                                }
+
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
+                                G.diceTray.dice.forEach(d6 => d6.locked = false);
+                                gameMethods.rollDice(G.diceTray);
+                                gameMethods.handlePhaseRoll(G, false);
+                                ctx.events.endStage();
+                            },
+                            rerollDie: (G, ctx, index) => {
+                                gameMethods.rollDie(G.diceTray, index);
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'nativeContactPostRoll'
@@ -473,12 +508,21 @@ export const Game1572 = {
                     nativeContactPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handleNativeContactRoll(G, true);
+                                const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('nativeContactChooseTrailLocation');
                                 } else {
                                     ctx.events.endStage();
                                 }
+                            },
+                            rerollDie: (G, ctx, index) => {
+                                gameMethods.rollDie(G.diceTray, index);
+                                gameMethods.handlePhaseRoll(G, false);
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preHunting'
@@ -525,7 +569,7 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handleHuntingRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
@@ -538,14 +582,19 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1)
+                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
                                 gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleHuntingRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleHuntingRoll(G, true);
+                                gameMethods.handlePhaseRoll(G, true);
                                 ctx.events.setStage('preInterests');
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'huntingPostRoll'
@@ -553,8 +602,13 @@ export const Game1572 = {
                     huntingPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handleHuntingRoll(G, true);
+                                gameMethods.handlePhaseRoll(G, true);
                                 ctx.events.endStage();
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preInterests'
@@ -588,7 +642,7 @@ export const Game1572 = {
                         moves: {
                             rollDice: (G, ctx) => {
                                 gameMethods.rollDice(G.diceTray);
-                                gameMethods.handleInterestsRoll(G, false);
+                                gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
                             }
                         },
@@ -597,7 +651,7 @@ export const Game1572 = {
                     interestsPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handleInterestsRoll(G, true);
+                                const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('interestsChooseTrailLocation');
                                 } else if (result.lagosDeOroPending) {
@@ -608,6 +662,11 @@ export const Game1572 = {
                                 } else {
                                     ctx.events.endStage();
                                 }
+                            },
+                            incrementRoll: (G, ctx) => {
+                                G.diegoMendozaBonus = 1;
+                                G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'preEatRations'

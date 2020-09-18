@@ -19,12 +19,25 @@ export class DiceTray extends React.Component {
     render() {
         let buttons = [];
         if (this.props.mode === gameConstants.diceTrayModes.preroll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onRollClick()}>Roll</Button>);
+            buttons.push(<Button key="BTN-ROLL" onClick={() => this.props.onRollClick()}>Roll</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onComplete()}>OK</Button>);
+            buttons.push(<Button key="BTN-COMPLETE" onClick={() => this.props.onComplete()}>OK</Button>);
         } else if (this.props.mode === gameConstants.diceTrayModes.rerollAll) {
-            buttons.push(<Button key="0" onClick={() => this.props.onRerollClick()} disabled={this.props.disableExtraButton}>Reroll with Musket</Button>);
-            buttons.push(<Button key="1" onClick={() => this.props.onComplete()}>Accept Roll</Button>);
+            buttons.push(<Button key="BTN-REROLL" onClick={() => this.props.onRerollDiceClick()} disabled={this.props.disableExtraButton}>Reroll with Musket</Button>);
+            buttons.push(<Button key="BTN-COMPLETE" onClick={() => this.props.onComplete()}>Accept Roll</Button>);
+        }
+
+        if (this.props.enableIncrement && (this.props.mode === gameConstants.diceTrayModes.postroll || this.props.mode === gameConstants.diceTrayModes.rerollAll)) {
+            buttons.push(<Button key="BTN-DM" onClick={() => this.props.onIncrementRoll()}>Use Diego Mendoza (+1)</Button>);
+        }
+
+        if (this.props.enableRerollLow) {
+            for (let i = 0; i < this.props.dice.length; ++i) {
+                const d6 = this.props.dice[i];
+                if (d6.value <= 2) {
+                    buttons.push(<Button key={'BTN-REROLL-' + i} onClick={() => this.props.onRerollDieClick(i)}>Reroll {i === 0 ? 'First' : 'Second' } Die</Button>);
+                }
+            }
         }
 
         let extraContent = [];
