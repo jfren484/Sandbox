@@ -2,8 +2,13 @@
 <head>
     <title>Super Mario Sunshine Checklist</title>
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         h1 {
             font-size: 30px;
+            text-align: center;
         }
 
         h2 {
@@ -16,6 +21,21 @@
             vertical-align: top;
             font-size: 12px;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        li {
+            font-size: 12px;
+        }
+
+        ul.checklist {
+            list-style-type: none;
+            padding-left: 5px;
+        }
+
+        ul.checklist li:before {
+            content: "\2610";
+            margin-right: 5px;
+            font-size: 1.3em;
         }
 
         .blue, .gray, .green, .red, .yellow, .head, .head_s, .head1up, .head1up_s, .headbcoin, .headbcoin_s, .headrcoin, .headrcoin_s, .headshine, .headshine_s {
@@ -72,10 +92,6 @@
             color: #990000;
         }
 
-        .marginbottom {
-            margin-bottom: 20px;
-        }
-
         .right {
             text-align: right;
         }
@@ -91,11 +107,12 @@
 </head>
 
 <body>
+    <h1>Super Mario Sunshine Checklist</h1>
+
     <table cellspacing="0" cellpadding="0">
         <tr>
-            <td colspan="3" align="center">
-                <h1>Super Mario Sunshine Checklist</h1>
-                <table class="marginbottom">
+            <td width="21%">
+                <table>
                     <tr>
                         <td class="yellow">Author:</td>
                         <td class="yellow">Jay - jay@frenchfryz.com</td>
@@ -114,76 +131,54 @@
                     </tr>
                 </table>
             </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <table width="100%">
-                    <tr>
-                        <td class="head">Unlocking Levels and Special Items</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" align="center">
-                <table id="unlocks" class="marginbottom">
+            <td>&nbsp;</td>
+            <td width="61%">
+                <table id="unlocks">
                     <tr>
                         <td class="head_s" colspan="2">Level/Item</td>
                         <td class="head_s" colspan="2">Unlock Instructions</td>
                     </tr>
                 </table>
             </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <h2 class="marginbottom">Shines, Blue Coins, Red Coins, and 1-Up Mushrooms</h2>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table id="items" width="100%"></table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <table width="100%">
-                    <tr>
-                        <td class="head">Summary</th>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" align="center">
-                <table id="stats" class="marginbottom">
-                    <tr>
-                        <td class="head_s">Level</td>
-                        <td class="headshine_s">Shines</td>
-                        <td class="headbcoin_s">Blue Coins</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <br><span class="red">*</span> <span class="tiny">
-                                The star for finishing the game is earned in Corona<br>
-                                Mountain but is displayed under Delfino Plaza.
-                            </span><br>
-                            <span class="red">+</span> <span class="tiny">
-                                Includes 24 Shines purchased with 240 Blue Coins.
-                            </span>
-                        </td>
-                    </tr>
+            <td>&nbsp;</td>
+            <td width="18%">
+                <table id="stats">
+                    <thead>
+                        <tr>
+                            <td class="head_s">Level</td>
+                            <td class="headshine_s">Shines</td>
+                            <td class="headbcoin_s">Blue Coins</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <br><span class="red">*</span> <span class="tiny">
+                                    The star for finishing the game is earned in Corona<br>
+                                    Mountain but is displayed under Delfino Plaza.
+                                </span><br>
+                                <span class="red">+</span> <span class="tiny">
+                                    Includes 24 Shines purchased with 240 Blue Coins.
+                                </span>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </td>
         </tr>
     </table>
+
+    <h2>Shines, Blue Coins, Red Coins, and 1-Up Mushrooms</h2>
+    <table id="items" width="100%"></table>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script language="javascript">
         const unlocks = {
             'Delfino Plaza': 'Defeat the Piranha Plant in Delfino Airstrip',
             'Level 1, Bianco Hills': 'Defeat the Piranha Plant in front of the Pianta Statue in Delfino Plaza; chase down Imposter Mario after he kidnaps Peach',
-            'Level 2, Ricco Harbor': 'Collect 3 Shines; defeat the Piranha Plant in Delfino Plaza where the Lighthouse usually is',
-            'Level 3, Gelato Beach': 'Collect 5 Shines; defeat the Piranha Plant in Delfino Plaza where the Blue Coin shop usually is',
+            'Level 2, Ricco Harbor': 'Collect 3 Shines; defeat the Piranha Plant in Delfino Plaza where the Blue Coin shop usually is',
+            'Level 3, Gelato Beach': 'Collect 5 Shines; defeat the Piranha Plant in Delfino Plaza where the Lighthouse usually is',
             'Level 4, Pinna Park': 'Collect 10 Shines; visit Plaza Delfino and chase down Imposter Mario after he kidnaps Peach',
             'Level 5, Sirena Beach': 'Unlock Yoshi and eat the pineapple blocking the Warp Pipe on top of the central building in Delfino plaza',
             'Level 6, Noki Bay': 'Collect 20 Shines',
@@ -194,6 +189,59 @@
             'Turbo Nozzle': 'Unlock Yoshi and collect 25 Shines; visit Delfino Plaza and chase down Imposter Mario',
             'Rocket Nozzle': 'Unlock Yoshi and collect 30 Shines; visit Delfino Plaza and chase down Imposter Mario'
         };
+
+        const stats = [
+            {
+                'level': 'Bianco Hills',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Ricco Harbor',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Gelato Beach',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Pinna Park',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Sirena Beach',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Noki Bay',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Pianta Village',
+                'shines': '11',
+                'bcoins': '30'
+            },
+            {
+                'level': 'Delfino Plaza',
+                'shines': '<span class="red">*+</span> 41',
+                'bcoins': '19'
+            },
+            {
+                'level': 'Delfino Airstrip',
+                'shines': '2',
+                'bcoins': '1'
+            },
+            {
+                'level': 'Corona Mountain',
+                'shines': '<span class="red">*</span> 0',
+                'bcoins': '10'
+            }
+        ];
 
         const items = {
             'Delfino Airstrip': {
@@ -244,7 +292,7 @@
                     'Northwest - With Yoshi, spray the top of the building with the weathervane',
                     'Northeast - Turbo into the stone pillar with the doors'
                 ],
-                '1up': [
+                'oneUp': [
                     'Main Tunnels - Eastern area',
                     'West - Underwater in a small alcove north of where the river empties into the ocean.'
                 ]
@@ -315,7 +363,7 @@
                         ]
                     }
                 ],
-                '1up': [
+                'oneUp': [
                     'East - Have Yoshi eat the bees after spraying a beehive (one beehive will have a blue coin - the other will have a 1-Up)'
                 ]
             },
@@ -538,7 +586,7 @@
                         ]
                     }
                 ],
-                '1up': [
+                'oneUp': [
                     'Outside - In the middle crate of the three crates near the beach',
                     'Outside - (x2) Clean off Nokis (ep. 6 - two Nokis give blue coins, the other two give 1-Ups)'
                 ]
@@ -656,59 +704,6 @@
             }
         };
 
-        const stats = [
-            {
-                'level': 'Bianco Hills',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Ricco Harbor',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Gelato Beach',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Pinna Park',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Sirena Beach',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Noki Bay',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Pianta Village',
-                'shines': '11',
-                'bcoins': '30'
-            },
-            {
-                'level': 'Delfino Plaza',
-                'shines': '<span class="red">*+</span> 41',
-                'bcoins': '19'
-            },
-            {
-                'level': 'Delfino Airstrip',
-                'shines': '2',
-                'bcoins': '1'
-            },
-            {
-                'level': 'Corona Mountain',
-                'shines': '<span class="red">*</span> 0',
-                'bcoins': '10'
-            }
-        ];
-
         for (let levelOrItem in unlocks) {
             $('<tr />')
                 .append($('<td />')
@@ -721,6 +716,19 @@
                 .append($('<td />')
                     .append(unlocks[levelOrItem]))
                 .appendTo($('#unlocks'));
+        }
+
+        for (let i = 0; i < stats.length; ++i) {
+            $('<tr />')
+                .append($('<td />')
+                    .append(stats[i].level))
+                .append($('<td />')
+                    .addClass('right')
+                    .append(stats[i].shines))
+                .append($('<td />')
+                    .addClass('right')
+                    .append(stats[i].bcoins))
+                .appendTo($('#stats tbody'));
         }
 
         for (let level in items) {
@@ -742,134 +750,78 @@
             $('<tr />')
                 .append($('<td />')
                     .attr('width', '50%')
-                    .append($('<table />')
-                        .addClass('marginbottom')
-                        .attr('width', '100%')
-                        .append($('<tr />')
-                            .append($('<td />')
-                                .addClass('headshine')
-                                .attr('colspan', '2')
-                                .append('Shines')
-                            )
-                        )
+                    .append($('<h3 />')
+                        .addClass('headshine')
+                        .append('Shines')
+                    )
+                    .append($('<ul />')
+                        .addClass('checklist')
                         .append(items[level].shines
-                            .map(desc => $('<tr />')
-                                .append($('<td />')
-                                    .append($('<input />')
-                                        .attr('type', 'checkbox')
-                                    )
-                                )
-                                .append($('<td />')
-                                    .append(desc)
-                                )
+                            .map(desc => $('<li />')
+                                .append(desc)
                             )
                         )
                     )
                     .append(!items[level].rcoins
                         ? ''
-                        : $('<table />')
-                            .attr('width', '100%')
-                            .append($('<tr />')
-                                .append($('<td />')
-                                    .addClass('headrcoin')
-                                    .attr('colspan', '2')
-                                    .append('Red Coins')
-                                )
+                        : $('<div />')
+                            .append($('<h3 />')
+                                .addClass('headrcoin')
+                                .append('Red Coins')
                             )
                             .append(items[level].rcoins
-                                .map(rcoin => $('<table />')
-                                    .append($('<tr />')
-                                        .append($('<td />')
-                                            .attr('colspan', '2')
-                                            .append($('<h3 />')
-                                                .append(rcoin.description)
-                                            )
-                                        )
+                                .map(rcoin => $('<div />')
+                                    .append($('<h3 />')
+                                        .append(rcoin.description)
                                     )
-                                    .append(rcoin.list
-                                        .map(desc => $('<tr />')
-                                            .append($('<td />')
-                                                .append($('<input />')
-                                                    .attr('type', 'checkbox')
-                                                )
-                                            )
-                                            .append($('<td />')
-                                                .attr('width', '100%')
+                                    .append($('<ul />')
+                                        .addClass('checklist')
+                                        .append(rcoin.list
+                                            .map(desc => $('<li />')
                                                 .append(desc)
                                             )
                                         )
                                     )
-                                    .append($('<tr />')
-                                        .append($('<td />')
-                                            .attr('colspan', '2')
-                                            .append('&nbsp;')
-                                        )
-                                    ).children()
+                                    .children()
                                 )
                             )
                     )
+                    .append(!items[level].oneUp
+                        ? ''
+                        : $('<div />')
+                            .append($('<h3 />')
+                                .addClass('head1up')
+                                .append('1-Up Mushrooms')
+                            )
+                            .append($('<ul />')
+                                .addClass('checklist')
+                                .append(items[level].oneUp
+                                    .map(desc => $('<li />')
+                                        .append(desc)
+                                    )
+                                )
+                            )
+                            .children()
+                    )
+                )
+                .append($('<td />')
+                    .append('&nbsp;'))
+                .append($('<td />')
+                    .attr('width', '50%')
+                    .append($('<h3 />')
+                        .addClass('headbcoin')
+                        .append('Blue Coins')
+                    )
+                    .append($('<ul />')
+                        .addClass('checklist')
+                        .append(items[level].bcoins
+                            .map(desc => $('<li />')
+                                .append(desc)
+                            )
+                        )
+                    )
                 )
                 .appendTo($('#items'));
-
-//			<tr>
-//				<td width="50%">
-//
-//	if (count($aLevelItems['1up']) > 0)
-//	{
-//
-//					<table class="marginbottom" width="100%">
-//						<tr>
-//							<td class="head1up" colspan="2">1-Up Mushrooms</td>
-//						</tr>
-//
-//		foreach ($aLevelItems['1up'] as $s1UpDescription)
-//		{
-//
-//						<tr>
-//							<td><img src="box.gif">&nbsp;</td>
-//							<td width="100%"><? echo $s1UpDescription; ?></td>
-//						</tr>
-//
-//		}
-//
-//					</table>
-//
-//	}
-//
-//				</td>
-//				<td><img src="pixel.gif" width="10" height="1"></td>
-//				<td width="50%">
-//					<table class="marginbottom" width="100%">
-//						<tr>
-//							<td class="headbcoin" colspan="2">Blue Coins</td>
-//						</tr>
-//
-//	foreach ($aLevelItems['bcoins'] as $sBlueCoinDescription)
-//	{
-//
-//						<tr>
-//							<td><img src="box.gif">&nbsp;</td>
-//							<td width="100%"><? echo $sBlueCoinDescription; ?></td>
-//						</tr>
-//
-//	}
-//
-//					</table>
-//				</td>
-//			</tr>
-        }
-
-        for (let i = 0; i < stats.length; ++i) {
-            $('<tr />')
-                .append($('<td />')
-                    .append(stats[i].level))
-                .append($('<td />')
-                    .addClass('right')
-                    .append(stats[i].shines))
-                .append($('<td />')
-                    .addClass('right')
-                    .append(stats[i].bcoins))
-                .appendTo($('#stats'));
         }
     </script>
 </body>
