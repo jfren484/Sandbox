@@ -1,0 +1,779 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetworkMusicLib</name>
+    </assembly>
+    <members>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">
+            <summary>
+            An exception thrown due to an error result from the Midi API.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new instance of MidiException with the specified message
+            format string, getting the specific error text from the Midi API.
+            </summary>
+            <param name="message">The message format string.</param>
+            <param name="error">The Midi error number.</param>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.EndOfFileException">
+            <summary>
+            An exception thrown when the end of the midi file is reached unexpectedly.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.EndOfFileException.#ctor(System.String)">
+            <summary>
+            Creates a new instance of EndOfFileException with the specified message.
+            </summary>
+            <param name="message">The message to display to the end-user.</param>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts">
+            <summary>
+            Constants for use by NetworkMusic.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.NetworkMusicPort">
+            <summary>
+            The port to use for communicating between Conductors and Players.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.NetworkMusicMulticastIP">
+            <summary>
+            The IP Address to use for multicasting between Conductors and Players.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.SysCommonStatuses">
+            <summary>
+            A list of statuses for System Common messages.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.SysExStatuses">
+            <summary>
+            A list of statuses for System Exclusive messages.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.SysRealtimeStatuses">
+            <summary>
+            A list of statuses for System Realtime messages.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.NetworkMusicConsts.InvalidStatuses">
+            <summary>
+            A list of statuses that are not valid.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker">
+            <summary>
+            Generates Midi Ticks.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.#ctor(System.UInt16)">
+            <summary>
+            Creates a new MidiTicker object.
+            </summary>
+            <param name="ppqn">The Pulses Per Quarter Note (PPQN) from the midi file
+            header.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.Start">
+            <summary>
+            Starts the MidiTicker.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.Stop">
+            <summary>
+            Stops the MidiTicker.
+            </summary>
+        </member>
+        <member name="E:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.Tick">
+            <summary>
+            Raised when the MidiTicker has more ticks to send.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.Running">
+            <summary>
+            Indicates whether the MidiTicker is still running.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.Tempo">
+            <summary>
+            The tempo to run at.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTicker.TickHandler">
+            <summary>
+            A Delegate for handling Tick events for a MidiTicker class.
+            </summary>
+            <param name="ticks">The total number of ticks passed.</param>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi">
+            <summary>
+            Routines for using Midi.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.CloseDevice(System.Int32)">
+            <summary>
+            Closes a midi device.
+            </summary>
+            <param name="midiDeviceHandle">The handle to the device to close.</param>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.OpenDefaultDevice">
+            <summary>
+            Opens the default midi device.
+            </summary>
+            <returns>The handle to the opened device.</returns>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.OutputMessage(System.Int32,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel,System.Byte[])">
+            <summary>
+            Sends a message to the specified midi device.
+            </summary>
+            <param name="midiDeviceHandle">The handle of the device to send the message to.</param>
+            <param name="msg">The type of message to send.</param>
+            <param name="channel">The channel the message applies to.</param>
+            <param name="data">A byte[] containing data to send.</param>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.OutputMessage(System.Int32,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sends a message to the specified midi device.
+            </summary>
+            <param name="midiDeviceHandle">The handle of the device to send the message to.</param>
+            <param name="msg">The type of message to send.</param>
+            <param name="channel">The channel the message applies to.</param>
+            <param name="b1">The 1st byte of message data (2nd byte of the message).</param>
+            <param name="b2">The 2nd byte of message data (3rd byte of the message).</param>
+            <param name="b3">The 3rd byte of message data (4th byte of the message).</param>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.OutputMessage(System.Int32,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel,System.Byte,System.Byte)">
+            <summary>
+            Sends a message to the specified midi device.
+            </summary>
+            <param name="midiDeviceHandle">The handle of the device to send the message to.</param>
+            <param name="msg">The type of message to send.</param>
+            <param name="channel">The channel the message applies to.</param>
+            <param name="b1">The 1st byte of message data (2nd byte of the message).</param>
+            <param name="b2">The 2nd byte of message data (3rd byte of the message).</param>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Midi.OutputMessage(System.Int32,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte,Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel,System.Byte)">
+            <summary>
+            Sends a message to the specified midi device.
+            </summary>
+            <param name="midiDeviceHandle">The handle of the device to send the message to.</param>
+            <param name="msg">The type of message to send.</param>
+            <param name="channel">The channel the message applies to.</param>
+            <param name="b1">The 1st byte of message data (2nd byte of the message).</param>
+            <exception cref="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiException">Throws a MidiException if the midi routine returns an error.</exception>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage">
+            <summary>
+            A generic Midi message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage._ticks">
+            <summary>
+            The time at which this event takes place.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage._messageStatus">
+            <summary>
+            The status byte of this message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage._dataBytes">
+            <summary>
+            The data bytes for this message.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.CreateMidiMessage(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the specific MidiMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status used to determine the type of message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+            <returns>A MidiMessage object.</returns>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.#ctor(System.UInt64,System.Byte)">
+            <summary>
+            Initializes a new MidiMessage object.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.ToString">
+            <summary>
+            Returns a string representing the message.
+            </summary>
+            <returns>A string object.</returns>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.DataBytes">
+            <summary>
+            The data portion of the message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.MessageStatus">
+            <summary>
+            The message status byte.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMessage.Ticks">
+            <summary>
+            The time at which this message takes place.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage">
+            <summary>
+            A Midi Channel message (note on, off, program change, etc.).
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.#ctor(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the MidiChannelMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.Channel">
+            <summary>
+            The channel this message applies to.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.MessageByte">
+            <summary>
+            The message byte (status) for this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysCommonMessage">
+            <summary>
+            A Midi System Common message (MTC Quarter Frame, Song Position Pointer,
+            Song Select, Tune Request).
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysCommonMessage.#ctor(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the MidiSysCommonMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysCommonMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysCommonMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysCommonMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile">
+            <summary>
+            Represents a .MID (Midi) file.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.ParseVariableLengthValue(System.Byte[],System.Int32@)">
+            <summary>
+            Get a variable length value from midi file data.
+            </summary>
+            <param name="data">The byte[] to search.</param>
+            <param name="index">The index at which to start searching (will be set
+            to end of value after execution).</param>
+            <returns>The length value.</returns>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.#ctor(System.String)">
+            <summary>
+            Creates a new instance of a MidiFile.
+            </summary>
+            <param name="fileName">The midi file to read in.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.GetNextMessages(System.UInt64)">
+            <summary>
+            Returns a List of messages that should be sent by the time indicated by ticks.
+            </summary>
+            <param name="ticks">The time to get messages through.</param>
+            <returns>A MidiMessage List.</returns>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.Division">
+            <summary>
+            The division of time in the file.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.EndOfFile">
+            <summary>
+            Indicates whether all tracks are finished.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.Format">
+            <summary>
+            The format of the file.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFile.TrackCount">
+            <summary>
+            The number of tracks in the file.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel">
+            <summary>
+            The available midi channels (0 - 15).
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c01">
+            <summary>
+            Channel 1.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c02">
+            <summary>
+            Channel 2.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c03">
+            <summary>
+            Channel 3.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c04">
+            <summary>
+            Channel 4.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c05">
+            <summary>
+            Channel 5.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c06">
+            <summary>
+            Channel 6.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c07">
+            <summary>
+            Channel 7.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c08">
+            <summary>
+            Channel 8.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c09">
+            <summary>
+            Channel 9.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c10">
+            <summary>
+            Channel 10.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c11">
+            <summary>
+            Channel 11.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c12">
+            <summary>
+            Channel 12.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c13">
+            <summary>
+            Channel 13.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c14">
+            <summary>
+            Channel 14.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c15">
+            <summary>
+            Channel 15.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel.c16">
+            <summary>
+            Channel 16.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFileFormat">
+            <summary>
+            The possible values for midi file format.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFileFormat.SingleTrack">
+            <summary>
+            File contains a single track.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFileFormat.SimultaneousTrack">
+            <summary>
+            File contains multiple tracks that will be played simultaneously.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFileFormat.SequentialTrack">
+            <summary>
+            File contains multiple tracks that will be played sequentially.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiFileFormat.NA">
+            <summary>
+            File format is unknown.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte">
+            <summary>
+            The possible values for a midi channel message type.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.NoteOff">
+            <summary>
+            A note-off message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.NoteOn">
+            <summary>
+            A note-on message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.AfterTouch">
+            <summary>
+            A poly pressure (aftertouch) message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.ControllerChange">
+            <summary>
+            A controller-change message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.ProgramChange">
+            <summary>
+            A program-change message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.ChannelPressure">
+            <summary>
+            A channel pressure (aftertouch) message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannelMessageByte.PitchWheel">
+            <summary>
+            A pitch wheel message.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysCommonMessageByte">
+            <summary>
+            The possible values for a midi system common message type.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysCommonMessageByte.MTCQuarterFrame">
+            <summary>
+            An MTC Quarter Frame message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysCommonMessageByte.SongPositionPointer">
+            <summary>
+            A Song Position Pointer message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysCommonMessageByte.SongSelect">
+            <summary>
+            A Song Select message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysCommonMessageByte.TuneRequest">
+            <summary>
+            A Tune Request message.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte">
+            <summary>
+            The possible values for a midi system realtime message type.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.MidiClock">
+            <summary>
+            A MidiClock message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.MidiTick">
+            <summary>
+            A Midi Tick message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.MidiStart">
+            <summary>
+            A Midi Start message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.MidiContinue">
+            <summary>
+            A Midi Continue message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.MidiStop">
+            <summary>
+            A Midi Stop message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSysRealtimeMessageByte.ActiveSense">
+            <summary>
+            An Active Sense message.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSystemExclusiveMessageByte">
+            <summary>
+            The possible values for a midi system exclusive message type.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSystemExclusiveMessageByte.Start">
+            <summary>
+            A SysEx start message.
+            </summary>
+        </member>
+        <member name="F:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiSystemExclusiveMessageByte.Continue">
+            <summary>
+            A SysEx continue message.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysRealtimeMessage">
+            <summary>
+            A Midi System Realtime message (Midi Clock, Midi Tick, Midi Start, Midi
+            Stop, etc.).
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysRealtimeMessage.#ctor(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the MidiSysCommonMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysRealtimeMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysRealtimeMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysRealtimeMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice">
+            <summary>
+            A class for communicating with a midi device.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.#ctor(System.UInt16)">
+            <summary>
+            Creates an instance of MidiDevice and opens the default midi device.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.#ctor">
+            <summary>
+            Creates an instance of MidiDevice and opens the default midi device, handling all channels.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.Finalize">
+            <summary>
+            Closes the associated device.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.Close">
+            <summary>
+            Closes the midi device.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.Play(Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiChannelMessage)">
+            <summary>
+            Plays a Midi Channel Message through the open device.
+            </summary>
+            <param name="message">The MidiChannelMessage to play.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.PlaysChannel(Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiChannel)">
+            <summary>
+            Indicates whether this object plays messages on the specified channel.
+            </summary>
+            <param name="channel">The MidiChannel to check.</param>
+            <returns>True or False</returns>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiDevice.Channels">
+            <summary>
+            The channels the MidiDevice will process messages for.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage">
+            <summary>
+            A Midi Meta Event message.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.#ctor(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the MidiSysCommonMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.ToString">
+            <summary>
+            Returns a string representing the message.
+            </summary>
+            <returns>A string object.</returns>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiMetaEventMessage.MetaType">
+            <summary>
+            The type of meta event.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysExMessage">
+            <summary>
+            A Midi System Exclusive message.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysExMessage.#ctor(System.UInt64,System.Byte,System.Byte[],System.Int32@)">
+            <summary>
+            Creates a new instance of the MidiSysCommonMessage class.
+            </summary>
+            <param name="ticks">The time at which the message takes place.</param>
+            <param name="status">The status byte of the message.</param>
+            <param name="data">The byte array to get any needed data from.</param>
+            <param name="dataIndex">The index into the data array.</param>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysExMessage.ClearsRunningStatus">
+            <summary>
+            Indicates whether the message status should clear the running status.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysExMessage.DataBytesCount">
+            <summary>
+            Inidicates how many data bytes should be included with this message.
+            </summary>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages.MidiSysExMessage.SetsRunningStatus">
+            <summary>
+            Indicates whether the message status should be saved as running status.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTrack">
+            <summary>
+            Represents a single track in a Midi File.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTrack.#ctor(System.Byte[])">
+            <summary>
+            Creates a new instance of the MidiTrack class, using the specified byte array as input data.
+            </summary>
+            <param name="data">The data to parse out for the track.</param>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTrack.GetNextMessages(System.UInt64)">
+            <summary>
+            Returns a List of messages that should be sent by the time indicated by ticks.
+            </summary>
+            <param name="ticks">The time to get messages through.</param>
+            <returns>A MidiMessage List.</returns>
+        </member>
+        <member name="P:Fryz.Apps.NetworkMusic.NetworkMusicLib.MidiTrack.EndOfTrack">
+            <summary>
+            Indicates whether the internal pointer is at the end of the track.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.ConsoleMonitor">
+            <summary>
+            Handles monitoring a Console application being closed by the user.
+            </summary>
+        </member>
+        <member name="M:Fryz.Apps.NetworkMusic.NetworkMusicLib.ConsoleMonitor.#ctor">
+            <summary>
+            Creates a new instance of the ConsoleMonitor class.
+            </summary>
+        </member>
+        <member name="E:Fryz.Apps.NetworkMusic.NetworkMusicLib.ConsoleMonitor.Exiting">
+            <summary>
+            Occurs when the user attempts to exit the console application.
+            </summary>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.ConsoleMonitor.ConsoleCtrlHandler">
+            <summary>
+            Handles when the user attempts to exit the console.
+            </summary>
+            <param name="CtrlType">The type of exit the user is attempting
+            (ctrl-break, ctrl-c, the close button, etc.)</param>
+            <returns>A boolean indicating whether to cancel the exit.</returns>
+        </member>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicLib.ConsoleMonitor.ConsoleExitHandler">
+            <summary>
+            Handles when the user attempts to exit the console application.
+            </summary>
+        </member>
+    </members>
+</doc>

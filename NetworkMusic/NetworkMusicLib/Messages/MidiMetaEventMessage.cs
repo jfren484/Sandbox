@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Fryz.Apps.NetworkMusic.NetworkMusicLib.Messages
+{
+	/// <summary>
+	/// A Midi Meta Event message.
+	/// </summary>
+	public class MidiMetaEventMessage: MidiMessage
+	{
+		#region Member Variables
+
+		private byte	_metaType;
+		private int		_dataBytesCount	= 0;
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Creates a new instance of the MidiSysCommonMessage class.
+		/// </summary>
+		/// <param name="ticks">The time at which the message takes place.</param>
+		/// <param name="status">The status byte of the message.</param>
+		/// <param name="data">The byte array to get any needed data from.</param>
+		/// <param name="dataIndex">The index into the data array.</param>
+		internal MidiMetaEventMessage(ulong ticks, byte status, byte[] data, ref int dataIndex): base(ticks, status)
+		{
+			_metaType				= data[dataIndex++];
+
+			_dataBytesCount	= MidiFile.ParseVariableLengthValue(data, ref dataIndex);
+
+			// Fill the data bytes array with the appropriate data.
+			_dataBytes			= new byte[_dataBytesCount];
+			for (int i = 0; i < _dataBytes.Length; i++)
+				_dataBytes[i]	= data[dataIndex++];
+		}
+
+		/// <summary>
+		/// Returns a string representing the message.
+		/// </summary>
+		/// <returns>A string object.</returns>
+		public override string ToString()
+		{
+			return base.ToString().Insert(2, String.Format("{0:X02}", MetaType));
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Indicates whether the message status should clear the running status.
+		/// </summary>
+		public override bool ClearsRunningStatus
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Inidicates how many data bytes should be included with this message.
+		/// </summary>
+		public override int DataBytesCount
+		{
+			get
+			{
+				return _dataBytesCount;
+			}
+		}
+
+		/// <summary>
+		/// Indicates whether the message status should be saved as running status.
+		/// </summary>
+		public override bool SetsRunningStatus
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// The type of meta event.
+		/// </summary>
+		public byte MetaType
+		{
+			get
+			{
+				return _metaType;
+			}
+		}
+
+		#endregion
+	}
+}

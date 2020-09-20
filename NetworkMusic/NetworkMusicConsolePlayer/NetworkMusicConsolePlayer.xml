@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetworkMusicConsolePlayer</name>
+    </assembly>
+    <members>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicConsolePlayer.NetworkMusicConsolePlayer">
+            <summary>
+            Plays music instructions sent by a NetworkMusicConductor.
+            </summary>
+        </member>
+    </members>
+</doc>

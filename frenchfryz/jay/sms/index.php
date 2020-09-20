@@ -1,0 +1,802 @@
+<html>
+	<head>
+		<title>Super Mario Sunshine Checklist</title>
+		<style>
+			h1
+			{
+				font-size:				30px;
+			}
+			h2
+			{
+				font-size:				24px;
+				font-weight:			bold;
+				text-align:				center;
+			}
+			td
+			{
+				vertical-align:		top;
+				font-size:				12px;
+				font-family:			Arial, Helvetica, sans-serif;
+			}
+			.blue, .gray, .green, .red, .yellow, .head, .head_s, .head1up, .head1up_s, .headbcoin, .headbcoin_s, .headrcoin, .headrcoin_s, .headshine, .headshine_s
+			{
+				font-weight:			bold;
+			}
+			.head, .head_s, .head1up, .head1up_s, .headbcoin, .headbcoin_s, .headrcoin, .headrcoin_s, .headshine, .headshine_s
+			{
+				text-align:				center;
+			}
+			.head_s
+			{
+				text-align:				left;
+			}
+			.head
+			{
+				font-size:				20px;
+			}
+			.blue, .gray, .green, .red, .yellow, .head_s, .head1up, .head1up_s, .headbcoin, .headbcoin_s, .headrcoin, .headrcoin_s, .headshine, .headshine_s
+			{
+				font-size:				16px;
+			}
+			h2, .blue, .headbcoin, .headbcoin_s
+			{
+				background-color:	#c7d7ff;
+				color:						#000099;
+				border:						solid #6699ff 1px;
+			}
+			.gray, .head, .head_s
+			{
+				background-color:	#cccccc;
+				color:						#000000;
+				border:						solid #666666 1px;
+			}
+			.green, .head1up, .head1up_s
+			{
+				background-color:	#c7ffc7;
+				color:						#009900;
+				border:						solid #00cc00 1px;
+			}
+			h1, .red, .headrcoin, .headrcoin_s
+			{
+				background-color:	#ffc7c7;
+				color:						#990000;
+				border:						solid #cc0000 1px;
+			}
+			.yellow, .headshine, .headshine_s
+			{
+				background-color:	#ffffc7;
+				color:						#999900;
+				border:						solid #cccc00 1px;
+			}
+			h3
+			{
+				color:						#990000;
+			}
+			.marginbottom
+			{
+				margin-bottom:		20px;
+			}
+			.right
+			{
+				text-align:				right;
+			}
+			.tiny
+			{
+				font-size:				10px;
+			}
+			.unlockable
+			{
+				white-space:			nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td colspan="3" align="center">
+					<h1>Super Mario Sunshine Checklist</h1>
+					<table class="marginbottom">
+						<tr>
+							<td class="yellow">Author:</td>
+							<td class="yellow">Jay - jay@frenchfryz.com</td>
+						</tr>
+						<tr>
+							<td class="blue">Created:</td>
+							<td class="blue">November 14, 2002</td>
+						</tr>
+						<tr>
+							<td class="green">Version:</td>
+							<td class="green">1.1</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<table width="100%">
+						<tr>
+							<td class="head">Unlocking Levels and Special Items</th>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center">
+					<table class="marginbottom">
+						<tr>
+							<td class="head_s" colspan="2">Level/Item</td>
+							<td class="head_s" colspan="2">Unlock Instructions</td>
+<?
+foreach (getUnlocks() as $sUnlockable => $sKey)
+{
+?>
+						<tr>
+							<td><img src="box.gif">&nbsp;</td>
+							<td class="unlockable"><? echo $sUnlockable; ?></td>
+							<td>-</td>
+							<td><? echo $sKey; ?></td>
+						</tr>
+<?
+	if ($sUnlockable == 'Corona Mountain')
+	{
+?>
+						<tr>
+							<td colspan="4"><img src="pixel.gif" width="1" height="10"></td>
+						</tr>
+<?
+	}
+}
+?>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<h2 class="marginbottom">Shines, Blue Coins, Red Coins, and 1-Up Mushrooms</h1>
+				</td>
+			</tr>
+<?
+foreach (getItems() as $sLevel => $aLevelItems)
+{
+?>
+			<tr>
+				<td colspan="3">
+					<table width="100%">
+						<tr>
+							<td class="head"><? echo $sLevel; ?></th>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%">
+					<table class="marginbottom" width="100%">
+						<tr>
+							<td class="headshine" colspan="2">Shines</td>
+						</tr>
+<?
+	foreach ($aLevelItems['shines'] as $sShineDescription)
+	{
+?>
+						<tr>
+							<td><img src="box.gif">&nbsp;</td>
+							<td width="100%"><? echo $sShineDescription; ?></td>
+						</tr>
+<?
+	}
+?>
+					</table>
+<?
+	if (count($aLevelItems['rcoins']) > 0)
+	{
+?>
+					<table width="100%">
+						<tr>
+							<td class="headrcoin" colspan="2">Red Coins</td>
+						</tr>
+<?
+		foreach ($aLevelItems['rcoins'] as $sRedCoinListDescription => $aRedCoins)
+		{
+?>
+						<tr>
+							<td colspan="2"><h3><? echo $sRedCoinListDescription; ?></h3></td>
+						</tr>
+<?
+			foreach ($aRedCoins as $sRedCoinDescription)
+			{
+?>
+						<tr>
+							<td><img src="box.gif">&nbsp;</td>
+							<td width="100%"><? echo $sRedCoinDescription; ?></td>
+						</tr>
+<?
+			}
+?>
+						<tr>
+							<td colspan="2"><img src="pixel.gif" width="1" height="15"></td>
+						</tr>
+<?
+		}
+?>
+					</table>
+<?
+	}
+
+	if (count($aLevelItems['1up']) > 0)
+	{
+?>
+					<table class="marginbottom" width="100%">
+						<tr>
+							<td class="head1up" colspan="2">1-Up Mushrooms</td>
+						</tr>
+<?
+		foreach ($aLevelItems['1up'] as $s1UpDescription)
+		{
+?>
+						<tr>
+							<td><img src="box.gif">&nbsp;</td>
+							<td width="100%"><? echo $s1UpDescription; ?></td>
+						</tr>
+<?
+		}
+?>
+					</table>
+<?
+	}
+?>
+				</td>
+				<td><img src="pixel.gif" width="10" height="1"></td>
+				<td width="50%">
+					<table class="marginbottom" width="100%">
+						<tr>
+							<td class="headbcoin" colspan="2">Blue Coins</td>
+						</tr>
+<?
+	foreach ($aLevelItems['bcoins'] as $sBlueCoinDescription)
+	{
+?>
+						<tr>
+							<td><img src="box.gif">&nbsp;</td>
+							<td width="100%"><? echo $sBlueCoinDescription; ?></td>
+						</tr>
+<?
+	}
+?>
+					</table>
+				</td>
+			</tr>
+<?
+}
+?>
+			<tr>
+				<td colspan="3">
+					<table width="100%">
+						<tr>
+							<td class="head">Summary</th>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center">
+					<table class="marginbottom">
+						<tr>
+							<td class="head_s">Level</td>
+							<td class="headshine_s">Shines</td>
+							<td class="headbcoin_s">Blue Coins</td>
+						</tr>
+<?
+foreach (getStats() as $aStat)
+{
+?>
+						<tr>
+							<td><? echo $aStat['level']; ?></td>
+							<td class="right"><? echo $aStat['shines']; ?></td>
+							<td class="right"><? echo $aStat['bcoins']; ?></td>
+						</tr>
+<?
+}
+?>
+						<tr>
+							<td colspan="3"><br><span class="red">*</span> <span class="tiny">
+								The star for finishing the game is earned in Corona<br>
+								Mountain but is displayed under Delfino Plaza.</span><br>
+								<span class="red">+</span> <span class="tiny">
+								Includes 24 Shines purchased with 240 Blue Coins.</span></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+<?
+function getItems()
+{
+	return	array(
+						'Delfino Airstrip' => array(
+							'shines' => array(
+								'Defeat the Piranha Plant',
+								'(After you\'ve beaten the game) Come back for a Red Coin Challenge'
+							),
+							'bcoins' => array(
+								'(After finishing the game) - Turbo into the tower and melt the ice with the Squirt Nozzle'
+							),
+							'rcoins'    => array(
+							),
+							'1up'    => array(
+							)
+						),
+						'Delfino Plaza' => array(
+							'shines' => array(
+								'Eastern Island - Spray the golden bird 3 times',
+								'Northeast Beach - Spray the sand near the lighthouse',
+								'Northeast Beach - Cross the stone pillars to the pipe (mini-game)',
+								'Northwest of the River - Box-breaking game',
+								'Northwest of the River - Box-breaking game, part 2',
+								'Rooftop - Talk to the man sitting on the rooftop and pay him a coin',
+								'Eastern Island - Get Yoshi here to clean the pipe (mini-game)',
+								'Northeast - Turbo through the doors between the policemen (mini-game)',
+								'Southwest Belltower - Turbo through the doors at the foot of the belltower',
+								'Lighthouse - Ground-pound the top of the lighthouse',
+								'Northwest - Rocket up onto the hills and enter the cave (mini-game)',
+								'Shine Tower - Clean the Shine',
+								'Southeast Belltower - Clean the Bell',
+								'Southwest Belltower - Clean the Bell',
+								'River - Rocket into the bridge where the gold coin is (mini-game)',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'Southeast Belltower - Enter the base of the tower from the water',
+								'South - (x2) Linked Graffiti X\'s on the Grand Pianta Statue and the West wall of the southwest belltower',
+								'River - Break the crate on the dock to reveal a Graffiti M',
+								'West - Break the crate on the building north of the belltower to reveal a Graffitti M',
+								'Rooftop - Spray the blue bird near the south end 3 times',
+								'Rooftop - Spray the blue bird in the northwest area 3 times',
+								'North - Collect bananas for the woman south of the river',
+								'North - Collect pineapples for the woman east of the river',
+								'North - Collect durians for the woman west of the river',
+								'Western Island - Collect coconuts for the woman on the island',
+								'Western Tunnels - Follow the spur off the main line',
+								'Main Tunnels - Northern area',
+								'Main Tunnels - Northeastern area',
+								'Northwest - Spray the Graffiti M off the building with the weathervane',
+								'East - Spray the burning Pianta (after completing Bianco Hills)',
+								'Northeast - With Yoshi, spray the upper back-side of the building the policemen are guarding',
+								'Northwest - With Yoshi, spray the top of the building with the weathervane',
+								'Northeast - Turbo into the stone pillar with the doors'
+							),
+							'rcoins'    => array(
+							),
+							'1up'    => array(
+								'Main Tunnels - Eastern area',
+								'West - Underwater in a small alcove north of where the river empties into the ocean.'
+							)
+						),
+						'Bianco Hills' => array(
+							'shines' => array(
+								'Episode 1: Road to the Big Windmill',
+								'Episode 2: Down with Petey Piranha!',
+								'Episode 3: The Hillside Cave Secret',
+								'Episode 4: Red Coins of Windmill Village',
+								'Episode 5: Petey Piranha Strikes Back',
+								'Episode 6: The Secret of the Dirty Lake',
+								'Episode 7: Shadow Mario on the Loose',
+								'Episode 8: The Red Coins of the Lake',
+								'Secret Shine 1: The Hillside Cave Secret - Red Coin Challenge',
+								'Secret Shine 2: The Secret of the Dirty Lake - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'West - In the river near the dam',
+								'West - Graffiti M on the building with two towers',
+								'West - Inside one of the towers on the building with two towers',
+								'West - Spray the doorways on the balcony of the building with the arch',
+								'West - On one of the windmill "sail" platforms',
+								'West - On ledge at far west side of town (ep. 4)',
+								'West - Spray the blue bird on the platform above the building with the arch',
+								'West - Under high platform at north end of town',
+								'West - In center of 5-platform cross in northern hills',
+								'West - On pillar where Petey is in episode 5 (ep. 6)',
+								'West - (x2) Linked Graffiti O\'s on two-towers building and building with arch (ep. 7)',
+								'West - Have Yoshi eat the blue butterfly near the building with two towers',
+								'Center Wall - Graffiti M on the west-facing side of the wall',
+								'Center Wall - Graffiti M on top of the wall next to the water-wheel',
+								'Center Wall - (x2) Linked Graffiti X\'s on either side of the wall',
+								'Center Wall - Spray Pianta on circular section of wall (ep. 5)',
+								'East - Spray top of tree closest to water wheel',
+								'East - Spray the platform with the rope attached that crosses the center wall',
+								'East - In the lake east of the bridge, near the 4 gold coins, under water',
+								'East - In the west side of the lake, under water',
+								'East - Graffiti M on side of Giant Windmill',
+								'East - Under bridge to Giant Windmill',
+								'East - Spray the top of the large pillar north of the Giant Windmill',
+								'East - On high platform southwest of the Giant Windmill',
+								'East - Spray Pianta either on the path to the Giant Windmill (ep. 3) or on the ledge under the entrance to hillside cave (ep. 4)',
+								'East - Defeat flower-creature on top of Giant Windmill (ep. 3 or later)',
+								'East - Defeat flower-creature on one of three brick structures on east side of lake (ep. 4)',
+								'East - Have Yoshi eat the bees after spraying a beehive (one beehive will have a blue coin - the other will have a 1-Up)'
+							),
+							'rcoins' => array(
+								'Episode 4 - West' => array(
+									'Approach the village and bounce on the tightropes to the white wall on the right. Get coin.',
+									'Turn back to village and get coin on roof of nearest structure.',
+									'U-turn jump and hover to coin on white wall above bells.',
+									'Stay on the wall, get on the "hump" in the wall and drop to the lower white wall. Under the archway next to the bells.',
+									'Head back up on the higher wall and cross the tightrope to the next building and watch for the Cloud Duppy. Grab the coin and fall to the ground to avoid the monster\'s attack.',
+									'Next to the blue tool box',
+									'Look up for the vertical windmills in the village.  A coin is by one of them.',
+									'On top of the two-towered building'
+								),
+								'Episode 8 - East' => array(
+									'(x7) Above the tightropes',
+									'By a lilypad over the water',
+								)
+							),
+							'1up'    => array(
+								'East - Have Yoshi eat the bees after spraying a beehive (one beehive will have a blue coin - the other will have a 1-Up)'
+							)
+						),
+						'Ricco Harbor' => array(
+							'shines' => array(
+								'Episode 1: Gooper Blooper Breaks Out',
+								'Episode 2: Blooper Surfing Safari',
+								'Episode 3: The Caged Shine Sprite',
+								'Episode 4: The Secret of Ricco Tower',
+								'Episode 5: Gooper Blooper Returns',
+								'Episode 6: Red Coins on the Water',
+								'Episode 7: Shadow Mario Revisited',
+								'Episode 8: Yoshi\'s Fruit Adventure',
+								'Secret Shine 1: Episode 2: Win race again, under 40 seconds',
+								'Secret Shine 2: The Secret of Ricco Tower - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'West - Graffiti M on wall of warehouse',
+								'West - Graffiti M above warehouse on rock face',
+								'North - Graffiti M on ground near tower (spray ground to reveal)',
+								'North - In crate near base of tower',
+								'North - Spray north wall (to the left of and above a crate containing a 1-Up)',
+								'North - Above tower',
+								'North - Defeat spider on wall near tower',
+								'North - Graffiti M on wall of grate ship',
+								'North - Spray deck of grate ship to reveal Graffiti M',
+								'North - On scaffolding around tower',
+								'North - Above fountain',
+								'North - Graffiti M on building',
+								'North - Graffiti M on rock face above building',
+								'North - (x2) Linked Graffiti X\'s (on tower and building near market)',
+								'Center - On floor of ocean under orange platform',
+								'Center - On platform crane near grate ship',
+								'Center - (x2) Defeat the spiders on the grate ship (ep. 2 or later)',
+								'Center - Raise the submarine',
+								'Center - (x2) On scaffolding above (almost) grate ship',
+								'Center - Defeat squid in cage (ep. 4)',
+								'South - At the southern boundary of Ricco Harbor floating in the air (Turbo-Jump or jump while riding a squid)',
+								'South - Above yacht with red roof',
+								'East - Graffiti M on wall above small ledge over water',
+								'East - Graffiti M on metal platform (ep. 8)',
+								'East - Above water in line with gold coins leading to cave (ep. 2)',
+								'East - Spray basket with fish (ep. 6)',
+								'East - Have Yoshi eat the blue butterflies (ep. 8)'
+							),
+							'rcoins'    => array(
+								'Episode 6' => array(
+									'(x8) Follow the trail of gold coins.  The red coins will be interspersed among them.  There is one coin you\'ll have to jump to reach (the 6th, I think), and you\'ll have to jump over a boat to get the last, which is between two boats'
+								)
+							),
+							'1up'    => array(
+							)
+						),
+						'Gelato Beach' => array(
+							'shines' => array(
+								'Episode 1: Dune Bud Sand Castle Secret',
+								'Episode 2: Mirror Madness! Tilt, Slam, Bam!',
+								'Episode 3: Wiggler Ahoy! Full Steam Ahead!',
+								'Episode 4: The Sand Bird is Born',
+								'Episode 5: Il Piantissimo\'s Sand Sprint',
+								'Episode 6: Red Coins in the Coral Reef',
+								'Episode 7: It\'s Shadow Mario! After Him!',
+								'Episode 8: The Watermelon Festival',
+								'Secret Shine 1: Hidden Shine picture under a sand bud',
+								'Secret Shine 2: Dune Bud Sand Castle Secret - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'Water - In air near swing on island',
+								'Water - On top of tree with swing',
+								'Water - In water near swing island',
+								'Water - In water near beach',
+								'Water - In school of red fish near coral reef',
+								'Water - In school of blue fish near coral reef',
+								'Beach - On ceiling of sand cabana',
+								'Beach - Defeat red flipper (ep. 1)',
+								'Beach - Graffiti M on wall of east ledge with red box',
+								'Beach - (x2) Linked Graffiti Triangles on cliff wall',
+								'Beach - Under water cabana',
+								'Hills - (x2) Defeat blue birds on ropes',
+								'Hills - On top of rope pole',
+								'Hills - In gap in rock wall at west end of hills',
+								'Hills - Above high rope at west end of hills',
+								'Beach - Spray area where sand castle was (ep. 2)',
+								'Beach - Spray sand near column of coins',
+								'Beach - Spray sand in middle of eastern half of beach',
+								'Beach - Spray sand near surfboard rack',
+								'Mini-Game - (x4) In episode 4, there are 4 blue coins on clouds',
+								'Hills - Above platform with beehive',
+								'Hills - Squirt sleeping flipper and then defeat (ep. 5 or later)',
+								'Beach - Have Yoshi spray yellow substance around sand bud near sand cabana; dismount and spray bud with water (ep. 6)',
+								'Hills - Have Yoshi eat bees in beehive on platform (ep. 6)',
+								'Beach - Put fruit into blades above water cabana (ep. 8)'
+							),
+							'rcoins'    => array(
+								'Episode 4' => array(
+									'(x7) On the bird\'s body',
+									'On the central pillar'
+								),
+								'Episode 6' => array(
+									'(x6) Stationary within the reef',
+									'(x2) Moving with schools of fish around the reef'
+								)
+							),
+							'1up'    => array(
+							)
+						),
+						'Pinna Park' => array(
+							'shines' => array(
+								'Episode 1: Mecha-Bowser Appears!',
+								'Episode 2: The Beach Cannon\'s Secret',
+								'Episode 3: Red Coins of the Pirate Ships',
+								'Episode 4: The Wilted Sunflowers',
+								'Episode 5: The Runaway Ferris Wheel',
+								'Episode 6: The Yoshi-Go-Round\'s Secret',
+								'Episode 7: Shadow Mario in the Park',
+								'Episode 8: Roller Coaster Balloons',
+								'Secret Shine 1: The Beach Cannon\'s Secret - Red Coin Challenge',
+								'Secret Shine 2: The Yoshi-Go-Round\'s Secret - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'Beach - (x2) Spray the sand near a lone palm tree',
+								'Beach - (x6) In baskets (ep. 2)',
+								'Beach - (x2) Have Yoshi eat the blue butterflies',
+								'Park - (x2) Linked Graffiti X\'s on the tree in the east and on a low wall in the northwest',
+								'Park South - Spray the blue bird 3 times',
+								'Park South - Inside one of the clams in the Clam Cups ride',
+								'Park South - Under the awning of the stairs to the Pirate Ships',
+								'Park East - Graffiti M on the wall with the arch in it',
+								'Park North - Spray the blue bird on the purple gazebo 3 times',
+								'Park North - On a ledge behind the loading area for the roller coaster',
+								'Park North - Defeat the stacked enemy',
+								'Park North - (x2) Linked Graffiti Triangles on the wall of the banana ledge and the high wall of the ferris wheel structure',
+								'Park North - (x2) Linked Graffiti O\'s on the walls at the top of the ferris wheel',
+								'Park North - Graffiti M on the wall behind the ferris wheel',
+								'Park Center - Inside a green cage',
+								'Park Center - On a beam supporting the Pirate Ships',
+								'Park Center - On a platform above a green cage',
+								'Park Center - In mid-air near the grate ramp',
+								'Park West - Graffiti M on the outer park wall past the pool',
+								'Park West - Have Yoshi eat the blue butterfly on the beach area past the pool (ep. 6 or later)'
+							),
+							'rcoins'    => array(
+								'Episode 3' => array(
+									'On top of the stairs at the revolving ship ride.',
+									'(x2) On the ships at the height of the inclines. One is at the stern of one ship, the other is at the bow. You most likely fell into the water below the revolving ship ride, so get out of the water and head up the road along the side of the park. You will arrive at a purple gazebo soon. From the purple gazebo, head across the gap and to the queue area for the roller coaster. You can jump onto a structure of green grating from there.',
+									'On the underside of the green grating structure guarded by two red electro-koopas',
+									'The cage above the carousel. Swap sides to get it, then get back to the roller coaster queue area when you\'re done.',
+									'From coin 4, get back up on the top of the green grating, then U-turn jump and hover to the green grating above. This coin is also upside down on the green grating. Head back to the roller coaster queue area, but stay on the green grating for now.',
+									'On the underside of the top of the green grate ramp',
+									'Back at the roller coaster queue area, walk on the green grating that inclines all the way up and get the last coin. Shine get.'
+								)
+							),
+							'1up'    => array(
+							)
+						),
+						'Sirena Beach' => array(
+							'shines' => array(
+								'Episode 1: The Manta Storm',
+								'Episode 2: The Hotel Lobby\'s Secret',
+								'Episode 3: Mysterious Hotel Delfino',
+								'Episode 4: The Secret of Casino Delfino',
+								'Episode 5: King Boo Down Below',
+								'Episode 6: Scrubbing Sirena Beach',
+								'Episode 7: Shadow Mario Checks In',
+								'Episode 8: Red Coins in the Hotel',
+								'Secret Shine 1: The Hotel Lobby\'s Secret - Red Coin Challenge',
+								'Secret Shine 2: The Secret of Casino Delfino - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'Outside - Under water near wall',
+								'Outside - (x2) Clean off Nokis near pool (ep. 1)',
+								'Outside - Spray back of welcome sign',
+								'Outside - Spray flower bed behind hotel',
+								'Outside - Spray second torch in front of hotel',
+								'Outside - On second-floor balcony behind hotel',
+								'Outside - In mid-air in eastern hut',
+								'Outside - (x2) Clean off Nokis (ep. 6 - two Nokis give blue coins, the other two give 1-Ups)',
+								'Outside - Graffiti M on wall east of hotel (ep. 7)',
+								'Inside - (x2) Linked Graffiti Triangles by bar on first floor and in lobby on second floor',
+								'Inside - (x2) Linked Graffiti X\'s on second and third floor lobbies',
+								'Casino - Ground-pound stools at left-hand slots (ep. 4)',
+								'Casino - Spray fountain on righ-hand side of casino (ep. 4)',
+								'Casino - Graffiti M on wall near entrance (ep. 5)',
+								'Second Floor - Spray top of cabinets in room with Boo panel door',
+								'Second Floor - In room past Boo panel door',
+								'Second Floor - In room past Boo in crate room',
+								'Second Floor - In room under mirror room',
+								'Second Floor - In crate in crate room',
+								'Third Floor - Spray lamp in lobby',
+								'Third Floor - Spray light in ceiling of lobby',
+								'Third Floor - Spray mirror in lady\'s room',
+								'Third Floor - Graffiti M on wall near stairs (ep. 7)',
+								'Attic - At dead-end',
+								'Attic - Defeat lone Boo',
+								'Attic - Graffiti M near middle of maze (ep. 7)'
+							),
+							'rcoins'    => array(
+								'Episode 8' => array(
+									'First Floor - Next to the center totem pole',
+									'First Floor - In the women\'s restroom',
+									'Second Floor - In the room past the Boo Painting room',
+									'Second Floor - In the foyer near the stairs',
+									'Second Floor - In the Storage Room',
+									'Third Floor - In the foyer',
+									'Third Floor - In the spa',
+									'Third Floor - In the room through the poster from the Boo Poster Room'
+								)
+							),
+							'1up'    => array(
+								'Outside - In the middle crate of the three crates near the beach',
+								'Outside - (x2) Clean off Nokis (ep. 6 - two Nokis give blue coins, the other two give 1-Ups)'
+							)
+						),
+						'Noki Bay' => array(
+							'shines' => array(
+								'Episode 1: Uncork the Waterfall',
+								'Episode 2: The Boss of Tricky Ruins',
+								'Episode 3: Red Coins in a Bottle',
+								'Episode 4: Eely-Mouth\'s Dentist',
+								'Episode 5: Il Piantissimo\'s Surf Swim',
+								'Episode 6: The Shell\'s Secret',
+								'Episode 7: Hold It, Shadow Mario!',
+								'Episode 8: The Red Coin Fish',
+								'Secret Shine 1: Spray the gold bird on the northwestern cliff',
+								'Secret Shine 2: The Shell\'s Secret - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'Water - Underwater at the bottom of a trail of gold coins',
+								'Water - (x2) In mid-air (use boat)',
+								'Water - (x4) In the Sunken City on top of four pillars',
+								'Water - (x2) Linked Graffiti O\'s at bottom of cliff wall',
+								'Cliff - Grafitti M on a cliff ledge (on approach to waterfall)',
+								'Cliff - (x2) Spray urns in room holding Shine for episode 2',
+								'Cliff - In mid-air above ledge with red tool box',
+								'Cliff - In niche above red tool box',
+								'Cliff - At top of tall shaft at end of hand-crack',
+								'Cliff - (x2) Spray the cliffs at the end of the hand cracks',
+								'Cliff - In cave across from conche shell',
+								'Cliff - In top-left cave in the 3x3 cave grid',
+								'Cliff - In bottom-right cave in the 3x3 cave grid',
+								'Cliff - In upper cave of a two-cave vertical',
+								'Cliff - In left cave of a two-cave horizontal',
+								'Cliff - In lone cave on ledge',
+								'Cliff - In lone cave above 1-Up',
+								'Cliff - In upper cave of a 3-cave "L"',
+								'Cliff - In niche under ledge across from waterfall',
+								'Cliff - In vertical wall maze in left cliffs',
+								'Cliff - Spray the brown tiles above the tunnel past the first vertical wall maze',
+								'Cliff - Spray wall above the tunnel past the first vertical wall maze',
+								'Cliff - In second niche in second vertical wall maze'
+							),
+							'rcoins'    => array(
+								'Episode 8' => array(
+									'(x8) In a coin-fish swimming around the middle of the Sunken City'
+								)
+							),
+							'1up'    => array(
+							)
+						),
+						'Pianta Village' => array(
+							'shines' => array(
+								'Episode 1: Chain Chomplets Unchained',
+								'Episode 2: Il Piantissimo\'s Crazy Climb',
+								'Episode 3: The Goopy Inferno',
+								'Episode 4: Chain Chomp\'s Bath',
+								'Episode 5: Secret of the Village Underside',
+								'Episode 6: Piantas in Need',
+								'Episode 7: Shadow Mario Runs Wild',
+								'Episode 8: Fluff Festival Coin Hunt',
+								'Secret Shine 1: Rocket to top of center tree & spray sun',
+								'Secret Shine 2: Secret of the Village Underside - Red Coin Challenge',
+								'100 Coins'
+							),
+							'bcoins' => array(
+								'South - On wall behind starting point',
+								'South - Spray wooden sign by starting bridge',
+								'South - Have Yoshi eat bees in beehive near starting bridge',
+								'West - On platform in giant tree at southwest corner',
+								'West - In tall grass',
+								'North - At top of giant tree at northern border',
+								'North - (x2) Linked Graffiti Triangles on wall by hot springs and on rock wall east of hot springs',
+								'North - Ground-pound nose of Pianta statue',
+								'North - Have Yoshi eat bees in beehive near giant tree by hot springs',
+								'East - At the end of the little river',
+								'East - Under bridge in river',
+								'East - Spray burning Pianta (ep. 3)',
+								'Center - Graffiti M on wall of plateau with fruit tree',
+								'Center - Graffiti M on wall of large thatch building',
+								'Center - Spray moon while standing on Golden Mushroom (night episodes only)',
+								'Center - Graffiti M on the ground near Golden Mushroom (ep. 3)',
+								'Center - Graffiti M on the wood platform under Golden Mushroom (ep. 3)',
+								'Center - Have Yoshi eat blue butterfly',
+								'Center - Spray hole in giant center tree (ep. 5 or later)',
+								'Center - (x8) Rescue 10 Piantas, then speak to them all; 8 will give coins',
+								'Center - Spray the blue bird at the top of the center giant tree',
+								'Underside - In grate maze under the village'
+							),
+							'rcoins'    => array(
+								'Episode 8' => array(
+									'On the upper side of the grate maze beneath the village',
+									'In the giant tree in the southeast corner',
+									'In the tall grass by the swing in the southwest corner',
+									'Underwater in the hot springs',
+									'Under the crook of the giant tree by the hot springs',
+									'Under the fruit tree',
+									'In one of the crates in the large collection of crates in the east',
+									'On a cloud platform above the center giant tree'
+								)
+							),
+							'1up'    => array(
+							)
+						),
+						'Corona Mountain' => array(
+							'shines' => array(
+								'Finish the Game (listed under Delfino Plaza on Shine Summary Screen)'
+							),
+							'bcoins' => array(
+								'On the third platform',
+								'(x9) On the surface of the lava'
+							),
+							'rcoins'    => array(
+							),
+							'1up'    => array(
+							)
+						)
+					);
+}
+
+function getUnlocks()
+{
+	return	array('Delfino Plaza'						=> 'Defeat the Piranha Plant in Delfino Airstrip',
+								'Level 1, Bianco Hills'		=> 'Defeat the Piranha Plant in front of the Pianta Statue in Delfino Plaza; chase down Imposter Mario after he kidnaps Peach',
+								'Level 2, Ricco Harbor'		=> 'Collect 3 Shines; defeat the Piranha Plant in Delfino Plaza where the Lighthouse usually is',
+								'Level 3, Gelato Beach'		=> 'Collect 5 Shines; defeat the Piranha Plant in Delfino Plaza where the Blue Coin shop usually is',
+								'Level 4, Pinna Park'			=> 'Collect 10 Shines; visit Plaza Delfino and chase down Imposter Mario after he kidnaps Peach',
+								'Level 5, Sirena Beach'		=> 'Unlock Yoshi and eat the pineapple blocking the Warp Pipe on top of the central building in Delfino plaza',
+								'Level 6, Noki Bay'				=> 'Collect 20 Shines',
+								'Level 7, Pianta Village'	=> 'Unlock the Rocket Nozzle',
+								'Corona Mountain'					=> 'Complete episode 7 in levels 1 through 7',
+								'Yoshi'										=> 'Complete Pinna Park Episode 4; visit Delfino Plaza and chase down Imposter Mario',
+								'Turbo Nozzle'						=> 'Unlock Yoshi and collect 25 Shines; visit Delfino Plaza and chase down Imposter Mario',
+								'Rocket Nozzle'						=> 'Unlock Yoshi and collect 30 Shines; visit Delfino Plaza and chase down Imposter Mario');
+}
+
+function getStats()
+{
+	return	array(
+						array('level' => 'Bianco Hills',			'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Ricco Harbor',			'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Gelato Beach',			'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Pinna Park',				'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Sirena Beach',			'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Noki Bay',					'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Pianta Village',		'shines' => '11',	'bcoins' => '30'),
+						array('level' => 'Delfino Plaza',			'shines' => '<span class="red">*+</span> 41',	'bcoins' => '19'),
+						array('level' => 'Delfino Airstrip',	'shines' => '2',	'bcoins' => '1'),
+						array('level' => 'Corona Mountain',		'shines' => '<span class="red">*</span> 0',		'bcoins' => '10')
+					);
+}
+?>

@@ -1,0 +1,53 @@
+li
+{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.amount, .amountNeg
+{
+	padding-right: 0.5em;
+}
+.amountNeg
+{
+	color: #f00;
+}
+
+.formRow
+{
+	overflow: hidden;
+}
+.formRow > label
+{
+	line-height: 40px;
+}
+.formRow > div
+{
+	float: right;
+}
+.formRow input[type="number"],
+.formRow input[type="date"]
+{
+	display: inline;
+	width: 100px;
+}
+
+.date
+{
+	margin-right: 1em;
+}
+
+.ui-li-aside
+{
+	margin: 0 0 0 0.5em;
+	width: auto;
+}
+.ui-li-static
+{
+	font-size: 16px;
+}
+.ui-content .ui-listview-inset:first-child
+{
+	margin: 0 0 0.5em 0;
+}

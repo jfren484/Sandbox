@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetworkMusicConductor</name>
+    </assembly>
+    <members>
+        <member name="T:Fryz.Apps.NetworkMusic.NetworkMusicConductor.NetworkMusicConductor">
+            <summary>
+            Sends music instructions to multiple NetworkMusicPlayer objects.
+            </summary>
+        </member>
+    </members>
+</doc>

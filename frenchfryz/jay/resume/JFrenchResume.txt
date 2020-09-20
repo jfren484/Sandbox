@@ -1,0 +1,109 @@
+Jay A. French
+8616 40th Ave N
+New Hope, MN  55427
+jay@frenchfryz.com
+
+
+Experience
+  February 2016-Present          Healthland               St. Louis Park, MN
+  Sr. Software Developer
+    Full-stack development, using SQL Server and ASP.NET Web API for the
+      back-end, and AngularJS on the front-end.
+    Used Git, Jira, and Crucible for development processes.
+
+
+  June 2015-January 2016         RxAnte, LLC           Arlington, VA (remote)
+  Sr. Software Developer
+    Started new team from scratch with the goal of rewriting an existing PHP
+      application in ASP.NET MVC.
+    Developed ASP.NET web application and WCF service for retrieving data
+      (both in C#), with SQL Server as the backing database.
+    Used TFS for source control and workflow management.
+    Participated in Scrum meetings daily (for stand-ups) and bi-weekly (for
+      sprint planning).
+
+  May 2012-June 2015           Verify Corporation               Plymouth, MN
+  Sr. Software Engineer
+
+  * Verify Platform - Primary software application sold by Verify Corporation
+      to create and manage serial numbers for customers. Written in C#,
+      ASP.NET, MVC.
+    Created new modules and enhanced existing modules.
+    Multiple UI technologies used, including jQuery, Angular, and Knockout.
+    Back-end technologies used include RabbitMQ for message processing, SQL
+      Server for the primary database, ElasticSearch for reporting data, and
+      Redis for caching.
+    Used principals of Domain-Driven-Design (DDD) in the architecture of the
+      application.
+
+  * Mobile Applications – Apps for iPhone and Android which interfaced with
+      Verify Platform.
+    Maintained and enhanced iPhone app in Objective-C.
+    Maintained and enhanced Android app in written in Java with ADK (Android
+      Developer Kit).
+    Developed new apps for iPhone and Android using Xamarin, a cross-platform
+      mobile development technology that works within the Visual Studio
+      development process.
+
+  * Development Infrastructure
+    Converted CruiseControl build system to TeamCity.
+    Worked to create deployments for applications using Octopus Deploy.
+
+  Apr. 2008-May 2012            ABILITY Network              Minneapolis, MN
+  Sr. Software Engineer
+
+  * ABILITY Central
+    Web application written in ASP.NET MVC 3 with SQL Server as the primary
+      database.
+    Application designed to allow support personnel to configure ABILITY
+      software.
+
+  * Total OnBoarding
+    Created the first version of the product using ASP.NET (non-MVC) with
+      SQL Server, working solo.
+    Switched the database access technology to LINQ-to-SQL and began using
+      LINQ for queries instead of writing many stored procedures.
+    Rewrote the entire application using MVC 2.
+
+  Aug. 2006-Apr. 2008   Wolters Kluwer Financial Services    Minneapolis, MN
+  Sr. Software Engineer
+    C#, Java, SQL Server, Oracle, ASP.NET
+
+  Mar. 2003-Jul. 2006          UnitedHealth Group                  Edina, MN
+  IS Systems Analysis Consultant
+    Worked on application development team, using SQL Server, C#, PHP, Perl,
+      and other technologies.
+
+  Feb. 2001-Dec. 2002             Target                     Minneapolis, MN
+  Contractor
+    ASP, HTML, and Visual Basic.
+
+  July 2000-Feb. 2001             Best Buy                  Eden Prairie, MN
+  Software Engineer
+    ASP, SQL Server, and Visual Basic.
+
+  July 1999-July 2000             Chumbo.com                 Minneapolis, MN
+  Web Developer
+    ASP, SQL Server
+
+  Feb. 1996-July 1999        Solis Design, Inc./                 Hudson, WI/
+                             Macromedia, Inc.               Redwood City, CA
+  Software Engineer
+    ASP, Java, ODBC, SQL Server.
+
+
+Skills
+  C#, ASP.NET, MVC 5, Web API, Bootstrap, JavaScript, jQuery, AJAX, REST,
+  Dependency Injection, AutMapper, Angular, Knockout, SignalR, HighCharts,
+  amCharts, HTML5, CSS3, Java, PHP, IIS, SQL Server, Git, ElasticSearch,
+  RabbitMQ, MySQL, Windows, Linux, TeamCity, Scrum, Kanban.
+
+
+Education
+  Sept. 1991-Dec. 1994       Bob Jones University             Greenville, SC
+    BS, Computer Science, minor in Business Administration.
+    Graduated Cum Laude with 3.563 GPA overall, 3.81 CS GPA.
+    Computer Science Award (given to winner of annual CS contest), 1995.
+    Classes in object-oriented programming with C/C++ and Pascal, database
+      design, compiler creation, language design, data structures, and finite
+      state machine theory, as well as calculus, statistics, and finance.

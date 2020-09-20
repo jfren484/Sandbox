@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<title>Top 10 Boardgames by Year</title>
+		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+	</head>
+	<body>
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+		<script>
+			$(function () {
+				$('#container').highcharts({
+					title: {
+						text: 'Top 10 Board Games - Over the Years',
+						align: 'left'
+					},
+					yAxis: {
+						title: {
+							enabled: false
+						},
+						reversed: true,
+						min: 1,
+						max: 10
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle',
+						borderWidth: 1
+					},
+					series: [
+						{ name: 'Age of Steam', data: [[2008, 9], [2007, 9]] },
+						{ name: 'Agricola', data: [[2016, 7], [2015, 4], [2014, 3], [2013, 2], [2012, 2], [2011, 3], [2010, 1], [2009, 1], [2008, 10]] },
+						{ name: 'Android: Netrunner', data: [[2016, 10], [2015, 7], [2014, 5]] },
+						{ name: 'BattleLore', showInLegend: false, data: [[2007, 6]] },
+						{ name: 'Brass', data: [[2013, 9], [2012, 7], [2011, 9]] },
+						{ name: 'Caverna: The Cave Farmers', data: [[2016, 4], [2015, 6]] },
+						{ name: 'Caylus', data: [[2012, 10], [2011, 10], [2010, 10], [2009, 8], [2008, 5], [2007, 3], [2006, 2]] },
+						{ name: 'Die Macher', data: [[2007, 10], [2006, 7]] },
+						{ name: 'Dominion', data: [[2012, 9], [2011, 8], [2010, 6], [2009, 6]] },
+						{ name: 'Dominion: Intrigue', data: [[2012, 8], [2011, 7]] },
+						{ name: 'Eclipse', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2015, 8], [2014, 6], [2013, 5]] },
+						{ name: 'El Grande', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2010, 9], [2009, 7], [2008, 6], [2007, 5], [2006, 6]] },
+						{ name: 'Game of Thrones, A: A Clash of Kings Expansion', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2006, 9]] },
+						{ name: 'Le Havre', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2014, 10], [2013, 7], [2012, 6], [2011, 6], [2010, 7]] },
+						{ name: 'Mage Knight Board Game', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2016, 9], [2015, 9], [2014, 9], [2013, 8]] },
+						{ name: 'Pandemic Legacy: Season 1', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2016, 1]] },
+						{ name: 'Paths of Glory', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2006, 10]] },
+						{ name: 'Power Grid', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2015, 10], [2014, 8], [2013, 6], [2012, 5], [2011, 5], [2010, 3], [2009, 3], [2008, 2], [2007, 4], [2006, 4]] },
+						{ name: 'Puerto Rico', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, data: [[2016, 6], [2015, 5], [2014, 4], [2013, 4], [2012, 3], [2011, 2], [2010, 2], [2009, 2], [2008, 1], [2007, 1], [2006, 1]] },
+						{ name: 'Race for the Galaxy', marker: { fillColor: '#FFFFFF', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2009, 10]] },
+						{ name: 'Shogun', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2008, 8]] },
+						{ name: 'Terra Mystica', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, data: [[2016, 3], [2015, 2], [2014, 7]] },
+						{ name: 'The Castles of Burgundy', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2016, 8]] },
+						{ name: 'The Princes of Florence', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, data: [[2008, 7], [2007, 7], [2006, 5]] },
+						{ name: 'Through the Ages: A Story of Civilization', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, data: [[2016, 5], [2015, 3], [2014, 2], [2013, 3], [2012, 4], [2011, 4], [2010, 5], [2009, 9]] },
+						{ name: 'Tigris & Euphrates', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, data: [[2010, 8], [2009, 5], [2008, 4], [2007, 2], [2006, 3]] },
+						{ name: 'Twilight Struggle', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, data: [[2016, 2], [2015, 1], [2014, 1], [2013, 1], [2012, 1], [2011, 1], [2010, 4], [2009, 4], [2008, 3], [2007, 8]] },
+						{ name: 'Tzolk\'in: The Mayan Calendar', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2013, 10]] },
+						{ name: 'Wallenstein', marker: { fillColor: '#000000', lineWidth: 2, lineColor: null }, showInLegend: false, data: [[2006, 8]] }
+					]
+				});
+			});
+		</script>
+	</body>
+</html>
