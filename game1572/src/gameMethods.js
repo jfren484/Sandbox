@@ -417,6 +417,16 @@ export function generateMapHexes() {
 }
 
 export function generatePhaseDialog(G) {
+    if (G.phase.index === gameConstants.gamePhases.nativeContact.index && G.eclipsePredictionTurnsRemaining > 0) {
+        G.dialog = {
+            title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
+            content: 'Eclipse Predicted: Choose the values for each die.',
+            text: G.phase.instructions
+        };
+
+        return;
+    }
+
     G.phaseComment = '';
     G.diegoMendozaBonus = 0;
 
@@ -1364,10 +1374,10 @@ export function setFever(G, fevered) {
     }
 }
 
-export function setupDiceTray(diceTray, count, title) {
+export function setupDiceTray(diceTray, count, title, value) {
 	diceTray.mode = gameConstants.diceTrayModes.preroll;
 	diceTray.title = title ?? '';
-	diceTray.dice = Array(count).fill('?').map((d6, i) => { return { id: i, value: d6 }; });
+	diceTray.dice = Array(count).fill(value ?? '?').map((d6, i) => { return { id: i, value: d6 }; });
 	diceTray.extraContent = '';
 }
 

@@ -49,7 +49,8 @@ export const Game1572 = {
             label: '',
             description: ''
         },
-        eclipsePredictionTurnsRemaining: 0,
+        eclipsePredictionTurnsRemaining: 1,
+        enableSelectDiceValues: false,
         fever: false,
         guides: {
             diegoMendoza: false,
@@ -168,7 +169,7 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             },
                             updateDie: (G, ctx, id) => {
-                                const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
+                                const die = G.diceTrayPlanning.dice.find(d6 => d6.id === id);
                                 die.locked = !die.locked;
                             }
                         },
@@ -439,7 +440,12 @@ export const Game1572 = {
                             beginPhase: (G, ctx) => {
                                 G.phase = gameConstants.gamePhases.nativeContact;
                                 gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+
+                                if (G.planningDiceAssigned[5] === 0 || G.eclipsePredictionTurnsRemaining === 0) {
+                                    ctx.events.endStage();
+                                } else {
+                                    ctx.events.setStage('nativeContactEclipseInstructions');
+                                }
                             },
                         },
                         next: 'nativeContactInstructions'
@@ -467,14 +473,21 @@ export const Game1572 = {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
                                 gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
+                            },
+                            updateDie: (G, ctx, id) => {
+                                const die = G.diceTray.dice.find(d6 => d6.id === id);
+                                die.value = die.value % 6 + 1;
+                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'nativeContactMidRoll'
                     },
-                    // TODO: Predict Eclipse
                     nativeContactMidRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
+                                G.enableSelectDiceValues = false;
+                                G.eclipsePredictionTurnsRemaining = Math.max(0, G.eclipsePredictionTurnsRemaining - 1);
+
                                 const result = gameMethods.handlePhaseRoll(G, true);
                                 if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
                                     ctx.events.setStage('nativeContactChooseTrailLocation');
@@ -522,6 +535,42 @@ export const Game1572 = {
                             incrementRoll: (G, ctx) => {
                                 G.diegoMendozaBonus = 1;
                                 G.usedDiegoMendoza = true;
+                                gameMethods.handlePhaseRoll(G, false);
+                            }
+                        },
+                        next: 'preHunting'
+                    },
+                    nativeContactEclipseInstructions: {
+                        moves: {
+                            confirmDialog: (G, ctx) => {
+                                G.dialog = {};
+
+                                const currentHex = G.map.hexes[G.map.currentLocationKey];
+                                const diceCount = currentHex.advancedCiv ? 1 : 2;
+                                gameMethods.setupDiceTray(G.diceTray, diceCount, 'Phase ' + G.phase.index + ': ' + G.phase.label, 0);
+                                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
+                                G.enableSelectDiceValues = true;
+                                ctx.events.endStage();
+                            }
+                        },
+                        next: 'nativeContactEclipse'
+                    },
+                    nativeContactEclipse: {
+                        moves: {
+                            acceptRoll: (G, ctx) => {
+                                G.enableSelectDiceValues = false;
+                                --G.eclipsePredictionTurnsRemaining;
+
+                                const result = gameMethods.handlePhaseRoll(G, true);
+                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
+                                    ctx.events.setStage('nativeContactChooseTrailLocation');
+                                } else {
+                                    ctx.events.endStage();
+                                }
+                            },
+                            updateDie: (G, ctx, id) => {
+                                const die = G.diceTray.dice.find(d6 => d6.id === id);
+                                die.value = die.value % 6 + 1;
                                 gameMethods.handlePhaseRoll(G, false);
                             }
                         },

@@ -40,6 +40,13 @@ export class DiceTray extends React.Component {
             }
         }
 
+        let dice = this.props.dice.map((d6, i) => {
+            const handler = this.props.enableSelectDiceValues
+                ? () => this.props.onDieClick(d6.id)
+                : null;
+            return <Die key={d6.id} value={d6.value} onClick={handler} />;
+        });
+
         let extraContent = [];
         for (let i = 0; i < (this.props.extraContent ?? []).length; ++i) {
             extraContent.push(<DialogContentText key={i} hidden={this.props.mode === gameConstants.diceTrayModes.rolling}>
@@ -56,7 +63,7 @@ export class DiceTray extends React.Component {
                     {this.props.title}
                 </DialogTitle>
                 <DialogContent className="diceTrayContent" style={{ textAlign: 'center' }}>
-                    {this.props.dice.map((d6, i) => <Die key={i} value={d6.value} />)}
+                    {dice}
                     {extraContent}
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>

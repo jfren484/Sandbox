@@ -43,6 +43,10 @@ export class Game1572Board extends React.Component {
         this.props.moves.specialAction();
     };
 
+    onDieClick = id => {
+        this.props.moves.updateDie(id);
+    }
+
     onGameStart = () => {
         this.props.moves.beginGame();
     }
@@ -61,10 +65,6 @@ export class Game1572Board extends React.Component {
 
     onPlanningBreakFever = () => {
         this.props.moves.cureFever();
-    }
-
-    onPlanningDieClick = id => {
-        this.props.moves.updateDie(id);
     }
 
     onPlanningDieDrop = (event, i) => {
@@ -178,6 +178,8 @@ export class Game1572Board extends React.Component {
                         disableExtraButton={this.props.G.counters.muskets.value === 0}
                         enableIncrement={this.props.G.guides.diegoMendoza && !this.props.G.usedDiegoMendoza}
                         enableRerollLow={this.props.G.guides.princessKantyi}
+                        enableSelectDiceValues={this.props.G.enableSelectDiceValues}
+                        onDieClick={this.onDieClick}
                         onRollClick={this.onRollClick}
                         onRerollDiceClick={this.onRerollDiceClick}
                         onRerollDieClick={this.onRerollDieClick}
@@ -197,7 +199,7 @@ export class Game1572Board extends React.Component {
                         cannotBreakFever={this.props.G.map.hexes[this.props.G.map.currentLocationKey].terrainType.cannotBreakFever}
                         startedTurnFevered={this.props.G.startedTurnFevered}
                         onRollClick={this.onPlanningRollClick}
-                        onDieClick={this.onPlanningDieClick}
+                        onDieClick={this.onDieClick}
                         onDieDrop={this.onPlanningDieDrop}
                         onRerollClick={this.onPlanningRerollClick}
                         onSkipRerollClick={this.onPlanningSkipRerollClick}
