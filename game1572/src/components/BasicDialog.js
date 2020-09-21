@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grow from '@material-ui/core/Grow';
+import TextField from '@material-ui/core/TextField';
 import { PaperComponent } from './PaperComponent';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -15,6 +16,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export class BasicDialog extends React.Component {
     render() {
+        const input = this.props.dialogData.input
+            ? <form>
+                <TextField
+                    id={this.props.dialogData.input.id}
+                    label={this.props.dialogData.input.label}
+                    defaultValue={this.props.dialogData.input.defaultValue}
+                    variant="outlined" />
+            </form>
+            : null;
+
         const specialActionButton = this.props.dialogData.specialAction
             ? <Button onClick={() => this.props.onSpecialAction()}>{this.props.dialogData.specialAction}</Button>
             : null;
@@ -31,6 +42,7 @@ export class BasicDialog extends React.Component {
                     <DialogContentText>
                         {this.props.dialogData.text}
                     </DialogContentText>
+                    {input}
                     {this.props.dialogData.content}
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>

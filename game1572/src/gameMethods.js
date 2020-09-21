@@ -137,7 +137,8 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 0,
             y: 0.5,
-            terrainType: gameConstants.terrainTypes.mountains
+            terrainType: gameConstants.terrainTypes.mountains,
+            interestType: gameConstants.interestTypes.pending
         },
         '0,1.5': {
             ...hexTemplate,
@@ -981,8 +982,20 @@ function handleInterestsRoll(G, confirmed, data) {
 
     if (interest.id === gameConstants.interestTypes.naturalWonder.id) {
         if (confirmed) {
+            // Clone the interest so we can set a custom description
+            interest = Object.assign({}, interest);
+
             setMorale(G, G.counters.morale.value + 5);
             result.wonderPending = true;
+            G.dialog = {
+                title: 'Describe Wonder',
+                text: 'Describe this Natural Wonder in detail.',
+                input: {
+                    id: 'description',
+                    label: 'Wonder Description',
+                    defaultValue: ''
+                }
+            };
         }
 
         G.diceTray.extraContent[1] += 'Natural Wonder: Add 5 to you current Morale. Add 2 to your end game Victory Points if you win (for each Natural ' +

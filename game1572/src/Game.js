@@ -49,7 +49,7 @@ export const Game1572 = {
             label: '',
             description: ''
         },
-        eclipsePredictionTurnsRemaining: 1,
+        eclipsePredictionTurnsRemaining: 0,
         enableSelectDiceValues: false,
         fever: false,
         guides: {
@@ -197,8 +197,7 @@ export const Game1572 = {
                                 gameMethods.cureFever(G);
                             },
                             updateDie: (G, ctx, id, i) => {
-                                const die = G.diceTrayPlanning.dice.filter(d6 => d6.id === id)[0];
-                                die.assignedValue = i;
+                                G.diceTrayPlanning.dice.find(d6 => d6.id === id).assignedValue = i;
                             }
                         },
                         next: 'preMovement'
