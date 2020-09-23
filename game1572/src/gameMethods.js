@@ -991,7 +991,7 @@ function handleInterestsRoll(G, confirmed, data) {
                 title: 'Describe Wonder',
                 text: 'Describe this Natural Wonder in detail.',
                 input: {
-                    id: 'description',
+                    name: 'description',
                     label: 'Wonder Description',
                     defaultValue: ''
                 }

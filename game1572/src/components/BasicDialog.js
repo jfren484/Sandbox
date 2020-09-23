@@ -14,12 +14,26 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Grow ref={ref} {...props} />;
 });
 
+const formId = 'basicDialogForm';
+
 export class BasicDialog extends React.Component {
+    onClick = () => {
+        let val;
+
+        if (this.props.dialogData.input) {
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            val = formData.get(this.props.dialogData.input.name);
+        }
+
+        this.props.onComplete(val);
+    }
+
     render() {
         const input = this.props.dialogData.input
-            ? <form>
+            ? <form id={formId}>
                 <TextField
-                    id={this.props.dialogData.input.id}
+                    name={this.props.dialogData.input.name}
                     label={this.props.dialogData.input.label}
                     defaultValue={this.props.dialogData.input.defaultValue}
                     variant="outlined" />
@@ -47,7 +61,7 @@ export class BasicDialog extends React.Component {
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'center' }}>
                     <ButtonGroup color="primary">
-                        <Button onClick={() => this.props.onComplete()}>OK</Button>
+                        <Button onClick={this.onClick}>OK</Button>
                         {specialActionButton}
                     </ButtonGroup>
                 </DialogActions>

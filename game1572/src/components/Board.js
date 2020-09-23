@@ -35,8 +35,8 @@ export class Game1572Board extends React.Component {
         clearInterval(this.timerID);
     }
 
-    onBasicDialogComplete = () => {
-        this.props.moves.confirmDialog();
+    onBasicDialogComplete = inputValue => {
+        this.props.moves.confirmDialog(inputValue);
     };
 
     onBasicDialogSpecialAction = () => {

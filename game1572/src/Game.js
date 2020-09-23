@@ -777,8 +777,10 @@ export const Game1572 = {
                     },
                     interestsDescribeWonder: {
                         moves: {
-                            describeWonder: (G, ctx, description) => {
-                                // TODO: save description
+                            confirmDialog: (G, ctx, description) => {
+                                G.dialog = {};
+                                G.map.hexes[G.map.currentLocationKey].interestType.description = description;
+
                                 ctx.events.endStage();
                             }
                         },
