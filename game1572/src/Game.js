@@ -57,6 +57,8 @@ export const Game1572 = {
             princessKantyi: false
         },
         interestIds: [],
+        journal: [],
+        journalCurrentDay: [],
         map: {
             adjacentTravelCandidates: [],
             availableTrailLocations: [],
@@ -87,6 +89,7 @@ export const Game1572 = {
             next: 'determineExpeditionType',
             moves: {
                 beginGame: (G, ctx) => {
+                    gameMethods.addToJournal(G, 'Game Start');
                     ctx.events.endPhase();
                 }
             }
@@ -106,6 +109,7 @@ export const Game1572 = {
                 },
                 acceptRoll: (G, ctx) => {
                     G.diceTray.dice = [];
+                    gameMethods.addToJournal(G, '');
 
                     ctx.events.endPhase();
                 }

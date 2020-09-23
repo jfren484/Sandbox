@@ -42,6 +42,10 @@ export function addMigration(G) {
     }
 }
 
+export function addToJournal(G, entry) {
+    G.journal.push();
+}
+
 function canAddCataract(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
 
