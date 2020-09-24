@@ -42,8 +42,11 @@ export function addMigration(G) {
     }
 }
 
-export function addToJournal(G, entry) {
-    G.journal.push();
+export function addToJournal(journal, entry) {
+    journal.push({
+        timestamp: new Date(),
+        entry: entry
+    });
 }
 
 function canAddCataract(G) {
@@ -115,6 +118,10 @@ export function cureFever(G) {
         setFever(G, false);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired);
 	}
+}
+
+export function formatPhaseLabel(G) {
+    return 'Phase ' + G.phase.index + ': ' + G.phase.label;
 }
 
 const hexTemplate = {
@@ -424,7 +431,7 @@ export function generateMapHexes() {
 export function generatePhaseDialog(G) {
     if (G.phase.index === gameConstants.gamePhases.nativeContact.index && G.eclipsePredictionTurnsRemaining > 0) {
         G.dialog = {
-            title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
+            title: formatPhaseLabel(G),
             content: 'Eclipse Predicted: Choose the values for each die.',
             text: G.phase.instructions
         };
@@ -553,7 +560,7 @@ export function generatePhaseDialog(G) {
     }
 
     G.dialog = {
-        title: 'Phase ' + G.phase.index + ': ' + G.phase.label,
+        title: formatPhaseLabel(G),
         content: G.phaseComment,
         text: G.phase.instructions,
         specialAction: migrationBonus
@@ -705,77 +712,6 @@ export function getLagosDeOroThirdLocations(G) {
 
 export function getStage(ctx) {
 	return ctx.activePlayers ? ctx.activePlayers[0] : '';
-}
-
-export function handlePhaseRoll(G, confirmed) {
-    const currentHex = G.map.hexes[G.map.currentLocationKey];
-    const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
-    const diceBonus = G.phase.index <= gameConstants.gamePhases.hunting.index ? G.planningDiceAssigned[G.phase.index] - 1 : 0;
-    const botanyBonus = G.phase.index === gameConstants.gamePhases.hunting.index && G.expeditionType.huntingBonus
-        ? G.expeditionType.huntingBonus
-        : 0;
-    const terrainAdj = currentHex.terrainType.diceRollAdjustments[G.phase.index] ?? 0;
-    const friendlyVillages = G.phase.friendlyVillagesHelp ? currentHex.friendlyVillages : 0;
-
-    let data = {
-        currentHex: currentHex,
-        roll: roll,
-        value: roll + diceBonus + botanyBonus + terrainAdj + friendlyVillages + G.musketBonus + G.diegoMendozaBonus
-    };
-
-    const diceRollBonusDesc = diceBonus
-        ? ', +' + diceBonus + ' extra dice'
-        : '';
-    const botanyBonusDesc = botanyBonus
-        ? ', +' + botanyBonus + ' botany bonus'
-        : '';
-    const terrainAdjDesc = terrainAdj
-        ? ', ' + (terrainAdj > 0 ? '+' : '') + terrainAdj + ' terrain ' + (terrainAdj > 0 ? 'bonus' : 'penalty') 
-        : '';
-    const friendlyVillagesDesc = friendlyVillages
-        ? ', +' + friendlyVillages + ' friendly village' + (friendlyVillages > 1 ? 's' : '')
-        : '';
-    const musketBonusDesc = G.musketBonus
-        ? ', +' + G.musketBonus + ' musket bonus'
-        : '';
-    const diegoMendozaBonusDesc = G.diegoMendozaBonus
-        ? ', +1 Diego Mendoza bonus'
-        : '';
-    const sumDesc = diceBonus || botanyBonus || terrainAdj || friendlyVillages || G.musketBonus
-        ? ' = ' + data.value
-        : '';
-
-    G.diceTray.extraContent = [
-        'Roll: ' + data.roll + diceRollBonusDesc + botanyBonusDesc + terrainAdjDesc + friendlyVillagesDesc + musketBonusDesc + diegoMendozaBonusDesc + sumDesc,
-        'Result: '
-    ];
-
-    let result;
-
-    switch (G.phase.index) {
-        case gameConstants.gamePhases.movement.index:
-            result = handleMovementRoll(G, confirmed, data);
-            break;
-        case gameConstants.gamePhases.mapping.index:
-            result = handleMappingRoll(G, confirmed, data);
-            break;
-        case gameConstants.gamePhases.exploring.index:
-            result = handleExploringRoll(G, confirmed, data);
-            break;
-        case gameConstants.gamePhases.nativeContact.index:
-            result = handleNativeContactRoll(G, confirmed, data);
-            break;
-        case gameConstants.gamePhases.hunting.index:
-            result = handleHuntingRoll(G, confirmed, data);
-            break;
-        case gameConstants.gamePhases.interests.index:
-            result = handleInterestsRoll(G, confirmed, data);
-            break;
-        default:
-            break;
-    }
-
-    return result;
 }
 
 function handleExploringRoll(G, confirmed, data) {
@@ -1329,16 +1265,89 @@ function handleNativeContactRoll(G, confirmed, data) {
     return result;
 }
 
-export function phasePlanningFinish(G, ctx) {
-	for (let i = 2; i <= 6; ++i) {
-		G.planningDiceAssigned[i] = 0;
-	}
+export function handlePhaseRoll(G, confirmed) {
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
+    const roll = G.diceTray.dice.reduce((acc, val) => acc + val.value, 0);
+    const diceBonus = G.phase.index <= gameConstants.gamePhases.hunting.index ? G.planningDiceAssigned[G.phase.index] - 1 : 0;
+    const botanyBonus = G.phase.index === gameConstants.gamePhases.hunting.index && G.expeditionType.huntingBonus
+        ? G.expeditionType.huntingBonus
+        : 0;
+    const terrainAdj = currentHex.terrainType.diceRollAdjustments[G.phase.index] ?? 0;
+    const friendlyVillages = G.phase.friendlyVillagesHelp ? currentHex.friendlyVillages : 0;
 
-	for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
-		++G.planningDiceAssigned[G.diceTrayPlanning.dice[i].assignedValue];
-	}
+    let data = {
+        currentHex: currentHex,
+        roll: roll,
+        value: roll + diceBonus + botanyBonus + terrainAdj + friendlyVillages + G.musketBonus + G.diegoMendozaBonus
+    };
 
-	G.diceTrayPlanning.dice = [];
+    const diceRollBonusDesc = diceBonus
+        ? ', +' + diceBonus + ' extra dice'
+        : '';
+    const botanyBonusDesc = botanyBonus
+        ? ', +' + botanyBonus + ' botany bonus'
+        : '';
+    const terrainAdjDesc = terrainAdj
+        ? ', ' + (terrainAdj > 0 ? '+' : '') + terrainAdj + ' terrain ' + (terrainAdj > 0 ? 'bonus' : 'penalty')
+        : '';
+    const friendlyVillagesDesc = friendlyVillages
+        ? ', +' + friendlyVillages + ' friendly village' + (friendlyVillages > 1 ? 's' : '')
+        : '';
+    const musketBonusDesc = G.musketBonus
+        ? ', +' + G.musketBonus + ' musket bonus'
+        : '';
+    const diegoMendozaBonusDesc = G.diegoMendozaBonus
+        ? ', +1 Diego Mendoza bonus'
+        : '';
+    const sumDesc = diceBonus || botanyBonus || terrainAdj || friendlyVillages || G.musketBonus
+        ? ' = ' + data.value
+        : '';
+
+    G.diceTray.extraContent = [
+        'Roll: ' + data.roll + diceRollBonusDesc + botanyBonusDesc + terrainAdjDesc + friendlyVillagesDesc + musketBonusDesc + diegoMendozaBonusDesc + sumDesc,
+        'Result: '
+    ];
+
+    let result;
+
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.movement.index:
+            result = handleMovementRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.mapping.index:
+            result = handleMappingRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.exploring.index:
+            result = handleExploringRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.nativeContact.index:
+            result = handleNativeContactRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.hunting.index:
+            result = handleHuntingRoll(G, confirmed, data);
+            break;
+        case gameConstants.gamePhases.interests.index:
+            result = handleInterestsRoll(G, confirmed, data);
+            break;
+        default:
+            break;
+    }
+
+    return result;
+}
+
+export function handlePlanningRoll(G) {
+    for (let i = 2; i <= 6; ++i) {
+        G.planningDiceAssigned[i] = 0;
+    }
+
+    for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
+        ++G.planningDiceAssigned[G.diceTrayPlanning.dice[i].assignedValue];
+    }
+
+    G.diceTrayPlanning.dice = [];
+
+    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + ', Dice Assigned: ' + JSON.stringify(G.planningDiceAssigned));
 }
 
 export function randomD6() {

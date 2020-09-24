@@ -89,7 +89,7 @@ export const Game1572 = {
             next: 'determineExpeditionType',
             moves: {
                 beginGame: (G, ctx) => {
-                    gameMethods.addToJournal(G, 'Game Start');
+                    gameMethods.addToJournal(G.journal, 'Game Start');
                     ctx.events.endPhase();
                 }
             }
@@ -109,7 +109,7 @@ export const Game1572 = {
                 },
                 acceptRoll: (G, ctx) => {
                     G.diceTray.dice = [];
-                    gameMethods.addToJournal(G, '');
+                    gameMethods.addToJournal(G.journal, 'Expedition Type: ' + G.expeditionType.label);
 
                     ctx.events.endPhase();
                 }
@@ -124,7 +124,11 @@ export const Game1572 = {
                     ctx.events.setStage('prePlanning');
                 },
                 onEnd: (G, ctx) => {
-                    ++G.days;
+                    gameMethods.addToJournal(G.journal, {
+                        gameDay: ++G.days,
+                        journal: G.journalCurrentDay
+                    });
+                    G.journalCurrentDay = [];
                 },
                 stages: {
                     prePlanning: {
@@ -194,7 +198,7 @@ export const Game1572 = {
                                 gameMethods.addConquistadorInPlanning(G);
                             },
                             assignedice: (G, ctx) => {
-                                gameMethods.phasePlanningFinish(G, ctx);
+                                gameMethods.handlePlanningRoll(G);
                                 ctx.events.endStage();
                             },
                             cureFever: (G, ctx) => {
