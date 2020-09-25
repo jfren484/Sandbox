@@ -228,7 +228,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[2] === 0) {
                                     ctx.events.setStage('preMapping');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
                                     ctx.events.endStage();
                                 }
                             }
@@ -252,6 +252,7 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
                                 gameMethods.setMuskets(G, G.counters.muskets.value - 1);
                                 gameMethods.rollDice(G.diceTray);
                                 gameMethods.handlePhaseRoll(G, false);
@@ -304,7 +305,10 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (G.planningDiceAssigned[3] === 0 || G.map.selectableHexes.length === 0) {
+                                if (G.planningDiceAssigned[3] === 0) {
+                                    ctx.events.setStage('preExploring');
+                                } else if (G.map.selectableHexes.length === 0) {
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No unmapped hexes available');
                                     ctx.events.setStage('preExploring');
                                 } else {
                                     ctx.events.endStage();
@@ -318,7 +322,8 @@ export const Game1572 = {
                             chooseHex: (G, ctx, key) => {
                                 G.map.target = key;
                                 G.map.selectableHexes = [];
-                                gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose hex to map: ' + key);
                                 ctx.events.endStage();
                             }
                         },
@@ -366,7 +371,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[4] === 0) {
                                     ctx.events.setStage('preNativeContact');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
                                     ctx.events.endStage();
                                 }
                             }
@@ -397,8 +402,13 @@ export const Game1572 = {
                             },
                             acceptRoll: (G, ctx) => {
                                 const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('exploringChooseTrailLocation');
+                                if (result.trailPending) {
+                                    if (gameMethods.getAvailableTrailLocations(G)) {
+                                        ctx.events.setStage('exploringChooseTrailLocation');
+                                    } else {
+                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
+                                        ctx.events.setStage('preNativeContact');
+                                    }
                                 } else {
                                     ctx.events.setStage('preNativeContact');
                                 }
@@ -415,8 +425,13 @@ export const Game1572 = {
                         moves: {
                             acceptRoll: (G, ctx) => {
                                 const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('exploringChooseTrailLocation');
+                                if (result.trailPending) {
+                                    if (gameMethods.getAvailableTrailLocations(G)) {
+                                        ctx.events.setStage('exploringChooseTrailLocation');
+                                    } else {
+                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
+                                        ctx.events.endStage();
+                                    }
                                 } else {
                                     ctx.events.endStage();
                                 }
@@ -437,6 +452,7 @@ export const Game1572 = {
                                     hexKey: G.map.currentLocationKey,
                                     direction: trailDirection
                                 };
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
                                 ctx.events.endStage();
                             }
                         },
@@ -467,7 +483,7 @@ export const Game1572 = {
                                 } else {
                                     const currentHex = G.map.hexes[G.map.currentLocationKey];
                                     const diceCount = currentHex.advancedCiv ? 1 : 2;
-                                    gameMethods.setupDiceTray(G.diceTray, diceCount, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    gameMethods.setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G));
                                     ctx.events.endStage();
                                 }
                             }
@@ -480,11 +496,6 @@ export const Game1572 = {
                                 gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
                                 gameMethods.handlePhaseRoll(G, false);
                                 ctx.events.endStage();
-                            },
-                            updateDie: (G, ctx, id) => {
-                                const die = G.diceTray.dice.find(d6 => d6.id === id);
-                                die.value = die.value % 6 + 1;
-                                gameMethods.handlePhaseRoll(G, false);
                             }
                         },
                         next: 'nativeContactMidRoll'
@@ -496,8 +507,13 @@ export const Game1572 = {
                                 G.eclipsePredictionTurnsRemaining = Math.max(0, G.eclipsePredictionTurnsRemaining - 1);
 
                                 const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('nativeContactChooseTrailLocation');
+                                if (result.trailPending) {
+                                    if (gameMethods.getAvailableTrailLocations(G)) {
+                                        ctx.events.setStage('nativeContactChooseTrailLocation');
+                                    } else {
+                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
+                                        ctx.events.setStage('preHunting');
+                                    }
                                 } else {
                                     ctx.events.setStage('preHunting');
                                 }
@@ -529,8 +545,13 @@ export const Game1572 = {
                         moves: {
                             acceptRoll: (G, ctx) => {
                                 const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('nativeContactChooseTrailLocation');
+                                if (result.trailPending) {
+                                    if (gameMethods.getAvailableTrailLocations(G)) {
+                                        ctx.events.setStage('nativeContactChooseTrailLocation');
+                                    } else {
+                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
+                                        ctx.events.endStage();
+                                    }
                                 } else {
                                     ctx.events.endStage();
                                 }
@@ -554,7 +575,7 @@ export const Game1572 = {
 
                                 const currentHex = G.map.hexes[G.map.currentLocationKey];
                                 const diceCount = currentHex.advancedCiv ? 1 : 2;
-                                gameMethods.setupDiceTray(G.diceTray, diceCount, 'Phase ' + G.phase.index + ': ' + G.phase.label, 0);
+                                gameMethods.setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G), 0);
                                 G.diceTray.mode = gameConstants.diceTrayModes.postroll;
                                 G.enableSelectDiceValues = true;
                                 ctx.events.endStage();
@@ -591,6 +612,7 @@ export const Game1572 = {
                                     hexKey: G.map.currentLocationKey,
                                     direction: trailDirection
                                 };
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
                                 ctx.events.endStage();
                             }
                         },
@@ -614,7 +636,7 @@ export const Game1572 = {
                                 if (G.planningDiceAssigned[6] === 0) {
                                     ctx.events.setStage('preInterests');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
                                     ctx.events.endStage();
                                 }
                             }
@@ -687,7 +709,7 @@ export const Game1572 = {
                                 if (!G.map.hexes[G.map.currentLocationKey].interestType.isPending) {
                                     ctx.events.setStage('preEatRations');
                                 } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, 'Phase ' + G.phase.index + ': ' + G.phase.label);
+                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
                                     ctx.events.endStage();
                                 }
                             }
@@ -735,6 +757,7 @@ export const Game1572 = {
                                     hexKey: G.map.currentLocationKey,
                                     direction: trailDirection
                                 };
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
                                 ctx.events.endStage();
                             }
                         },
@@ -777,6 +800,7 @@ export const Game1572 = {
                                     G.map.selectableHexes = [];
                                     G.map.lagosDeOroLocations.push(hexKey);
                                     gameMethods.createLagosDeOro(G);
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose locations: ' + JSON.stringify(G.map.lagosDeOroLocations));
                                     ctx.events.endStage();
                                 }
                             }
@@ -788,6 +812,7 @@ export const Game1572 = {
                             confirmDialog: (G, ctx, description) => {
                                 G.dialog = {};
                                 G.map.hexes[G.map.currentLocationKey].interestType.description = description;
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Wonder: ' + description);
 
                                 ctx.events.endStage();
                             }
@@ -809,12 +834,14 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
 
-                                if (!G.map.hexes[G.map.currentLocationKey].migration) {
-                                    if (G.counters.food.value > 0) {
-                                        gameMethods.setFood(G, G.counters.food.value - 1);
-                                    } else {
-                                        gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
-                                    }
+                                if (G.map.hexes[G.map.currentLocationKey].migration) {
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
+                                } else if (G.counters.food.value > 0) {
+                                    gameMethods.setFood(G, G.counters.food.value - 1);
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Food -1 (' + G.counters.food.value + ' remaining)');
+                                } else {
+                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 
                                 ctx.events.endStage();
@@ -826,6 +853,8 @@ export const Game1572 = {
 
                                 gameMethods.setFood(G, 6);
                                 gameMethods.setMuskets(G, G.counters.muskets.value - 1);
+
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Hunted Migration');
 
                                 ctx.events.endStage();
                             }
@@ -850,6 +879,7 @@ export const Game1572 = {
 
                                 if (G.map.adjacentTravelCandidates.length === 0) {
                                     G.travelDirection = gameConstants.hexDirections.none;
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No hexes available as travel destinations');
 
                                     ctx.events.setStage('preMoraleAdjustment');
                                 } else {
@@ -864,6 +894,7 @@ export const Game1572 = {
                             chooseHex: (G, ctx, key) => {
                                 gameMethods.travelTo(G, key);
                                 G.map.adjacentTravelCandidates = [];
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose hex to travel to: ' + key);
                                 ctx.events.endStage();
                             }
                         },
@@ -885,9 +916,11 @@ export const Game1572 = {
                                 G.dialog = {};
 
                                 gameMethods.setMorale(G, G.counters.morale.value + G.travelDirection.moraleAdjustment);
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; ' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
 
                                 if (G.counters.morale.value === 0) {
                                     gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 
                                 ctx.events.endStage();
@@ -910,6 +943,7 @@ export const Game1572 = {
                             confirmDialog: (G, ctx) => {
                                 G.dialog = {};
                                 // TODO: mark days?;
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Increment Days Completed to ' + (G.days + 1));
                                 ctx.events.endStage();
                             }
                         },
@@ -929,7 +963,10 @@ export const Game1572 = {
                         moves: {
                             confirmDialog: (G, ctx, entry) => {
                                 G.dialog = {};
-                                // TODO: record entry
+
+                                if (entry) {
+                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; User comment: ' + entry);
+                                }
 
                                 if (G.expeditionType.placeTrail && G.counters.movementProgress.value >= 3) {
                                     ctx.events.endStage();
@@ -948,6 +985,7 @@ export const Game1572 = {
                                     gameMethods.generatePhaseDialog(G);
                                     ctx.events.endStage();
                                 } else {
+                                    gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
                                     ctx.events.endTurn();
                                 }
                             }
@@ -971,6 +1009,7 @@ export const Game1572 = {
                                     hexKey: G.map.currentLocationKey,
                                     direction: trailDirection
                                 };
+                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
 
                                 ctx.events.endTurn();
                             }

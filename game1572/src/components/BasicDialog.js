@@ -35,6 +35,7 @@ export class BasicDialog extends React.Component {
                 <TextField
                     name={this.props.dialogData.input.name}
                     label={this.props.dialogData.input.label}
+                    required={!!this.props.dialogData.input.required}
                     defaultValue={this.props.dialogData.input.defaultValue}
                     variant="outlined" />
             </form>

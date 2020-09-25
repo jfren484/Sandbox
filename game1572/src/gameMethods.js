@@ -29,6 +29,8 @@ export function addConquistadorInPlanning(G) {
         setConquistadors(G, G.counters.conquistadors.value + 1);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value !== val);
 
+        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; +Conquistador (' + (5 - G.diceTrayPlanning.dice.length) + ' ' + val + 's)');
+
 		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
 	}
 }
@@ -117,6 +119,8 @@ export function cureFever(G) {
     if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
         setFever(G, false);
 		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired);
+
+        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Cured Fever with ' + onesRequired + ' 1s');
 	}
 }
 
@@ -429,12 +433,15 @@ export function generateMapHexes() {
 }
 
 export function generatePhaseDialog(G) {
+    G.dialog = {
+        title: formatPhaseLabel(G),
+        text: G.phase.instructions
+    };
+
     if (G.phase.index === gameConstants.gamePhases.nativeContact.index && G.eclipsePredictionTurnsRemaining > 0) {
-        G.dialog = {
-            title: formatPhaseLabel(G),
-            content: 'Eclipse Predicted: Choose the values for each die.',
-            text: G.phase.instructions
-        };
+        G.dialog.content = 'Eclipse Predicted: Choose the values for each die.';
+
+        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Eclipse');
 
         return;
     }
@@ -444,7 +451,6 @@ export function generatePhaseDialog(G) {
 
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     let skip = false;
-    let migrationBonus = false;
 
     switch (G.phase.index) {
         case gameConstants.gamePhases.mapping.index:
@@ -505,8 +511,8 @@ export function generatePhaseDialog(G) {
             if (currentHex.migration) {
                 G.phaseComment = 'Migration: No Food Consumed';
                 if (G.counters.muskets.value > 0) {
-                    migrationBonus = true;
                     G.phaseComment += '; You may expend 1 musket to fill your Food reserves to 6.';
+                    G.dialog.specialAction = 'Hunt Migration with Musket';
                 }
             } else {
                 if (G.counters.food.value > 0) {
@@ -542,7 +548,13 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.journalEntry.index:
-            G.phaseComment = '<journal entry>';
+            G.phaseComment = 'Daily record: ' + JSON.stringify(G.journalCurrentDay);
+            G.dialog.input = {
+                name: 'journalEntry',
+                label: 'Your summary of the day:',
+                required: false,
+                defaultValue: ''
+            };
             break;
 
         case gameConstants.gamePhases.cartographerTrail.index:
@@ -559,14 +571,7 @@ export function generatePhaseDialog(G) {
         G.phaseComment += '; Choose hex to Map';
     }
 
-    G.dialog = {
-        title: formatPhaseLabel(G),
-        content: G.phaseComment,
-        text: G.phase.instructions,
-        specialAction: migrationBonus
-            ? 'Hunt Migration with Musket'
-            : undefined
-    };
+    G.dialog.content = G.phaseComment;
 }
 
 export function getAdjacentTravelCandidates(G) {
@@ -933,6 +938,7 @@ function handleInterestsRoll(G, confirmed, data) {
                 input: {
                     name: 'description',
                     label: 'Wonder Description',
+                    required: true,
                     defaultValue: ''
                 }
             };
@@ -1331,6 +1337,10 @@ export function handlePhaseRoll(G, confirmed) {
             break;
         default:
             break;
+    }
+
+    if (confirmed) {
+        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; ' +  G.diceTray.extraContent.join("; "));
     }
 
     return result;
