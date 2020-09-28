@@ -1420,7 +1420,7 @@ export function handlePlanningRoll(G) {
 export function incrementRoll(G) {
     G.diegoMendozaBonus = 1;
     G.usedDiegoMendoza = true;
-    gameMethods.handlePhaseRoll(G, false);
+    handlePhaseRoll(G, false);
 }
 
 export function randomD6() {
