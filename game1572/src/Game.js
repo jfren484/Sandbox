@@ -134,9 +134,7 @@ export const Game1572 = {
                     prePlanning: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.planning;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.planning);
                             },
                         },
                         next: 'planningInstructions'
@@ -208,14 +206,20 @@ export const Game1572 = {
                                 G.diceTrayPlanning.dice.find(d6 => d6.id === id).assignedValue = i;
                             }
                         },
+                        next: 'planningEnd'
+                    },
+                    planningEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
+                            }
+                        },
                         next: 'preMovement'
                     },
                     preMovement: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.movement;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.movement);
                             },
                         },
                         next: 'movementInstructions'
@@ -238,9 +242,7 @@ export const Game1572 = {
                     movementRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
                             }
                         },
                         next: 'movementMidRoll'
@@ -252,20 +254,13 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.useMusketToReroll(G, ctx);
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handlePhaseRoll(G, true);
-                                ctx.events.setStage('preMapping');
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'movementPostRoll'
@@ -273,13 +268,18 @@ export const Game1572 = {
                     movementPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handlePhaseRoll(G, true);
-                                ctx.events.endStage();
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
+                            }
+                        },
+                        next: 'movementEnd'
+                    },
+                    movementEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
                             }
                         },
                         next: 'preMapping'
@@ -287,15 +287,10 @@ export const Game1572 = {
                     preMapping: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.mapping;
-                                if (G.planningDiceAssigned[3] > 0) {
-                                    gameMethods.getAdjacentUnmapped(G);
-                                }
-                                gameMethods.generatePhaseDialog(G);
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.mapping);
                                 if (G.phaseComment === '') {
                                     G.phaseComment = 'Choose hex to Map';
                                 }
-                                ctx.events.endStage();
                             },
                         },
                         next: 'mappingInstructions'
@@ -332,9 +327,7 @@ export const Game1572 = {
                     mappingRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx);
                             }
                         },
                         next: 'mappingPostRoll'
@@ -342,13 +335,18 @@ export const Game1572 = {
                     mappingPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handlePhaseRoll(G, true);
-                                ctx.events.endStage();
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
+                            }
+                        },
+                        next: 'mappingEnd'
+                    },
+                    mappingEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
                             }
                         },
                         next: 'preExploring'
@@ -356,9 +354,7 @@ export const Game1572 = {
                     preExploring: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.exploring;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.exploring);
                             }
                         },
                         next: 'exploringInstructions'
@@ -381,9 +377,7 @@ export const Game1572 = {
                     exploringRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
                             }
                         },
                         next: 'exploringMidRoll'
@@ -395,28 +389,13 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.useMusketToReroll(G, ctx);
                             },
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending) {
-                                    if (gameMethods.getAvailableTrailLocations(G)) {
-                                        ctx.events.setStage('exploringChooseTrailLocation');
-                                    } else {
-                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
-                                        ctx.events.setStage('preNativeContact');
-                                    }
-                                } else {
-                                    ctx.events.setStage('preNativeContact');
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'exploringPostRoll'
@@ -424,22 +403,10 @@ export const Game1572 = {
                     exploringPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending) {
-                                    if (gameMethods.getAvailableTrailLocations(G)) {
-                                        ctx.events.setStage('exploringChooseTrailLocation');
-                                    } else {
-                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
-                                        ctx.events.endStage();
-                                    }
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'preNativeContact'
@@ -447,12 +414,14 @@ export const Game1572 = {
                     exploringChooseTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                G.map.availableTrailLocations = [];
-                                G.map.trails[trailKey] = {
-                                    hexKey: G.map.currentLocationKey,
-                                    direction: trailDirection
-                                };
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
+                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
+                            }
+                        },
+                        next: 'exploringEnd'
+                    },
+                    exploringEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
                                 ctx.events.endStage();
                             }
                         },
@@ -461,14 +430,10 @@ export const Game1572 = {
                     preNativeContact: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.nativeContact;
-                                gameMethods.generatePhaseDialog(G);
-
-                                if (G.planningDiceAssigned[5] === 0 || G.eclipsePredictionTurnsRemaining === 0) {
-                                    ctx.events.endStage();
-                                } else {
-                                    ctx.events.setStage('nativeContactEclipseInstructions');
-                                }
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.nativeContact,
+                                    G.planningDiceAssigned[gameConstants.gamePhases.nativeContact.index] > 0 && G.eclipsePredictionTurnsRemaining > 0
+                                    ? 'nativeContactEclipseInstructions'
+                                    : undefined);
                             },
                         },
                         next: 'nativeContactInstructions'
@@ -493,9 +458,7 @@ export const Game1572 = {
                     nativeContactRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
                             }
                         },
                         next: 'nativeContactMidRoll'
@@ -503,36 +466,17 @@ export const Game1572 = {
                     nativeContactMidRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                G.enableSelectDiceValues = false;
-                                G.eclipsePredictionTurnsRemaining = Math.max(0, G.eclipsePredictionTurnsRemaining - 1);
-
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending) {
-                                    if (gameMethods.getAvailableTrailLocations(G)) {
-                                        ctx.events.setStage('nativeContactChooseTrailLocation');
-                                    } else {
-                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
-                                        ctx.events.setStage('preHunting');
-                                    }
-                                } else {
-                                    ctx.events.setStage('preHunting');
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             },
                             rerollDice: (G, ctx) => {
                                 if (G.counters.muskets.value < 1) {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
-                                G.diceTray.dice.forEach(d6 => d6.locked = false);
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.useMusketToReroll(G, ctx);
                             },
                             rerollDie: (G, ctx, index) => {
                                 gameMethods.rollDie(G.diceTray, index);
@@ -544,26 +488,14 @@ export const Game1572 = {
                     nativeContactPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending) {
-                                    if (gameMethods.getAvailableTrailLocations(G)) {
-                                        ctx.events.setStage('nativeContactChooseTrailLocation');
-                                    } else {
-                                        gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
-                                        ctx.events.endStage();
-                                    }
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             rerollDie: (G, ctx, index) => {
                                 gameMethods.rollDie(G.diceTray, index);
                                 gameMethods.handlePhaseRoll(G, false);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'preHunting'
@@ -589,12 +521,7 @@ export const Game1572 = {
                                 G.enableSelectDiceValues = false;
                                 --G.eclipsePredictionTurnsRemaining;
 
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('nativeContactChooseTrailLocation');
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             updateDie: (G, ctx, id) => {
                                 const die = G.diceTray.dice.find(d6 => d6.id === id);
@@ -607,12 +534,14 @@ export const Game1572 = {
                     nativeContactChooseTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                G.map.availableTrailLocations = [];
-                                G.map.trails[trailKey] = {
-                                    hexKey: G.map.currentLocationKey,
-                                    direction: trailDirection
-                                };
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
+                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
+                            }
+                        },
+                        next: 'nativeContactEnd'
+                    },
+                    nativeContactEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
                                 ctx.events.endStage();
                             }
                         },
@@ -621,9 +550,7 @@ export const Game1572 = {
                     preHunting: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.hunting;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.hunting);
                             }
                         },
                         next: 'huntingInstructions'
@@ -646,9 +573,7 @@ export const Game1572 = {
                     huntingRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray, gameConstants.diceTrayModes.rerollAll);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
                             }
                         },
                         next: 'huntingMidRoll'
@@ -660,19 +585,13 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.useMusketToReroll(G, ctx);
                             },
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handlePhaseRoll(G, true);
-                                ctx.events.setStage('preInterests');
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'huntingPostRoll'
@@ -680,13 +599,18 @@ export const Game1572 = {
                     huntingPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                gameMethods.handlePhaseRoll(G, true);
-                                ctx.events.endStage();
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
+                            }
+                        },
+                        next: 'huntingEnd'
+                    },
+                    huntingEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
                             }
                         },
                         next: 'preInterests'
@@ -694,9 +618,7 @@ export const Game1572 = {
                     preInterests: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.interests;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.interests);
                             }
                         },
                         next: 'interestsInstructions'
@@ -719,9 +641,7 @@ export const Game1572 = {
                     interestsRoll: {
                         moves: {
                             rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTray);
-                                gameMethods.handlePhaseRoll(G, false);
-                                ctx.events.endStage();
+                                gameMethods.rollDiceForPhase2to7(G, ctx);
                             }
                         },
                         next: 'interestsPostRoll'
@@ -729,22 +649,10 @@ export const Game1572 = {
                     interestsPostRoll: {
                         moves: {
                             acceptRoll: (G, ctx) => {
-                                const result = gameMethods.handlePhaseRoll(G, true);
-                                if (result.trailPending && gameMethods.getAvailableTrailLocations(G)) {
-                                    ctx.events.setStage('interestsChooseTrailLocation');
-                                } else if (result.lagosDeOroPending) {
-                                    gameMethods.getLagosDeOroFirstLocations(G);
-                                    ctx.events.setStage('interestsChooseLagosDeOro1');
-                                } else if (result.wonderPending) {
-                                    ctx.events.setStage('interestsDescribeWonder');
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.acceptRoll(G, ctx);
                             },
                             incrementRoll: (G, ctx) => {
-                                G.diegoMendozaBonus = 1;
-                                G.usedDiegoMendoza = true;
-                                gameMethods.handlePhaseRoll(G, false);
+                                gameMethods.incrementRoll(G);
                             }
                         },
                         next: 'preEatRations'
@@ -752,13 +660,7 @@ export const Game1572 = {
                     interestsChooseTrailLocation: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                G.map.availableTrailLocations = [];
-                                G.map.trails[trailKey] = {
-                                    hexKey: G.map.currentLocationKey,
-                                    direction: trailDirection
-                                };
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
-                                ctx.events.endStage();
+                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
                             }
                         },
                         next: 'preEatRations'
@@ -817,14 +719,20 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             }
                         },
+                        next: 'interestsEnd'
+                    },
+                    interestsEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
+                            }
+                        },
                         next: 'preEatRations'
                     },
                     preEatRations: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.eatRations;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.eatRations);
                             }
                         },
                         next: 'eatRations'
@@ -859,15 +767,20 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             }
                         },
+                        next: 'eatRationsEnd'
+                    },
+                    eatRationsEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
+                            }
+                        },
                         next: 'preMapTravel'
                     },
                     preMapTravel: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.mapTravel;
-                                gameMethods.getAdjacentTravelCandidates(G);
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.mapTravel);
                             }
                         },
                         next: 'mapTravelInstructions'
@@ -898,14 +811,20 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             }
                         },
+                        next: 'mapTravelEnd'
+                    },
+                    mapTravelEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
+                            }
+                        },
                         next: 'preMoraleAdjustment'
                     },
                     preMoraleAdjustment: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.moraleAdjustment;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.moraleAdjustment);
                             }
                         },
                         next: 'moraleAdjustment'
@@ -926,14 +845,20 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             }
                         },
+                        next: 'moraleAdjustmentEnd'
+                    },
+                    moraleAdjustmentEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
+                            }
+                        },
                         next: 'preTrackDay'
                     },
                     preTrackDay: {
                         moves: {
                             beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.trackDay;
-                                gameMethods.generatePhaseDialog(G);
-                                ctx.events.endStage();
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.trackDay);
                             }
                         },
                         next: 'trackDay'
@@ -947,19 +872,25 @@ export const Game1572 = {
                                 ctx.events.endStage();
                             }
                         },
-                        next: 'preJournal'
+                        next: 'trackDayEnd'
                     },
-                    preJournal: {
+                    trackDayEnd: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                G.phase = gameConstants.gamePhases.journalEntry;
-                                gameMethods.generatePhaseDialog(G);
+                            endPhase: (G, ctx) => {
                                 ctx.events.endStage();
                             }
                         },
-                        next: 'journal'
+                        next: 'preJournalEntry'
                     },
-                    journal: {
+                    preJournalEntry: {
+                        moves: {
+                            beginPhase: (G, ctx) => {
+                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.journalEntry);
+                            }
+                        },
+                        next: 'journalEntry'
+                    },
+                    journalEntry: {
                         moves: {
                             confirmDialog: (G, ctx, entry) => {
                                 G.dialog = {};
@@ -973,6 +904,14 @@ export const Game1572 = {
                                 } else {
                                     ctx.events.endTurn();
                                 }
+                            }
+                        },
+                        next: 'journalEntryEnd'
+                    },
+                    journalEntryEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
+                                ctx.events.endStage();
                             }
                         },
                         next: 'preCartographerTrail'
@@ -1004,13 +943,14 @@ export const Game1572 = {
                     cartographerTrail: {
                         moves: {
                             chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                G.map.availableTrailLocations = [];
-                                G.map.trails[trailKey] = {
-                                    hexKey: G.map.currentLocationKey,
-                                    direction: trailDirection
-                                };
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
-
+                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
+                            }
+                        },
+                        next: 'cartographerTrailEnd'
+                    },
+                    cartographerTrailEnd: {
+                        moves: {
+                            endPhase: (G, ctx) => {
                                 ctx.events.endTurn();
                             }
                         }

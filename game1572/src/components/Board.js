@@ -140,6 +140,12 @@ export class Game1572Board extends React.Component {
                     this.props.moves.beginPhase();
                 }
             }, 1000);
+        } else if (stage.endsWith('End')) {
+            setTimeout(() => {
+                if (gameMethods.getStage(this.props.ctx) === stage) {
+                    this.props.moves.endPhase();
+                }
+            }, 10);
         }
 
         if (this.state.counter > 0) {
@@ -155,6 +161,12 @@ export class Game1572Board extends React.Component {
     render() {
         const animateDiceTray = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTray';
         const animateDiceTrayPlanning = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTrayPlanning';
+
+        const phaseComments = this.props.G.phaseComment
+            ? this.props.G.phaseComment
+                .split("\r\n")
+                .map((x, i) => (<span key={i}>{x}<br /></span>))
+            : [];
 
         return (
             <Container className={'board ' + this.props.ctx.phase + (this.props.G.fever ? ' fevered' : '')}>
@@ -210,7 +222,7 @@ export class Game1572Board extends React.Component {
                     <h2 className="feverLabel feverVisible">FEVER</h2>
                     <Map mapData={this.props.G.map} onHexClick={this.onHexClick} onTrailClick={this.onTrailClick}/>
                     <h2 className="phase">Phase {this.props.G.phase.index}: {this.props.G.phase.label}</h2>
-                    <p className="phaseComment">{this.props.G.phaseComment}</p>
+                    <p className="phaseComment">{phaseComments}</p>
                 </Box>
                 <BasicDialog
                     dialogData={this.props.G.dialog}

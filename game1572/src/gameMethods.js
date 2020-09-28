@@ -2,6 +2,28 @@
 
 import * as gameConstants from './gameConstants';
 
+export function acceptRoll(G, ctx) {
+    const currentPhase = G.phase.key;
+
+    const result = handlePhaseRoll(G, true);
+
+    if (result.trailPending) {
+        if (getAvailableTrailLocations(G)) {
+            ctx.events.setStage(currentPhase + 'ChooseTrailLocation');
+        } else {
+            addToJournal(G.journalCurrentDay, 'No trail locations available');
+            ctx.events.setStage(currentPhase + 'End');
+        }
+    } else if (result.lagosDeOroPending) {
+        getLagosDeOroFirstLocations(G);
+        ctx.events.setStage(currentPhase + 'ChooseLagosDeOro1');
+    } else if (result.wonderPending) {
+        ctx.events.setStage(currentPhase + 'DescribeWonder');
+    } else {
+        ctx.events.setStage(currentPhase + 'End');
+    }
+}
+
 export function addAdvancedCivilization(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     currentHex.advancedCiv = true;
@@ -51,6 +73,17 @@ export function addToJournal(journal, entry) {
     });
 }
 
+export function beginPhase(G, ctx, phase, overrideStage) {
+    G.phase = phase;
+    generatePhaseDialog(G);
+
+    if (overrideStage) {
+        ctx.events.setStage(overrideStage);
+    } else {
+        ctx.events.endStage();
+    }
+}
+
 function canAddCataract(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
 
@@ -67,6 +100,16 @@ function canAddCataract(G) {
     }
 
     return true;
+}
+
+export function chooseTrailLocation(G, ctx, trailKey, trailDirection) {
+    G.map.availableTrailLocations = [];
+    G.map.trails[trailKey] = {
+        hexKey: G.map.currentLocationKey,
+        direction: trailDirection
+    };
+    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
+    ctx.events.endStage();
 }
 
 export function createLagosDeOro(G) {
@@ -454,9 +497,12 @@ export function generatePhaseDialog(G) {
 
     switch (G.phase.index) {
         case gameConstants.gamePhases.mapping.index:
-            if (G.map.selectableHexes.length === 0) {
-                G.phaseComment = 'No unmapped adjacent hexes';
-                skip = true;
+            if (G.planningDiceAssigned[G.phase.index] > 0) {
+                getAdjacentUnmapped(G);
+                if (G.map.selectableHexes.length === 0) {
+                    G.phaseComment = 'No unmapped adjacent hexes';
+                    skip = true;
+                }
             }
             // fall through
 
@@ -529,6 +575,8 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.mapTravel.index:
+            getAdjacentTravelCandidates(G);
+
             if (G.map.adjacentTravelCandidates.length === 0) {
                 G.phaseComment = 'Not enough Movement Progress to Travel';
                 skip = true;
@@ -548,7 +596,7 @@ export function generatePhaseDialog(G) {
             break;
 
         case gameConstants.gamePhases.journalEntry.index:
-            G.phaseComment = 'Daily record: ' + JSON.stringify(G.journalCurrentDay);
+            G.phaseComment = 'Daily record:\r\n' + G.journalCurrentDay.map(e => e.entry).join('\r\n');
             G.dialog.input = {
                 name: 'journalEntry',
                 label: 'Your summary of the day:',
@@ -1025,6 +1073,8 @@ function handleHuntingRoll(G, confirmed, data) {
 	if (confirmed) {
 		G.diceTray.dice = [];
 	}
+
+    return {};
 }
 
 function handleMappingRoll(G, confirmed, data) {
@@ -1093,6 +1143,8 @@ function handleMappingRoll(G, confirmed, data) {
 	if (confirmed) {
 		G.diceTray.dice = [];
 	}
+
+    return {};
 }
 
 function handleMovementRoll(G, confirmed, data) {
@@ -1174,6 +1226,8 @@ function handleMovementRoll(G, confirmed, data) {
     if (confirmed) {
         G.diceTray.dice = [];
     }
+
+    return {};
 }
 
 function handleNativeContactRoll(G, confirmed, data) {
@@ -1357,7 +1411,16 @@ export function handlePlanningRoll(G) {
 
     G.diceTrayPlanning.dice = [];
 
-    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + ', Dice Assigned: ' + JSON.stringify(G.planningDiceAssigned));
+    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + ', Dice Assigned: ' + Object.keys(G.planningDiceAssigned)
+        .filter(i => G.planningDiceAssigned[i] > 0)
+        .map(i => gameConstants.digitWords[G.planningDiceAssigned[i]] + ' "' + i + '"' + (G.planningDiceAssigned[i] > 1 ? 's' : ''))
+        .join(', '));
+}
+
+export function incrementRoll(G) {
+    G.diegoMendozaBonus = 1;
+    G.usedDiegoMendoza = true;
+    gameMethods.handlePhaseRoll(G, false);
 }
 
 export function randomD6() {
@@ -1369,8 +1432,13 @@ export function rollDice(diceTray, mode) {
 	diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
 }
 
+export function rollDiceForPhase2to7(G, ctx, mode) {
+    rollDice(G.diceTray, mode);
+    handlePhaseRoll(G, false);
+    ctx.events.endStage();
+}
+
 export function rollDie(diceTray, index) {
-    diceTray.dice[1 - index].locked = true;
     diceTray.dice[index].value = randomD6();
 }
 
@@ -1434,4 +1502,11 @@ export function travelTo(G, key) {
     }
 
     G.travelDirection = travel.hexDirection;
+}
+
+export function useMusketToReroll(G, ctx) {
+    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
+    setMuskets(G, G.counters.muskets.value - 1);
+
+    rollDiceForPhase2to7(G, ctx);
 }

@@ -17,7 +17,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const formId = 'basicDialogForm';
 
 export class BasicDialog extends React.Component {
-    onClick = () => {
+    onSubmit = event => {
+        event.preventDefault();
+
         let val;
 
         if (this.props.dialogData.input) {
@@ -31,19 +33,25 @@ export class BasicDialog extends React.Component {
 
     render() {
         const input = this.props.dialogData.input
-            ? <form id={formId}>
-                <TextField
-                    name={this.props.dialogData.input.name}
-                    label={this.props.dialogData.input.label}
-                    required={!!this.props.dialogData.input.required}
-                    defaultValue={this.props.dialogData.input.defaultValue}
-                    variant="outlined" />
-            </form>
+            ? <TextField
+                name={this.props.dialogData.input.name}
+                label={this.props.dialogData.input.label}
+                required={!!this.props.dialogData.input.required}
+                defaultValue={this.props.dialogData.input.defaultValue}
+                fullWidth
+                variant="outlined" />
             : null;
 
         const specialActionButton = this.props.dialogData.specialAction
             ? <Button onClick={() => this.props.onSpecialAction()}>{this.props.dialogData.specialAction}</Button>
             : null;
+
+        const contents = this.props.dialogData.content
+            ? this.props.dialogData.content
+                .split("\r\n")
+                .map((x, i) => (<span key={i}>{x}<br /></span>))
+            : [];
+
 
         return (
             <Dialog
@@ -53,19 +61,23 @@ export class BasicDialog extends React.Component {
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                     {this.props.dialogData.title}
                 </DialogTitle>
-                <DialogContent style={{ textAlign: 'center' }}>
-                    <DialogContentText>
-                        {this.props.dialogData.text}
-                    </DialogContentText>
-                    {input}
-                    {this.props.dialogData.content}
-                </DialogContent>
-                <DialogActions style={{ justifyContent: 'center' }}>
-                    <ButtonGroup color="primary">
-                        <Button onClick={this.onClick}>OK</Button>
-                        {specialActionButton}
-                    </ButtonGroup>
-                </DialogActions>
+                <form id={formId} onSubmit={this.onSubmit}>
+                    <DialogContent style={{ textAlign: 'center' }}>
+                        <DialogContentText>
+                            {this.props.dialogData.text}
+                        </DialogContentText>
+                        <DialogContentText style={{ textAlign: 'left' }}>
+                            {contents}
+                        </DialogContentText>
+                        {input}
+                    </DialogContent>
+                    <DialogActions style={{ justifyContent: 'center' }}>
+                        <ButtonGroup color="primary">
+                            <Button type="submit">OK</Button>
+                            {specialActionButton}
+                        </ButtonGroup>
+                    </DialogActions>
+                </form>
             </Dialog>
         );
     }

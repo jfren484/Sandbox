@@ -16,6 +16,8 @@ export const diceTrayTitles = {
     expeditionType: 'Roll to determine Expedition Type'
 };
 
+export const digitWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'];
+
 const expeditionTypeTemplate = {
     allVillagesPeaceful: false,
     deathRemovesFood: false,
@@ -76,68 +78,81 @@ export const expeditionTypes = {
 export const gamePhases = {
     planning: {
         index: 1,
+        key: 'planning',
         label: 'Planning',
         instructions: 'You set your sights downstream and start the day anew. What adventures or tragedies lie ahead, you know not.'
     },
     movement: {
         index: 2,
+        key: 'movement',
         label: 'Movement',
         instructions: 'The only way to get out of this is to keep moving. In this environment sloth is more than a deadly sin, it\'s a deadly consequence.'
     },
     mapping: {
         index: 3,
+        key: 'mapping',
         label: 'Mapping',
         instructions: 'From this vista point you can clearly see the lands below. You take a moment to admire the natural beauty before you get back to your map.'
     },
     exploring: {
         index: 4,
+        key: 'exploring',
         label: 'Exploring',
         instructions: 'There has to be something of use in this wilderness.',
         friendlyVillagesHelp: true
     },
     nativeContact: {
         index: 5,
+        key: 'nativeContact',
         label: 'Native Contact',
         instructions: 'They have been trailing you for miles. You realize that there\'s no way to outdistance them, so you approach to parley.'
     },
     hunting: {
         index: 6,
+        key: 'hunting',
         label: 'Hunting',
         instructions: 'The creatures of this land are exotic and voracious. What really makes them dangerous is that they have no fear of man.',
         friendlyVillagesHelp: true
     },
     interests: {
         index: 7,
+        key: 'interests',
         label: 'Interests',
         instructions: 'You come across strange painted images that appears to hold clues describing the location of something very interesting.'
     },
     eatRations: {
         index: 8,
+        key: 'eatRations',
         label: 'Eat Rations',
         instructions: 'Only one meal a day. You know that with fewer people you\'ll be able to eat better. That thought has become more frequent - and more enticing - over the past few days...'
     },
     mapTravel: {
         index: 9,
+        key: 'mapTravel',
         label: 'Map Travel',
         instructions: 'You catch a glimpse of the Atlantic off in the distance, closer now.'
     },
     moraleAdjustment: {
         index: 10,
+        key: 'moraleAdjustment',
         label: 'Morale Adjustment',
         instructions: 'Only by the grace of God will we survive.'
     },
     trackDay: {
         index: 11,
+        key: 'trackDay',
         label: 'Track Day',
         instructions: 'The Trade Winds will die down at the end of the season and there won\'t be any ships until next year.'
     },
     journalEntry: {
         index: 12,
+        key: 'journalEntry',
         label: 'Journal Entry',
         instructions: 'Before you rest for the night, you record the event of the day in your journal.'
     },
     cartographerTrail: {
         index: 13,
+        key: 'cartographerTrailAction',
         label: 'Cartographer Trail Action',
         instructions: 'As a cartographer, you can often find trails that appear invisible to others.'
     }
@@ -338,7 +353,6 @@ const terrainTypeTemplate = {
     noVillages: false,
     suffix: ''
 };
-
 export const terrainTypes = {
     forest: {
         ...terrainTypeTemplate,
