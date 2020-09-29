@@ -227,14 +227,7 @@ export const Game1572 = {
                     movementInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.planningDiceAssigned[2] === 0) {
-                                    ctx.events.setStage('preMapping');
-                                } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 2);
                             }
                         },
                         next: 'movementRoll'
@@ -298,16 +291,7 @@ export const Game1572 = {
                     mappingInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.planningDiceAssigned[3] === 0) {
-                                    ctx.events.setStage('preExploring');
-                                } else if (G.map.selectableHexes.length === 0) {
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No unmapped hexes available');
-                                    ctx.events.setStage('preExploring');
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'mappingChooseHex'
@@ -362,14 +346,7 @@ export const Game1572 = {
                     exploringInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.planningDiceAssigned[4] === 0) {
-                                    ctx.events.setStage('preNativeContact');
-                                } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 2);
                             }
                         },
                         next: 'exploringRoll'
@@ -441,16 +418,7 @@ export const Game1572 = {
                     nativeContactInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.planningDiceAssigned[5] === 0) {
-                                    ctx.events.setStage('preHunting');
-                                } else {
-                                    const currentHex = G.map.hexes[G.map.currentLocationKey];
-                                    const diceCount = currentHex.advancedCiv ? 1 : 2;
-                                    gameMethods.setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G));
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, G.map.hexes[G.map.currentLocationKey].advancedCiv ? 1 : 2);
                             }
                         },
                         next: 'nativeContactRoll'
@@ -503,14 +471,9 @@ export const Game1572 = {
                     nativeContactEclipseInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                const currentHex = G.map.hexes[G.map.currentLocationKey];
-                                const diceCount = currentHex.advancedCiv ? 1 : 2;
-                                gameMethods.setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G), 0);
-                                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
                                 G.enableSelectDiceValues = true;
-                                ctx.events.endStage();
+                                gameMethods.confirmDialog(G, ctx, G.map.hexes[G.map.currentLocationKey].advancedCiv ? 1 : 2);
+                                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
                             }
                         },
                         next: 'nativeContactEclipse'
@@ -558,14 +521,7 @@ export const Game1572 = {
                     huntingInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.planningDiceAssigned[6] === 0) {
-                                    ctx.events.setStage('preInterests');
-                                } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 2);
                             }
                         },
                         next: 'huntingRoll'
@@ -626,14 +582,7 @@ export const Game1572 = {
                     interestsInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (!G.map.hexes[G.map.currentLocationKey].interestType.isPending) {
-                                    ctx.events.setStage('preEatRations');
-                                } else {
-                                    gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 2);
                             }
                         },
                         next: 'interestsRoll'
@@ -740,8 +689,6 @@ export const Game1572 = {
                     eatRations: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
                                 if (G.map.hexes[G.map.currentLocationKey].migration) {
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
                                 } else if (G.counters.food.value > 0) {
@@ -752,7 +699,7 @@ export const Game1572 = {
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 
-                                ctx.events.endStage();
+                                gameMethods.confirmDialog(G, ctx, 0);
                             },
                             specialAction: (G, ctx) => {
                                 if (!G.map.hexes[G.map.currentLocationKey].migration || G.counters.muskets.value === 0) {
@@ -788,16 +735,7 @@ export const Game1572 = {
                     mapTravelInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
-                                if (G.map.adjacentTravelCandidates.length === 0) {
-                                    G.travelDirection = gameConstants.hexDirections.none;
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No hexes available as travel destinations');
-
-                                    ctx.events.setStage('preMoraleAdjustment');
-                                } else {
-                                    ctx.events.endStage();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'mapTravel'
@@ -832,8 +770,6 @@ export const Game1572 = {
                     moraleAdjustment: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-
                                 gameMethods.setMorale(G, G.counters.morale.value + G.travelDirection.moraleAdjustment);
                                 gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; ' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
 
@@ -842,7 +778,7 @@ export const Game1572 = {
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 
-                                ctx.events.endStage();
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'moraleAdjustmentEnd'
@@ -866,10 +802,9 @@ export const Game1572 = {
                     trackDay: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
                                 // TODO: mark days?;
                                 gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Increment Days Completed to ' + (G.days + 1));
-                                ctx.events.endStage();
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'trackDayEnd'
@@ -893,17 +828,11 @@ export const Game1572 = {
                     journalEntry: {
                         moves: {
                             confirmDialog: (G, ctx, entry) => {
-                                G.dialog = {};
-
                                 if (entry) {
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; User comment: ' + entry);
                                 }
 
-                                if (G.expeditionType.placeTrail && G.counters.movementProgress.value >= 3) {
-                                    ctx.events.endStage();
-                                } else {
-                                    ctx.events.endTurn();
-                                }
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'journalEntryEnd'
@@ -934,8 +863,7 @@ export const Game1572 = {
                     cartographerTrailInstructions: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-                                ctx.events.endStage();
+                                gameMethods.confirmDialog(G, ctx, 0);
                             }
                         },
                         next: 'cartographerTrail'

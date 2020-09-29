@@ -112,6 +112,65 @@ export function chooseTrailLocation(G, ctx, trailKey, trailDirection) {
     ctx.events.endStage();
 }
 
+export function confirmDialog(G, ctx, diceCount) {
+    const currentPhase = G.phase.key;
+
+    G.dialog = {};
+
+    let setStage = false, endTurn = false;
+
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.movement.index:
+        case gameConstants.gamePhases.mapping.index:
+        case gameConstants.gamePhases.exploring.index:
+        case gameConstants.gamePhases.nativeContact.index:
+        case gameConstants.gamePhases.hunting.index:
+            if (G.planningDiceAssigned[G.phase.index] === 0) {
+                setStage = true;
+            } else if (G.phase.index === gameConstants.gamePhases.mapping.index && G.map.selectableHexes.length === 0) {
+                addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; No unmapped hexes available');
+                setStage = true;
+            }
+            break;
+
+        case gameConstants.gamePhases.interests.index:
+            if (!G.map.hexes[G.map.currentLocationKey].interestType.isPending) {
+                setStage = true;
+            }
+            break;
+
+        case gameConstants.gamePhases.mapTravel.index:
+            if (G.map.adjacentTravelCandidates.length === 0) {
+                G.travelDirection = gameConstants.hexDirections.none;
+                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No hexes available as travel destinations');
+
+                setStage = true;
+            }
+            break;
+
+        case gameConstants.gamePhases.journalEntry.index:
+            if (!G.expeditionType.placeTrail || G.counters.movementProgress.value < 3) {
+                endTurn = true;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    if (endTurn) {
+        ctx.events.endTurn();
+    } else if (setStage) {
+        ctx.events.setStage(currentPhase + 'End');
+    } else {
+        if (diceCount > 0) {
+            setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G));
+        }
+
+        ctx.events.endStage();
+    }
+}
+
 export function createLagosDeOro(G) {
     const locations = G.map.lagosDeOroLocations;
     const x = locations
