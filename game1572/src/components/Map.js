@@ -147,6 +147,8 @@ export class Map extends React.Component {
 
         this.generateTrails(crossHexFeatureShapes);
 
+        // TODO: draw expedition path
+
         return (
             <div className="map">
                 <svg width={gameConstants.map.hexDrawWidth * (gameConstants.map.cols - 1) + gameConstants.map.hexWidth + gameConstants.map.hexPad * 2}

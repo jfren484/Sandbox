@@ -30,39 +30,26 @@ export class PlanningDiceTray extends React.Component {
             return null;
         }
 
-        const oneCount = this.props.dice.filter(d6 => d6.value === 1).length;
+        const isPreroll = this.props.mode === gameConstants.diceTrayModes.preroll;
+        const isReroll = this.props.mode === gameConstants.diceTrayModes.rerollPartial;
+        const isPostroll = this.props.mode === gameConstants.diceTrayModes.postroll;
+        const isRerollOrPostroll = isReroll || isPostroll;
 
-        let buttons = [];
-        if (this.props.mode === gameConstants.diceTrayModes.postroll || this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
-            if (this.props.fever) {
-                buttons.push(<Button key="btn-break" onClick={() => this.props.onBreakFever()}
-                    disabled={this.props.cannotBreakFever || oneCount < this.props.feverBreakWildCount}>Break Fever</Button>);
-            }
+        const anyUnlocked = this.props.dice.filter(d6 => !d6.locked).length > 0;
+        const allLockedOrUnlocked = !anyUnlocked || this.props.dice.filter(d6 => d6.locked).length === 0;
+        const breakFeverDisabled = this.props.cannotBreakFever || this.props.dice.filter(d6 => d6.value === 1).length < this.props.feverBreakWildCount;
 
-            const val = this.props.dice.length === 5 ? this.props.dice[2].value : 1;
-            if (val !== 1 && this.props.canAddConquistador && this.props.dice.filter(d6 => d6.value === val).length >= 4) {
-                buttons.push(<Button key="btn-add" onClick={() => this.props.onAddConquistador()}>Add Conquistador</Button>);
-            }
-        }
-        if (this.props.mode === gameConstants.diceTrayModes.preroll) {
-            buttons.push(<Button key="btn-roll" onClick={() => this.props.onRollClick()}>Roll</Button>);
-        } else if (this.props.mode === gameConstants.diceTrayModes.postroll) {
-            buttons.push(<Button key="btn-ok" onClick={() => this.props.onComplete()}>OK</Button>);
-        } else if (this.props.mode === gameConstants.diceTrayModes.rerollPartial) {
-            if (this.props.dice.filter(d6 => !d6.locked).length > 0) {
-                buttons.push(<Button key="btn-reroll" onClick={() => this.props.onRerollClick()}>Reroll</Button>);
-            }
-
-            if (this.props.dice.filter(d6 => !d6.locked).length === 0 || this.props.dice.filter(d6 => d6.locked).length === 0) {
-                buttons.push(<Button key="1" onClick={() => this.props.onSkipRerollClick()}>Don't Reroll Any</Button>);
-            }
-        }
+        const atLeast4OfAKind = Array(6)
+            .fill(0)
+            .map((x, i) => this.props.dice.filter(d6 => d6.value === i + 1).length)
+            .sort()
+            .pop() >= 4;
 
         // TODO: Confirm unassigned wilds?
 
         let diceLeft, diceRight;
 
-        if (this.props.mode === gameConstants.diceTrayModes.postroll) {
+        if (isPostroll) {
             diceLeft = this.props.dice
                 .filter(d6 => !d6.assignedValue)
                 .map(d6 => {
@@ -153,7 +140,18 @@ export class PlanningDiceTray extends React.Component {
                     </DialogContent>
                     <DialogActions style={{ justifyContent: 'center' }}>
                         <ButtonGroup color="primary">
-                            {buttons}
+                            {isPreroll &&
+                                <Button onClick={() => this.props.onRollClick()}>Roll</Button>}
+                            {isRerollOrPostroll && this.props.fever &&
+                                <Button onClick={() => this.props.onBreakFever()} disabled={breakFeverDisabled}>Break Fever</Button>}
+                            {isRerollOrPostroll && this.props.canAddConquistador && atLeast4OfAKind &&
+                                <Button onClick={() => this.props.onAddConquistador()}>Add Conquistador</Button>}
+                            {isReroll && anyUnlocked &&
+                                <Button onClick={() => this.props.onRerollClick()}>Reroll</Button>}
+                            {isReroll && allLockedOrUnlocked &&
+                                <Button onClick={() => this.props.onSkipRerollClick()}>Don't Reroll Any</Button>}
+                            {isPostroll &&
+                                <Button onClick={() => this.props.onComplete()}>OK</Button>}
                         </ButtonGroup>
                     </DialogActions>
                 </Box>
