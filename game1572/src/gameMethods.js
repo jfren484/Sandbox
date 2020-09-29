@@ -142,7 +142,7 @@ export function confirmDialog(G, ctx, diceCount) {
         case gameConstants.gamePhases.mapTravel.index:
             if (G.map.adjacentTravelCandidates.length === 0) {
                 G.travelDirection = gameConstants.hexDirections.none;
-                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No hexes available as travel destinations');
+                addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; No hexes available as travel destinations');
 
                 setStage = true;
             }
@@ -164,7 +164,7 @@ export function confirmDialog(G, ctx, diceCount) {
         ctx.events.setStage(currentPhase + 'End');
     } else {
         if (diceCount > 0) {
-            setupDiceTray(G.diceTray, diceCount, gameMethods.formatPhaseLabel(G));
+            setupDiceTray(G.diceTray, diceCount, formatPhaseLabel(G));
         }
 
         ctx.events.endStage();

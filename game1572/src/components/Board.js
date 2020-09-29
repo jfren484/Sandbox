@@ -187,9 +187,10 @@ export class Game1572Board extends React.Component {
                         dice={animateDiceTray ? this.state.dice : this.props.G.diceTray.dice}
                         title={this.props.G.diceTray.title}
                         extraContent={this.props.G.diceTray.extraContent}
-                        disableExtraButton={this.props.G.counters.muskets.value === 0}
-                        enableIncrement={this.props.G.guides.diegoMendoza && !this.props.G.usedDiegoMendoza}
-                        enableRerollLow={this.props.G.guides.princessKantyi}
+                        musketCount={this.props.G.counters.muskets.value}
+                        diegoMendoza={this.props.G.guides.diegoMendoza}
+                        usedDiegoMendoza={this.props.G.usedDiegoMendoza}
+                        princessKantyi={this.props.G.guides.princessKantyi}
                         enableSelectDiceValues={this.props.G.enableSelectDiceValues}
                         onDieClick={this.onDieClick}
                         onRollClick={this.onRollClick}
