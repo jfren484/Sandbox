@@ -69,6 +69,12 @@
     <Content Include="src\components\patterns\RiverDefs.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\dieRollHandlers\dieRollHandler.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerNativeContact.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerMapping.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerExploring.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerMovement.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerHunting.js" />
     <Content Include="src\gameConstants.js">
       <SubType>Code</SubType>
     </Content>
@@ -92,6 +98,7 @@
     <Folder Include="src" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\patterns\" />
+    <Folder Include="src\dieRollHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

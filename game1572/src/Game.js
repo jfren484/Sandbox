@@ -1,6 +1,12 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
 import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
+import * as dieRollHandler from './dieRollHandlers/dieRollHandler';
+import * as dieRollHandlerExploring from './dieRollHandlers/dieRollHandlerExploring';
+import * as dieRollHandlerHunting from './dieRollHandlers/dieRollHandlerHunting';
+import * as dieRollHandlerMapping from './dieRollHandlers/dieRollHandlerMapping';
+import * as dieRollHandlerMovement from './dieRollHandlers/dieRollHandlerMovement';
+import * as dieRollHandlerNativeContact from './dieRollHandlers/dieRollHandlerNativeContact';
 
 export const Game1572 = {
     setup: () => ({
@@ -76,7 +82,8 @@ export const Game1572 = {
             3: 0,
             4: 0,
             5: 0,
-            6: 0
+            6: 0,
+            7: 0 // included to make handling dice rolls simpler.
         },
         startedTurnFevered: false,
         travelDirection: gameConstants.hexDirections.none,

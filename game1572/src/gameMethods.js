@@ -1567,5 +1567,9 @@ export function useMusketToReroll(G, ctx) {
     addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
     setMuskets(G, G.counters.muskets.value - 1);
 
+    if (this.G.expeditionType.musketBonus) {
+        this.G.musketBonus = this.G.expeditionType.musketBonus;
+    }
+
     rollDiceForPhase2to7(G, ctx);
 }
