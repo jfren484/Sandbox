@@ -1,10 +1,6 @@
 import * as dieRollHandler from './dieRollHandler';
 
-class dieRollHandlerHMovement extends dieRollHandler {
-    constructor(G) {
-        super(G);
-    }
-
+export class dieRollHandlerMovement extends dieRollHandler {
     phaseLogic(confirmed) {
         let result = super.phaseLogic(confirmed);
 		let resultDescriptions = [];
@@ -14,7 +10,7 @@ class dieRollHandlerHMovement extends dieRollHandler {
 			case 1:
 			case 2:
 			case 3:
-				resultDescriptions.push(this.removeConquistador(confirmed));
+				resultDescriptions.push(this.addConquistadors(-1, confirmed));
 				break;
 
 			case 4:

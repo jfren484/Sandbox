@@ -70,6 +70,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\dieRollHandlers\dieRollHandler.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerInterests.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerNativeContact.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerMapping.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerExploring.js" />

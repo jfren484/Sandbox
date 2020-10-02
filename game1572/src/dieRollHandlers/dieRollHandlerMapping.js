@@ -1,7 +1,7 @@
 import * as dieRollHandler from './dieRollHandler';
 import * as gameConstants from '../gameConstants';
 
-class dieRollHandlerHMapping extends dieRollHandler {
+export class dieRollHandlerMapping extends dieRollHandler {
 	constructor(G) {
 		super(G);
 		this.targetHex = G.map.hexes[G.map.target];

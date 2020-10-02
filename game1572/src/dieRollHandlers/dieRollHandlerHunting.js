@@ -1,10 +1,6 @@
 import * as dieRollHandler from './dieRollHandler';
 
-class dieRollHandlerHHunting extends dieRollHandler {
-    constructor(G) {
-        super(G);
-    }
-
+export class dieRollHandlerHunting extends dieRollHandler {
     getBonusForBotany() {
         return this.G.expeditionType.huntingBonus;
     }
@@ -18,7 +14,7 @@ class dieRollHandlerHHunting extends dieRollHandler {
             case 1:
             case 2:
             case 3:
-                resultDescriptions.push(this.removeConquistador(confirmed));
+                resultDescriptions.push(this.addConquistadors(-1, confirmed));
                 break;
 
             case 4:

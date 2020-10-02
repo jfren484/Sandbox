@@ -1,9 +1,17 @@
 import * as gameMethods from '../gameMethods';
 
-class dieRollHandler {
+export class dieRollHandler {
     constructor(G) {
         this.G = G;
         this.currentHex = G.map.hexes[G.map.currentLocationKey];
+    }
+
+    addConquistadors(value, confirmed) {
+        if (value < 0 && this.G.expeditionType.deathRemovesFood) {
+            return this.addFood(value, confirmed);
+        }
+
+        return this.updateCounter(this.G.counters.conquistadors, value, confirmed);
     }
 
     addFood(value, confirmed) {
@@ -30,13 +38,13 @@ class dieRollHandler {
         return '+Trail';
     }
 
-    addVillage(confirmed) {
+    addVillage(confirmed, forceFriendly) {
         if (this.currentHex.terrainType.noVillages) {
             return '(' + this.currentHex.terrainType.name + ': Village results discarded)';
         }
 
         let desc;
-        if (this.G.expeditionType.allVillagesPeaceful) {
+        if (this.G.expeditionType.allVillagesPeaceful || forceFriendly) {
             if (confirmed) {
                 ++this.currentHex.friendlyVillages;
             }
@@ -50,11 +58,7 @@ class dieRollHandler {
             desc = this.addMovementProgress(-1, confirmed);
         }
 
-        return '+Village ' + '(' + desc + ')';
-    }
-
-    minZeroMaxSix(value) {
-        return Math.max(0, Math.min(6, value));
+        return '+Village (' + desc + ')';
     }
 
     formatValueLabel(prefix, value) {
@@ -108,21 +112,17 @@ class dieRollHandler {
         }
 
         return {
-            currentHex: this.currentHex,
             roll: roll,
             totalRoll: totalRoll,
+            currentHex: this.currentHex,
+
             rollDescription: 'Roll: ' + roll + bonusDescriptions.join(', '),
             resultDescription: 'Result: ',
-            trailPending: false
+
+            lagosDeOroPending: false,
+            trailPending: false,
+            wonderPending: false
         };
-    }
-
-    removeConquistador(confirmed) {
-        if (this.G.expeditionType.deathRemovesFood) {
-            return this.addFood(-1, confirmed);
-        }
-
-        return this.updateCounter(this.G.counters.conquistadors, -1, confirmed);
     }
 
     setFeveredAndLowerMorale(confirmed) {
@@ -134,7 +134,7 @@ class dieRollHandler {
 
         if (confirmed && !this.G.fever && !this.G.expeditionType.immuneToFever && !this.currentHex.terrainType.immuneToFever) {
             this.G.fever = true;
-            this.G.counters.morale.value = this.minZeroMaxSix(this.G.counters.morale.value -1);
+            this.addMorale(-1, confirmed);
         }
 
         return result;
@@ -142,7 +142,7 @@ class dieRollHandler {
 
     updateCounter(counter, adjValue, confirmed) {
         if (confirmed) {
-            counter.value = this.minZeroMaxSix(counter.value + adjValue);
+            gameMethods.updateCounter(counter, adjValue);
         }
 
         return this.formatValueLabel(counter.label, adjValue);

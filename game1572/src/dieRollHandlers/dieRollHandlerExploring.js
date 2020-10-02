@@ -1,7 +1,7 @@
 import * as dieRollHandler from './dieRollHandler';
 import * as gameConstants from '../gameConstants';
 
-class dieRollHandlerHExploring extends dieRollHandler {
+export class dieRollHandlerExploring extends dieRollHandler {
 	constructor(G) {
 		super(G);
 	}
@@ -24,7 +24,7 @@ class dieRollHandlerHExploring extends dieRollHandler {
 			case 0:
 			case 1:
 			case 2:
-				resultDescriptions.push(this.removeConquistador(confirmed));
+				resultDescriptions.push(this.addConquistadors(-1, confirmed));
 				break;
 
 			case 3:

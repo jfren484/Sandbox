@@ -1,11 +1,6 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
 import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
-import * as dieRollHandler from './dieRollHandlers/dieRollHandler';
-import * as dieRollHandlerExploring from './dieRollHandlers/dieRollHandlerExploring';
-import * as dieRollHandlerHunting from './dieRollHandlers/dieRollHandlerHunting';
-import * as dieRollHandlerMapping from './dieRollHandlers/dieRollHandlerMapping';
-import * as dieRollHandlerMovement from './dieRollHandlers/dieRollHandlerMovement';
 import * as dieRollHandlerNativeContact from './dieRollHandlers/dieRollHandlerNativeContact';
 
 export const Game1572 = {
@@ -455,7 +450,7 @@ export const Game1572 = {
                             },
                             rerollDie: (G, ctx, index) => {
                                 gameMethods.rollDie(G.diceTray, index);
-                                gameMethods.handlePhaseRoll(G, false);
+                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
                             }
                         },
                         next: 'nativeContactPostRoll'
@@ -467,7 +462,7 @@ export const Game1572 = {
                             },
                             rerollDie: (G, ctx, index) => {
                                 gameMethods.rollDie(G.diceTray, index);
-                                gameMethods.handlePhaseRoll(G, false);
+                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
                             },
                             incrementRoll: (G, ctx) => {
                                 gameMethods.incrementRoll(G);
@@ -496,7 +491,7 @@ export const Game1572 = {
                             updateDie: (G, ctx, id) => {
                                 const die = G.diceTray.dice.find(d6 => d6.id === id);
                                 die.value = die.value % 6 + 1;
-                                gameMethods.handlePhaseRoll(G, false);
+                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
                             }
                         },
                         next: 'preHunting'
@@ -699,10 +694,10 @@ export const Game1572 = {
                                 if (G.map.hexes[G.map.currentLocationKey].migration) {
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
                                 } else if (G.counters.food.value > 0) {
-                                    gameMethods.setFood(G, G.counters.food.value - 1);
+                                    gameMethods.updateCounter(G.counters.food, -1);
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Food -1 (' + G.counters.food.value + ' remaining)');
                                 } else {
-                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                    gameMethods.updateCounter(G.counters.conquistadors, -1);
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 
@@ -713,8 +708,8 @@ export const Game1572 = {
                                     return INVALID_MOVE;
                                 }
 
-                                gameMethods.setFood(G, 6);
-                                gameMethods.setMuskets(G, G.counters.muskets.value - 1);
+                                gameMethods.updateCounter(G.counters.food, 6);
+                                gameMethods.updateCounter(G.counters.muskets, -1);
 
                                 gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Hunted Migration');
 
@@ -777,11 +772,11 @@ export const Game1572 = {
                     moraleAdjustment: {
                         moves: {
                             confirmDialog: (G, ctx) => {
-                                gameMethods.setMorale(G, G.counters.morale.value + G.travelDirection.moraleAdjustment);
+                                gameMethods.updateCounter(G.counters.morale, G.travelDirection.moraleAdjustment);
                                 gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; ' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
 
                                 if (G.counters.morale.value === 0) {
-                                    gameMethods.setConquistadors(G, G.counters.conquistadors.value - 1);
+                                    gameMethods.updateCounter(G.counters.conquistadors, -1);
                                     gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
                                 }
 

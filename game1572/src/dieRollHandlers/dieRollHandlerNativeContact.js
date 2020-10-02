@@ -1,11 +1,6 @@
 import * as dieRollHandler from './dieRollHandler';
-import * as gameConstants from '../gameConstants';
 
-class dieRollHandlerHNativeContact extends dieRollHandler {
-	constructor(G) {
-		super(G);
-    }
-
+export class dieRollHandlerNativeContact extends dieRollHandler {
     addAdvancedCivilization(confirmed) {
         if (confirmed) {
             this.currentHex.advancedCiv = true;
@@ -54,14 +49,7 @@ class dieRollHandlerHNativeContact extends dieRollHandler {
 
             case 10:
                 resultDescriptions.push(this.addFood(1, confirmed));
-
-                if (confirmed && !data.currentHex.terrainType.noVillages) {
-                    ++data.currentHex.friendlyVillages;
-                }
-
-                resultDescriptions.push(data.currentHex.terrainType.noVillages
-                    ? '(Village results discarded)'
-                    : '+Village(Friendly)');
+                resultDescriptions.push(this.addVillage(confirmed, true));
                 break;
 
             case 11:
@@ -73,16 +61,7 @@ class dieRollHandlerHNativeContact extends dieRollHandler {
                     this.addMorale(1, confirmed)
                 ].join(', ');
                 resultDescriptions.push('Cache (' + inner + ')');
-
-                if (confirmed) {
-                    if (confirmed && !data.currentHex.terrainType.noVillages) {
-                        ++data.currentHex.friendlyVillages;
-                    }
-                }
-
-                resultDescriptions.push(data.currentHex.terrainType.noVillages
-                    ? '(Village results discarded)'
-                    : '+Village(Friendly)');
+                resultDescriptions.push(this.addVillage(confirmed, true));
                 break;
 		}
 
