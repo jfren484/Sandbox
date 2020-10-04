@@ -1,7 +1,6 @@
-import { INVALID_MOVE } from 'boardgame.io/core';
 import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
-import * as dieRollHandlerNativeContact from './dieRollHandlers/dieRollHandlerNativeContact';
+import * as gameMoves from './gameMoves';
 
 export const Game1572 = {
     setup: () => ({
@@ -70,7 +69,7 @@ export const Game1572 = {
             trails: {}
         },
         musketBonus: 0,
-        phase: gameConstants.gamePhases.planning,
+        phase: {},
         phaseComment: '',
         planningDiceAssigned: {
             2: 0,
@@ -135,754 +134,449 @@ export const Game1572 = {
                 stages: {
                     prePlanning: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.planning);
-                            },
+                            ...gameMoves.beginPhaseMove,
                         },
                         next: 'planningInstructions'
                     },
                     planningInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                G.dialog = {};
-                                gameMethods.setupDiceTray(G.diceTrayPlanning, 5);
-                                ctx.events.endStage();
-                            },
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'planningRoll'
                     },
                     planningRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTrayPlanning, gameConstants.diceTrayModes.rerollPartial);
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.planningRollMoves
                         },
                         next: 'planningMidRoll'
                     },
                     planningMidRoll: {
                         moves: {
-                            addConquistador: (G, ctx) => {
-                                gameMethods.addConquistadorInPlanning(G);
-                            },
-                            cureFever: (G, ctx) => {
-                                gameMethods.cureFever(G);
-                            },
-                            rerollDice: (G, ctx) => {
-                                gameMethods.rollDice(G.diceTrayPlanning);
-                                ctx.events.endStage();
-                            },
-                            skipReroll: (G, ctx) => {
-                                G.diceTrayPlanning.mode = gameConstants.diceTrayModes.postroll;
-                                ctx.events.endStage();
-                            },
-                            updateDie: (G, ctx, id) => {
-                                const die = G.diceTrayPlanning.dice.find(d6 => d6.id === id);
-                                die.locked = !die.locked;
-                            }
+                            ...gameMoves.addConquistadorMove,
+                            ...gameMoves.cureFeverMove,
+                            ...gameMoves.planningMidRollMoves
                         },
                         next: 'planningPostRoll'
                     },
                     planningPostRoll: {
                         moves: {
-                            startAssignment: (G, ctx) => {
-                                G.diceTrayPlanning.dice.forEach(d6 => d6.assignedValue = d6.value > 1 ? d6.value : null);
-                                ctx.events.endStage();
-                            },
+                            ...gameMoves.planningPostRollMoves
                         },
                         next: 'planningAssignment'
                     },
                     planningAssignment: {
                         moves: {
-                            addConquistador: (G, ctx) => {
-                                gameMethods.addConquistadorInPlanning(G);
-                            },
-                            assignedice: (G, ctx) => {
-                                gameMethods.handlePlanningRoll(G);
-                                ctx.events.endStage();
-                            },
-                            cureFever: (G, ctx) => {
-                                gameMethods.cureFever(G);
-                            },
-                            updateDie: (G, ctx, id, i) => {
-                                G.diceTrayPlanning.dice.find(d6 => d6.id === id).assignedValue = i;
-                            }
+                            ...gameMoves.addConquistadorMove,
+                            ...gameMoves.cureFeverMove,
+                            ...gameMoves.planningAssignmentMoves
                         },
                         next: 'planningEnd'
                     },
                     planningEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preMovement'
                     },
                     preMovement: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.movement);
-                            },
+                            ...gameMoves.beginPhaseMove,
                         },
                         next: 'movementInstructions'
                     },
                     movementInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 2);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'movementRoll'
                     },
                     movementRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'movementMidRoll'
                     },
                     movementMidRoll: {
                         moves: {
-                            rerollDice: (G, ctx) => {
-                                if (G.counters.muskets.value < 1) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.useMusketToReroll(G, ctx);
-                            },
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.rerollDiceMove,
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'movementPostRoll'
                     },
                     movementPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'movementEnd'
                     },
                     movementEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preMapping'
                     },
                     preMapping: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.mapping);
-                                if (G.phaseComment === '') {
-                                    G.phaseComment = 'Choose hex to Map';
-                                }
-                            },
+                            ...gameMoves.beginPhaseMove,
                         },
                         next: 'mappingInstructions'
                     },
                     mappingInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'mappingChooseHex'
                     },
                     mappingChooseHex: {
                         moves: {
-                            chooseHex: (G, ctx, key) => {
-                                G.map.target = key;
-                                G.map.selectableHexes = [];
-                                gameMethods.setupDiceTray(G.diceTray, 2, gameMethods.formatPhaseLabel(G));
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose hex to map: ' + key);
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.mappingChooseHexMoves
                         },
                         next: 'mappingRoll'
                     },
                     mappingRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'mappingPostRoll'
                     },
                     mappingPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'mappingEnd'
                     },
                     mappingEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preExploring'
                     },
                     preExploring: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.exploring);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'exploringInstructions'
                     },
                     exploringInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 2);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'exploringRoll'
                     },
                     exploringRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'exploringMidRoll'
                     },
                     exploringMidRoll: {
                         moves: {
-                            rerollDice: (G, ctx) => {
-                                if (G.counters.muskets.value < 1) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.useMusketToReroll(G, ctx);
-                            },
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.rerollDiceMove,
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'exploringPostRoll'
                     },
                     exploringPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
-                        next: 'preNativeContact'
+                        next: 'exploringEnd'
                     },
                     exploringChooseTrailLocation: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
-                            }
+                            ...gameMoves.chooseTrailLocationMove
                         },
                         next: 'exploringEnd'
                     },
                     exploringEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preNativeContact'
                     },
                     preNativeContact: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.nativeContact,
-                                    G.planningDiceAssigned[gameConstants.gamePhases.nativeContact.index] > 0 && G.eclipsePredictionTurnsRemaining > 0
-                                    ? 'nativeContactEclipseInstructions'
-                                    : undefined);
-                            },
+                            ...gameMoves.beginPhaseMove,
                         },
                         next: 'nativeContactInstructions'
                     },
                     nativeContactInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, G.map.hexes[G.map.currentLocationKey].advancedCiv ? 1 : 2);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'nativeContactRoll'
                     },
                     nativeContactRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'nativeContactMidRoll'
                     },
                     nativeContactMidRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            },
-                            rerollDice: (G, ctx) => {
-                                if (G.counters.muskets.value < 1) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.useMusketToReroll(G, ctx);
-                            },
-                            rerollDie: (G, ctx, index) => {
-                                gameMethods.rollDie(G.diceTray, index);
-                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove,
+                            ...gameMoves.rerollDiceMove,
+                            ...gameMoves.rerollDieMove
                         },
                         next: 'nativeContactPostRoll'
                     },
                     nativeContactPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            rerollDie: (G, ctx, index) => {
-                                gameMethods.rollDie(G.diceTray, index);
-                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove,
+                            ...gameMoves.rerollDieMove
                         },
-                        next: 'preHunting'
+                        next: 'nativeContactEnd'
                     },
                     nativeContactEclipseInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                G.enableSelectDiceValues = true;
-                                gameMethods.confirmDialog(G, ctx, G.map.hexes[G.map.currentLocationKey].advancedCiv ? 1 : 2);
-                                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'nativeContactEclipse'
                     },
                     nativeContactEclipse: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                G.enableSelectDiceValues = false;
-                                --G.eclipsePredictionTurnsRemaining;
-
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            updateDie: (G, ctx, id) => {
-                                const die = G.diceTray.dice.find(d6 => d6.id === id);
-                                die.value = die.value % 6 + 1;
-                                new dieRollHandlerNativeContact(G).handlePhaseRoll(false);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.nativeContactEclipseMoves
                         },
-                        next: 'preHunting'
+                        next: 'nativeContactEnd'
                     },
                     nativeContactChooseTrailLocation: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
-                            }
+                            ...gameMoves.chooseTrailLocationMove
                         },
                         next: 'nativeContactEnd'
                     },
                     nativeContactEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preHunting'
                     },
                     preHunting: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.hunting);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'huntingInstructions'
                     },
                     huntingInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 2);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'huntingRoll'
                     },
                     huntingRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx, gameConstants.diceTrayModes.rerollAll);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'huntingMidRoll'
                     },
                     huntingMidRoll: {
                         moves: {
-                            rerollDice: (G, ctx) => {
-                                if (G.counters.muskets.value < 1) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.useMusketToReroll(G, ctx);
-                            },
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.rerollDiceMove,
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'huntingPostRoll'
                     },
                     huntingPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
                         next: 'huntingEnd'
                     },
                     huntingEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preInterests'
                     },
                     preInterests: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.interests);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'interestsInstructions'
                     },
                     interestsInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 2);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'interestsRoll'
                     },
                     interestsRoll: {
                         moves: {
-                            rollDice: (G, ctx) => {
-                                gameMethods.rollDiceForPhase2to7(G, ctx);
-                            }
+                            ...gameMoves.rollDiceMove
                         },
                         next: 'interestsPostRoll'
                     },
                     interestsPostRoll: {
                         moves: {
-                            acceptRoll: (G, ctx) => {
-                                gameMethods.acceptRoll(G, ctx);
-                            },
-                            incrementRoll: (G, ctx) => {
-                                gameMethods.incrementRoll(G);
-                            }
+                            ...gameMoves.acceptRollMove,
+                            ...gameMoves.incrementRollMove
                         },
-                        next: 'preEatRations'
+                        next: 'interestsEnd'
                     },
                     interestsChooseTrailLocation: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
-                            }
+                            ...gameMoves.chooseTrailLocationMove
                         },
-                        next: 'preEatRations'
+                        next: 'interestsEnd'
                     },
                     interestsChooseLagosDeOro1: {
                         moves: {
-                            chooseHex: (G, ctx, hexKey) => {
-                                G.map.lagosDeOroLocations = [hexKey];
-                                gameMethods.getLagosDeOroSecondLocations(G);
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.lagosDeOroChooseHexMove
                         },
                         next: 'interestsChooseLagosDeOro2'
                     },
                     interestsChooseLagosDeOro2: {
                         moves: {
-                            chooseHex: (G, ctx, hexKey) => {
-                                if (G.map.lagosDeOroLocations.includes(hexKey)) {
-                                    G.map.lagosDeOroLocations = [];
-                                    gameMethods.getLagosDeOroFirstLocations(G);
-                                    ctx.events.setStage('interestsChooseLagosDeOro1');
-                                } else {
-                                    G.map.lagosDeOroLocations.push(hexKey);
-                                    gameMethods.getLagosDeOroThirdLocations(G);
-                                    ctx.events.endStage();
-                                }
-                            }
+                            ...gameMoves.lagosDeOroChooseHexMove
                         },
                         next: 'interestsChooseLagosDeOro3'
                     },
                     interestsChooseLagosDeOro3: {
                         moves: {
-                            chooseHex: (G, ctx, hexKey) => {
-                                if (G.map.lagosDeOroLocations.includes(hexKey)) {
-                                    G.map.lagosDeOroLocations = G.map.lagosDeOroLocations.filter(key => key !== hexKey);
-                                    gameMethods.getLagosDeOroSecondLocations(G);
-                                    ctx.events.setStage('interestsChooseLagosDeOro2');
-                                } else {
-                                    G.map.selectableHexes = [];
-                                    G.map.lagosDeOroLocations.push(hexKey);
-                                    gameMethods.createLagosDeOro(G);
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose locations: ' + JSON.stringify(G.map.lagosDeOroLocations));
-                                    ctx.events.endStage();
-                                }
-                            }
+                            ...gameMoves.lagosDeOroChooseHexMove
                         },
-                        next: 'preEatRations'
+                        next: 'interestsEnd'
                     },
                     interestsDescribeWonder: {
                         moves: {
-                            confirmDialog: (G, ctx, description) => {
-                                G.dialog = {};
-                                G.map.hexes[G.map.currentLocationKey].interestType.description = description;
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Wonder: ' + description);
-
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'interestsEnd'
                     },
                     interestsEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preEatRations'
                     },
                     preEatRations: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.eatRations);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'eatRations'
                     },
                     eatRations: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                if (G.map.hexes[G.map.currentLocationKey].migration) {
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
-                                } else if (G.counters.food.value > 0) {
-                                    gameMethods.updateCounter(G.counters.food, -1);
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Food -1 (' + G.counters.food.value + ' remaining)');
-                                } else {
-                                    gameMethods.updateCounter(G.counters.conquistadors, -1);
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
-                                }
-
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            },
-                            specialAction: (G, ctx) => {
-                                if (!G.map.hexes[G.map.currentLocationKey].migration || G.counters.muskets.value === 0) {
-                                    return INVALID_MOVE;
-                                }
-
-                                gameMethods.updateCounter(G.counters.food, 6);
-                                gameMethods.updateCounter(G.counters.muskets, -1);
-
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Hunted Migration');
-
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.confirmDialogMove,
+                            ...gameMoves.eatRationsSpecialActionMove
                         },
                         next: 'eatRationsEnd'
                     },
                     eatRationsEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preMapTravel'
                     },
                     preMapTravel: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.mapTravel);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'mapTravelInstructions'
                     },
                     mapTravelInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'mapTravel'
                     },
                     mapTravel: {
                         moves: {
-                            chooseHex: (G, ctx, key) => {
-                                gameMethods.travelTo(G, key);
-                                G.map.adjacentTravelCandidates = [];
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Chose hex to travel to: ' + key);
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.mapTravelChooseHexMoves
                         },
                         next: 'mapTravelEnd'
                     },
                     mapTravelEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preMoraleAdjustment'
                     },
                     preMoraleAdjustment: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.moraleAdjustment);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'moraleAdjustment'
                     },
                     moraleAdjustment: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.updateCounter(G.counters.morale, G.travelDirection.moraleAdjustment);
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; ' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
-
-                                if (G.counters.morale.value === 0) {
-                                    gameMethods.updateCounter(G.counters.conquistadors, -1);
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
-                                }
-
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'moraleAdjustmentEnd'
                     },
                     moraleAdjustmentEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preTrackDay'
                     },
                     preTrackDay: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.trackDay);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'trackDay'
                     },
                     trackDay: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                // TODO: mark days?;
-                                gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; Increment Days Completed to ' + (G.days + 1));
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'trackDayEnd'
                     },
                     trackDayEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preJournalEntry'
                     },
                     preJournalEntry: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                gameMethods.beginPhase(G, ctx, gameConstants.gamePhases.journalEntry);
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'journalEntry'
                     },
                     journalEntry: {
                         moves: {
-                            confirmDialog: (G, ctx, entry) => {
-                                if (entry) {
-                                    gameMethods.addToJournal(G.journalCurrentDay, gameMethods.formatPhaseLabel(G) + '; User comment: ' + entry);
-                                }
-
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'journalEntryEnd'
                     },
                     journalEntryEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endStage();
-                            }
+                            ...gameMoves.endPhaseMove
                         },
                         next: 'preCartographerTrail'
                     },
                     preCartographerTrail: {
                         moves: {
-                            beginPhase: (G, ctx) => {
-                                if (gameMethods.getAvailableTrailLocations(G)) {
-                                    G.phase = gameConstants.gamePhases.cartographerTrail;
-                                    gameMethods.generatePhaseDialog(G);
-                                    ctx.events.endStage();
-                                } else {
-                                    gameMethods.addToJournal(G.journalCurrentDay, 'No trail locations available');
-                                    ctx.events.endTurn();
-                                }
-                            }
+                            ...gameMoves.beginPhaseMove
                         },
                         next: 'cartographerTrailInstructions'
                     },
                     cartographerTrailInstructions: {
                         moves: {
-                            confirmDialog: (G, ctx) => {
-                                gameMethods.confirmDialog(G, ctx, 0);
-                            }
+                            ...gameMoves.confirmDialogMove
                         },
                         next: 'cartographerTrail'
                     },
                     cartographerTrail: {
                         moves: {
-                            chooseTrailLocation: (G, ctx, trailKey, trailDirection) => {
-                                gameMethods.chooseTrailLocation(G, ctx, trailKey, trailDirection);
-                            }
+                            ...gameMoves.chooseTrailLocationMove
                         },
                         next: 'cartographerTrailEnd'
                     },
                     cartographerTrailEnd: {
                         moves: {
-                            endPhase: (G, ctx) => {
-                                ctx.events.endTurn();
-                            }
+                            ...gameMoves.endPhaseMove
                         }
                     }
                 }

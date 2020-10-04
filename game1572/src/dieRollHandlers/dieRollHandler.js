@@ -73,7 +73,7 @@ export class dieRollHandler {
         const result = this.phaseLogic(confirmed);
 
         if (confirmed) {
-            gameMethods.addToJournal(this.G.journalCurrentDay, [gameMethods.formatPhaseLabel(this.G), result.rollDescription, result.resultDescription].join("; "));
+            gameMethods.addToJournalCurrentDay(this.G, result.rollDescription + '; ' + result.resultDescription);
             this.G.diceTray.dice = [];
         }
 

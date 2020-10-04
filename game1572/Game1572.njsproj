@@ -70,6 +70,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\dieRollHandlers\dieRollHandler.js" />
+    <Content Include="src\dieRollHandlers\dieRollHandlerFactory.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerInterests.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerNativeContact.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerMapping.js" />
@@ -83,6 +84,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\patterns\TerrainDefs.js" />
+    <Content Include="src\gameMoves.js" />
     <Content Include="src\index.css" />
     <Content Include="src\Game.js">
       <SubType>Code</SubType>

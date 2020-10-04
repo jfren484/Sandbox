@@ -1,11 +1,7 @@
-import * as dieRollHandler from './dieRollHandler';
 import * as gameConstants from '../gameConstants';
+import { dieRollHandler } from './dieRollHandler';
 
 export class dieRollHandlerExploring extends dieRollHandler {
-	constructor(G) {
-		super(G);
-	}
-
 	addInterest(confirmed) {
 		if (confirmed && this.currentHex.interestType.isNone) {
 			this.currentHex.interestType = gameConstants.interestTypes.pending;

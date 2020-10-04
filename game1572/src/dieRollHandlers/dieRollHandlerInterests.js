@@ -1,5 +1,5 @@
-import * as dieRollHandler from './dieRollHandler';
 import * as gameConstants from '../gameConstants';
+import { dieRollHandler } from './dieRollHandler';
 
 const naturalWonderId = gameConstants.interestTypes.naturalWonder.id;
 

@@ -1,4 +1,4 @@
-import * as dieRollHandler from './dieRollHandler';
+import { dieRollHandler } from './dieRollHandler';
 
 export class dieRollHandlerMovement extends dieRollHandler {
     phaseLogic(confirmed) {

@@ -83,7 +83,7 @@ export class Game1572Board extends React.Component {
     }
 
     onPlanningRollComplete = () => {
-        this.props.moves.assignedice();
+        this.props.moves.assignDice();
     };
 
     onPlanningSkipRerollClick = () => {

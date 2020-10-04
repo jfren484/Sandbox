@@ -1,50 +1,8 @@
-/* eslint-disable no-unused-vars */
-
 import * as gameConstants from './gameConstants';
-import { dieRollHandlerExploring } from './dieRollHandlers/dieRollHandlerExploring';
-import { dieRollHandlerHunting } from './dieRollHandlers/dieRollHandlerHunting';
-import { dieRollHandlerInterests } from './dieRollHandlers/dieRollHandlerInterests';
-import { dieRollHandlerMapping } from './dieRollHandlers/dieRollHandlerMapping';
-import { dieRollHandlerMovement } from './dieRollHandlers/dieRollHandlerMovement';
-import { dieRollHandlerNativeContact } from './dieRollHandlers/dieRollHandlerNativeContact';
+import { dieRollHandlerFactory } from './dieRollHandlers/dieRollHandlerFactory';
 
-export function acceptRoll(G, ctx) {
-    const currentPhase = G.phase.key;
-
-    const result = handlePhaseRoll(G, true);
-
-    if (result.trailPending) {
-        if (getAvailableTrailLocations(G)) {
-            ctx.events.setStage(currentPhase + 'ChooseTrailLocation');
-        } else {
-            addToJournal(G.journalCurrentDay, 'No trail locations available');
-            ctx.events.setStage(currentPhase + 'End');
-        }
-    } else if (result.lagosDeOroPending) {
-        getLagosDeOroFirstLocations(G);
-        ctx.events.setStage(currentPhase + 'ChooseLagosDeOro1');
-    } else if (result.wonderPending) {
-        ctx.events.setStage(currentPhase + 'DescribeWonder');
-    } else {
-        ctx.events.setStage(currentPhase + 'End');
-    }
-}
-
-export function addConquistadorInPlanning(G) {
-	if (G.diceTrayPlanning.dice.count < 4) {
-		return;
-	}
-
-	const required = 4;
-	const val = G.diceTrayPlanning.dice[2].value;
-    if (val !== 1 && G.diceTrayPlanning.dice.filter(d6 => d6.value === val).length >= required) {
-        updateCounter(G.counters.conquistadors, 1);
-		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.filter(d6 => d6.value !== val);
-
-        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; +Conquistador (' + (5 - G.diceTrayPlanning.dice.length) + ' ' + val + 's)');
-
-		// TODO: this will use all 5 dice if there is a 5-of-a-kind. the user should be able to choose whether to use all 5 or just 4 in this scenario.
-	}
+export function addToJournalCurrentDay(G, entry) {
+    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; ' + entry);
 }
 
 export function addToJournal(journal, entry) {
@@ -54,34 +12,66 @@ export function addToJournal(journal, entry) {
     });
 }
 
-export function beginPhase(G, ctx, phase, overrideStage) {
-    G.phase = phase;
-    generatePhaseDialog(G);
+export function beginPhase(G, ctx) {
+    G.phase = G.phase && G.phase.nextPhase
+        ? G.phase.nextPhase
+        : gameConstants.gamePhases.planning;
 
-    if (overrideStage) {
-        ctx.events.setStage(overrideStage);
+    let endTurn = false;
+    if (G.phase.index === gameConstants.gamePhases.cartographerTrail.index) {
+        endTurn = true;
+
+        if (G.expeditionType.placeTrail && G.counters.movementProgress.value >= 3) {
+            if (getAvailableTrailLocations(G)) {
+                endTurn = false;
+            } else {
+                addToJournalCurrentDay(G, 'No trail locations available');
+            }
+        }
+    }
+
+    if (!endTurn) {
+        generatePhaseDialog(G);
+    }
+
+    const nativeContactIndex = gameConstants.gamePhases.nativeContact.index;
+    if (G.phase.index === nativeContactIndex && G.planningDiceAssigned[nativeContactIndex] > 0 && G.eclipsePredictionTurnsRemaining > 0) {
+        ctx.events.setStage('nativeContactEclipseInstructions');
+    } else if (endTurn) {
+        ctx.events.endTurn();
     } else {
         ctx.events.endStage();
     }
 }
 
-export function chooseTrailLocation(G, ctx, trailKey, trailDirection) {
-    G.map.availableTrailLocations = [];
-    G.map.trails[trailKey] = {
-        hexKey: G.map.currentLocationKey,
-        direction: trailDirection
-    };
-    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Chose trail location: ' + trailKey);
-    ctx.events.endStage();
-}
-
-export function confirmDialog(G, ctx, diceCount) {
+export function confirmDialog(G, ctx, data) {
     const currentPhase = G.phase.key;
+    const currentHex = G.map.hexes[G.map.currentLocationKey];
 
     G.dialog = {};
 
-    let setStage = false, endTurn = false;
+    let diceCount = 0;
+    switch (G.phase.index) {
+        case gameConstants.gamePhases.planning.index:
+            diceCount = 5;
+            break;
 
+        case gameConstants.gamePhases.movement.index:
+        case gameConstants.gamePhases.exploring.index:
+        case gameConstants.gamePhases.hunting.index:
+        case gameConstants.gamePhases.interests.index:
+            diceCount = 2;
+            break;
+
+        case gameConstants.gamePhases.nativeContact.index:
+            diceCount = currentHex.advancedCiv ? 1 : 2;
+            break;
+
+        default:
+            break;
+    }
+
+    let endGamePhase = false;
     switch (G.phase.index) {
         case gameConstants.gamePhases.movement.index:
         case gameConstants.gamePhases.mapping.index:
@@ -89,45 +79,81 @@ export function confirmDialog(G, ctx, diceCount) {
         case gameConstants.gamePhases.nativeContact.index:
         case gameConstants.gamePhases.hunting.index:
             if (G.planningDiceAssigned[G.phase.index] === 0) {
-                setStage = true;
+                endGamePhase = true;
             } else if (G.phase.index === gameConstants.gamePhases.mapping.index && G.map.selectableHexes.length === 0) {
-                addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; No unmapped hexes available');
-                setStage = true;
+                addToJournalCurrentDay(G, 'No unmapped hexes available');
+                endGamePhase = true;
             }
             break;
 
         case gameConstants.gamePhases.interests.index:
-            if (!G.map.hexes[G.map.currentLocationKey].interestType.isPending) {
-                setStage = true;
+            if (getStage(ctx) === 'interestsDescribeWonder') {
+                G.map.hexes[G.map.currentLocationKey].interestType.description = data;
+                addToJournalCurrentDay(G, 'Wonder: ' + data);
+            } else if (!currentHex.interestType.isPending) {
+                endGamePhase = true;
+            }
+            break;
+
+        case gameConstants.gamePhases.eatRations.index:
+            if (G.map.hexes[G.map.currentLocationKey].migration) {
+                addToJournalCurrentDay(G, 'Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
+            } else if (G.counters.food.value > 0) {
+                updateCounter(G.counters.food, -1);
+                addToJournalCurrentDay(G, 'Food -1 (' + G.counters.food.value + ' remaining)');
+            } else {
+                updateCounter(G.counters.conquistadors, -1);
+                addToJournalCurrentDay(G, 'No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
             }
             break;
 
         case gameConstants.gamePhases.mapTravel.index:
             if (G.map.adjacentTravelCandidates.length === 0) {
                 G.travelDirection = gameConstants.hexDirections.none;
-                addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; No hexes available as travel destinations');
+                addToJournalCurrentDay(G, 'No hexes available as travel destinations');
 
-                setStage = true;
+                endGamePhase = true;
             }
             break;
 
-        case gameConstants.gamePhases.journalEntry.index:
-            if (!G.expeditionType.placeTrail || G.counters.movementProgress.value < 3) {
-                endTurn = true;
+        case gameConstants.gamePhases.moraleAdjustment.index:
+            updateCounter(G.counters.morale, G.travelDirection.moraleAdjustment);
+            addToJournalCurrentDay(G, '' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
+
+            if (G.counters.morale.value === 0) {
+                updateCounter(G.counters.conquistadors, -1);
+                addToJournalCurrentDay(G, 'No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
             }
+            break;
+
+        case gameConstants.gamePhases.trackDay.index:
+            // TODO: mark days?;
+            addToJournalCurrentDay(G, 'Increment Days Completed to ' + (G.days + 1));
+            break;
+
+        case gameConstants.gamePhases.journalEntry.index:
+            if (data) {
+                addToJournalCurrentDay(G, 'User comment: ' + data);
+            }
+            break;
+
+        case gameConstants.gamePhases.cartographerTrail.index:
             break;
 
         default:
             break;
     }
 
-    if (endTurn) {
-        ctx.events.endTurn();
-    } else if (setStage) {
-        ctx.events.setStage(currentPhase + 'End');
+    if (endGamePhase) {
+        ctx.events.endGamePhase(currentPhase + 'End');
     } else {
         if (diceCount > 0) {
             setupDiceTray(G.diceTray, diceCount, formatPhaseLabel(G));
+
+            if (getStage(ctx) === 'nativeContactEclipseInstructions') {
+                G.enableSelectDiceValues = true;
+                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
+            }
         }
 
         ctx.events.endStage();
@@ -179,16 +205,6 @@ export function createLagosDeOro(G) {
     G.map.lagosDeOroLocations = [];
 }
 
-export function cureFever(G) {
-	const onesRequired = 3 + G.expeditionType.wildAdjust;
-    if (G.diceTrayPlanning.dice.filter(d6 => d6.value === 1).length >= onesRequired) {
-        G.fever = false;
-		G.diceTrayPlanning.dice = G.diceTrayPlanning.dice.slice(onesRequired);
-
-        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Cured Fever with ' + onesRequired + ' 1s');
-	}
-}
-
 export function formatPhaseLabel(G) {
     return 'Phase ' + G.phase.index + ': ' + G.phase.label;
 }
@@ -217,8 +233,7 @@ export function generateMapHexes() {
             ...hexTemplate,
             x: 0,
             y: 0.5,
-            terrainType: gameConstants.terrainTypes.mountains,
-            interestType: gameConstants.interestTypes.pending
+            terrainType: gameConstants.terrainTypes.mountains
         },
         '0,1.5': {
             ...hexTemplate,
@@ -506,7 +521,7 @@ export function generatePhaseDialog(G) {
     if (G.phase.index === gameConstants.gamePhases.nativeContact.index && G.eclipsePredictionTurnsRemaining > 0) {
         G.dialog.content = 'Eclipse Predicted: Choose the values for each die.';
 
-        addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; Eclipse');
+        addToJournalCurrentDay(G, 'Eclipse');
 
         return;
     }
@@ -725,6 +740,28 @@ export function getAvailableTrailLocations(G) {
     return G.map.availableTrailLocations.length > 0;
 }
 
+export function getLagosDeOroLocations(G) {
+    switch (G.map.lagosDeOroLocations.length) {
+        case 0:
+            getLagosDeOroFirstLocations(G);
+            break;
+
+        case 1:
+            getAdjacentUnmapped(G, G.map.lagosDeOroLocations[0]);
+            break;
+
+        case 2:
+            getLagosDeOroThirdLocations(G);
+            break;
+
+        default:
+            G.map.selectableHexes = [];
+            createLagosDeOro(G);
+            addToJournalCurrentDay(G, 'Chose locations: ' + JSON.stringify(G.map.lagosDeOroLocations));
+            break;
+    }
+}
+
 export function getLagosDeOroFirstLocations(G) {
     const currentHex = G.map.hexes[G.map.currentLocationKey];
     const middle = {
@@ -751,10 +788,6 @@ export function getLagosDeOroFirstLocations(G) {
         })
         .filter(hexDist => hexDist.distance === minDist)
         .map(hexDist => hexDist.hexKey);
-}
-
-export function getLagosDeOroSecondLocations(G) {
-    getAdjacentUnmapped(G, G.map.lagosDeOroLocations[0]);
 }
 
 export function getLagosDeOroThirdLocations(G) {
@@ -790,59 +823,16 @@ export function getStage(ctx) {
 }
 
 export function handlePhaseRoll(G, confirmed) {
-    let handler;
+    const handler = dieRollHandlerFactory.createDieRollHandler(G);
 
-    switch (G.phase.index) {
-        case gameConstants.gamePhases.movement.index:
-            handler = new dieRollHandlerMovement(G);
-            break;
-        case gameConstants.gamePhases.mapping.index:
-            handler = new dieRollHandlerMapping(G);
-            break;
-        case gameConstants.gamePhases.exploring.index:
-            handler = new dieRollHandlerExploring(G);
-            break;
-        case gameConstants.gamePhases.nativeContact.index:
-            handler = new dieRollHandlerNativeContact(G);
-            break;
-        case gameConstants.gamePhases.hunting.index:
-            handler = new dieRollHandlerHunting(G);
-            break;
-        case gameConstants.gamePhases.interests.index:
-            handler = new dieRollHandlerInterests(G);
-            break;
-        default:
-            break;
-    }
+    const result = handler.handlePhaseRoll(confirmed);
 
-    return handler.handlePhaseRoll(confirmed);
-}
+    G.diceTray.extraContent = [
+        result.rollDescription,
+        result.resultDescription
+    ];
 
-export function handlePlanningRoll(G) {
-    for (let i = 2; i <= 6; ++i) {
-        G.planningDiceAssigned[i] = 0;
-    }
-
-    for (let i = 0; i < G.diceTrayPlanning.dice.length; ++i) {
-        ++G.planningDiceAssigned[G.diceTrayPlanning.dice[i].assignedValue];
-    }
-
-    G.diceTrayPlanning.dice = [];
-
-    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + ', Dice Assigned: ' + Object.keys(G.planningDiceAssigned)
-        .filter(i => G.planningDiceAssigned[i] > 0)
-        .map(i => gameConstants.digitWords[G.planningDiceAssigned[i]] + ' "' + i + '"' + (G.planningDiceAssigned[i] > 1 ? 's' : ''))
-        .join(', '));
-}
-
-export function incrementRoll(G) {
-    G.diegoMendozaBonus = 1;
-    G.usedDiegoMendoza = true;
-    handlePhaseRoll(G, false);
-}
-
-export function minZeroMaxSix(value) {
-    return Math.max(0, Math.min(6, value));
+    return result;
 }
 
 export function randomD6() {
@@ -854,14 +844,10 @@ export function rollDice(diceTray, mode) {
 	diceTray.mode = mode ?? gameConstants.diceTrayModes.postroll;
 }
 
-export function rollDiceForPhase2to7(G, ctx, mode) {
-    rollDice(G.diceTray, mode);
+export function rollDiceForPhase2to7(G, ctx) {
+    rollDice(G.diceTray, G.phase.canReroll ? gameConstants.diceTrayModes.rerollAll : gameConstants.diceTrayModes.postroll);
     handlePhaseRoll(G, false);
     ctx.events.endStage();
-}
-
-export function rollDie(diceTray, index) {
-    diceTray.dice[index].value = randomD6();
 }
 
 export function setupDiceTray(diceTray, count, title, value) {
@@ -871,36 +857,6 @@ export function setupDiceTray(diceTray, count, title, value) {
 	diceTray.extraContent = '';
 }
 
-export function travelTo(G, key) {
-    const travel = G.map.adjacentTravelCandidates.find(adj => adj.target === key);
-    if (key !== G.map.currentLocationKey) {
-        const destHex = G.map.hexes[key];
-        if (G.expeditionType.trailLeadsToInterestOnTerrainChange &&
-            travel.movementCost === 3 &&
-            destHex.interestType.isNone &&
-            destHex.terrainType !== G.map.hexes[G.map.currentLocationKey].terrainType) {
-            destHex.interestType = gameConstants.interestTypes.pending;
-        }
-
-        G.map.currentLocationKey = key;
-
-        updateCounter(G.counters.movementProgress, -travel.movementCost + (travel.isDownstream ? 1 : 0));
-    }
-
-    G.travelDirection = travel.hexDirection;
-}
-
 export function updateCounter(counter, adjValue) {
-    counter.value = minZeroMaxSix(counter.value + adjValue);
-}
-
-export function useMusketToReroll(G, ctx) {
-    addToJournal(G.journalCurrentDay, formatPhaseLabel(G) + '; First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
-    updateCounter(G.counters.muskets.value, -1);
-
-    if (this.G.expeditionType.musketBonus) {
-        this.G.musketBonus = this.G.expeditionType.musketBonus;
-    }
-
-    rollDiceForPhase2to7(G, ctx);
+    counter.value = Math.max(0, Math.min(6, counter.value + adjValue));
 }
