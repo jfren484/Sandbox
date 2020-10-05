@@ -2,6 +2,7 @@ import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { dieRollHandlerFactory } from './dieRollHandlers/dieRollHandlerFactory';
+import { mapHelper } from './mapHelper';
 
 export const acceptRollMove = {
     acceptRoll: (G, ctx) => {
@@ -13,16 +14,18 @@ export const acceptRollMove = {
         }
 
         const result = gameMethods.handlePhaseRoll(G, true);
+        const mh = new mapHelper(G);
 
         if (result.trailPending) {
-            if (gameMethods.getAvailableTrailLocations(G)) {
+            if (mh.getAvailableTrailLocations()) {
+                G.phaseComment = 'Choose location for trail';
                 ctx.events.setStage(currentPhase + 'ChooseTrailLocation');
             } else {
                 gameMethods.addToJournalCurrentDay(G, 'No trail locations available');
                 ctx.events.setStage(currentPhase + 'End');
             }
         } else if (result.lagosDeOroPending) {
-            gameMethods.getLagosDeOroFirstLocations(G);
+            mh.getLagosDeOroLocations();
             ctx.events.setStage(currentPhase + 'ChooseLagosDeOro1');
         } else if (result.wonderPending) {
             ctx.events.setStage(currentPhase + 'DescribeWonder');
@@ -130,13 +133,17 @@ export const lagosDeOroChooseHexMove = {
             G.map.lagosDeOroLocations.push(hexKey);
         }
 
-        gameMethods.getLagosDeOroLocations(G);
+        new mapHelper(G).getLagosDeOroLocations();
 
         if (remove) {
             ctx.events.setStage(gameMethods.getStage(ctx) === 'interestsChooseLagosDeOro2'
                 ? 'interestsChooseLagosDeOro1'
                 : 'interestsChooseLagosDeOro2');
         } else {
+            if (gameMethods.getStage(ctx) === 'interestsChooseLagosDeOro3') {
+                gameMethods.addToJournalCurrentDay(G, 'Chose locations: ' + JSON.stringify(G.map.lagosDeOroLocations));
+            }
+
             ctx.events.endStage();
         }
     }

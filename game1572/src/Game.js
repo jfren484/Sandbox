@@ -1,6 +1,7 @@
 import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
 import * as gameMoves from './gameMoves';
+import { mapHelper } from './mapHelper';
 
 export const Game1572 = {
     setup: () => ({
@@ -63,7 +64,7 @@ export const Game1572 = {
             adjacentTravelCandidates: [],
             availableTrailLocations: [],
             currentLocationKey: '0,0.5',
-            hexes: gameMethods.generateMapHexes(),
+            hexes: mapHelper.generateMapHexes(),
             lagosDeOroLocations: [],
             selectableHexes: [],
             trails: {}

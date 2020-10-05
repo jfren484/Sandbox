@@ -92,6 +92,7 @@
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
     <Content Include="src\index.js" />
+    <Content Include="src\mapHelper.js" />
     <Content Include="src\serviceWorker.js" />
     <Content Include="src\setupTests.js" />
   </ItemGroup>
