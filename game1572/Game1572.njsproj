@@ -69,6 +69,17 @@
     <Content Include="src\components\patterns\RiverDefs.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerEatRations.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerInterests.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerJournalEntry.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerTrackDay.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerMoraleAdjustment.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerMapTravel.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerMapping.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerEarlyPhases.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandler.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerPlanning.js" />
+    <Content Include="src\confirmDialogHandlers\confirmDialogHandlerFactory.js" />
     <Content Include="src\dieRollHandlers\dieRollHandler.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerFactory.js" />
     <Content Include="src\dieRollHandlers\dieRollHandlerInterests.js" />
@@ -85,6 +96,10 @@
     </Content>
     <Content Include="src\components\patterns\TerrainDefs.js" />
     <Content Include="src\gameMoves.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDiallogHandlerEarlyPhases.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDiallogHandlerMapping.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerFactory.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandler.js" />
     <Content Include="src\index.css" />
     <Content Include="src\Game.js">
       <SubType>Code</SubType>
@@ -103,6 +118,8 @@
     <Folder Include="src\components\" />
     <Folder Include="src\components\patterns\" />
     <Folder Include="src\dieRollHandlers\" />
+    <Folder Include="src\confirmDialogHandlers\" />
+    <Folder Include="src\generatePhaseDialogHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

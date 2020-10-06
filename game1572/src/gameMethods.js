@@ -1,5 +1,6 @@
 import * as gameConstants from './gameConstants';
 import { dieRollHandlerFactory } from './dieRollHandlers/dieRollHandlerFactory';
+import { generatePhaseDialogHandlerFactory } from './generatePhaseDialogHandlers/generatePhaseDialogHandlerFactory';
 import { mapHelper } from './mapHelper';
 
 export function addToJournalCurrentDay(G, entry) {
@@ -33,7 +34,7 @@ export function beginPhase(G, ctx) {
     }
 
     if (!endTurn) {
-        generatePhaseDialog(G);
+        generatePhaseDialogHandlerFactory.createGeneratePhaseDialogHandler(G).generatePhaseDialog();
     }
 
     const nativeContactIndex = gameConstants.gamePhases.nativeContact.index;
@@ -42,122 +43,6 @@ export function beginPhase(G, ctx) {
     } else if (endTurn) {
         ctx.events.endTurn();
     } else {
-        ctx.events.endStage();
-    }
-}
-
-export function confirmDialog(G, ctx, data) {
-    const currentPhase = G.phase.key;
-    const currentHex = G.map.hexes[G.map.currentLocationKey];
-
-    G.dialog = {};
-
-    let diceCount = 0;
-    switch (G.phase.index) {
-        case gameConstants.gamePhases.planning.index:
-            diceCount = 5;
-            break;
-
-        case gameConstants.gamePhases.movement.index:
-        case gameConstants.gamePhases.exploring.index:
-        case gameConstants.gamePhases.hunting.index:
-        case gameConstants.gamePhases.interests.index:
-            diceCount = 2;
-            break;
-
-        case gameConstants.gamePhases.nativeContact.index:
-            diceCount = currentHex.advancedCiv ? 1 : 2;
-            break;
-
-        default:
-            break;
-    }
-
-    let endGamePhase = false;
-    switch (G.phase.index) {
-        case gameConstants.gamePhases.movement.index:
-        case gameConstants.gamePhases.mapping.index:
-        case gameConstants.gamePhases.exploring.index:
-        case gameConstants.gamePhases.nativeContact.index:
-        case gameConstants.gamePhases.hunting.index:
-            if (G.planningDiceAssigned[G.phase.index] === 0) {
-                endGamePhase = true;
-            } else if (G.phase.index === gameConstants.gamePhases.mapping.index && G.map.selectableHexes.length === 0) {
-                addToJournalCurrentDay(G, 'No unmapped hexes available');
-                endGamePhase = true;
-            }
-            break;
-
-        case gameConstants.gamePhases.interests.index:
-            if (getStage(ctx) === 'interestsDescribeWonder') {
-                G.map.hexes[G.map.currentLocationKey].interestType.description = data;
-                addToJournalCurrentDay(G, 'Wonder: ' + data);
-            } else if (!currentHex.interestType.isPending) {
-                endGamePhase = true;
-            }
-            break;
-
-        case gameConstants.gamePhases.eatRations.index:
-            if (G.map.hexes[G.map.currentLocationKey].migration) {
-                addToJournalCurrentDay(G, 'Migration - No Food Consumed (' + G.counters.food.value + ' remaining)');
-            } else if (G.counters.food.value > 0) {
-                updateCounter(G.counters.food, -1);
-                addToJournalCurrentDay(G, 'Food -1 (' + G.counters.food.value + ' remaining)');
-            } else {
-                updateCounter(G.counters.conquistadors, -1);
-                addToJournalCurrentDay(G, 'No Food - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
-            }
-            break;
-
-        case gameConstants.gamePhases.mapTravel.index:
-            if (G.map.adjacentTravelCandidates.length === 0) {
-                G.travelDirection = gameConstants.hexDirections.none;
-                addToJournalCurrentDay(G, 'No hexes available as travel destinations');
-
-                endGamePhase = true;
-            }
-            break;
-
-        case gameConstants.gamePhases.moraleAdjustment.index:
-            updateCounter(G.counters.morale, G.travelDirection.moraleAdjustment);
-            addToJournalCurrentDay(G, '' + G.phaseComment + ' (' + G.counters.morale.value + ' remaining)');
-
-            if (G.counters.morale.value === 0) {
-                updateCounter(G.counters.conquistadors, -1);
-                addToJournalCurrentDay(G, 'No Morale - Conquistadors -1 (' + G.counters.conquistadors.value + ' remaining)');
-            }
-            break;
-
-        case gameConstants.gamePhases.trackDay.index:
-            // TODO: mark days?;
-            addToJournalCurrentDay(G, 'Increment Days Completed to ' + (G.days + 1));
-            break;
-
-        case gameConstants.gamePhases.journalEntry.index:
-            if (data) {
-                addToJournalCurrentDay(G, 'User comment: ' + data);
-            }
-            break;
-
-        case gameConstants.gamePhases.cartographerTrail.index:
-            break;
-
-        default:
-            break;
-    }
-
-    if (endGamePhase) {
-        ctx.events.endGamePhase(currentPhase + 'End');
-    } else {
-        if (diceCount > 0) {
-            setupDiceTray(G.diceTray, diceCount, formatPhaseLabel(G));
-
-            if (getStage(ctx) === 'nativeContactEclipseInstructions') {
-                G.enableSelectDiceValues = true;
-                G.diceTray.mode = gameConstants.diceTrayModes.postroll;
-            }
-        }
-
         ctx.events.endStage();
     }
 }

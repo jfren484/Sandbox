@@ -1,6 +1,7 @@
 import * as gameConstants from './gameConstants';
 import * as gameMethods from './gameMethods';
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { confirmDialogHandlerFactory } from './confirmDialogHandlers/confirmDialogHandlerFactory';
 import { dieRollHandlerFactory } from './dieRollHandlers/dieRollHandlerFactory';
 import { mapHelper } from './mapHelper';
 
@@ -73,8 +74,8 @@ export const chooseTrailLocationMove = {
 }
 
 export const confirmDialogMove = {
-    confirmDialog: (G, ctx) => {
-        gameMethods.confirmDialog(G, ctx);
+    confirmDialog: (G, ctx, data) => {
+        confirmDialogHandlerFactory.createConfirmDialogHandler(G, ctx).confirmDialog(data);
     }
 }
 
