@@ -25,7 +25,7 @@ export class mapHelper {
         this.movementProgress = G.counters.movementProgress.value;
     }
 
-    static createLagosDeOro() {
+    createLagosDeOro() {
         const locations = this.map.lagosDeOroLocations;
         const x = locations
             .map(hexKey => this.map.hexes[hexKey].x)
@@ -70,7 +70,7 @@ export class mapHelper {
         this.map.lagosDeOroLocations = [];
     }
 
-    generateMapHexes() {
+    static generateMapHexes() {
         let hexes = {
             '0,0.5': {
                 ...hexTemplate,

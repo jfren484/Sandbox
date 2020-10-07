@@ -96,8 +96,17 @@
     </Content>
     <Content Include="src\components\patterns\TerrainDefs.js" />
     <Content Include="src\gameMoves.js" />
-    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDiallogHandlerEarlyPhases.js" />
-    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDiallogHandlerMapping.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerEatRations.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerJournalEntry.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerCartographerTrail.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerTrackDay.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerMapTravel.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerMoraleAdjustment.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerInterests.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerEarlyPhases.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerNativeContact.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerHunting.js" />
+    <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerMapping.js" />
     <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandlerFactory.js" />
     <Content Include="src\generatePhaseDialogHandlers\generatePhaseDialogHandler.js" />
     <Content Include="src\index.css" />

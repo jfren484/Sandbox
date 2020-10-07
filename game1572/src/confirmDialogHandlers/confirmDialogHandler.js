@@ -15,11 +15,11 @@ export class confirmDialogHandler {
         const result = this.phaseLogic(data);
 
         if (result.endGamePhase) {
-            this.events.endGamePhase(this.G.phase.key + 'End');
+            this.events.setStage(this.G.phase.key + 'End');
         } else {
             const diceCount = this.getDiceCount();
             if (diceCount > 0) {
-                gameMethods.setupDiceTray(this.G.diceTray, diceCount, gameMethods.formatPhaseLabel(this.G));
+                gameMethods.setupDiceTray(this.getDiceTray(), diceCount, gameMethods.formatPhaseLabel(this.G));
 
                 if (this.stage === 'nativeContactEclipseInstructions') {
                     this.G.enableSelectDiceValues = true;
@@ -33,6 +33,10 @@ export class confirmDialogHandler {
 
     getDiceCount() {
         return 0;
+    }
+
+    getDiceTray() {
+        return this.G.diceTray;
     }
 
     phaseLogic(data) {

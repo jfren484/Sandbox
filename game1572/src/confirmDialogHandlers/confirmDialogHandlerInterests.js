@@ -2,6 +2,10 @@ import * as gameMethods from '../gameMethods';
 import { confirmDialogHandler } from './confirmDialogHandler';
 
 export class confirmDialogHandlerInterests extends confirmDialogHandler {
+    getDiceCount() {
+        return 2;
+    }
+
     phaseLogic(data) {
         const result = super.phaseLogic(data);
 

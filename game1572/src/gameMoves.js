@@ -253,7 +253,7 @@ export const rerollDiceMove = {
         }
 
         gameMethods.addToJournalCurrentDay(G, 'First ' + G.diceTray.extraContent.join("; ") + "; Used Musket");
-        gameMethods.updateCounter(G.counters.muskets.value, -1);
+        gameMethods.updateCounter(G.counters.muskets, -1);
 
         if (this.G.expeditionType.musketBonus) {
             this.G.musketBonus = this.G.expeditionType.musketBonus;

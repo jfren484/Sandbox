@@ -1,4 +1,5 @@
 import * as gameConstants from '../gameConstants';
+import { generatePhaseDialogHandler } from './generatePhaseDialogHandler';
 import { generatePhaseDialogHandlerCartographerTrail } from './generatePhaseDialogHandlerCartographerTrail';
 import { generatePhaseDialogHandlerEarlyPhases } from './generatePhaseDialogHandlerEarlyPhases';
 import { generatePhaseDialogHandlerEatRations } from './generatePhaseDialogHandlerEatRations';
@@ -16,6 +17,10 @@ export class generatePhaseDialogHandlerFactory {
         let handler;
 
         switch (G.phase.index) {
+            case gameConstants.gamePhases.planning.index:
+                handler = new generatePhaseDialogHandler(G);
+                break;
+
             case gameConstants.gamePhases.mapping.index:
                 handler = new generatePhaseDialogHandlerMapping(G);
                 break;
@@ -25,12 +30,12 @@ export class generatePhaseDialogHandlerFactory {
                 handler = new generatePhaseDialogHandlerEarlyPhases(G);
                 break;
 
-            case gameConstants.gamePhases.hunting.index:
-                handler = new generatePhaseDialogHandlerHunting(G);
-                break;
-
             case gameConstants.gamePhases.nativeContact.index:
                 handler = new generatePhaseDialogHandlerNativeContact(G);
+                break;
+
+            case gameConstants.gamePhases.hunting.index:
+                handler = new generatePhaseDialogHandlerHunting(G);
                 break;
 
             case gameConstants.gamePhases.interests.index:

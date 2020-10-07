@@ -1,28 +1,34 @@
 import * as gameMethods from '../gameMethods';
 
-export class generatePhaseDialogDialogHandler {
+export class generatePhaseDialogHandler {
     constructor(G) {
         this.G = G;
         this.currentHex = G.map.hexes[G.map.currentLocationKey];
     }
 
     generatePhaseDialog() {
-        this.G.dialog = {
-            title: gameMethods.formatPhaseLabel(G),
-            text: this.G.phase.instructions
-        };
-
-        this.G.phaseComment = '';
-        this.G.diegoMendozaBonus = 0;
-
         const result = this.phaseLogic();
 
-        this.G.dialog.content = this.G.phaseComment = result.resultDescription;
+        if (result.skip) {
+            result.resultDescription += '; skipping phase.';
+        }
+
+        this.G.diegoMendozaBonus = 0;
+        this.G.phaseComment = result.resultDescription;
+        this.G.dialog = {
+            title: gameMethods.formatPhaseLabel(this.G),
+            text: this.G.phase.instructions,
+            content: result.resultDescription,
+            specialAction: result.specialAction,
+            input: result.input
+        };
     }
 
     phaseLogic() {
         return {
             resultDescription: '',
+            specialAction: undefined,
+            input: undefined,
             skip: false
         };
     }
