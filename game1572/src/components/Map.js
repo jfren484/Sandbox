@@ -96,6 +96,25 @@ export class Map extends React.Component {
         }
     }
 
+    generatePath(shapes) {
+        let x2 = undefined, y2 = undefined;
+        for (let i = 0; i < this.props.mapData.path.length; ++i) {
+            const hex = this.props.mapData.hexes[this.props.mapData.path[i]];
+
+            const x1 = hex.x * gameConstants.map.hexDrawWidth + gameConstants.map.hexPad + gameConstants.map.pathNode.pX;
+            const y1 = hex.y * gameConstants.map.hexHeight + gameConstants.map.hexPad + gameConstants.map.pathNode.pY;
+            shapes.push(<use href="#pathNode" key={'PATH-NODE-' + hex.key}
+                transform={'translate(' + (x1 - gameConstants.map.pathNode.rX) + ', ' + (y1 - gameConstants.map.pathNode.rY) + ')'} />);
+
+            if (x2) {
+                shapes.push(<line key={'PATH-LINE-' + hex.key} x1={x1} y1={y1} x2={x2} y2={y2} stroke="red" strokeWidth="4" />);
+            }
+
+            x2 = x1;
+            y2 = y1;
+        }
+    }
+
     generateRiver(hex, xBase, yBase, shapes) {
         if (hex.riverType && !hex.terrainType.isWater) {
             shapes.push(<use href={'#River.' + hex.riverType} key={'RIVER-' + hex.key} transform={'translate(' + xBase + ', ' + yBase + ')'} />);
@@ -147,7 +166,7 @@ export class Map extends React.Component {
 
         this.generateTrails(crossHexFeatureShapes);
 
-        // TODO: draw expedition path
+        this.generatePath(crossHexFeatureShapes);
 
         return (
             <div className="map">

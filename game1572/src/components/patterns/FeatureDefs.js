@@ -50,6 +50,10 @@ export class FeatureDefs extends React.Component {
                     <line x1="0" y1="0" x2="20" y2="14" stroke="darkgreen" strokeWidth="2" />
                 </g>
 
+                <g id="pathNode">
+                    <circle cx="6" cy="6" r="6" fill="red" stroke="none" />
+                </g>
+
                 <polygon id="threeHexRegion" points="20,70 0,35 20,0 60,0 80,35 120,35 140,70 120,105 80,105 60,140 20,140 0,105" />
 
                 <g id="trail">

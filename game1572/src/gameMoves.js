@@ -173,6 +173,7 @@ export const mapTravelChooseHexMoves = {
             }
 
             G.map.currentLocationKey = key;
+            G.map.path.push(key);
 
             gameMethods.updateCounter(G.counters.movementProgress, -travel.movementCost + (travel.isDownstream ? 1 : 0));
         }

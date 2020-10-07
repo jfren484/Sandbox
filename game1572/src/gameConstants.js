@@ -329,6 +329,12 @@ export const map = {
         rX: 10,
         rY: 6
     },
+    pathNode: {
+        pX: hexWidth * 0.5,
+        pY: hexHeight * 0.5,
+        rX: 6,
+        rY: 6
+    },
     trail: {
         rX: 8,
         rY: 10
@@ -431,6 +437,5 @@ export const villageInterestOffsets = [
     { pX: hexWidth * 0.8, pY: hexHeight * 0.5,  },
     { pX: hexWidth * 0.7, pY: hexHeight * 0.7,  },
     { pX: hexWidth * 0.5, pY: hexHeight * 0.83, },
-    { pX: hexWidth * 0.3, pY: hexHeight * 0.7,  },
-    { pX: hexWidth * 0.5, pY: hexHeight * 0.5,  },
+    { pX: hexWidth * 0.3, pY: hexHeight * 0.7,  }
 ]

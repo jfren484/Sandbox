@@ -66,6 +66,7 @@ export const Game1572 = {
             currentLocationKey: '0,0.5',
             hexes: mapHelper.generateMapHexes(),
             lagosDeOroLocations: [],
+            path: ['0,0.5'],
             selectableHexes: [],
             trails: {}
         },
