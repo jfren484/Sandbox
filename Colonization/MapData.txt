@@ -1,0 +1,30 @@
+Low Nibble
+00 Tundra
+01 Desert
+02 Plains
+03 Prairie
+04 Grassland
+05 Savannah
+06 Marsh
+07 Swamp
+08 Boreal Forest
+09 Scrub Forest
+0A Mixed Forest
+0B Broadleaf Forest
+0C Conifer Forest
+0D Tropical Forest
+0E Wetland Forest
+0F Rain Forest
+
+18 Artic
+19 Ocean
+1A Sea Lane
+
+High Nibble
+2 0010 Hills
+4 0100 Minor River
+6 0110 Hills/Minor River
+8 1000 <nothing>
+A 1010 Mountains
+C 1100 Major River
+E 1110 Mountains/Major River

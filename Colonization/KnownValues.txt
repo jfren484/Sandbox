@@ -1,0 +1,77 @@
+Unit Types:
+00 Colonists
+01 Soldiers
+02 Pioneers
+03 Missionaries
+04 Dragoons
+05 Scouts
+06 Regulars
+07 Cont. Cav.
+08 Cavalry
+09 Cont. Army
+0A Treasure
+0B Artillery
+0C Wagon Train
+0D Caravel
+0E Merchantman
+0F Galleon
+10 Privateer
+11 Frigate
+12 Man-O-War
+13 Braves
+14 Armed Braves
+15 Mtd. Braves
+16 Mtd. Warriors
+
+Unit:
+X, Y, Type, Nation, 5 bytes, Dest X, Dest Y, 10 bytes, tools, 1 byte, Specialty, 4 bytes
+
+Specialties:
+00 Farmer
+01 Sugar Planter
+02 Tobacco Planter
+03 Cotton Planter
+04 Fur Trapper
+05 Lumberjack
+06 Ore Miner
+07 Silver Miner
+08 Fisherman
+09 Distiller
+0A Tobacconist
+0B Weaver
+0C Fur Trader
+0D Carpenter
+0E Blacksmith
+0F Gunsmith
+10 Preacher
+11 Statesman
+12 Teacher
+13 (No specialty) - not actually used
+14 Pioneer
+15 Soldier
+16 Scout
+17 Dragoon
+18 Missionary
+19 Ind. Servant
+1A Criminal
+1B Convert
+1C (No specialty)
+1D Desert (Indian)
+1E -
+1F Fortress (Mounted Indian)
+20 French (Home nation?)
+
+Nation (lower nibble):
+x0 English
+x1 French
+x2 Spanish
+x3 Dutch
+04 Inca
+05 Aztec
+06 Arawak
+07 Iroquois
+08 Cherokee
+09 Apache
+0A Sioux
+0B Tupi
+0C France? (Home Nation?)

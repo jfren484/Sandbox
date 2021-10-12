@@ -1,0 +1,28 @@
+* strings are null-terminated, so the last byte (at least) of each string is 0
+
+9 byte string - COLONIZE
+? 3 bytes - 1A 49 00
+4 bytes - Map size Width/Height
+? 10 bytes
+2 bytes - Year
+? 1 byte - Season (0 - Spring, 1 - Autumn)
+? 15 bytes
+2 bytes - Unit count
+2 bytes - Town count
+? 110 bytes
+24 byte string - English Leader Name
+24 byte string - English Colony Name
+? 4 bytes
+24 byte string - French Leader Name
+24 byte string - French Colony Name
+? 4 bytes
+24 byte string - Spanish Leader Name
+24 byte string - Spanish Colony Name
+? 4 bytes
+24 byte string - Dutch Leader Name
+24 byte string - Dutch Colony Name
+? 6 bytes
+? 4 bytes - X,Y for something
+? 14 bytes - all 00's?
+(Towns) - 202 bytes each
+(Units) - 28 bytes each

@@ -1,0 +1,119 @@
+﻿namespace ReadFile
+{
+    public static class CargoTypes
+    {
+        public const int Food = 0x0;
+        public const int Sugar = 0x1;
+        public const int Tobacco = 0x2;
+        public const int Cotton = 0x3;
+        public const int Furs = 0x4;
+        public const int Lumber = 0x5;
+        public const int Ore = 0x6;
+        public const int Silver = 0x7;
+        public const int Horses = 0x8;
+        public const int Rum = 0x9;
+        public const int Cigars = 0xA;
+        public const int Fur = 0xB;
+        public const int Coats = 0xC;
+        public const int TradeGoods = 0xD;
+        public const int Tools = 0xE;
+        public const int Muskets = 0xF;
+    }
+
+    public static class Construction
+    {
+        public const int Stockade = 0x00;
+        public const int Fort = 0x01;
+        public const int Fortress = 0x02;
+        public const int Armory = 0x03;
+        public const int Magazine = 0x04;
+        public const int Arsenal = 0x05;
+        public const int Docks = 0x06;
+        public const int DryDock = 0x07;
+        public const int Shipyard = 0x08;
+        public const int TownHall0Tools = 0x09;
+        public const int TownHall50Tools = 0x0A;
+        public const int TownHall100Tools = 0x0B;
+        public const int Schoolhouse = 0x0C;
+        public const int College = 0x0D;
+        public const int University = 0x0E;
+        public const int Warehouse = 0x0F;
+        public const int WarehouseExpansion = 0x10;
+        public const int Stable = 0x11;
+        public const int CustomHouse = 0x12;
+        public const int PrintingPress = 0x13;
+        public const int Newspaper = 0x14;
+        public const int WeaversHouse = 0x15;
+        public const int WeaversShop = 0x16;
+        public const int TextileMill = 0x17;
+        public const int TobacconistsHouse = 0x18;
+        public const int TobacconistsShop = 0x19;
+        public const int CigarFactory = 0x1A;
+        public const int RumDistillersHouse = 0x1B;
+        public const int RumDistillery = 0x1C;
+        public const int RumFactory = 0x1D;
+        public const int Capitol = 0x1E;
+        public const int CapitolExpansion = 0x1F;
+        public const int FurTradersHouse = 0x20;
+        public const int FurTradingPost = 0x21;
+        public const int FurFactory = 0x22;
+        public const int CarpentersShop = 0x23;
+        public const int LumberMill = 0x24;
+        public const int Church = 0x25;
+        public const int Cathedral = 0x26;
+        public const int BlacksmithsHouse = 0x27;
+        public const int BlacksmithsShop = 0x28;
+        public const int IronWorks = 0x29;
+        public const int Artillery = 0x2A;
+        public const int WagonTrain = 0x2B;
+        public const int Caravel = 0x2C;
+        public const int Merchantman = 0x2D;
+        public const int Galleon = 0x2E;
+        public const int Privateer = 0x2F;
+        public const int Frigate = 0x30;
+        public const int Nothing = 0xFF;
+    }
+
+    public static class Nations
+    {
+        public const int England = 0x0;
+        public const int France = 0x1;
+        public const int Spain = 0x2;
+        public const int Netherlands = 0x3;
+        public const int Inca = 0x4;
+        public const int Aztec = 0x5;
+        public const int Arawak = 0x6;
+        public const int Iroquois = 0x7;
+        public const int Cherokee = 0x8;
+        public const int Apache = 0x9;
+        public const int Sioux = 0xA;
+        public const int Tupi = 0xB;
+    }
+
+    public static class UnitTypes
+    {
+        public const int Colonists = 0x00;
+        public const int Soldiers = 0x01;
+        public const int Pioneers = 0x02;
+        public const int Missionaries = 0x03;
+        public const int Dragoons = 0x04;
+        public const int Scouts = 0x05;
+        public const int Regulars = 0x06;
+        public const int ContCav = 0x07;
+        public const int Cavalry = 0x08;
+        public const int ContArmy = 0x09;
+        public const int Treasure = 0x0A;
+        public const int Artillery = 0x0B;
+        public const int WagonTrain = 0x0C;
+        public const int Caravel = 0x0D;
+        public const int Merchantman = 0x0E;
+        public const int Galleon = 0x0F;
+        public const int Privateer = 0x10;
+        public const int Frigate = 0x11;
+        public const int ManOWar = 0x12;
+        public const int Braves = 0x13;
+        public const int ArmedBraves = 0x14;
+        public const int Mtdraves = 0x15;
+        public const int MtdWarriors = 0x16;
+    }
+}
