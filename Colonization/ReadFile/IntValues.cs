@@ -13,7 +13,7 @@
         public const int Horses = 0x8;
         public const int Rum = 0x9;
         public const int Cigars = 0xA;
-        public const int Fur = 0xB;
+        public const int Cloth = 0xB;
         public const int Coats = 0xC;
         public const int TradeGoods = 0xD;
         public const int Tools = 0xE;
@@ -88,6 +88,55 @@
         public const int Apache = 0x9;
         public const int Sioux = 0xA;
         public const int Tupi = 0xB;
+    }
+
+    public static class Orders
+    {
+        public const int None = 0x0;
+        public const int Sentry = 0x1;
+        public const int TradeRoute = 0x2;
+        public const int Going = 0x3;
+        public const int Fortifying = 0x5;
+        public const int Fortified = 0x6;
+        public const int Unknown1 = 0xB;
+        public const int Unknown2 = 0xC;
+    }
+
+    public static class Specialties
+    {
+        public const int Farmer = 0x00;
+        public const int SugarPlanter = 0x01;
+        public const int TobaccoPlanter = 0x02;
+        public const int CottonPlanter = 0x03;
+        public const int FurTrapper = 0x04;
+        public const int Lumberjack = 0x05;
+        public const int OreMiner = 0x06;
+        public const int SilverMiner = 0x07;
+        public const int Fisherman = 0x08;
+        public const int Distiller = 0x09;
+        public const int Tobacconist = 0x0A;
+        public const int Weaver = 0x0B;
+        public const int FurTrader = 0x0C;
+        public const int Carpenter = 0x0D;
+        public const int Blacksmith = 0x0E;
+        public const int Gunsmith = 0x0F;
+        public const int Preacher = 0x10;
+        public const int Statesman = 0x11;
+        public const int Teacher = 0x12;
+        public const int NoSpecialty = 0x13;
+        public const int Pioneer = 0x14;
+        public const int Soldier = 0x15;
+        public const int Scout = 0x16;
+        public const int Dragoon = 0x17;
+        public const int Missionary = 0x18;
+        public const int IndServant = 0x19;
+        public const int Criminal = 0x1A;
+        public const int Convert = 0x1B;
+        public const int NoSpecialty2 = 0x1C;
+        public const int Desert  = 0x1D;
+        public const int Blank = 0x1E;
+        public const int Fortress  = 0x1F;
+        public const int French  = 0x20;
     }
 
     public static class UnitTypes

@@ -17,6 +17,40 @@
             "Tupi"
         };
 
+        public static string[] NationAdjectives = {
+            "English",
+            "French",
+            "Spanish",
+            "Dutch",
+            "Inca",
+            "Aztec",
+            "Arawak",
+            "Iroquois",
+            "Cherokee",
+            "Apache",
+            "Sioux",
+            "Tupi"
+        };
+
+        public static string[] Orders = {
+            "-",
+            "S",
+            "T",
+            "G",
+            "?4",
+            "f",
+            "F",
+            "?7",
+            "?8",
+            "?9",
+            "?A",
+            "?B",
+            "?C",
+            "?D",
+            "?E",
+            "?F"
+        };
+
         public static string[] Specialties =
         {
             "Farmer",

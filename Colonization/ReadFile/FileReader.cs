@@ -8,58 +8,74 @@ namespace ReadFile
 {
     public class FileReader
     {
-        private readonly byte[] bytes;
-        private int index;
+        private readonly DataProcessor dataProcessor;
 
         public FileReader(string saveFilePath)
         {
-            bytes = File.ReadAllBytes(saveFilePath);
-            index = 0;
+            dataProcessor = new DataProcessor(File.ReadAllBytes(saveFilePath));
         }
 
         public SaveFile Read()
         {
-            var data = new SaveFile();
-
-            data.Header = GetString(9);
-            data.Unknown1 = GetRange(3);
-            data.MapSize = new Size
+            var data = new SaveFile
             {
-                Width = GetInt(2),
-                Height = GetInt(2)
-            };
-            data.Unknown2 = GetRange(10);
-            data.Year = GetInt(2);
-            data.Season = GetInt(1) == 0 ? "Spring" : "Autumn";
-            data.Unknown3 = GetRange(15);
-            data.UnitCount = GetInt(2);
-            data.TownCount = GetInt(2);
-            data.Unknown4 = GetRange(110);
-            data.ColonyData = new[]
+                // First 16 bytes
+                Header = dataProcessor.GetString(9),
+                Unknown1 = dataProcessor.GetRange(3),
+                MapSize = new Size
                 {
-                    new Colony { Leader = GetString(24), Name = GetString(24), ExtraData = GetRange(4)},
-                    new Colony { Leader = GetString(24), Name = GetString(24), ExtraData = GetRange(4)},
-                    new Colony { Leader = GetString(24), Name = GetString(24), ExtraData = GetRange(4)},
-                    new Colony { Leader = GetString(24), Name = GetString(24), ExtraData = GetRange(4)}
-                };
-            data.Unknown5 = GetRange(6);
-            data.Unknown6 = GetLocation(2);
-            data.Unknown7 = GetRange(14);
-            data.Towns = new List<Town>();
-            data.Units = new List<Unit>();
+                    Width = dataProcessor.GetInt(2),
+                    Height = dataProcessor.GetInt(2)
+                },
+
+                // Next 32 bytes
+                Unknown2 = dataProcessor.GetRange(10),
+                Year = dataProcessor.GetInt(2),
+                Season = dataProcessor.GetInt(1) == 0 ? "Spring" : "Autumn",
+                Unknown3 = dataProcessor.GetRange(13),
+                IndianVillageCount = dataProcessor.GetInt(2),
+                UnitCount = dataProcessor.GetInt(2),
+                TownCount = dataProcessor.GetInt(2),
+
+                Unknown4 = dataProcessor.GetRange(6),
+                Difficulty = (Difficulty)dataProcessor.GetInt(1),
+                Unknown5 = dataProcessor.GetRange(103),
+                ColonyData = new[]
+                {
+                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)}
+                },
+                Unknown6 = dataProcessor.GetRange(6),
+                Unknown7 = dataProcessor.GetLocation(2),
+                Unknown8 = dataProcessor.GetRange(14),
+                Towns = new List<Town>(),
+                Units = new List<Unit>(),
+                Villages = new List<Village>()
+            };
 
             for (var i = 0; i < data.TownCount; ++i)
             {
                 data.Towns.Add(new Town
                 {
-                    Location = GetLocation(1),
-                    Name = GetString(24),
-                    Unknown1 = GetRange(120),
-                    ConstructionProgress = GetInt(2),
-                    ConstructionTarget = GetInt(1),
-                    Unknown2 = GetRange(5),
-                    Cargo = GetIntArray(16),
-                    Unknown3 = GetRange(16)
+                    Location = dataProcessor.GetLocation(1),
+                    Name = dataProcessor.GetString(24),
+                    Nation = dataProcessor.GetInt(1),
+                    Unknown1 = dataProcessor.GetRange(4), // 00 48 00 00
+                    Colonists = GetColonistsFromTown(),
+                    ColonistTiles = dataProcessor.GetRange(8), // N,E,S,W,NW,NE,SE,SW
+                    Unknown2 = dataProcessor.GetRange(12), // All FF?
+                    Buildings = GetBuildingsFromTown(dataProcessor.GetRange(6)),
+                    Unknown3 = dataProcessor.GetRange(8),
+                    ConstructionProgress = dataProcessor.GetInt(2),
+                    ConstructionTarget = dataProcessor.GetInt(1),
+                    Unknown4 = dataProcessor.GetRange(5),
+                    Cargo = dataProcessor.GetIntArray(16),
+                    PopulationBadge = dataProcessor.GetInt(1),
+                    Unknown5 = dataProcessor.GetRange(7), // 01,01,01,00,00,00,00
+                    LibertyBellsGenerated = dataProcessor.GetInt(2),
+                    Unknown6 = dataProcessor.GetRange(6) // 00,00,C8,00,00,00
                 });
             }
 
@@ -67,78 +83,84 @@ namespace ReadFile
             {
                 data.Units.Add(new Unit
                 {
-                    Location = GetLocation(1),
-                    UnitType = GetInt(1),
-                    Nation = (byte)(GetInt(1) & 0x0F),
-                    Unknown1 = GetRange(5),
-                    Destination = GetLocation(1),
-                    Unknown2 = GetRange(10),
-                    Tools = GetInt(1),
-                    Unknown3 = GetInt(1),
-                    Specialty = GetInt(1),
-                    Unknown4 = GetRange(4)
+                    Location = dataProcessor.GetLocation(1),
+                    UnitType = dataProcessor.GetInt(1),
+                    Nation = dataProcessor.GetInt(1) & 0x0F,
+                    Unknown1 = dataProcessor.GetRange(4),
+                    Orders = dataProcessor.GetInt(1),
+                    Destination = dataProcessor.GetLocation(1),
+                    Unknown2 = dataProcessor.GetRange(10),
+                    Tools = dataProcessor.GetInt(1),
+                    Unknown3 = dataProcessor.GetInt(1),
+                    Specialty = dataProcessor.GetInt(1),
+                    Unknown4 = dataProcessor.GetRange(4)
                 }) ;
             }
 
-            data.NextAddr = index;
+            data.Unknown9 = (byte)dataProcessor.GetInt(1);
+            data.TaxRate = dataProcessor.GetInt(1);
+            data.Unknown10 = dataProcessor.GetRange(40);
+            data.Gold = dataProcessor.GetInt(4);
+            data.Unknown11 = dataProcessor.GetRange(1218);
+
+            for (var i = 0; i < data.IndianVillageCount; ++i)
+            {
+                var village = new Village
+                {
+                    Location = dataProcessor.GetLocation(1),
+                    Nation = dataProcessor.GetInt(1),
+                    Unknown1 = dataProcessor.GetRange(2),
+                    MissionNation = dataProcessor.GetInt(1),
+                    Unknown2 = dataProcessor.GetRange(12)
+                };
+                village.MissionNation = village.MissionNation == 0xFF ? -1 : village.MissionNation & 0x0F;
+
+                data.Villages.Add(village);
+            }
+
+            data.NextAddr = dataProcessor.GetNextAddr();
 
             return data;
         }
 
-        private int GetInt(int size)
+        private bool[] GetBuildingsFromTown(byte[] bytes)
         {
-            var value = (int)bytes[index++];
+            byte[] masks = new byte[] { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
+            var buildings = new bool[42];
 
-            if (size > 1)
+            for (var i = 0; i < 42; ++i)
             {
-                value += 256 * bytes[index++];
+                var byteAddr = i / 8;
+                var bitMask = masks[i % 8];
+
+                buildings[i] = (bytes[byteAddr] & bitMask) != 0;
             }
 
-            return value;
+            return buildings;
         }
 
-        private int[] GetIntArray(int size)
+        private List<TownColonist> GetColonistsFromTown()
         {
-            var arr = new int[size];
+            var colonists = new List<TownColonist>();
 
-            for (var i = 0; i < size; ++i)
+            var colonistCount = dataProcessor.GetInt(1);
+            var colonistOccupations = dataProcessor.GetRange(32);
+            var colonistSpecialties = dataProcessor.GetRange(32);
+            var colonistTimeOnJob = dataProcessor.GetRange(16); // Nibble per colonist
+
+            for (var i = 0; i < colonistCount; ++i)
             {
-                arr[i] = GetInt(2);
+                var timeByte = colonistTimeOnJob[i / 2];
+
+                colonists.Add(new TownColonist
+                {
+                    Specialty = colonistSpecialties[i],
+                    Occupation = colonistOccupations[i],
+                    TimeOnJob = i % 2 == 0 ? timeByte & 0x0F : timeByte / 16
+                });
             }
 
-            return arr;
-        }
-
-        private Location GetLocation(int size)
-        {
-            return new Location
-            {
-                X = GetInt(size),
-                Y = GetInt(size)
-            };
-        }
-
-        private byte[] GetRange(int length)
-        {
-            var value = bytes[index..(index + length)];
-            index += length;
-
-            return value;
-        }
-
-        private string GetString(int length)
-        {
-            var offset = length;
-
-            while (length > 0 && bytes[index + length - 1] == 0)
-            {
-                --length;
-            }
-
-            var value = Encoding.ASCII.GetString(bytes, index, length);
-            index += offset;
-
-            return value;
+            return colonists;
         }
     }
 }
