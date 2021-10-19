@@ -37,6 +37,10 @@ namespace ReadFile.Models
 
         public List<Village> Villages { get; set; }
 
+        public byte[] Unknown12 { get; set; }
+
+        public MapTile[] Map { get; set; }
+
         public int NextAddr { get; set; }
 
         public string GetHeaderSummary()
@@ -52,6 +56,39 @@ namespace ReadFile.Models
                 $"{Unknown10.ByteArrayToString()}\r\n" +
                 //$"{Unknown11.ByteArrayToString()}\r\n" +
                 $"Next Byte Address: {NextAddr:X4}";
+        }
+
+        public string GetMap()
+        {
+            var terrainFeatures = new[]
+            {
+                "",
+                " ter-feat-hills",
+                " ter-feat-minor-river",
+                " ter-feat-hills ter-feat-minor-river",
+                "",
+                " ter-feat-mountains",
+                " ter-feat-major-river",
+                " ter-feat-mountains ter-feat-major-river"
+            };
+
+            var rows = Map.Select((mt, i) => new { MapTile = mt, Index = i })
+                    .GroupBy(x => x.Index / MapSize.Width)
+                    .Select(grp =>
+                    {
+                        var cells = grp.Select(x =>
+                        {
+                            var terBase = x.MapTile.TerrainBase.ToString().ToLower();
+                            var terFeat = terrainFeatures[(int)x.MapTile.TerrainFeature];
+
+                            return $"<div data-x=\"{x.Index % MapSize.Width}\" data-y=\"{x.Index / MapSize.Width}\" class=\"map-cell ter-base-{terBase}{terFeat}\"></div>";
+                        });
+
+                        return $"<div class=\"map-row\">\r\n\t\t\t\t{string.Join("\r\n\t\t\t\t", cells)}\r\n\t\t\t</div>";
+                    });
+
+            return $"<html>\r\n\t<head>\r\n\t\t<link href=\"C:\\Users\\jay\\source\\repos\\Sandbox\\Colonization\\ReadFile\\colonization.css\" rel=\"stylesheet\"></link></style>\r\n\t</head>\r\n" +
+                $"\t<body>\r\n\t\t<div class=\"map\">\r\n\t\t\t{string.Join("\r\n\t\t\t", rows)}\r\n\t\t</div>\r\n\t</body>\r\n</html>";
         }
 
         public string GetTownsSummary()

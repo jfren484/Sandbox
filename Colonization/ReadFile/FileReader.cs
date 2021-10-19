@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ReadFile
@@ -117,6 +118,16 @@ namespace ReadFile
 
                 data.Villages.Add(village);
             }
+
+            data.Unknown12 = dataProcessor.GetRange(1351);
+
+            data.Map = dataProcessor.GetRange(data.MapSize.Width * data.MapSize.Height)
+                .Select(b => new MapTile
+                {
+                    TerrainBase = (TerrainBase)(b & 0x1F), // bottom 5 bits
+                    TerrainFeature = (TerrainFeature)(b / 0x20) // top 3 bits
+                })
+                .ToArray();
 
             data.NextAddr = dataProcessor.GetNextAddr();
 
