@@ -33,14 +33,17 @@ namespace ReadFile
                 Unknown2 = dataProcessor.GetRange(10),
                 Year = dataProcessor.GetInt(2),
                 Season = dataProcessor.GetInt(1) == 0 ? "Spring" : "Autumn",
-                Unknown3 = dataProcessor.GetRange(13),
+                Unknown3 = dataProcessor.GetRange(5),
+                ActiveUnitIndex = dataProcessor.GetInt(2),
+                Unknown4 = dataProcessor.GetRange(6),
                 IndianVillageCount = dataProcessor.GetInt(2),
                 UnitCount = dataProcessor.GetInt(2),
                 TownCount = dataProcessor.GetInt(2),
 
-                Unknown4 = dataProcessor.GetRange(6),
+                Unknown5 = dataProcessor.GetRange(6),
                 Difficulty = (Difficulty)dataProcessor.GetInt(1),
-                Unknown5 = dataProcessor.GetRange(103),
+                Unknown6 = dataProcessor.GetRange(0x63),
+                DiscoveryFlags = dataProcessor.GetRange(4),
                 ColonyData = new[]
                 {
                     new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
@@ -48,9 +51,9 @@ namespace ReadFile
                     new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
                     new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)}
                 },
-                Unknown6 = dataProcessor.GetRange(6),
-                Unknown7 = dataProcessor.GetLocation(2),
-                Unknown8 = dataProcessor.GetRange(14),
+                Unknown7 = dataProcessor.GetRange(6),
+                Unknown8 = dataProcessor.GetLocation(2),
+                Unknown9 = dataProcessor.GetRange(14),
                 Towns = new List<Town>(),
                 Units = new List<Unit>(),
                 Villages = new List<Village>()
@@ -98,11 +101,11 @@ namespace ReadFile
                 }) ;
             }
 
-            data.Unknown9 = (byte)dataProcessor.GetInt(1);
+            data.Unknown10 = (byte)dataProcessor.GetInt(1);
             data.TaxRate = dataProcessor.GetInt(1);
-            data.Unknown10 = dataProcessor.GetRange(40);
+            data.Unknown11 = dataProcessor.GetRange(0x28);
             data.Gold = dataProcessor.GetInt(4);
-            data.Unknown11 = dataProcessor.GetRange(1218);
+            data.Unknown12 = dataProcessor.GetRange(0x4C2);
 
             for (var i = 0; i < data.IndianVillageCount; ++i)
             {
@@ -119,13 +122,19 @@ namespace ReadFile
                 data.Villages.Add(village);
             }
 
-            data.Unknown12 = dataProcessor.GetRange(1351);
+            data.Unknown13 = dataProcessor.GetRange(0x547);
 
-            data.Map = dataProcessor.GetRange(data.MapSize.Width * data.MapSize.Height)
-                .Select(b => new MapTile
-                {
-                    TerrainBase = (TerrainBase)(b & 0x1F), // bottom 5 bits
-                    TerrainFeature = (TerrainFeature)(b / 0x20) // top 3 bits
+            var mapLength = data.MapSize.Width * data.MapSize.Height;
+            data.Map = dataProcessor.GetRange(mapLength)
+                .Zip(dataProcessor.GetRange(mapLength), (b1, b2) => new { TerrainByte = b1, b2 })
+                .Zip(dataProcessor.GetRange(mapLength), (x, b3) => new { x.TerrainByte, x.b2, TerritoryByte = b3 })
+                .Zip(dataProcessor.GetRange(mapLength), (x, b4) => new MapTile {
+                    TerrainBase = (TerrainBase)(x.TerrainByte & 0x1F), // bottom 5 bits
+                    TerrainFeature = (TerrainFeature)(x.TerrainByte / 0x20), // top 3 bits
+                    UnknownByte1 = x.b2,
+                    Nation = x.TerritoryByte / 0x10,
+                    DistinctBodyNumber = (byte)(x.TerritoryByte % 0x10),
+                    UnknownByte2 = b4
                 })
                 .ToArray();
 

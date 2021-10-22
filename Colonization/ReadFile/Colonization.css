@@ -9,8 +9,11 @@
 
 .map-cell {
     display: table-cell;
-    width: 20px;
-    height: 20px;
+}
+
+.map-cell, .ter-feat {
+    width: 40px;
+    height: 40px;
 }
 
 .ter-base-tundra {
@@ -87,4 +90,24 @@
 
 .ter-base-sealane {
     background-image: url('Images/sealane.png');
+}
+
+.ter-feat {
+    z-index: 1;
+}
+
+.ter-feat-hills {
+    background-image: url('Images/hills.png');
+}
+
+.ter-feat-minor-river {
+    background-image: url('Images/minorriver.png');
+}
+
+.ter-feat-mountains {
+    background-image: url('Images/mountains.png');
+}
+
+.ter-feat-major-river {
+    background-image: url('Images/majorriver.png');
 }

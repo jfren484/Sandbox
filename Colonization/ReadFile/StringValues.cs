@@ -14,7 +14,11 @@
             "Cherokee",
             "Apache",
             "Sioux",
-            "Tupi"
+            "Tupi",
+            "",
+            "",
+            "",
+            "Wilderness"
         };
 
         public static string[] NationAdjectives = {
@@ -86,6 +90,49 @@
             "-",
             "Fortress ",
             "French "
+        };
+
+        public static string[] TerrainBases =
+        {
+            "Tundra",
+            "Desert",
+            "Plains",
+            "Prairie",
+            "Grassland",
+            "Savannah",
+            "Marsh",
+            "Swamp",
+            "Boreal Forest",
+            "Scrub Forest",
+            "Mixed Forest",
+            "Broadleaf Forest",
+            "Conifer Forest",
+            "Tropical Forest",
+            "Wetland Forest",
+            "Rain Forest",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Arctic",
+            "Ocean",
+            "Sea Lane"
+        };
+
+        public static string[] TerrainFeatures =
+        {
+            "",
+            "Hills",
+            "Minor River",
+            "Hills/Minor River",
+            "",
+            "Mountains",
+            "Major River",
+            "Mountains/Major River"
         };
 
         public static string[] UnitTypes =

@@ -74,22 +74,6 @@
         public const int Nothing = 0xFF;
     }
 
-    public static class Nations
-    {
-        public const int England = 0x0;
-        public const int France = 0x1;
-        public const int Spain = 0x2;
-        public const int Netherlands = 0x3;
-        public const int Inca = 0x4;
-        public const int Aztec = 0x5;
-        public const int Arawak = 0x6;
-        public const int Iroquois = 0x7;
-        public const int Cherokee = 0x8;
-        public const int Apache = 0x9;
-        public const int Sioux = 0xA;
-        public const int Tupi = 0xB;
-    }
-
     public static class Orders
     {
         public const int None = 0x0;

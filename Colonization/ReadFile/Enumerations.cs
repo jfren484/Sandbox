@@ -11,6 +11,23 @@ namespace ReadFile
         Viceroy = 0x04
     }
 
+    public enum Nations
+    {
+        England = 0x0,
+        France = 0x1,
+        Spain = 0x2,
+        Netherlands = 0x3,
+        Inca = 0x4,
+        Aztec = 0x5,
+        Arawak = 0x6,
+        Iroquois = 0x7,
+        Cherokee = 0x8,
+        Apache = 0x9,
+        Sioux = 0xA,
+        Tupi = 0xB,
+        Wilderness = 0xF
+    }
+
     public enum PlayedBy
     {
         Player = 0x00,
