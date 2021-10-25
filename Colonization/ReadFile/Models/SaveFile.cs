@@ -61,8 +61,10 @@ namespace ReadFile.Models
                 $"{Unknown7.ByteArrayToString()}\r\nUknown Point: {Unknown8.X}, {Unknown8.Y}\r\n{Unknown9.ByteArrayToString()}\r\n{Unknown10}\r\n" +
                 $"Gold, Tax: {Gold:n0}, {TaxRate}%\r\n" +
                 $"{Unknown11.ByteArrayToString()}\r\n" +
-                //$"{Unknown11.ByteArrayToString()}\r\n" +
-                $"Next Byte Address: {NextAddr:X4}";
+                $"Next Byte Address: {NextAddr:X4}\r\n" +
+                //string.Join("\r\n", Map.GroupBy(m => m.UnknownNibble2).OrderBy(grp => grp.Key).Select(grp => $"{grp.Key:X}: {grp.Count()}")) +
+                //string.Join("\r\n", Map.Where(m => m.UnknownByte2 >= 0x10 && m.UnknownByte2 < 0x20).Select(m => m)) +
+                "";
         }
 
         public string GetMap()
@@ -92,24 +94,7 @@ namespace ReadFile.Models
                                 terFeat = $"<div class=\"ter-feat {terFeat}\"></div>";
                             }
 
-                            var terBaseDesc = x.MapTile.TerrainFeature.HasFlag(TerrainFeature.Elevation)
-                                ? StringValues.TerrainFeatures[(int)x.MapTile.TerrainFeature]
-                                : x.MapTile.TerrainBase == TerrainBase.Ocean && x.MapTile.DistinctBodyNumber > 1
-                                    ? "Lake"
-                                    : StringValues.TerrainBases[(int)x.MapTile.TerrainBase];
-
-                            var terFeatDesc = x.MapTile.TerrainFeature == 0 || x.MapTile.TerrainFeature.HasFlag(TerrainFeature.Elevation)
-                                ? string.Empty
-                                : $"&#13;({StringValues.TerrainFeatures[(int)x.MapTile.TerrainFeature]})";
-
-                            var nation = (int)x.MapTile.TerrainBase > 0x0F
-                                ? string.Empty
-                                : "&#13;" + (x.MapTile.Nation < 4
-                                    ? ColonyData[x.MapTile.Nation].Name
-                                    : StringValues.Nations[x.MapTile.Nation]);
-
-                            return $"<div title=\"Locat: ({x.Index % MapSize.Width}, {x.Index / MapSize.Width}) {x.MapTile.DistinctBodyNumber}" +
-                                $"{nation}&#13;({terBaseDesc}){terFeatDesc}&#13;Unknown1: {x.MapTile.UnknownByte1:X2}&#13;Unknown2: {x.MapTile.UnknownByte2:X2}\" " +
+                            return $"<div title=\"{x.MapTile.ToString().Replace("\r\n", "&#13;")}\" " +
                                 $"class=\"map-cell ter-base-{terBase}\">{terFeat}</div>";
                         });
 

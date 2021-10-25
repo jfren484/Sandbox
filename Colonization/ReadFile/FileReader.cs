@@ -125,16 +125,37 @@ namespace ReadFile
             data.Unknown13 = dataProcessor.GetRange(0x547);
 
             var mapLength = data.MapSize.Width * data.MapSize.Height;
-            data.Map = dataProcessor.GetRange(mapLength)
-                .Zip(dataProcessor.GetRange(mapLength), (b1, b2) => new { TerrainByte = b1, b2 })
-                .Zip(dataProcessor.GetRange(mapLength), (x, b3) => new { x.TerrainByte, x.b2, TerritoryByte = b3 })
-                .Zip(dataProcessor.GetRange(mapLength), (x, b4) => new MapTile {
-                    TerrainBase = (TerrainBase)(x.TerrainByte & 0x1F), // bottom 5 bits
-                    TerrainFeature = (TerrainFeature)(x.TerrainByte / 0x20), // top 3 bits
-                    UnknownByte1 = x.b2,
-                    Nation = x.TerritoryByte / 0x10,
-                    DistinctBodyNumber = (byte)(x.TerritoryByte % 0x10),
-                    UnknownByte2 = b4
+            data.Map = dataProcessor.GetRange(mapLength).Select((b, i) => new { Index = i, TerrainByte = b })
+                .Zip(dataProcessor.GetRange(mapLength), (x, b2) => new { x.Index, x.TerrainByte, b2 })
+                .Zip(dataProcessor.GetRange(mapLength), (x, b3) => new { x.Index, x.TerrainByte, x.b2, TerritoryByte = b3 })
+                .Zip(dataProcessor.GetRange(mapLength), (x, b4) =>
+                {
+                    var terrainBase = (TerrainBase)(x.TerrainByte & 0x1F); // bottom 5 bits
+                    var terrainFeature = (TerrainFeature)(x.TerrainByte / 0x20); // top 3 bits
+                    var nation = x.TerritoryByte / 0x10;
+
+                    return new MapTile
+                    {
+                        Coordinates = new Location { X = x.Index % data.MapSize.Width, Y = x.Index / data.MapSize.Width },
+                        TerrainBase = terrainBase,
+                        TerrainFeature = terrainFeature,
+                        UnknownByte1 = x.b2,
+                        Nation = nation,
+                        NationName = (int)terrainBase > 0x0F
+                        ? string.Empty
+                        : (nation < 4
+                            ? data.ColonyData[nation].Name
+                            : StringValues.Nations[nation]),
+                        DistinctBodyNumber = (byte)(x.TerritoryByte % 0x10),
+                        VisibleToNations = new[]
+                            {
+                                (b4 & 0x10) != 0,
+                                (b4 & 0x20) != 0,
+                                (b4 & 0x40) != 0,
+                                (b4 & 0x80) != 0
+                            },
+                        UnknownNibble2 = (byte)(b4 % 0x10)
+                    };
                 })
                 .ToArray();
 

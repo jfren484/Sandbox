@@ -2,7 +2,7 @@
   "profiles": {
     "ReadFile": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Program Files (x86)\\GOG Galaxy\\Games\\Colonization\\cloud_saves\\MPS\\COLONIZE\\COLONY04.SAV\" -all"
+      "commandLineArgs": "\"C:\\Program Files (x86)\\GOG Galaxy\\Games\\Colonization\\cloud_saves\\MPS\\COLONIZE\\COLONY02.SAV\" -all"
     }
   }
 }
