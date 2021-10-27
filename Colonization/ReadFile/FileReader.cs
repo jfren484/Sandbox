@@ -139,7 +139,10 @@ namespace ReadFile
                         Coordinates = new Location { X = x.Index % data.MapSize.Width, Y = x.Index / data.MapSize.Width },
                         TerrainBase = terrainBase,
                         TerrainFeature = terrainFeature,
-                        UnknownByte1 = x.b2,
+                        IsPlowed = (x.b2 & 0x40) != 0,
+                        HasRoad = (x.b2 & 0x08) != 0,
+                        IsOccupied = (x.b2 & 0x01) != 0,
+                        UnknownByte1 = (byte)(x.b2 & 0xB6),
                         Nation = nation,
                         NationName = (int)terrainBase > 0x0F
                         ? string.Empty
@@ -154,7 +157,7 @@ namespace ReadFile
                                 (b4 & 0x40) != 0,
                                 (b4 & 0x80) != 0
                             },
-                        UnknownNibble2 = (byte)(b4 % 0x10)
+                        UnknownNibble2 = (byte)(b4 & 0x0F)
                     };
                 })
                 .ToArray();

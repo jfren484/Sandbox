@@ -7,6 +7,9 @@ namespace ReadFile.Models
         public Location Coordinates { get; set; }
         public TerrainBase TerrainBase { get; set; }
         public TerrainFeature TerrainFeature { get; set; }
+        public bool IsPlowed { get; set; }
+        public bool HasRoad { get; set; }
+        public bool IsOccupied { get; set; }
         public byte UnknownByte1 { get; set; }
         public int Nation { get; set; }
         public string NationName { get; set; }
@@ -24,11 +27,20 @@ namespace ReadFile.Models
 
             var terFeatDesc = TerrainFeature == 0 || TerrainFeature.HasFlag(TerrainFeature.Elevation)
                 ? string.Empty
-                : $"&#13;({StringValues.TerrainFeatures[(int)TerrainFeature]})";
+                : $"\r\n({StringValues.TerrainFeatures[(int)TerrainFeature]})";
+
+            var roadDesc = HasRoad
+                ? "\r\n(Road)"
+                : string.Empty;
+
+            var plowedDesc = IsPlowed
+                ? "\r\n(Plowed)"
+                : string.Empty;
 
             var formatted = $"Locat: ({Coordinates.X}, {Coordinates.Y}) {DistinctBodyNumber}\r\n" +
                 $"{NationName}\r\n" +
-                $"({terBaseDesc}){terFeatDesc}\r\n" +
+                $"({terBaseDesc}){terFeatDesc}{roadDesc}{plowedDesc}\r\n" +
+                $"Occupied: {IsOccupied}\r\n" +
                 $"Unknown1: {UnknownByte1:X2}\r\n" +
                 $"VisibleTo: {string.Join(", ", VisibleToNations.Select(b => b))}\r\n" +
                 $"Unknown2: {UnknownNibble2:X1}";

@@ -62,6 +62,7 @@ namespace ReadFile.Models
                 $"Gold, Tax: {Gold:n0}, {TaxRate}%\r\n" +
                 $"{Unknown11.ByteArrayToString()}\r\n" +
                 $"Next Byte Address: {NextAddr:X4}\r\n" +
+                string.Join("\r\n", Map.GroupBy(m => m.UnknownByte1).OrderBy(grp => grp.Key).Select(grp => $"{grp.Key:X2}: {grp.Count()}")) +
                 //string.Join("\r\n", Map.GroupBy(m => m.UnknownNibble2).OrderBy(grp => grp.Key).Select(grp => $"{grp.Key:X}: {grp.Count()}")) +
                 //string.Join("\r\n", Map.Where(m => m.UnknownByte2 >= 0x10 && m.UnknownByte2 < 0x20).Select(m => m)) +
                 "";

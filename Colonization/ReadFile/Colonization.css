@@ -11,9 +11,13 @@
     display: table-cell;
 }
 
-.map-cell, .ter-feat {
+.map-cell, .ter-base, .ter-feat {
     width: 40px;
     height: 40px;
+}
+
+.ter-base {
+    z-index: 5;
 }
 
 .ter-base-tundra {
@@ -93,7 +97,7 @@
 }
 
 .ter-feat {
-    z-index: 1;
+    z-index: 10;
 }
 
 .ter-feat-hills {
