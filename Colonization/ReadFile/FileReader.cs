@@ -1,9 +1,7 @@
 ﻿using ReadFile.Models;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace ReadFile
 {
@@ -30,30 +28,34 @@ namespace ReadFile
                 },
 
                 // Next 32 bytes
-                Unknown2 = dataProcessor.GetRange(10),
+                Unknown2 = dataProcessor.GetRange(2),
+                GameOptions = (GameOptions)dataProcessor.GetInt(2),
+                ColonyReportOptions = (ColonyReportOptions)dataProcessor.GetInt(2),
+                SoundOptions = (SoundOptions)dataProcessor.GetInt(1),
+                Unknown3 = dataProcessor.GetRange(3),
                 Year = dataProcessor.GetInt(2),
-                Season = dataProcessor.GetInt(1) == 0 ? "Spring" : "Autumn",
-                Unknown3 = dataProcessor.GetRange(5),
+                Season = (Season)dataProcessor.GetByte(),
+                Unknown4 = dataProcessor.GetRange(5),
                 ActiveUnitIndex = dataProcessor.GetInt(2),
-                Unknown4 = dataProcessor.GetRange(6),
+                Unknown5 = dataProcessor.GetRange(6),
                 IndianVillageCount = dataProcessor.GetInt(2),
                 UnitCount = dataProcessor.GetInt(2),
                 TownCount = dataProcessor.GetInt(2),
 
-                Unknown5 = dataProcessor.GetRange(6),
-                Difficulty = (Difficulty)dataProcessor.GetInt(1),
-                Unknown6 = dataProcessor.GetRange(0x63),
+                Unknown6 = dataProcessor.GetRange(6),
+                Difficulty = (Difficulty)dataProcessor.GetByte(),
+                Unknown7 = dataProcessor.GetRange(0x63),
                 DiscoveryFlags = dataProcessor.GetRange(4),
                 ColonyData = new[]
                 {
-                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
-                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
-                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)},
-                    new Colony { Leader = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = (byte)dataProcessor.GetInt(1), PlayedBy = (PlayedBy)dataProcessor.GetInt(1), Unknown2 = dataProcessor.GetRange(2)}
+                    new Colony { LeaderName = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = dataProcessor.GetByte(), PlayedBy = (PlayedBy)dataProcessor.GetByte(), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { LeaderName = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = dataProcessor.GetByte(), PlayedBy = (PlayedBy)dataProcessor.GetByte(), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { LeaderName = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = dataProcessor.GetByte(), PlayedBy = (PlayedBy)dataProcessor.GetByte(), Unknown2 = dataProcessor.GetRange(2)},
+                    new Colony { LeaderName = dataProcessor.GetString(24), Name = dataProcessor.GetString(24), Unknown1 = dataProcessor.GetByte(), PlayedBy = (PlayedBy)dataProcessor.GetByte(), Unknown2 = dataProcessor.GetRange(2)}
                 },
-                Unknown7 = dataProcessor.GetRange(6),
-                Unknown8 = dataProcessor.GetLocation(2),
-                Unknown9 = dataProcessor.GetRange(14),
+                Unknown8 = dataProcessor.GetRange(6),
+                Unknown9 = dataProcessor.GetLocation(2),
+                Unknown10 = dataProcessor.GetRange(0x0E),
                 Towns = new List<Town>(),
                 Units = new List<Unit>(),
                 Villages = new List<Village>()
@@ -65,15 +67,15 @@ namespace ReadFile
                 {
                     Location = dataProcessor.GetLocation(1),
                     Name = dataProcessor.GetString(24),
-                    Nation = dataProcessor.GetInt(1),
+                    Nation = (Nation)dataProcessor.GetByte(),
                     Unknown1 = dataProcessor.GetRange(4), // 00 48 00 00
                     Colonists = GetColonistsFromTown(),
-                    ColonistTiles = dataProcessor.GetRange(8), // N,E,S,W,NW,NE,SE,SW
-                    Unknown2 = dataProcessor.GetRange(12), // All FF?
+                    ColonistTiles = dataProcessor.GetRange(8),
+                    Unknown2 = dataProcessor.GetRange(0x0C), // All FF?
                     Buildings = GetBuildingsFromTown(dataProcessor.GetRange(6)),
                     Unknown3 = dataProcessor.GetRange(8),
                     ConstructionProgress = dataProcessor.GetInt(2),
-                    ConstructionTarget = dataProcessor.GetInt(1),
+                    ConstructionTarget = (ConstructionTarget)dataProcessor.GetByte(),
                     Unknown4 = dataProcessor.GetRange(5),
                     Cargo = dataProcessor.GetIntArray(16),
                     PopulationBadge = dataProcessor.GetInt(1),
@@ -88,41 +90,38 @@ namespace ReadFile
                 data.Units.Add(new Unit
                 {
                     Location = dataProcessor.GetLocation(1),
-                    UnitType = dataProcessor.GetInt(1),
-                    Nation = dataProcessor.GetInt(1) & 0x0F,
+                    UnitType = (UnitType)dataProcessor.GetByte(),
+                    Nation = dataProcessor.GetNation(),
                     Unknown1 = dataProcessor.GetRange(4),
-                    Orders = dataProcessor.GetInt(1),
+                    Orders = (Orders)dataProcessor.GetByte(),
                     Destination = dataProcessor.GetLocation(1),
-                    Unknown2 = dataProcessor.GetRange(10),
+                    Unknown2 = dataProcessor.GetRange(0x0A),
                     Tools = dataProcessor.GetInt(1),
-                    Unknown3 = dataProcessor.GetInt(1),
-                    Specialty = dataProcessor.GetInt(1),
+                    Unknown3 = dataProcessor.GetByte(),
+                    Specialty = (Specialty)dataProcessor.GetByte(),
                     Unknown4 = dataProcessor.GetRange(4)
                 }) ;
             }
 
-            data.Unknown10 = (byte)dataProcessor.GetInt(1);
+            data.Unknown11 = dataProcessor.GetByte();
             data.TaxRate = dataProcessor.GetInt(1);
-            data.Unknown11 = dataProcessor.GetRange(0x28);
+            data.Unknown12 = dataProcessor.GetRange(0x28);
             data.Gold = dataProcessor.GetInt(4);
-            data.Unknown12 = dataProcessor.GetRange(0x4C2);
+            data.Unknown13 = dataProcessor.GetRange(0x4C2);
 
             for (var i = 0; i < data.IndianVillageCount; ++i)
             {
-                var village = new Village
+                data.Villages.Add(new Village
                 {
                     Location = dataProcessor.GetLocation(1),
-                    Nation = dataProcessor.GetInt(1),
+                    Nation = (Nation)dataProcessor.GetNation(),
                     Unknown1 = dataProcessor.GetRange(2),
-                    MissionNation = dataProcessor.GetInt(1),
+                    MissionNation = (Nation)dataProcessor.GetNation(),
                     Unknown2 = dataProcessor.GetRange(12)
-                };
-                village.MissionNation = village.MissionNation == 0xFF ? -1 : village.MissionNation & 0x0F;
-
-                data.Villages.Add(village);
+                });
             }
 
-            data.Unknown13 = dataProcessor.GetRange(0x547);
+            data.Unknown14 = dataProcessor.GetRange(0x547);
 
             var mapLength = data.MapSize.Width * data.MapSize.Height;
             data.Map = dataProcessor.GetRange(mapLength).Select((b, i) => new { Index = i, TerrainByte = b })
@@ -132,7 +131,7 @@ namespace ReadFile
                 {
                     var terrainBase = (TerrainBase)(x.TerrainByte & 0x1F); // bottom 5 bits
                     var terrainFeature = (TerrainFeature)(x.TerrainByte / 0x20); // top 3 bits
-                    var nation = x.TerritoryByte / 0x10;
+                    var nation = (Nation)(x.TerritoryByte / 0x10);
 
                     return new MapTile
                     {
@@ -146,9 +145,9 @@ namespace ReadFile
                         Nation = nation,
                         NationName = (int)terrainBase > 0x0F
                         ? string.Empty
-                        : (nation < 4
-                            ? data.ColonyData[nation].Name
-                            : StringValues.Nations[nation]),
+                        : ((int)nation < 4
+                            ? data.ColonyData[(int)nation].Name
+                            : nation.ToString()),
                         DistinctBodyNumber = (byte)(x.TerritoryByte % 0x10),
                         VisibleToNations = new[]
                             {

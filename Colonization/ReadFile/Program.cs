@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using ReadFile.JsonConverters;
 
 namespace ReadFile
 {
@@ -9,7 +12,7 @@ namespace ReadFile
         {
             if (args.Length == 0 || args.Any(s => s == "-help" || s == "-?" || s == "/?"))
             {
-                Console.WriteLine("ReadFile <filename> [-head] [-map] [-towns] [-units] [-vill] [-all]");
+                Console.WriteLine("ReadFile <filename> [-head]|[-towns]|[-units]|[-vill]|[-all]|[-map [<path-to-includes>]]");
                 return;
             }
 
@@ -17,27 +20,44 @@ namespace ReadFile
 
             var saveData = reader.Read();
 
-            if (args.Any(s => s == "-head" || s == "-all"))
+            if (args.Length == 1)
+            {
+                return;
+            }
+
+            var s = args[1];
+            var a = (string)null;
+            if (args.Length > 2)
+            {
+                a = args[2];
+            }
+
+            if (s == "-head" || s == "-all")
             {
                 Console.WriteLine(saveData.GetHeaderSummary());
             }
 
-            if (args.Any(s => s == "-map"))
+            if (s == "-map")
             {
-                Console.WriteLine(saveData.GetMap());
+                Console.WriteLine(saveData.GetMap(a));
             }
 
-            if (args.Any(s => s == "-towns" || s == "-all"))
+            if (s == "-json")
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(saveData, Formatting.Indented, new ByteConverter(), new ByteArrayConverter(), new StringEnumConverter()));
+            }
+
+            if (s == "-towns" || s == "-all")
             {
                 Console.WriteLine(saveData.GetTownsSummary());
             }
 
-            if (args.Any(s => s == "-units" || s == "-all"))
+            if (s == "-units" || s == "-all")
             {
                 Console.WriteLine(saveData.GetUnitsSummary());
             }
 
-            if (args.Any(s => s == "-vill" || s == "-all"))
+            if (s == "-vill" || s == "-all")
             {
                 Console.WriteLine(saveData.GetVillagesSummary());
             }

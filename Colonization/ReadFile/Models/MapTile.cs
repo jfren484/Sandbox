@@ -11,7 +11,7 @@ namespace ReadFile.Models
         public bool HasRoad { get; set; }
         public bool IsOccupied { get; set; }
         public byte UnknownByte1 { get; set; }
-        public int Nation { get; set; }
+        public Nation Nation { get; set; }
         public string NationName { get; set; }
         public byte DistinctBodyNumber { get; set; }
         public bool[] VisibleToNations { get; set; }

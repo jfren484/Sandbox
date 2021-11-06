@@ -1,4 +1,8 @@
-﻿.map {
+﻿.info {
+    width: 500px;
+}
+
+.map {
     display: table;
 }
 

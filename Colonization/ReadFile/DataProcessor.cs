@@ -1,4 +1,5 @@
 ﻿using ReadFile.Models;
+using System.Linq;
 using System.Text;
 
 namespace ReadFile
@@ -11,6 +12,11 @@ namespace ReadFile
         public DataProcessor(byte[] dataToProcess)
         {
             this.data = dataToProcess;
+        }
+
+        public byte GetByte()
+        {
+            return data[index++];
         }
 
         public int GetInt(int size)
@@ -46,6 +52,18 @@ namespace ReadFile
                 X = GetInt(size),
                 Y = GetInt(size)
             };
+        }
+
+        public Nation GetNation()
+        {
+            var value = (int)data[index++];
+
+            if (value != 0xFF)
+            {
+                value &= 0x0F;
+            }
+
+            return (Nation)value;
         }
 
         public int GetNextAddr()

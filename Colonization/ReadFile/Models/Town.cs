@@ -7,7 +7,7 @@ namespace ReadFile.Models
     {
         public Location Location { get; set; }
         public string Name { get; set; }
-        public int Nation { get; set; }
+        public Nation Nation { get; set; }
         public byte[] Unknown1 { get; set; }
         public List<TownColonist> Colonists { get; set; }
         public byte[] ColonistTiles { get; set; }
@@ -15,7 +15,7 @@ namespace ReadFile.Models
         public bool[] Buildings { get; set; }
         public byte[] Unknown3 { get; set; }
         public int ConstructionProgress { get; set; }
-        public int ConstructionTarget { get; set; }
+        public ConstructionTarget ConstructionTarget { get; set; }
         public byte[] Unknown4 { get; set; }
         public int[] Cargo { get; set; }
         public int PopulationBadge { get; set; }
@@ -25,7 +25,7 @@ namespace ReadFile.Models
 
         public override string ToString()
         {
-            return $"{Name,-23} of {StringValues.Nations[Nation],-11} at {Location.X,2}, {Location.Y,2}; {Colonists.Count,2} Colonists ({PopulationBadge} last reported)\r\n" +
+            return $"{Name,-23} of {Nation,-11} at {Location.X,2}, {Location.Y,2}; {Colonists.Count,2} Colonists ({PopulationBadge} last reported)\r\n" +
                 $"     Buildings: {string.Join("", Buildings.Select(b => b ? 1 : 0))}\r\n" +
                 $"     {Unknown1.ByteArrayToString()} | {Unknown2.ByteArrayToString()} | {Unknown3.ByteArrayToString()} | {Unknown4.ByteArrayToString()} | " +
                 $"{Unknown5.ByteArrayToString()} | {Unknown6.ByteArrayToString()})";

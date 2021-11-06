@@ -2,25 +2,6 @@
 {
     public static class StringValues
     {
-        public static string[] Nations = {
-            "England",
-            "France",
-            "Spain",
-            "Netherlands",
-            "Inca",
-            "Aztec",
-            "Arawak",
-            "Iroquois",
-            "Cherokee",
-            "Apache",
-            "Sioux",
-            "Tupi",
-            "",
-            "",
-            "",
-            "Wilderness"
-        };
-
         public static string[] NationAdjectives = {
             "English",
             "French",
@@ -86,10 +67,10 @@
             "Criminal",
             "Convert",
             "No Specialty",
-            "Desert ",
+            "Desert",
             "-",
-            "Fortress ",
-            "French "
+            "Fortress",
+            "French"
         };
 
         public static string[] TerrainBases =
