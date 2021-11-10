@@ -21,32 +21,37 @@ function loadData(obj) {
             var cell = $('<div class="map-cell ter-base ter-base-' + obj.Map[i].TerrainBase.toLowerCase() + '"></div>');
             var terrain = obj.Map[i].TerrainBase;
 
+            if (terrain)
+
             var nationName = obj.Map[i].NationName;
             if (nationName.length > 0) {
                 nationName += '\r\n';
             }
 
+            var treeLayer = $('<div class="ter-tree"></div>')
+            cell.append(treeLayer);
+
             if (obj.Map[i].TerrainFeature !== 0) {
-                var layer = $('<div class="ter-feat"></div>')
+                var featLayer = $('<div class="ter-feat"></div>')
                 switch (obj.Map[i].TerrainFeature) {
                     case 'Elevation':
-                        layer.addClass('ter-feat-hills');
+                        featLayer.addClass('ter-feat-hills');
                         terrain = 'Hills';
                         break;
                     case 'Elevation, Major':
-                        layer.addClass('ter-feat-mountains');
+                        featLayer.addClass('ter-feat-mountains');
                         terrain = 'Mountains';
                         break;
                     case 'River':
-                        layer.addClass('ter-feat-minor-river');
+                        featLayer.addClass('ter-feat-minor-river');
                         terrain += ')\r\n(Minor River';
                         break;
                     case 'River, Major':
-                        layer.addClass('ter-feat-major-river');
+                        featLayer.addClass('ter-feat-major-river');
                         terrain += ')\r\n(Major River';
                         break;
                 }
-                cell.append(layer);
+                treeLayer.append(featLayer);
             }
 
             var title = 'Locat: (' + obj.Map[i].Coordinates.X + ', ' + obj.Map[i].Coordinates.Y + ') ' + obj.Map[i].DistinctBodyNumber + '\r\n' +

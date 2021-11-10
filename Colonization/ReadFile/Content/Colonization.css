@@ -15,14 +15,17 @@
     display: table-cell;
 }
 
-.map-cell, .ter-base, .ter-feat {
+.map-cell, .ter-base, .ter-tree, .ter-feat {
     width: 40px;
     height: 40px;
 }
 
+.ter-base, .ter-tree, .ter-feat {
+    background-size: 100%;
+}
+
 .ter-base {
     z-index: 5;
-    background-size: 100%;
 }
 
 .ter-base-tundra {
@@ -58,35 +61,35 @@
 }
 
 .ter-base-borealforest {
-    background-image: url('../Images/borealforest.png');
+    background-image: url('../Images/tundra.png');
 }
 
 .ter-base-scrubforest {
-    background-image: url('../Images/scrubforest.png');
+    background-image: url('../Images/desert.png');
 }
 
 .ter-base-mixedforest {
-    background-image: url('../Images/mixedforest.png');
+    background-image: url('../Images/plains.png');
 }
 
 .ter-base-broadleafforest {
-    background-image: url('../Images/broadleafforest.png');
+    background-image: url('../Images/prairie.png');
 }
 
 .ter-base-coniferforest {
-    background-image: url('../Images/coniferforest.png');
+    background-image: url('../Images/grassland.png');
 }
 
 .ter-base-tropicalforest {
-    background-image: url('../Images/tropicalforest.png');
+    background-image: url('../Images/savannah.png');
 }
 
 .ter-base-wetlandforest {
-    background-image: url('../Images/wetlandforest.png');
+    background-image: url('../Images/marsh.png');
 }
 
 .ter-base-rainforest {
-    background-image: url('../Images/rainforest.png');
+    background-image: url('../Images/swamp.png');
 }
 
 .ter-base-arctic {
@@ -101,8 +104,26 @@
     background-image: url('../Images/sealane.png');
 }
 
-.ter-feat {
+.ter-tree {
     z-index: 10;
+}
+
+.ter-base-scrubforest .ter-tree {
+    background-image: url('../Images/scrubforest.png');
+}
+
+.ter-base-borealforest .ter-tree,
+.ter-base-mixedforest .ter-tree,
+.ter-base-broadleafforest .ter-tree,
+.ter-base-coniferforest .ter-tree,
+.ter-base-tropicalforest .ter-tree,
+.ter-base-wetlandforest .ter-tree,
+.ter-base-rainforest .ter-tree {
+    background-image: url('../Images/forest.png');
+}
+
+.ter-feat {
+    z-index: 15;
 }
 
 .ter-feat-hills {
