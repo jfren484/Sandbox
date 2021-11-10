@@ -1,0 +1,22 @@
+1A6E 1A6F 1A70
+1AA8 1AA9 1AAA
+1AE2 1AE3 1AE4
+
+00 Tundra - Expert Fur Trappers
+01 Dessert - Expert Fur Trappers
+02 Plains - Expert Farmers
+03 Prairie - Expert Farmers
+04 Grassland - Expert Farmers
+05 Savannah - Expert Farmers
+06 Marsh - Expert Farmers
+07 Swamp - Expert Farmers
+08 Boreal Forest - Master Cotton Planters
+09 Scrub Forest - Master Cotton Planters
+0A Mixed Forest - Master Cotton Planters
+0B Broadleaf Forest - Master Cotton Planters
+0C Conifer Forest - Master Farmers
+0D Tropical Forest - Master Sugar Planters
+0E Wetland Forest - Master Farmers
+0F Rain Forest - Master Farmers
+2x Hills - Expert Fur Trappers
+Ax Mountains - Expert Fur Trappers

@@ -22,82 +22,83 @@
 
 .ter-base {
     z-index: 5;
+    background-size: 100%;
 }
 
 .ter-base-tundra {
-    background-image: url('Images/tundra.png');
+    background-image: url('../Images/tundra.png');
 }
 
 .ter-base-desert {
-    background-image: url('Images/desert.png');
+    background-image: url('../Images/desert.png');
 }
 
 .ter-base-plains {
-    background-image: url('Images/plains.png');
+    background-image: url('../Images/plains.png');
 }
 
 .ter-base-prairie {
-    background-image: url('Images/prairie.png');
+    background-image: url('../Images/prairie.png');
 }
 
 .ter-base-grassland {
-    background-image: url('Images/grassland.png');
+    background-image: url('../Images/grassland.png');
 }
 
 .ter-base-savannah {
-    background-image: url('Images/savannah.png');
+    background-image: url('../Images/savannah.png');
 }
 
 .ter-base-marsh {
-    background-image: url('Images/marsh.png');
+    background-image: url('../Images/marsh.png');
 }
 
 .ter-base-swamp {
-    background-image: url('Images/swamp.png');
+    background-image: url('../Images/swamp.png');
 }
 
 .ter-base-borealforest {
-    background-image: url('Images/borealforest.png');
+    background-image: url('../Images/borealforest.png');
 }
 
 .ter-base-scrubforest {
-    background-image: url('Images/scrubforest.png');
+    background-image: url('../Images/scrubforest.png');
 }
 
 .ter-base-mixedforest {
-    background-image: url('Images/mixedforest.png');
+    background-image: url('../Images/mixedforest.png');
 }
 
 .ter-base-broadleafforest {
-    background-image: url('Images/broadleafforest.png');
+    background-image: url('../Images/broadleafforest.png');
 }
 
 .ter-base-coniferforest {
-    background-image: url('Images/coniferforest.png');
+    background-image: url('../Images/coniferforest.png');
 }
 
 .ter-base-tropicalforest {
-    background-image: url('Images/tropicalforest.png');
+    background-image: url('../Images/tropicalforest.png');
 }
 
 .ter-base-wetlandforest {
-    background-image: url('Images/wetlandforest.png');
+    background-image: url('../Images/wetlandforest.png');
 }
 
 .ter-base-rainforest {
-    background-image: url('Images/rainforest.png');
+    background-image: url('../Images/rainforest.png');
 }
 
 .ter-base-arctic {
-    background-image: url('Images/arctic.png');
+    background-image: url('../Images/arctic.png');
 }
 
 .ter-base-ocean {
-    background-image: url('Images/ocean.png');
+    background-image: url('../Images/ocean.png');
 }
 
 .ter-base-sealane {
-    background-image: url('Images/sealane.png');
+    background-image: url('../Images/sealane.png');
 }
 
 .ter-feat {
@@ -105,17 +106,17 @@
 }
 
 .ter-feat-hills {
-    background-image: url('Images/hills.png');
+    background-image: url('../Images/hills.png');
 }
 
 .ter-feat-minor-river {
-    background-image: url('Images/minorriver.png');
+    background-image: url('../Images/minorriver.png');
 }
 
 .ter-feat-mountains {
-    background-image: url('Images/mountains.png');
+    background-image: url('../Images/mountains.png');
 }
 
 .ter-feat-major-river {
-    background-image: url('Images/majorriver.png');
+    background-image: url('../Images/majorriver.png');
 }

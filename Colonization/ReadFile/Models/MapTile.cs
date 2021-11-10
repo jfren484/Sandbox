@@ -13,7 +13,7 @@ namespace ReadFile.Models
         public byte UnknownByte1 { get; set; }
         public Nation Nation { get; set; }
         public string NationName { get; set; }
-        public byte DistinctBodyNumber { get; set; }
+        public int DistinctBodyNumber { get; set; }
         public bool[] VisibleToNations { get; set; }
         public byte UnknownNibble2 { get; set; }
 
