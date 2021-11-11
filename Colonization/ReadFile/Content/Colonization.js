@@ -1,63 +1,68 @@
 ﻿let fileHandle;
+let gameData;
+
 $('#openFile').on('click', async () => {
     // Destructure the one-element array.
     [fileHandle] = await window.showOpenFilePicker();
 
     const file = await fileHandle.getFile();
     const json = await file.text();
-    const obj = JSON.parse(json);
+    gameData = JSON.parse(json);
 
-    loadData(obj);
+    loadMap();
 });
 
-function loadData(obj) {
+$('#map').on('click', '.map-cell', function () {
+    loadCellInfo($(this).data('index'));
+});
+
+function loadMap() {
     $('#filename').text(fileHandle.name);
 
-    var i = 0;
-    for (var y = 0; y < obj.MapSize.Height; ++y) {
-        var row = $('<div class="map-row"></div>');
+    let i = 0;
+    for (let y = 0; y < gameData.MapSize.Height; ++y) {
+        const row = $('<div>')
+            .addClass('map-row');
 
-        for (var x = 0; x < obj.MapSize.Width; ++x, ++i) {
-            var cell = $('<div class="map-cell ter-base ter-base-' + obj.Map[i].TerrainBase.toLowerCase() + '"></div>');
-            var terrain = obj.Map[i].TerrainBase;
+        for (let x = 0; x < gameData.MapSize.Width; ++x, ++i) {
+            const cell = $('<div>')
+                .addClass('map-cell')
+                .addClass('ter-base')
+                .addClass('ter-base-' + gameData.Map[i].TerrainBase.toLowerCase())
+                .data('index', i);
 
-            if (terrain)
+            gameData.Map[i].TerrainBaseName = gameData.Map[i].TerrainBase;
+            gameData.Map[i].TerrainFeatureName = '';
 
-            var nationName = obj.Map[i].NationName;
-            if (nationName.length > 0) {
-                nationName += '\r\n';
-            }
-
-            var treeLayer = $('<div class="ter-tree"></div>')
+            const treeLayer = $('<div>')
+                .addClass('ter-tree');
             cell.append(treeLayer);
 
-            if (obj.Map[i].TerrainFeature !== 0) {
-                var featLayer = $('<div class="ter-feat"></div>')
-                switch (obj.Map[i].TerrainFeature) {
+            if (gameData.Map[i].TerrainFeature !== 0) {
+                const featLayer = $('<div>')
+                    .addClass('ter-feat');
+
+                switch (gameData.Map[i].TerrainFeature) {
                     case 'Elevation':
                         featLayer.addClass('ter-feat-hills');
-                        terrain = 'Hills';
+                        gameData.Map[i].TerrainBaseName = 'Hills';
                         break;
                     case 'Elevation, Major':
                         featLayer.addClass('ter-feat-mountains');
-                        terrain = 'Mountains';
+                        gameData.Map[i].TerrainBaseName = 'Mountains';
                         break;
                     case 'River':
                         featLayer.addClass('ter-feat-minor-river');
-                        terrain += ')\r\n(Minor River';
+                        gameData.Map[i].TerrainFeatureName = 'Minor River';
                         break;
                     case 'River, Major':
                         featLayer.addClass('ter-feat-major-river');
-                        terrain += ')\r\n(Major River';
+                        gameData.Map[i].TerrainFeatureName = 'Major River';
                         break;
                 }
+
                 treeLayer.append(featLayer);
             }
-
-            var title = 'Locat: (' + obj.Map[i].Coordinates.X + ', ' + obj.Map[i].Coordinates.Y + ') ' + obj.Map[i].DistinctBodyNumber + '\r\n' +
-                nationName + '(' + terrain + ')\r\nOccupied: ' + obj.Map[i].IsOccupied + '\r\nUnknown1: ' + obj.Map[i].UnknownByte1 + '\r\n' +
-                'VisibleTo: ' + obj.Map[i].VisibleToNations + '\r\nUnknown2: ' + obj.Map[i].UnknownNibble2;
-            cell.attr('title', title);
 
             row.append(cell);
         }
@@ -66,6 +71,23 @@ function loadData(obj) {
     }
 }
 
+function loadCellInfo(index) {
+    const cell = gameData.Map[index];
+
+    $('#locatX').text(cell.Coordinates.X);
+    $('#locatY').text(cell.Coordinates.Y);
+    $('#locatArea').text(cell.DistinctBodyNumber);
+
+    $('#locatNation').toggle(cell.NationName !== '');
+    $('#locatNationName').text(cell.NationName);
+    $('#locatTerrainBaseName').text(cell.TerrainBaseName);
+    $('#locatTerrainFeat').toggle(cell.TerrainFeatureName !== '');
+    $('#locatTerrainFeatName').text(cell.TerrainFeatureName);
+    $('#locatUnknown1').text(cell.UnknownByte1);
+    $('#locatUnknown2').text(cell.UnknownNibble2[1]);
+}
+
 $(function () {
     // OnStart
+    $('body > div.container').height($('body').height() - $('body > nav').height());
 });

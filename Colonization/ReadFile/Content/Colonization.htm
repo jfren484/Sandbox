@@ -18,7 +18,19 @@
         </nav>
 
         <div class="container">
-            <div style="width: 2320px" class="map" id="map">
+            <div class="row h-100">
+                <div class="col col-lg-3">
+                    Locat: (<span id="locatX"></span>, <span id="locatY"></span>) <span id="locatArea"></span><br />
+                    <span id="locatNation"><span id="locatNationName"></span><br /></span>
+                    (<span id="locatTerrainBaseName"></span>)<br />
+                    <span id="locatTerrainFeat">(<span id="locatTerrainFeatName"></span>)<br /></span>
+                    Unknown1: <span id="locatUnknown1"></span><br />
+                    Unknown2: <span id="locatUnknown2"></span>
+                </div>
+                <div class="col col-lg-9 overflow-scroll h-100">
+                    <div class="map" id="map">
+                    </div>
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
