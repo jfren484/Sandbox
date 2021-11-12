@@ -20,14 +20,25 @@
         <div class="container">
             <div class="row h-100">
                 <div class="col col-lg-3">
-                    Locat: (<span id="locatX"></span>, <span id="locatY"></span>) <span id="locatArea"></span><br />
-                    <span id="locatNation"><span id="locatNationName"></span><br /></span>
-                    (<span id="locatTerrainBaseName"></span>)<br />
-                    <span id="locatTerrainFeat">(<span id="locatTerrainFeatName"></span>)<br /></span>
-                    Unknown1: <span id="locatUnknown1"></span><br />
-                    Unknown2: <span id="locatUnknown2"></span>
+                    <h3>Location Information:</h3>
+                    <div class="location-info">
+                        Locat: (<span id="locatX"></span>, <span id="locatY"></span>) <span id="locatArea"></span><br />
+                        <span id="locatNation"><span id="locatNationName"></span><br /></span>
+                        (<span id="locatTerrainBaseName"></span>)<br />
+                        <span id="locatTerrainFeat">(<span id="locatTerrainFeatName"></span>)<br /></span>
+                        Unknown1: <span id="locatUnknown1"></span><br />
+                        Unknown2: <span id="locatUnknown2"></span>
+                    </div>
                 </div>
                 <div class="col col-lg-9 overflow-scroll h-100">
+                    <div class="row">
+                        <h3 class="col-lg-9">Map:</h3>
+
+                        <div class="btn-group col-lg-3" role="group">
+                            <button type="button" class="btn btn-primary" id="zoomIn">+</button>
+                            <button type="button" class="btn btn-primary" id="zoomOut">-</button>
+                        </div>
+                    </div>
                     <div class="map" id="map">
                     </div>
                 </div>

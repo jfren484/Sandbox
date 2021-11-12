@@ -1,5 +1,13 @@
-﻿html, body {
+﻿:root {
+    --tile-size: 40px;
+}
+
+html, body {
     height: 100%;
+}
+
+.location-info {
+    display: none;
 }
 
 .map {
@@ -16,8 +24,8 @@
 }
 
 .map-cell, .ter-base, .ter-tree, .ter-feat {
-    width: 40px;
-    height: 40px;
+    width: var(--tile-size);
+    height: var(--tile-size);
 }
 
 .ter-base, .ter-tree, .ter-feat {

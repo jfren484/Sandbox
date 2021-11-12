@@ -1,6 +1,9 @@
 ﻿let fileHandle;
 let gameData;
 
+let zoomLevel = 4;
+const zoomLevelSizes = ['8px', '16px', '24px', '32px', '40px', '50px', '60px', '70px']
+
 $('#openFile').on('click', async () => {
     // Destructure the one-element array.
     [fileHandle] = await window.showOpenFilePicker();
@@ -14,6 +17,18 @@ $('#openFile').on('click', async () => {
 
 $('#map').on('click', '.map-cell', function () {
     loadCellInfo($(this).data('index'));
+});
+
+$('#zoomIn').on('click', function () {
+    if (zoomLevel < 7) {
+        $(':root').css('--tile-size', zoomLevelSizes[++zoomLevel]);
+    }
+});
+
+$('#zoomOut').on('click', function () {
+    if (zoomLevel > 0) {
+        $(':root').css('--tile-size', zoomLevelSizes[--zoomLevel]);
+    }
 });
 
 function loadMap() {
@@ -85,6 +100,8 @@ function loadCellInfo(index) {
     $('#locatTerrainFeatName').text(cell.TerrainFeatureName);
     $('#locatUnknown1').text(cell.UnknownByte1);
     $('#locatUnknown2').text(cell.UnknownNibble2[1]);
+
+    $('.location-info').toggle(true);
 }
 
 $(function () {
