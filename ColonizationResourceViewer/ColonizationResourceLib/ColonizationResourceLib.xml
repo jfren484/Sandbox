@@ -4,57 +4,110 @@
         <name>ColonizationResourceLib</name>
     </assembly>
     <members>
-        <member name="T:ColonizationResourceLib.ImageListEntry">
+        <member name="T:ColonizationResourceLib.ColPalette">
             <summary>
-            Represents an entry in the image list table.
+            A Colonization color palette.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ImageListEntry.#ctor(System.Byte[])">
+        <member name="P:ColonizationResourceLib.ColPalette.Entries">
             <summary>
-            Creates a new instace of ImageListEntry.
-            </summary>
-            <param name="data">The byte array that contains the data for the
-            entry.</param>
-        </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.StartAddress">
-            <summary>
-            The byte offset of the starting point of this image entry's data in
-            the data entry of the file.
+            An array of the Colors in the palette.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.Length">
+        <member name="M:ColonizationResourceLib.ColPalette.#ctor">
             <summary>
-            The length of this image entry's data in the data entry of the file.
+            Creates a new Colonization color palette with the default color
+            array (all transparent).
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.UShort1">
+        <member name="M:ColonizationResourceLib.ColPalette.#ctor(System.Byte[])">
             <summary>
-            Unknown short value 1.
+            Creates a new Colonization color palette by processing the palette
+            data byte[].
+            </summary>
+            <param name="paletteData">A byte[] containing the color palette data
+            (three bytes per color, one each for red, blue, and green).</param>
+        </member>
+        <member name="M:ColonizationResourceLib.ColPalette.#ctor(ColonizationResourceLib.ColPalette,System.Byte[])">
+            <summary>
+            Creates a new Colonization color palette by first copying the colors
+            from the default palette (if provided) and then processing the
+            palette data byte[].
+            </summary>
+            <param name="defaultPalette">The default color palette. May be
+            null.</param>
+            <param name="paletteData">A byte[] containing the color palette data
+            (three bytes per color, one each for red, blue, and green).</param>
+        </member>
+        <member name="T:ColonizationResourceLib.ColSprite">
+            <summary>
+            A Colonization sprite image.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.UShort2">
+        <member name="P:ColonizationResourceLib.ColSprite.Size">
             <summary>
-            Unknown short value 2.
+            The Size of the sprite image.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.Width">
+        <member name="P:ColonizationResourceLib.ColSprite.Data">
             <summary>
-            The width of the image, in pixels.
+            A byte[] containing the sprite image data.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ImageListEntry.Height">
+        <member name="P:ColonizationResourceLib.ColSprite.Palette">
             <summary>
-            The height of the image, in pixels.
+            The Colonization color palette used by this sprite image.
             </summary>
         </member>
-        <member name="T:ColonizationResourceLib.ColSpriteFile">
+        <member name="M:ColonizationResourceLib.ColSprite.#ctor(ColonizationResourceLib.ColPalette,System.Drawing.Size,System.Byte[])">
             <summary>
-            A file containing Colonization sprite images.
+            Create a new Colonization sprite image object.
             </summary>
+            <param name="palette">The Colonization color palette used by this
+            sprite image.</param>
+            <param name="size">The Size of the sprite image.</param>
+            <param name="data">A byte[] containing the sprite image
+            data.</param>
+        </member>
+        <member name="M:ColonizationResourceLib.ColSprite.GetColor(System.Byte)">
+            <summary>
+            Gets the color in the palette specified by the paletteIndex
+            parameter.
+            </summary>
+            <param name="paletteIndex">The index into the palette at which to
+            retrieve a Color.</param>
+            <returns>A Color (Color.Transparent if the paletteIndex ==
+            0xFD).</returns>
+        </member>
+        <member name="M:ColonizationResourceLib.ColSprite.GetImage">
+            <summary>
+            Creates an image from the Data property.
+            </summary>
+            <returns>A Bitmap image.</returns>
         </member>
         <member name="T:ColonizationResourceLib.ColResourceFile">
             <summary>
             A file containing Colonization image resources.
+            </summary>
+        </member>
+        <member name="P:ColonizationResourceLib.ColResourceFile.FileName">
+            <summary>
+            A string containing the name of the file.
+            </summary>
+        </member>
+        <member name="P:ColonizationResourceLib.ColResourceFile.HeaderData">
+            <summary>
+            A byte[] containing the data for the file header.
+            </summary>
+        </member>
+        <member name="P:ColonizationResourceLib.ColResourceFile.PaletteData">
+            <summary>
+            A byte[] containing the data for the color palette.
+            </summary>
+        </member>
+        <member name="P:ColonizationResourceLib.ColResourceFile.ImageData">
+            <summary>
+            A byte[] containing the data for the image data itself.
             </summary>
         </member>
         <member name="F:ColonizationResourceLib.ColResourceFile.palette">
@@ -62,12 +115,11 @@
             The Colonization color palette to be used when rendering the image.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColResourceFile.#ctor(System.Byte[],ColonizationResourceLib.ColPalette)">
+        <member name="M:ColonizationResourceLib.ColResourceFile.#ctor(System.String,ColonizationResourceLib.ColPalette)">
             <summary>
             Creates a new instance of ColResourceFile.
             </summary>
-            <param name="data">A byte[] containing the contents of the
-            file.</param>
+            <param name="filePath">Path to the file to be read.</param>
             <param name="defaultPalette">A Colonization color palette to be used when
             the file does not specify its own color palette or the color palette in
             the file is incomplete.</param>
@@ -103,27 +155,36 @@
             <param name="entries">A List of all MadsPackEntry objects in the
             file.</param>
         </member>
-        <member name="P:ColonizationResourceLib.ColResourceFile.HeaderData">
+        <member name="T:ColonizationResourceLib.ColSpriteFile">
             <summary>
-            A byte[] containing the data for the file header.
+            A file containing Colonization sprite images.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ColResourceFile.PaletteData">
+        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageListData">
             <summary>
-            A byte[] containing the data for the color palette.
+            A byte[] containing the data for the sprite image list table.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ColResourceFile.ImageData">
+        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageCount">
             <summary>
-            A byte[] containing the data for the image data itself.
+            The number of sprite images in the file.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColSpriteFile.#ctor(System.Byte[],ColonizationResourceLib.ColPalette)">
+        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageListEntries">
+            <summary>
+            A list of entries in the sprite image list table.
+            </summary>
+        </member>
+        <member name="P:ColonizationResourceLib.ColSpriteFile.Sprites">
+            <summary>
+            An array containing the sprite image objects defined in the file.
+            </summary>
+        </member>
+        <member name="M:ColonizationResourceLib.ColSpriteFile.#ctor(System.String,ColonizationResourceLib.ColPalette)">
             <summary>
             Creates a new instance of ColSpriteFile.
             </summary>
-            <param name="data">A byte[] containing the contents of the
-            file.</param>
+            <param name="filePath">Path to the file to be read.</param>
             <param name="defaultPalette">A Colonization color palette to be used when
             the file does not specify its own color palette or the color palette in
             the file is incomplete.</param>
@@ -153,48 +214,21 @@
             <param name="entries">A List of all MadsPackEntry objects in the
             file.</param>
         </member>
-        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageListData">
-            <summary>
-            A byte[] containing the data for the sprite image list table.
-            </summary>
-        </member>
-        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageCount">
-            <summary>
-            The number of sprite images in the file.
-            </summary>
-        </member>
-        <member name="P:ColonizationResourceLib.ColSpriteFile.ImageListEntries">
-            <summary>
-            A list of entries in the sprite image list table.
-            </summary>
-        </member>
-        <member name="P:ColonizationResourceLib.ColSpriteFile.Sprites">
-            <summary>
-            An array containing the sprite image objects defined in the file.
-            </summary>
-        </member>
-        <member name="T:ColonizationResourceLib.ColResourceException">
-            <summary>
-            An exception related to the data in a Colonization resource file.
-            </summary>
-        </member>
-        <member name="M:ColonizationResourceLib.ColResourceException.#ctor(System.String)">
-            <summary>
-            Create a new instance of ColResourceException.
-            </summary>
-            <param name="message">The message that describes the error.</param>
-        </member>
         <member name="T:ColonizationResourceLib.ColPictureFile">
             <summary>
             A file containing a Colonization picture image resource.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColPictureFile.#ctor(System.Byte[],ColonizationResourceLib.ColPalette)">
+        <member name="P:ColonizationResourceLib.ColPictureFile.Size">
+            <summary>
+            The Size of the picture represented in the file.
+            </summary>
+        </member>
+        <member name="M:ColonizationResourceLib.ColPictureFile.#ctor(System.String,ColonizationResourceLib.ColPalette)">
             <summary>
             Creates a new instance of ColPictureFile.
             </summary>
-            <param name="data">A byte[] containing the contents of the
-            file.</param>
+            <param name="filePath">Path to the file to be read.</param>
             <param name="defaultPalette">A Colonization color palette to be used when
             the file does not specify its own color palette or the color palette in
             the file is incomplete.</param>
@@ -224,91 +258,59 @@
             <param name="entries">A List of all MadsPackEntry objects in the
             file.</param>
         </member>
-        <member name="P:ColonizationResourceLib.ColPictureFile.Size">
+        <member name="T:ColonizationResourceLib.ImageListEntry">
             <summary>
-            The Size of the picture represented in the file.
+            Represents an entry in the image list table.
             </summary>
         </member>
-        <member name="T:ColonizationResourceLib.ColPalette">
+        <member name="P:ColonizationResourceLib.ImageListEntry.StartAddress">
             <summary>
-            A Colonization color palette.
+            The byte offset of the starting point of this image entry's data in
+            the data entry of the file.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColPalette.#ctor">
+        <member name="P:ColonizationResourceLib.ImageListEntry.Length">
             <summary>
-            Creates a new Colonization color palette with the default color
-            array (all transparent).
+            The length of this image entry's data in the data entry of the file.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColPalette.#ctor(System.Byte[])">
+        <member name="P:ColonizationResourceLib.ImageListEntry.UShort1">
             <summary>
-            Creates a new Colonization color palette by processing the palette
-            data byte[].
-            </summary>
-            <param name="paletteData">A byte[] containing the color palette data
-            (three bytes per color, one each for red, blue, and green).</param>
-        </member>
-        <member name="M:ColonizationResourceLib.ColPalette.#ctor(ColonizationResourceLib.ColPalette,System.Byte[])">
-            <summary>
-            Creates a new Colonization color palette by first copying the colors
-            from the default palette (if provided) and then processing the
-            palette data byte[].
-            </summary>
-            <param name="defaultPalette">The default color palette. May be
-            null.</param>
-            <param name="paletteData">A byte[] containing the color palette data
-            (three bytes per color, one each for red, blue, and green).</param>
-        </member>
-        <member name="P:ColonizationResourceLib.ColPalette.Entries">
-            <summary>
-            An array of the Colors in the palette.
+            Unknown short value 1.
             </summary>
         </member>
-        <member name="T:ColonizationResourceLib.ColSprite">
+        <member name="P:ColonizationResourceLib.ImageListEntry.UShort2">
             <summary>
-            A Colonization sprite image.
+            Unknown short value 2.
             </summary>
         </member>
-        <member name="M:ColonizationResourceLib.ColSprite.#ctor(ColonizationResourceLib.ColPalette,System.Drawing.Size,System.Byte[])">
+        <member name="P:ColonizationResourceLib.ImageListEntry.Width">
             <summary>
-            Create a new Colonization sprite image object.
-            </summary>
-            <param name="palette">The Colonization color palette used by this
-            sprite image.</param>
-            <param name="size">The Size of the sprite image.</param>
-            <param name="data">A byte[] containing the sprite image
-            data.</param>
-        </member>
-        <member name="M:ColonizationResourceLib.ColSprite.GetColor(System.Byte)">
-            <summary>
-            Gets the color in the palette specified by the paletteIndex
-            parameter.
-            </summary>
-            <param name="paletteIndex">The index into the palette at which to
-            retrieve a Color.</param>
-            <returns>A Color (Color.Transparent if the paletteIndex ==
-            0xFD).</returns>
-        </member>
-        <member name="M:ColonizationResourceLib.ColSprite.GetImage">
-            <summary>
-            Creates an image from the Data property.
-            </summary>
-            <returns>A Bitmap image.</returns>
-        </member>
-        <member name="P:ColonizationResourceLib.ColSprite.Size">
-            <summary>
-            The Size of the sprite image.
+            The width of the image, in pixels.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ColSprite.Data">
+        <member name="P:ColonizationResourceLib.ImageListEntry.Height">
             <summary>
-            A byte[] containing the sprite image data.
+            The height of the image, in pixels.
             </summary>
         </member>
-        <member name="P:ColonizationResourceLib.ColSprite.Palette">
+        <member name="M:ColonizationResourceLib.ImageListEntry.#ctor(System.Byte[])">
             <summary>
-            The Colonization color palette used by this sprite image.
+            Creates a new instace of ImageListEntry.
             </summary>
+            <param name="data">The byte array that contains the data for the
+            entry.</param>
+        </member>
+        <member name="T:ColonizationResourceLib.ColResourceException">
+            <summary>
+            An exception related to the data in a Colonization resource file.
+            </summary>
+        </member>
+        <member name="M:ColonizationResourceLib.ColResourceException.#ctor(System.String)">
+            <summary>
+            Create a new instance of ColResourceException.
+            </summary>
+            <param name="message">The message that describes the error.</param>
         </member>
     </members>
 </doc>

@@ -1,13 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColonizationResourceLib", "ColonizationResourceLib\ColonizationResourceLib.csproj", "{3F1868A6-BDE5-4AD8-8281-BA4725F2C389}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColonizationResourceViewer", "ColonizationResourceViewer\ColonizationResourceViewer.csproj", "{C8C7A773-341E-4782-A0FA-12A1B8F63654}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadsPackLib", "..\MadsPack\MadsPackLib\MadsPackLib.csproj", "{4A98141F-BEB3-49F1-B476-055808C91557}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{9FADD413-0CD3-4B91-9869-8EE939C0D5C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "..\MadsPack\Extensions\Extensions.csproj", "{27681DF3-83CC-4905-A238-EED733381277}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadsPackLib", "MadsPackLib\MadsPackLib.csproj", "{335CE164-5773-46E3-8296-274030686A27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +25,19 @@ Global
 		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8C7A773-341E-4782-A0FA-12A1B8F63654}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A98141F-BEB3-49F1-B476-055808C91557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A98141F-BEB3-49F1-B476-055808C91557}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A98141F-BEB3-49F1-B476-055808C91557}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A98141F-BEB3-49F1-B476-055808C91557}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27681DF3-83CC-4905-A238-EED733381277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27681DF3-83CC-4905-A238-EED733381277}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27681DF3-83CC-4905-A238-EED733381277}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27681DF3-83CC-4905-A238-EED733381277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FADD413-0CD3-4B91-9869-8EE939C0D5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FADD413-0CD3-4B91-9869-8EE939C0D5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FADD413-0CD3-4B91-9869-8EE939C0D5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FADD413-0CD3-4B91-9869-8EE939C0D5C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335CE164-5773-46E3-8296-274030686A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335CE164-5773-46E3-8296-274030686A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335CE164-5773-46E3-8296-274030686A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335CE164-5773-46E3-8296-274030686A27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {861B2FDE-A0C6-45D8-961D-67AE23EA858E}
 	EndGlobalSection
 EndGlobal

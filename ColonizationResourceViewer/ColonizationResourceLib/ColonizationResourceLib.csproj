@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +12,11 @@
     <AssemblyName>ColonizationResourceLib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,13 +63,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MadsPack\MadsPackLib\MadsPackLib.csproj">
-      <Project>{4A98141F-BEB3-49F1-B476-055808C91557}</Project>
-      <Name>MadsPackLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MadsPack\Extensions\Extensions.csproj">
-      <Project>{27681DF3-83CC-4905-A238-EED733381277}</Project>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{9fadd413-0cd3-4b91-9869-8ee939c0d5c7}</Project>
       <Name>Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MadsPackLib\MadsPackLib.csproj">
+      <Project>{335ce164-5773-46e3-8296-274030686a27}</Project>
+      <Name>MadsPackLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

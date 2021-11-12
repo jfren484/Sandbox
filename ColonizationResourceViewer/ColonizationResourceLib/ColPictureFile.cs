@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using Extensions;
+﻿using Extensions;
 using MadsPackLib;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace ColonizationResourceLib
 {
-	/// <summary>
-	/// A file containing a Colonization picture image resource.
-	/// </summary>
-	public class ColPictureFile: ColResourceFile
+    /// <summary>
+    /// A file containing a Colonization picture image resource.
+    /// </summary>
+    public class ColPictureFile: ColResourceFile
 	{
 		#region Properties
 
@@ -24,12 +24,11 @@ namespace ColonizationResourceLib
 		/// <summary>
 		/// Creates a new instance of ColPictureFile.
 		/// </summary>
-		/// <param name="data">A byte[] containing the contents of the
-		/// file.</param>
+		/// <param name="filePath">Path to the file to be read.</param>
 		/// <param name="defaultPalette">A Colonization color palette to be used when
 		/// the file does not specify its own color palette or the color palette in
 		/// the file is incomplete.</param>
-		public ColPictureFile(byte[] data, ColPalette defaultPalette) : base(data, defaultPalette) { }
+		public ColPictureFile(string filePath, ColPalette defaultPalette) : base(filePath, defaultPalette) { }
 
 		#region Overrides
 
@@ -41,23 +40,21 @@ namespace ColonizationResourceLib
 		/// <returns>A Bitmap image.</returns>
 		public override Bitmap GetImage(int imageIndex)
 		{
-			Bitmap bmp = null;
+            Bitmap bmp;
 
-			if (imageIndex == 0)
+            if (imageIndex == 0)
 				bmp = GetPaletteImage();
 			else
 			{
-				bmp = new Bitmap(this.Size.Width, this.Size.Height);
+				bmp = new Bitmap(Size.Width, Size.Height);
 
 				int index = 0;
-				for (int y = 0; y < this.Size.Height; y++)
+				for (int y = 0; y < Size.Height; y++)
 				{
-					int yOffset = y * this.Size.Width;
-
-					for (int x = 0; x < this.Size.Width; x++)
+					for (int x = 0; x < Size.Width; x++)
 					{
-						byte paletteIndex = this.ImageData[index++];
-						Color color = this.palette.Entries[paletteIndex];
+						var paletteIndex = ImageData[index++];
+						var color = palette.Entries[paletteIndex];
 						bmp.SetPixel(x, y, color);
 					}
 				}
@@ -75,9 +72,9 @@ namespace ColonizationResourceLib
 		/// <returns>A List of string[].</returns>
 		public override List<string[]> GetImageList()
 		{
-			List<string[]> imageList =  base.GetImageList();
+			var imageList =  base.GetImageList();
 
-			imageList.Add(new string[] { "Image", this.Size.Width.ToString(), this.Size.Height.ToString() });
+			imageList.Add(new[] { "Image", Size.Width.ToString(), Size.Height.ToString() });
 
 			return imageList;
 		}
@@ -90,8 +87,8 @@ namespace ColonizationResourceLib
 		/// file.</param>
 		protected override void ProcessMadsPackEntries(List<MadsPackEntry> entries)
 		{
-			this.ImageData = entries[1].Data;
-			this.Size = new Size(this.HeaderData.GetUInt16(2), this.HeaderData.GetUInt16(0));
+			ImageData = entries[1].Data;
+			Size = new Size(HeaderData.GetUInt16(2), HeaderData.GetUInt16(0));
 		}
 
 		#endregion

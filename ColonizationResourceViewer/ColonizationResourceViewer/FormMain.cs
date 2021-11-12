@@ -1,15 +1,16 @@
-﻿using System;
+﻿using ColonizationResourceLib;
+using ColonizationResourceViewer.Properties;
+using System;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using ColonizationResourceLib;
-using ColonizationResourceViewer.Properties;
-using System.Collections.Generic;
 
 namespace ColonizationResourceViewer
 {
-	public partial class FormMain: Form
+    public partial class FormMain: Form
 	{
 		private ColPalette defaultPalette = null;
 		private ColResourceFile colFile = null;
@@ -29,11 +30,16 @@ namespace ColonizationResourceViewer
 			{
 				try
 				{
-					this.defaultPalette = new ColPalette(File.ReadAllBytes(Settings.Default.ViceRoyPalFile));
-					this.mnuFileSetPal.Checked = true;
+					defaultPalette = new ColPalette(File.ReadAllBytes(Settings.Default.ViceRoyPalFile));
+					mnuFileSetPal.Checked = true;
 				}
 				catch (Exception) { }
 			}
+
+			dlgBrowse.SelectedPath = Settings.Default.BrowseFolder;
+			dlgSaveFolder.SelectedPath = Settings.Default.SaveFolder;
+
+			Settings.Default.Save();
 
 			UpdateRecentFileMenus();
 		}
@@ -56,33 +62,37 @@ namespace ColonizationResourceViewer
 
 		private void BrowseFolder(string folderPath)
 		{
-			this.Text = "Colonization Resource Viewer - Browsing " + folderPath;
+			mnuFileExport.Enabled = false;
 
-			this.listEntries.Items.Clear();
+			Text = "Colonization Resource Viewer - Browsing " + folderPath;
 
-			List<string> files = new List<string>();
-			files.AddRange(Directory.GetFiles(folderPath, "*.PIK", SearchOption.TopDirectoryOnly));
-			files.AddRange(Directory.GetFiles(folderPath, "*.SS", SearchOption.TopDirectoryOnly));
+			listEntries.Items.Clear();
 
-			foreach (string filePath in files)
+			var files = Directory.GetFiles(folderPath, "*.PIK", SearchOption.TopDirectoryOnly)
+				.Concat(Directory.GetFiles(folderPath, "*.SS", SearchOption.TopDirectoryOnly))
+				.ToList();
+
+			foreach (var filePath in files)
 			{
-				ColResourceFile resourceFile = GetResourceFile(filePath);
+				var resourceFile = GetResourceFile(filePath);
 
-				ListViewItem item = new ListViewItem(new string[]
-				{
-					Path.GetFileNameWithoutExtension(filePath),
-					resourceFile is ColSpriteFile ? "Sprite Series" : "Picture",
-					(resourceFile is ColSpriteFile ? ((ColSpriteFile)resourceFile).ImageCount : 1).ToString()
-				});
-				item.Tag = resourceFile;
+                var item = new ListViewItem(new[]
+                {
+                    Path.GetFileNameWithoutExtension(filePath),
+                    resourceFile is ColSpriteFile ? "Sprite Series" : "Picture",
+                    (resourceFile is ColSpriteFile file ? file.ImageCount : 1).ToString()
+                })
+                {
+                    Tag = resourceFile
+                };
 
-				this.listEntries.Items.Add(item);
+                listEntries.Items.Add(item);
 			}
 
-			if (this.listEntries.Items.Count > 0)
+			if (listEntries.Items.Count > 0)
 			{
-				this.listEntries.Items[0].Selected =
-				this.listEntries.Items[0].Focused = true;
+				listEntries.Items[0].Selected =
+				listEntries.Items[0].Focused = true;
 			}
 
 			if (!folderPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
@@ -90,14 +100,25 @@ namespace ColonizationResourceViewer
 			AddToRecentFiles(folderPath);
 		}
 
+		private void ExportFile(string destFolder)
+        {
+			foreach (ListViewItem item in listEntries.Items)
+            {
+				if (item.Index == 0) continue;
+
+				var image = colFile.GetImage(item.Index);
+				image.Save(Path.Combine(destFolder, $"{colFile.FileName}-{item.Text}.png"), ImageFormat.Png);
+			}
+        }
+
 		private ColResourceFile GetResourceFile(string filePath)
 		{
 			ColResourceFile resourceFile;
 
 			if (filePath.ToUpper().EndsWith(".SS"))
-				resourceFile = new ColSpriteFile(File.ReadAllBytes(filePath), defaultPalette);
+				resourceFile = new ColSpriteFile(filePath, defaultPalette);
 			else if (filePath.ToUpper().EndsWith(".PIK"))
-				resourceFile = new ColPictureFile(File.ReadAllBytes(filePath), defaultPalette);
+				resourceFile = new ColPictureFile(filePath, defaultPalette);
 			else
 				throw new ColResourceException("Only .SS and .PIK files are supported.");
 
@@ -106,54 +127,62 @@ namespace ColonizationResourceViewer
 
 		private void OpenFile(string filePath)
 		{
-			bool success = false;
+			var success = false;
+
+			mnuFileExport.Enabled = false;
 
 			try
 			{
-				this.colFile = GetResourceFile(filePath);
+				colFile = GetResourceFile(filePath);
 
 				success = true;
 			}
 			catch (ColResourceException ex)
 			{
-				MessageBox.Show(String.Format("Error reading file: {0}", ex.Message));
+				MessageBox.Show(string.Format("Error reading file: {0}", ex.Message));
 			}
 
 			if (success)
 			{
-				this.Text = "Colonization Resource Viewer - " + Path.GetFileName(filePath);
+				Text = "Colonization Resource Viewer - " + Path.GetFileName(filePath);
 
 				AddToRecentFiles(filePath);
 
-				this.listEntries.Items.Clear();
-				foreach (string[] imageEntry in this.colFile.GetImageList())
-					this.listEntries.Items.Add(new ListViewItem(imageEntry));
+				listEntries.Items.Clear();
+				foreach (var imageEntry in colFile.GetImageList())
+					listEntries.Items.Add(new ListViewItem(imageEntry));
 
-				this.listEntries.Items[1].Selected =
-				this.listEntries.Items[1].Focused = true;
+				listEntries.Items[1].Selected =
+				listEntries.Items[1].Focused = true;
+
+				mnuFileExport.Enabled = true;
 			}
 		}
 
 		private void SetPicBoxSize()
 		{
-			this.picBox.Size = new Size((int)(this.imageSize.Width * this.zoomSettings[this.zoomIndex]),
-				(int)(this.imageSize.Height * this.zoomSettings[this.zoomIndex]));
+			picBox.Size = new Size((int)(imageSize.Width * zoomSettings[zoomIndex]),
+				(int)(imageSize.Height * zoomSettings[zoomIndex]));
 		}
 
 		private void UpdateRecentFileMenus()
 		{
-			int index = 0;
-			this.mnuFileRecent.DropDownItems.Clear();
-			foreach (string filePath in Settings.Default.RecentFiles)
+			var index = 0;
+			mnuFileRecent.DropDownItems.Clear();
+			foreach (var filePath in Settings.Default.RecentFiles)
 			{
-				string browse = filePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "Browse " : String.Empty;
-				ToolStripMenuItem item = new ToolStripMenuItem(String.Format("&{0} {1}{2}", ++index, browse, filePath), null, this.mnuFileRecent_Click);
-				item.Tag = filePath;
-				this.mnuFileRecent.DropDownItems.Add(item);
+				var browse = filePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "Browse " : string.Empty;
+				var item = new ToolStripMenuItem(string.Format("&{0} {1}{2}", ++index, browse, filePath), null, mnuFileRecent_Click)
+				{
+					Tag = filePath
+				};
+                mnuFileRecent.DropDownItems.Add(item);
 			}
 		}
 
 		#region Event Handlers
+
+		#pragma warning disable IDE1006 // Naming Styles
 
 		private void listEntries_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -161,20 +190,20 @@ namespace ColonizationResourceViewer
 			if (listEntries.SelectedIndices.Count > 0)
 			{
 				// Determine which entry is selected.
-				int index = listEntries.SelectedIndices[0];
+				var index = listEntries.SelectedIndices[0];
 
 				// If we're browsing, get the resource file selected.
-				if (listEntries.SelectedItems[0].Tag is ColResourceFile)
+				if (listEntries.SelectedItems[0].Tag is ColResourceFile file)
 				{
-					this.colFile = (ColResourceFile)listEntries.SelectedItems[0].Tag;
+					colFile = file;
 					index = 1;
 				}
 
 				// Get the image selected.
-				Bitmap image = this.colFile.GetImage(index);
+				var image = colFile.GetImage(index);
 
 				// Save the original (unzoomed) image size.
-				this.imageSize = image.Size;
+				imageSize = image.Size;
 
 				// Adjust the size of the picture box for the current zoom factor.
 				SetPicBoxSize();
@@ -190,6 +219,9 @@ namespace ColonizationResourceViewer
 		{
 			if (dlgBrowse.ShowDialog(this) == DialogResult.OK)
 			{
+				Settings.Default.BrowseFolder = dlgBrowse.SelectedPath;
+				Settings.Default.Save();
+
 				BrowseFolder(dlgBrowse.SelectedPath);
 			}
 		}
@@ -197,6 +229,17 @@ namespace ColonizationResourceViewer
 		private void mnuFileExit_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+		}
+
+		private void mnuFileExport_Click(object sender, EventArgs e)
+		{
+			if (dlgSaveFolder.ShowDialog(this) == DialogResult.OK)
+			{
+				ExportFile(dlgSaveFolder.SelectedPath);
+			}
+
+			Settings.Default.SaveFolder = dlgSaveFolder.SelectedPath;
+			Settings.Default.Save();
 		}
 
 		private void mnuFileOpen_Click(object sender, EventArgs e)
@@ -209,24 +252,24 @@ namespace ColonizationResourceViewer
 
 		private void mnuFileRecent_Click(object sender, EventArgs e)
 		{
-			string filePath = (string)((ToolStripMenuItem)sender).Tag;
+			var filePath = (string)((ToolStripMenuItem)sender).Tag;
 			if (filePath.EndsWith(Path.DirectorySeparatorChar.ToString()))
 				BrowseFolder(filePath);
 			else
 				OpenFile(filePath);
 		}
 
-		private void mnuFileSetPal_Click(object sender, EventArgs e)
-		{
+        private void mnuFileSetPal_Click(object sender, EventArgs e)
+        {
 			if (dlgOpenPAL.ShowDialog(this) == DialogResult.OK)
 			{
 				try
 				{
-					byte[] data = File.ReadAllBytes(dlgOpenPAL.FileName);
+					var data = File.ReadAllBytes(dlgOpenPAL.FileName);
 
-					this.defaultPalette = new ColPalette(data);
+					defaultPalette = new ColPalette(data);
 
-					this.mnuFileSetPal.Checked = true;
+					mnuFileSetPal.Checked = true;
 
 					Settings.Default.ViceRoyPalFile = dlgOpenPAL.FileName;
 					Settings.Default.Save();
@@ -240,22 +283,22 @@ namespace ColonizationResourceViewer
 
 		private void mnuZoomActual_Click(object sender, EventArgs e)
 		{
-			this.zoomIndex = 4;
+			zoomIndex = 4;
 			SetPicBoxSize();
 		}
 
 		private void mnuZoomIn_Click(object sender, EventArgs e)
 		{
-			this.zoomIndex = Math.Min(this.zoomIndex + 1, this.zoomSettings.Length - 1);
+			zoomIndex = Math.Min(zoomIndex + 1, zoomSettings.Length - 1);
 			SetPicBoxSize();
 		}
 
 		private void mnuZoomOut_Click(object sender, EventArgs e)
 		{
-			this.zoomIndex = Math.Max(this.zoomIndex - 1, 0);
+			zoomIndex = Math.Max(zoomIndex - 1, 0);
 			SetPicBoxSize();
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }

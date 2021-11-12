@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using MadsPackLib;
+using System.Collections.Generic;
 using System.Drawing;
-using MadsPackLib;
+using System.IO;
 
 namespace ColonizationResourceLib
 {
-	/// <summary>
-	/// A file containing Colonization image resources.
-	/// </summary>
-	public abstract class ColResourceFile
+    /// <summary>
+    /// A file containing Colonization image resources.
+    /// </summary>
+    public abstract class ColResourceFile
 	{
 		#region Properties and Member Variables
+
+		/// <summary>
+		/// A string containing the name of the file.
+		/// </summary>
+		public string FileName { get; private set; }
 
 		/// <summary>
 		/// A byte[] containing the data for the file header.
@@ -31,37 +37,38 @@ namespace ColonizationResourceLib
 		/// </summary>
 		protected readonly ColPalette palette;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		/// <summary>
-		/// Creates a new instance of ColResourceFile.
-		/// </summary>
-		/// <param name="data">A byte[] containing the contents of the
-		/// file.</param>
-		/// <param name="defaultPalette">A Colonization color palette to be used when
-		/// the file does not specify its own color palette or the color palette in
-		/// the file is incomplete.</param>
-		public ColResourceFile(byte[] data, ColPalette defaultPalette)
+        /// <summary>
+        /// Creates a new instance of ColResourceFile.
+        /// </summary>
+        /// <param name="filePath">Path to the file to be read.</param>
+        /// <param name="defaultPalette">A Colonization color palette to be used when
+        /// the file does not specify its own color palette or the color palette in
+        /// the file is incomplete.</param>
+        public ColResourceFile(string filePath, ColPalette defaultPalette)
 		{
+			FileName = Path.GetFileNameWithoutExtension(filePath);
+
 			// Decompress the data.
-			MadsPack madsPackFile = new MadsPack(data);
+			var madsPackFile = new MadsPack(File.ReadAllBytes(filePath));
 
 			// Set the Header entry.
-			this.HeaderData = madsPackFile.Entries[0].Data;
+			HeaderData = madsPackFile.Entries[0].Data;
 
 			// Handle the color Palette entry.
 			if (madsPackFile.Entries.Count > 2)
 			{
-				this.PaletteData = madsPackFile.Entries[2].Data;
+				PaletteData = madsPackFile.Entries[2].Data;
 
-				this.palette = new ColPalette(defaultPalette, this.PaletteData);
+				palette = new ColPalette(defaultPalette, PaletteData);
 			}
 			else if (defaultPalette != null)
-				this.palette = defaultPalette;
+				palette = defaultPalette;
 			else
-				this.palette = new ColPalette();
+				palette = new ColPalette();
 
 			// Allow sub-classes to process any other entries.
 			ProcessMadsPackEntries(madsPackFile.Entries);
@@ -76,15 +83,15 @@ namespace ColonizationResourceLib
 			const int boxSize = 10;
 			const int columns = 16;
 
-			Bitmap bmp = new Bitmap(columns * (boxSize + 1) + 1, columns * (boxSize + 1) + 1);
-			Graphics g = Graphics.FromImage(bmp);
+			var bmp = new Bitmap(columns * (boxSize + 1) + 1, columns * (boxSize + 1) + 1);
+			var g = Graphics.FromImage(bmp);
 
-			for (int i = 0; i < this.palette.Entries.Length; i++)
+			for (var i = 0; i < palette.Entries.Length; i++)
 			{
-				int top = i / columns * (boxSize + 1) + 1;
-				int left = i % columns * (boxSize + 1) + 1;
+				var top = i / columns * (boxSize + 1) + 1;
+				var left = i % columns * (boxSize + 1) + 1;
 
-				g.FillRectangle(new SolidBrush(this.palette.Entries[i]), left, top, boxSize, boxSize);
+				g.FillRectangle(new SolidBrush(palette.Entries[i]), left, top, boxSize, boxSize);
 			}
 
 			return bmp;
@@ -109,11 +116,12 @@ namespace ColonizationResourceLib
 		/// <returns>A List of string[].</returns>
 		public virtual List<string[]> GetImageList()
 		{
-			List<string[]> imageList = new List<string[]>();
+			var imageList = new List<string[]>
+			{
+				new[] { "Palette" }
+			};
 
-			imageList.Add(new string[] { "Palette" });
-
-			return imageList;
+            return imageList;
 		}
 
 		/// <summary>
