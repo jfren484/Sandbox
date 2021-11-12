@@ -18,7 +18,7 @@
         </nav>
 
         <div class="container">
-            <div class="row h-100">
+            <div class="row">
                 <div class="col col-lg-3">
                     <h3>Location Information:</h3>
                     <div class="location-info">
@@ -30,16 +30,26 @@
                         Unknown2: <span id="locatUnknown2"></span>
                     </div>
                 </div>
-                <div class="col col-lg-9 overflow-scroll h-100">
-                    <div class="row">
-                        <h3 class="col-lg-9">Map:</h3>
+                <div class="col col-lg-9">
+                    <div class="row map-head">
+                        <h3 class="col-lg-2">Map:</h3>
 
-                        <div class="btn-group col-lg-3" role="group">
+                        <div class="btn-group col-lg-5 offset-lg-1" id="visibilityButtons" role="group">
+                            <button type="button" class="btn btn-secondary" data-visibility-class="view-all">All</button>
+                            <button type="button" class="btn btn-english" data-visibility-class="view-english">English</button>
+                            <button type="button" class="btn btn-french" data-visibility-class="view-french">French</button>
+                            <button type="button" class="btn btn-spanish" data-visibility-class="view-spanish">Spanish</button>
+                            <button type="button" class="btn btn-dutch" data-visibility-class="view-dutch">Dutch</button>
+                        </div>
+
+                        <div class="btn-group col-lg-3 offset-lg-1" role="group">
                             <button type="button" class="btn btn-primary" id="zoomIn">+</button>
                             <button type="button" class="btn btn-primary" id="zoomOut">-</button>
                         </div>
                     </div>
-                    <div class="map" id="map">
+                    <div class="map-container overflow-scroll">
+                        <div class="map" id="map">
+                        </div>
                     </div>
                 </div>
             </div>

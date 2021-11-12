@@ -1,5 +1,13 @@
 ﻿:root {
     --tile-size: 40px;
+    --english-color: #dd0000;
+    --english-color-shaded: #bb0000;
+    --french-color: #0000cc;
+    --french-color-shaded: #000099;
+    --spanish-color: #ffd800;
+    --spanish-color-shaded: #eec800;
+    --dutch-color: #ff6a00;
+    --dutch-color-shaded: #ee6a00;
 }
 
 html, body {
@@ -8,6 +16,57 @@ html, body {
 
 .location-info {
     display: none;
+}
+
+.btn-english,
+.btn-english:hover,
+.btn-french,
+.btn-french:hover {
+    color: #fff;
+}
+
+.btn-english {
+    background-color: var(--english-color);
+    border-color: var(--english-color);
+}
+
+.btn-english:hover {
+    background-color: var(--english-color-shaded);
+    border-color: var(--english-color-shaded);
+}
+
+.btn-french {
+    background-color: var(--french-color);
+    border-color: var(--french-color);
+}
+
+.btn-french:hover {
+    background-color: var(--french-color-shaded);
+    border-color: var(--french-color-shaded);
+}
+
+.btn-spanish {
+    background-color: var(--spanish-color);
+    border-color: var(--spanish-color);
+}
+
+.btn-spanish:hover {
+    background-color: var(--spanish-color-shaded);
+    border-color: var(--spanish-color-shaded);
+}
+
+.btn-dutch {
+    background-color: var(--dutch-color);
+    border-color: var(--dutch-color);
+}
+
+.btn-dutch:hover {
+    background-color: var(--dutch-color-shaded);
+    border-color: var(--dutch-color-shaded);
+}
+
+.map-head .btn-group {
+    margin-bottom: 4px;
 }
 
 .map {
@@ -23,7 +82,7 @@ html, body {
     display: table-cell;
 }
 
-.map-cell, .ter-base, .ter-tree, .ter-feat {
+.map-cell, .ter-base, .ter-tree, .ter-feat, .visibility-screen {
     width: var(--tile-size);
     height: var(--tile-size);
 }
@@ -148,4 +207,17 @@ html, body {
 
 .ter-feat-major-river {
     background-image: url('../Images/majorriver.png');
+}
+
+.visibility-screen {
+    display: none;
+    background-image: url('../Images/hide.png');
+    z-index: 99;
+}
+
+.map.view-english .visibility-screen.hide-from-english,
+.map.view-french .visibility-screen.hide-from-french,
+.map.view-spanish .visibility-screen.hide-from-spanish,
+.map.view-dutch .visibility-screen.hide-from-dutch {
+    display: block;
 }
