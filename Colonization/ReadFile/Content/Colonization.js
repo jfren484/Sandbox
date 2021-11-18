@@ -86,13 +86,41 @@ function loadMap() {
             }
             treeLayer.append(featLayer);
 
+            const iconLayer = $('<div>').addClass('tile-icon');
+            const town = gameData.Towns.find(t => t.Location.X === gameData.Map[index].Coordinates.X && t.Location.Y === gameData.Map[index].Coordinates.Y);
+            if (town) {
+                if (town.Buildings[Enumerations.Buildings.Fortress]) {
+                    iconLayer.addClass('tile-icon-town-fortress');
+                } else if (town.Buildings[Enumerations.Buildings.Fort]) {
+                    iconLayer.addClass('tile-icon-town-fort');
+                } else if (town.Buildings[Enumerations.Buildings.Stockade]) {
+                    iconLayer.addClass('tile-icon-town-stockade');
+                } else {
+                    iconLayer.addClass('tile-icon-town');
+                }
+            } else {
+                const village = gameData.Villages.find(v => v.Location.X === gameData.Map[index].Coordinates.X && v.Location.Y === gameData.Map[index].Coordinates.Y);
+                if (village) {
+                    if (village.Nation === 'Inca') {
+                        iconLayer.addClass('tile-icon-village-pyramid-inca');
+                    } else if (village.Nation === 'Aztec') {
+                        iconLayer.addClass('tile-icon-village-pyramid-aztec');
+                    } else if (village.Nation === 'Arawaks' || village.Nation === 'Cherokee' || village.Nation === 'Iroquois') {
+                        iconLayer.addClass('tile-icon-village-longhouse');
+                    } else {
+                        iconLayer.addClass('tile-icon-village-teepee');
+                    }
+                }
+            }
+            featLayer.append(iconLayer);
+
             const visLayer = $('<div>').addClass('visibility-screen');
             for (let i = 0; i < 4; ++i) {
                 if (!gameData.Map[index].VisibleToNations[i]) {
                     visLayer.addClass(tileVisibilityClasses[i]);
                 }
             }
-            featLayer.append(visLayer);
+            iconLayer.append(visLayer);
         }
 
         $('#map').append(row);

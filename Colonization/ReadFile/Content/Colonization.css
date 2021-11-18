@@ -82,17 +82,15 @@ html, body {
     display: table-cell;
 }
 
-.map-cell, .ter-base, .ter-tree, .ter-feat, .visibility-screen {
+.map-cell, .ter-base, .ter-tree, .ter-feat, .tile-icon, .visibility-screen {
     width: var(--tile-size);
     height: var(--tile-size);
 }
 
-.ter-base, .ter-tree, .ter-feat {
+.ter-base, .ter-tree, .ter-feat, .tile-icon {
     background-size: 100%;
-}
-
-.ter-base {
-    z-index: 5;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .ter-base-tundra {
@@ -171,10 +169,6 @@ html, body {
     background-image: url('../Images/sealane.png');
 }
 
-.ter-tree {
-    z-index: 10;
-}
-
 .ter-base-scrubforest .ter-tree {
     background-image: url('../Images/scrubforest.png');
 }
@@ -187,10 +181,6 @@ html, body {
 .ter-base-wetlandforest .ter-tree,
 .ter-base-rainforest .ter-tree {
     background-image: url('../Images/forest.png');
-}
-
-.ter-feat {
-    z-index: 15;
 }
 
 .ter-feat-hills {
@@ -212,7 +202,6 @@ html, body {
 .visibility-screen {
     display: none;
     background-image: url('../Images/hide.png');
-    z-index: 99;
 }
 
 .map.view-english .visibility-screen.hide-from-english,

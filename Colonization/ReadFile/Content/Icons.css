@@ -1,0 +1,363 @@
+﻿.tile-icon-town-stockade {
+    background-image: url('../Images/Icons/00.png');
+}
+
+.tile-icon-town-fort {
+    background-image: url('../Images/Icons/01.png');
+}
+
+.tile-icon-town-fortress {
+    background-image: url('../Images/Icons/02.png');
+}
+
+.tile-icon-town {
+    background-image: url('../Images/Icons/03.png');
+}
+
+.tile-icon-ship-damaged {
+    background-image: url('../Images/Icons/05.png');
+}
+
+.tile-icon-ship-caravel {
+    background-image: url('../Images/Icons/06.png');
+}
+
+.tile-icon-ship-galleon {
+    background-image: url('../Images/Icons/07.png');
+}
+
+.tile-icon-wagon {
+    background-image: url('../Images/Icons/08.png');
+}
+
+.tile-icon-artillery {
+    background-image: url('../Images/Icons/09.png');
+}
+
+.tile-icon-village-teepee {
+    background-image: url('../Images/Icons/0A.png');
+}
+
+.tile-icon-village-longhouse {
+    background-image: url('../Images/Icons/0B.png');
+}
+
+.tile-icon-village-pyramid-aztec {
+    background-image: url('../Images/Icons/0C.png');
+}
+
+.tile-icon-village-pyramid-inca {
+    background-image: url('../Images/Icons/0D.png');
+}
+
+.tile-icon-ship-privateer {
+    background-image: url('../Images/Icons/0E.png');
+}
+
+.tile-icon-ship-frigate {
+    background-image: url('../Images/Icons/0F.png');
+}
+
+.tile-icon-treasure {
+    background-image: url('../Images/Icons/10.png');
+}
+
+.tile-icon-indian-capital {
+    background-image: url('../Images/Icons/11.png');
+}
+
+.tile-icon-cargo-corn {
+    background-image: url('../Images/Icons/16.png');
+}
+
+.tile-icon-cargo-sugar {
+    background-image: url('../Images/Icons/17.png');
+}
+
+.tile-icon-cargo-tobacco {
+    background-image: url('../Images/Icons/18.png');
+}
+
+.tile-icon-cargo-cotton {
+    background-image: url('../Images/Icons/19.png');
+}
+
+.tile-icon-cargo-fur {
+    background-image: url('../Images/Icons/1A.png');
+}
+
+.tile-icon-cargo-lumber {
+    background-image: url('../Images/Icons/1B.png');
+}
+
+.tile-icon-cargo-ore {
+    background-image: url('../Images/Icons/1C.png');
+}
+
+.tile-icon-cargo-silver {
+    background-image: url('../Images/Icons/1D.png');
+}
+
+.tile-icon-cargo-horses {
+    background-image: url('../Images/Icons/1E.png');
+}
+
+.tile-icon-cargo-rum {
+    background-image: url('../Images/Icons/1F.png');
+}
+
+.tile-icon-cargo-cigars {
+    background-image: url('../Images/Icons/20.png');
+}
+
+.tile-icon-cargo-cloth {
+    background-image: url('../Images/Icons/21.png');
+}
+
+.tile-icon-cargo-coats {
+    background-image: url('../Images/Icons/22.png');
+}
+
+.tile-icon-cargo-trade-goods {
+    background-image: url('../Images/Icons/23.png');
+}
+
+.tile-icon-cargo-tools {
+    background-image: url('../Images/Icons/24.png');
+}
+
+.tile-icon-cargo-muskets {
+    background-image: url('../Images/Icons/25.png');
+}
+
+.tile-icon-hammer {
+    background-image: url('../Images/Icons/36.png');
+}
+
+.tile-icon-red-x {
+    background-image: url('../Images/Icons/37.png');
+}
+
+.tile-icon-cross {
+    background-image: url('../Images/Icons/38.png');
+}
+
+.tile-icon-fish {
+    background-image: url('../Images/Icons/39.png');
+}
+
+.tile-icon-specialty-pioneer {
+    background-image: url('../Images/Icons/3A.png');
+}
+
+.tile-icon-specialty-soldier {
+    background-image: url('../Images/Icons/3B.png');
+}
+
+.tile-icon-specialty-scout {
+    background-image: url('../Images/Icons/3C.png');
+}
+
+.tile-icon-specialty-missionary {
+    background-image: url('../Images/Icons/3D.png');
+}
+
+.tile-icon-liberty-bell {
+    background-image: url('../Images/Icons/3E.png');
+}
+
+.tile-icon-artillery-damaged {
+    background-image: url('../Images/Icons/41.png');
+}
+
+.tile-icon-specialty-indian-convert {
+    background-image: url('../Images/Icons/42.png');
+}
+
+.tile-icon-unit-pioneer {
+    background-image: url('../Images/Icons/49.png');
+}
+
+.tile-icon-unit-soldier {
+    background-image: url('../Images/Icons/4A.png');
+}
+
+.tile-icon-unit-scout {
+    background-image: url('../Images/Icons/4B.png');
+}
+
+.tile-icon-unit-dragoon {
+    background-image: url('../Images/Icons/4C.png');
+}
+
+.tile-icon-unit-missionary {
+    background-image: url('../Images/Icons/4D.png');
+}
+
+.tile-icon-specialty-farmer {
+    background-image: url('../Images/Icons/51.png');
+}
+
+.tile-icon-specialty-sugar-planter {
+    background-image: url('../Images/Icons/52.png');
+}
+
+.tile-icon-specialty-tobacco-planter {
+    background-image: url('../Images/Icons/53.png');
+}
+
+.tile-icon-specialty-cotton-planter {
+    background-image: url('../Images/Icons/54.png');
+}
+
+.tile-icon-specialty-fur-trapper {
+    background-image: url('../Images/Icons/55.png');
+}
+
+.tile-icon-specialty-lumberjack {
+    background-image: url('../Images/Icons/56.png');
+}
+
+.tile-icon-specialty-ore-miner {
+    background-image: url('../Images/Icons/57.png');
+}
+
+.tile-icon-specialty-silver-miner {
+    background-image: url('../Images/Icons/58.png');
+}
+
+.tile-icon-specialty-fisherman {
+    background-image: url('../Images/Icons/59.png');
+}
+
+.tile-icon-specialty-distiller {
+    background-image: url('../Images/Icons/5A.png');
+}
+
+.tile-icon-specialty-tobacconist {
+    background-image: url('../Images/Icons/5B.png');
+}
+
+.tile-icon-specialty-weaver {
+    background-image: url('../Images/Icons/5C.png');
+}
+
+.tile-icon-specialty-fur-trader {
+    background-image: url('../Images/Icons/5D.png');
+}
+
+.tile-icon-specialty-carpenter {
+    background-image: url('../Images/Icons/5E.png');
+}
+
+.tile-icon-specialty-blacksmith {
+    background-image: url('../Images/Icons/5F.png');
+}
+
+.tile-icon-specialty-gunsmith {
+    background-image: url('../Images/Icons/60.png');
+}
+
+.tile-icon-specialty-preacher {
+    background-image: url('../Images/Icons/61.png');
+}
+
+.tile-icon-specialty-statesman {
+    background-image: url('../Images/Icons/62.png');
+}
+
+.tile-icon-specialty-teacher {
+    background-image: url('../Images/Icons/63.png');
+}
+
+.tile-icon-specialty-none {
+    background-image: url('../Images/Icons/64.png');
+}
+
+.tile-icon-unit-pioneer-expert {
+    background-image: url('../Images/Icons/65.png');
+}
+
+.tile-icon-unit-solider-veteran {
+    background-image: url('../Images/Icons/66.png');
+}
+
+.tile-icon-unit-scout-expert {
+    background-image: url('../Images/Icons/67.png');
+}
+
+.tile-icon-unit-dragoon-veteran {
+    background-image: url('../Images/Icons/68.png');
+}
+
+.tile-icon-unit-missionary-expert {
+    background-image: url('../Images/Icons/69.png');
+}
+
+.tile-icon-specialty-indentured-servant {
+    background-image: url('../Images/Icons/6A.png');
+}
+
+.tile-icon-specialty-criminal {
+    background-image: url('../Images/Icons/6B.png');
+}
+
+.tile-icon-totem {
+    background-image: url('../Images/Icons/6C.png');
+}
+
+.tile-icon-unit-brave {
+    background-image: url('../Images/Icons/6D.png');
+}
+
+.tile-icon-unit-brave-armed {
+    background-image: url('../Images/Icons/6E.png');
+}
+
+.tile-icon-unit-brave-mounted {
+    background-image: url('../Images/Icons/6F.png');
+}
+
+.tile-icon-unit-brave-mounted-armed {
+    background-image: url('../Images/Icons/70.png');
+}
+
+.tile-icon-flag-english {
+    background-image: url('../Images/Icons/76.png');
+}
+
+.tile-icon-flag-french {
+    background-image: url('../Images/Icons/77.png');
+}
+
+.tile-icon-flag-spanish {
+    background-image: url('../Images/Icons/78.png');
+}
+
+.tile-icon-flag-dutch {
+    background-image: url('../Images/Icons/79.png');
+}
+
+.tile-icon-unit-regulars {
+    background-image: url('../Images/Icons/7D.png');
+}
+
+.tile-icon-unit-cavalry {
+    background-image: url('../Images/Icons/7E.png');
+}
+
+.tile-icon-ship-man-o-war {
+    background-image: url('../Images/Icons/7F.png');
+}
+
+.tile-icon-unit-continental-army {
+    background-image: url('../Images/Icons/80.png');
+}
+
+.tile-icon-unit-continental-cavalry {
+    background-image: url('../Images/Icons/81.png');
+}
+
+.tile-icon-flag-rebel {
+    background-image: url('../Images/Icons/82.png');
+}
