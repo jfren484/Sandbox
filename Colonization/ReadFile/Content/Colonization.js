@@ -86,7 +86,7 @@ function loadMap() {
             }
             treeLayer.append(featLayer);
 
-            const iconLayer = $('<div>').addClass('tile-icon');
+            let iconLayer = $('<div>').addClass('tile-icon');
             const town = gameData.Towns.find(t => t.Location.X === gameData.Map[index].Coordinates.X && t.Location.Y === gameData.Map[index].Coordinates.Y);
             if (town) {
                 if (town.Buildings[Enumerations.Buildings.Fortress]) {
@@ -98,6 +98,14 @@ function loadMap() {
                 } else {
                     iconLayer.addClass('tile-icon-town');
                 }
+
+                const iconLayer2 = $('<div>')
+                    .addClass('tile-icon')
+                    .addClass('tile-icon-flag-' + town.Nation.toLowerCase());
+                iconLayer.append(iconLayer2);
+
+                featLayer.append(iconLayer);
+                iconLayer = iconLayer2;
             } else {
                 const village = gameData.Villages.find(v => v.Location.X === gameData.Map[index].Coordinates.X && v.Location.Y === gameData.Map[index].Coordinates.Y);
                 if (village) {
@@ -111,8 +119,9 @@ function loadMap() {
                         iconLayer.addClass('tile-icon-village-teepee');
                     }
                 }
+
+                featLayer.append(iconLayer);
             }
-            featLayer.append(iconLayer);
 
             const visLayer = $('<div>').addClass('visibility-screen');
             for (let i = 0; i < 4; ++i) {
