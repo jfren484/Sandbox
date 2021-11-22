@@ -8,6 +8,15 @@
     --spanish-color-shaded: #eec800;
     --dutch-color: #ff6a00;
     --dutch-color-shaded: #ee6a00;
+
+    --apache-color: #d0b78a;
+    --souix-color: #950000;
+    --tupi-color: #005900;
+    --arawak-color: #698dcf;
+    --cherokee-color: #76ae48;
+    --iriquois-color: #6b330b;
+    --aztec-color: #d4a915;
+    --inca-color: #ffffd6;
 }
 
 html, body {

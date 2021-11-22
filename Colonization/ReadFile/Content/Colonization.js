@@ -6,6 +6,13 @@ const zoomLevelSizes = ['8px', '16px', '24px', '32px', '40px', '50px', '60px', '
 
 const tileVisibilityClasses = ['hide-from-english', 'hide-from-french', 'hide-from-spanish', 'hide-from-dutch'];
 
+const terrainFeatures = {
+    'Elevation': 'Hills',
+    'Elevation, Major': 'Mountains',
+    'River': 'Minor River',
+    'River, Major': 'Major River'
+}
+
 $('#openFile').on('click', async () => {
     // Destructure the one-element array.
     [fileHandle] = await window.showOpenFilePicker();
@@ -52,75 +59,58 @@ function loadMap() {
             .addClass('map-row');
 
         for (let x = 0; x < gameData.MapSize.Width; ++x, ++index) {
-            const cell = $('<div>')
+            const layers = [];
+            layers.push($('<div>')
                 .addClass('map-cell')
                 .addClass('ter-base')
                 .addClass('ter-base-' + gameData.Map[index].TerrainBase.toLowerCase())
-                .data('index', index);
-            row.append(cell);
+                .data('index', index));
 
             gameData.Map[index].TerrainBaseName = gameData.Map[index].TerrainBase;
             gameData.Map[index].TerrainFeatureName = '';
 
-            const treeLayer = $('<div>').addClass('ter-tree');
-            cell.append(treeLayer);
+            layers.push($('<div>').addClass('ter-tree'));
 
-            const featLayer = $('<div>').addClass('ter-feat');
-            switch (gameData.Map[index].TerrainFeature) {
-                case 'Elevation':
-                    featLayer.addClass('ter-feat-hills');
-                    gameData.Map[index].TerrainBaseName = 'Hills';
-                    break;
-                case 'Elevation, Major':
-                    featLayer.addClass('ter-feat-mountains');
-                    gameData.Map[index].TerrainBaseName = 'Mountains';
-                    break;
-                case 'River':
-                    featLayer.addClass('ter-feat-minor-river');
-                    gameData.Map[index].TerrainFeatureName = 'Minor River';
-                    break;
-                case 'River, Major':
-                    featLayer.addClass('ter-feat-major-river');
-                    gameData.Map[index].TerrainFeatureName = 'Major River';
-                    break;
+            const feat = terrainFeatures[gameData.Map[index].TerrainFeature];
+            if (feat) {
+                layers.push($('<div>')
+                    .addClass('ter-feat')
+                    .addClass('ter-feat-' + feat.toLowerCase().replace(' ', '-')));
+                gameData.Map[index].TerrainBaseName = feat;
             }
-            treeLayer.append(featLayer);
 
-            let iconLayer = $('<div>').addClass('tile-icon');
             const town = gameData.Towns.find(t => t.Location.X === gameData.Map[index].Coordinates.X && t.Location.Y === gameData.Map[index].Coordinates.Y);
             if (town) {
+                const townLayer = $('<div>').addClass('tile-icon');
                 if (town.Buildings[Enumerations.Buildings.Fortress]) {
-                    iconLayer.addClass('tile-icon-town-fortress');
+                    townLayer.addClass('tile-icon-town-fortress');
                 } else if (town.Buildings[Enumerations.Buildings.Fort]) {
-                    iconLayer.addClass('tile-icon-town-fort');
+                    townLayer.addClass('tile-icon-town-fort');
                 } else if (town.Buildings[Enumerations.Buildings.Stockade]) {
-                    iconLayer.addClass('tile-icon-town-stockade');
+                    townLayer.addClass('tile-icon-town-stockade');
                 } else {
-                    iconLayer.addClass('tile-icon-town');
+                    townLayer.addClass('tile-icon-town');
                 }
+                layers.push(townLayer);
 
-                const iconLayer2 = $('<div>')
+                layers.push($('<div>')
                     .addClass('tile-icon')
-                    .addClass('tile-icon-flag-' + town.Nation.toLowerCase());
-                iconLayer.append(iconLayer2);
-
-                featLayer.append(iconLayer);
-                iconLayer = iconLayer2;
+                    .addClass('tile-icon-flag-' + town.Nation.toLowerCase()));
             } else {
                 const village = gameData.Villages.find(v => v.Location.X === gameData.Map[index].Coordinates.X && v.Location.Y === gameData.Map[index].Coordinates.Y);
                 if (village) {
+                    const villLayer = $('<div>').addClass('tile-icon');
                     if (village.Nation === 'Inca') {
-                        iconLayer.addClass('tile-icon-village-pyramid-inca');
+                        villLayer.addClass('tile-icon-village-pyramid-inca');
                     } else if (village.Nation === 'Aztec') {
-                        iconLayer.addClass('tile-icon-village-pyramid-aztec');
+                        villLayer.addClass('tile-icon-village-pyramid-aztec');
                     } else if (village.Nation === 'Arawaks' || village.Nation === 'Cherokee' || village.Nation === 'Iroquois') {
-                        iconLayer.addClass('tile-icon-village-longhouse');
+                        villLayer.addClass('tile-icon-village-longhouse');
                     } else {
-                        iconLayer.addClass('tile-icon-village-teepee');
+                        villLayer.addClass('tile-icon-village-teepee');
                     }
+                    layers.push(villLayer);
                 }
-
-                featLayer.append(iconLayer);
             }
 
             const visLayer = $('<div>').addClass('visibility-screen');
@@ -129,7 +119,16 @@ function loadMap() {
                     visLayer.addClass(tileVisibilityClasses[i]);
                 }
             }
-            iconLayer.append(visLayer);
+            layers.push(visLayer);
+
+            let curLayer = row;
+            let nextLayer = layers.shift();
+            while (nextLayer) {
+                curLayer.append(nextLayer);
+
+                curLayer = nextLayer;
+                nextLayer = layers.shift();
+            }
         }
 
         $('#map').append(row);
