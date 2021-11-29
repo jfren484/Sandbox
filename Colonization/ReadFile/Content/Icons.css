@@ -18,19 +18,19 @@
     background-image: url('../Images/Icons/05.png');
 }
 
-.tile-icon-ship-caravel {
+.tile-icon-unit-caravel {
     background-image: url('../Images/Icons/06.png');
 }
 
-.tile-icon-ship-galleon {
+.tile-icon-unit-galleon {
     background-image: url('../Images/Icons/07.png');
 }
 
-.tile-icon-wagon {
+.tile-icon-unit-wagontrain {
     background-image: url('../Images/Icons/08.png');
 }
 
-.tile-icon-artillery {
+.tile-icon-unit-artillery {
     background-image: url('../Images/Icons/09.png');
 }
 
@@ -38,8 +38,32 @@
     background-image: url('../Images/Icons/0A.png');
 }
 
+.tile-icon-village-teepee-highlight-apache {
+    background-image: url('../Images/Icons/0A-a.png');
+}
+
+.tile-icon-village-teepee-highlight-sioux {
+    background-image: url('../Images/Icons/0A-s.png');
+}
+
+.tile-icon-village-teepee-highlight-tupi {
+    background-image: url('../Images/Icons/0A-t.png');
+}
+
 .tile-icon-village-longhouse {
     background-image: url('../Images/Icons/0B.png');
+}
+
+.tile-icon-village-longhouse-highlight-arawak {
+    background-image: url('../Images/Icons/0B-a.png');
+}
+
+.tile-icon-village-longhouse-highlight-cherokee {
+    background-image: url('../Images/Icons/0B-c.png');
+}
+
+.tile-icon-village-longhouse-highlight-iriquois {
+    background-image: url('../Images/Icons/0B-i.png');
 }
 
 .tile-icon-village-pyramid-aztec {
@@ -50,15 +74,15 @@
     background-image: url('../Images/Icons/0D.png');
 }
 
-.tile-icon-ship-privateer {
+.tile-icon-unit-privateer {
     background-image: url('../Images/Icons/0E.png');
 }
 
-.tile-icon-ship-frigate {
+.tile-icon-unit-frigate {
     background-image: url('../Images/Icons/0F.png');
 }
 
-.tile-icon-treasure {
+.tile-icon-unit-treasure {
     background-image: url('../Images/Icons/10.png');
 }
 
@@ -174,23 +198,23 @@
     background-image: url('../Images/Icons/42.png');
 }
 
-.tile-icon-unit-pioneer {
+.tile-icon-unit-pioneers {
     background-image: url('../Images/Icons/49.png');
 }
 
-.tile-icon-unit-soldier {
+.tile-icon-unit-soldiers {
     background-image: url('../Images/Icons/4A.png');
 }
 
-.tile-icon-unit-scout {
+.tile-icon-unit-scouts {
     background-image: url('../Images/Icons/4B.png');
 }
 
-.tile-icon-unit-dragoon {
+.tile-icon-unit-dragoons {
     background-image: url('../Images/Icons/4C.png');
 }
 
-.tile-icon-unit-missionary {
+.tile-icon-unit-missionaries {
     background-image: url('../Images/Icons/4D.png');
 }
 
@@ -306,19 +330,19 @@
     background-image: url('../Images/Icons/6C.png');
 }
 
-.tile-icon-unit-brave {
+.tile-icon-unit-braves {
     background-image: url('../Images/Icons/6D.png');
 }
 
-.tile-icon-unit-brave-armed {
+.tile-icon-unit-armedbraves {
     background-image: url('../Images/Icons/6E.png');
 }
 
-.tile-icon-unit-brave-mounted {
+.tile-icon-unit-mtdbraves {
     background-image: url('../Images/Icons/6F.png');
 }
 
-.tile-icon-unit-brave-mounted-armed {
+.tile-icon-unit-mtdwarriors {
     background-image: url('../Images/Icons/70.png');
 }
 
@@ -346,18 +370,22 @@
     background-image: url('../Images/Icons/7E.png');
 }
 
-.tile-icon-ship-man-o-war {
+.tile-icon-unit-manowar {
     background-image: url('../Images/Icons/7F.png');
 }
 
-.tile-icon-unit-continental-army {
+.tile-icon-unit-contarmy {
     background-image: url('../Images/Icons/80.png');
 }
 
-.tile-icon-unit-continental-cavalry {
+.tile-icon-unit-contcav {
     background-image: url('../Images/Icons/81.png');
 }
 
 .tile-icon-flag-rebel {
     background-image: url('../Images/Icons/82.png');
+}
+
+.tile-icon-unit-nation-england {
+    background-image: url('../Images/Icons/UnitNation.png');
 }

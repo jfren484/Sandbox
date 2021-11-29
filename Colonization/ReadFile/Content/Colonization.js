@@ -2,7 +2,7 @@
 let gameData;
 
 let zoomLevel = 4;
-const zoomLevelSizes = ['8px', '16px', '24px', '32px', '40px', '50px', '60px', '70px']
+const zoomLevelSizes = ['8px', '16px', '24px', '32px', '40px', '64px', '80px', '100px']
 
 const tileVisibilityClasses = ['hide-from-english', 'hide-from-french', 'hide-from-spanish', 'hide-from-dutch'];
 
@@ -59,6 +59,8 @@ function loadMap() {
             .addClass('map-row');
 
         for (let x = 0; x < gameData.MapSize.Width; ++x, ++index) {
+            const curLoc = gameData.Map[index].Coordinates;
+
             const layers = [];
             layers.push($('<div>')
                 .addClass('map-cell')
@@ -79,7 +81,7 @@ function loadMap() {
                 gameData.Map[index].TerrainBaseName = feat;
             }
 
-            const town = gameData.Towns.find(t => t.Location.X === gameData.Map[index].Coordinates.X && t.Location.Y === gameData.Map[index].Coordinates.Y);
+            const town = gameData.Towns.find(t => t.Location.X === curLoc.X && t.Location.Y === curLoc.Y);
             if (town) {
                 const townLayer = $('<div>').addClass('tile-icon');
                 if (town.Buildings[Enumerations.Buildings.Fortress]) {
@@ -97,19 +99,34 @@ function loadMap() {
                     .addClass('tile-icon')
                     .addClass('tile-icon-flag-' + town.Nation.toLowerCase()));
             } else {
-                const village = gameData.Villages.find(v => v.Location.X === gameData.Map[index].Coordinates.X && v.Location.Y === gameData.Map[index].Coordinates.Y);
+                const village = gameData.Villages.find(v => v.Location.X === curLoc.X && v.Location.Y === curLoc.Y);
                 if (village) {
-                    const villLayer = $('<div>').addClass('tile-icon');
-                    if (village.Nation === 'Inca') {
-                        villLayer.addClass('tile-icon-village-pyramid-inca');
-                    } else if (village.Nation === 'Aztec') {
-                        villLayer.addClass('tile-icon-village-pyramid-aztec');
-                    } else if (village.Nation === 'Arawaks' || village.Nation === 'Cherokee' || village.Nation === 'Iroquois') {
-                        villLayer.addClass('tile-icon-village-longhouse');
-                    } else {
-                        villLayer.addClass('tile-icon-village-teepee');
+                    const villageClass = village.Nation === 'Inca'
+                        ? 'tile-icon-village-pyramid-inca'
+                        : village.Nation === 'Aztec'
+                            ? 'tile-icon-village-pyramid-aztec'
+                            : village.Nation === 'Arawaks' || village.Nation === 'Cherokee' || village.Nation === 'Iroquois'
+                                ? 'tile-icon-village-longhouse'
+                                : 'tile-icon-village-teepee';
+
+                    layers.push($('<div>')
+                        .addClass('tile-icon')
+                        .addClass(villageClass));
+
+                    layers.push($('<div>')
+                        .addClass('tile-icon')
+                        .addClass(villageClass + '-highlight-' + village.Nation.toLowerCase()));
+                } else {
+                    const unit = gameData.Units.find(u => u.Location.X === curLoc.X && u.Location.Y === curLoc.Y);
+                    if (unit) {
+                        layers.push($('<div>')
+                            .addClass('tile-icon')
+                            .addClass('tile-icon-unit-nation-' + unit.Nation.toLowerCase()));
+
+                        layers.push($('<div>')
+                            .addClass('tile-icon')
+                            .addClass('tile-icon-unit-' + unit.UnitType.toLowerCase()));
                     }
-                    layers.push(villLayer);
                 }
             }
 
