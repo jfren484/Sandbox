@@ -158,6 +158,16 @@ export class Game1572Board extends React.Component {
         }
     }
 
+    saveGame = () => {
+        const element = document.createElement("a");
+        const file = new Blob([JSON.stringify(this.props.G, null, 2)],
+            { type: 'text/json;charset=utf-8' });
+        element.href = URL.createObjectURL(file);
+        element.download = "save.json";
+        document.body.appendChild(element);
+        element.click();
+    }
+
     render() {
         const animateDiceTray = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTray';
         const animateDiceTrayPlanning = this.state.counter > 0 && this.state.diceAnimationTarget === 'diceTrayPlanning';
@@ -173,6 +183,10 @@ export class Game1572Board extends React.Component {
                 <Box className="titleBar preGame determineExpeditionType mainGame">
                     <h1 className="gameTitle">1572: The Lost Expedition</h1>
                     <h2 className="dayLabel">Day {this.props.G.days + 1}</h2>
+                </Box>
+                <Box className="preGame mainGame">
+                    <button onClick={this.saveGame}>Save</button>
+                    <button onClick={this.saveGame}>Restore</button>
                 </Box>
                 <Box className="preGame">
                     <p>Your commander and entire company was killed after being ambushed in these mountains. The next morning, only six of

@@ -119,6 +119,7 @@
     <Content Include="src\mapHelper.js" />
     <Content Include="src\serviceWorker.js" />
     <Content Include="src\setupTests.js" />
+    <Content Include="src\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public" />
