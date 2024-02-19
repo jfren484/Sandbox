@@ -1,0 +1,32 @@
+﻿@model UserEditModel
+@{
+    ViewData["Title"] = "User Account";
+}
+
+<h1>Profile Information</h1>
+
+<form asp-controller="Account" asp-action="Index" method="post">
+    <div class="mb-3 form-group">
+        <label for="Email">Email Address</label>
+        <input asp-for="EmailAddress" class="form-control"/>
+    </div>
+    <div class="mb-3 form-group">
+        <label for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="mb-3 form-group">
+        <label for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div class="mb-3 form-group">
+        <label for="School">School</label>
+        <select asp-for="School" class="form-select">
+            <option>Choose...</option>
+            @foreach (var item in Model.School.ItemSelectList)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
