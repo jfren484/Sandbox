@@ -8,11 +8,17 @@ canvas {
 
 div.toolbar {
 	background-color: gainsboro;
+	padding: 5px;
 }
 
 div.toolbar.horiz {
 	height: 50px;
 	clear: both;
+}
+
+div.toolbar button {
+	width: 40px;
+	height: 40px;
 }
 
 div.canvasContainer {
