@@ -3,7 +3,8 @@ body {
 }
 
 canvas {
-	background-color: antiquewhite;
+	grid-column: 1;
+	grid-row: 1;
 }
 
 div.toolbar {
@@ -24,4 +25,5 @@ div.toolbar button {
 div.canvasContainer {
 	background-color: aliceblue;
 	padding: 10px;
+	display: grid;
 }

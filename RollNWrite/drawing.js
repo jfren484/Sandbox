@@ -1,37 +1,60 @@
-function drawImage() {
+function drawBGImage() {
     if (bgImageData === undefined) return;
 
-    const ratio = Math.min(canvas.width / bgImageData.naturalWidth, canvas.height / bgImageData.naturalHeight);
+    // Scale to fit the canvas without distortion
+    const ratio = Math.min(bgCanvas.width / bgImageData.naturalWidth, bgCanvas.height / bgImageData.naturalHeight);
 
-    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    canvasContext.drawImage(bgImageData, 0, 0, bgImageData.naturalWidth * ratio, bgImageData.naturalHeight * ratio);
+    bgCanvasContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    bgCanvasContext.drawImage(bgImageData, 0, 0, bgImageData.naturalWidth * ratio, bgImageData.naturalHeight * ratio);
 }
 
 function drawLine(lineData) {
-    drawLineStart(lineData);
+    drawLineStart_internal(lineData);
 
-    lineData.points.slice(1).forEach(function (value, index) {
-        drawLineContinue(value.x, value.y);
+    lineData.points.forEach(function (value, index) {
+        drawLineContinue_internal(value);
     });
 
     canvasContext.stroke();
 }
 
-function drawLineStart(lineData) {
+function drawLineStart(point) {
+    currentPath = {
+        type: 'line',
+        width: lineWidth,
+        color: strokeColor,
+        op: compOp,
+        origin: point,
+        points: []
+    };
+    pathList.push(currentPath);
+
+    drawLineStart_internal(currentPath);
+    drawLineContinue(point);
+}
+
+function drawLineStart_internal(lineData) {
     canvasContext.lineWidth = lineData.width;
+    canvasContext.lineCap = 'round';
+    canvasContext.lineJoin = 'round';
+    canvasContext.strokeStyle = lineData.color;
+    canvasContext.globalCompositeOperation = lineData.op;
     canvasContext.beginPath();
     canvasContext.moveTo(lineData.origin.x, lineData.origin.y);
 }
 
-function drawLineContinue(x, y, stroke = false) {
-    canvasContext.lineTo(x, y);
-    if (stroke) {
-        canvasContext.stroke();
-    }
+function drawLineContinue(point) {
+    currentPath.points.push(point);
+    drawLineContinue_internal(point);
+    canvasContext.stroke();
+}
+
+function drawLineContinue_internal(point) {
+    canvasContext.lineTo(point.x, point.y);
 }
 
 function redraw() {
-    drawImage();
+    drawBGImage();
 
     pathList.forEach(function (path) {
         switch (path.type) {

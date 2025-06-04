@@ -1,13 +1,15 @@
 function handleWindowResize(event) {
     containerStyle = window.getComputedStyle(canvas.parentElement);
 
-    canvas.width = window.innerWidth
+    canvasBaseWidth = window.innerWidth
         - parseFloat(containerStyle.getPropertyValue('padding-left'))
         - parseFloat(containerStyle.getPropertyValue('padding-right'));
-    canvas.height = window.innerHeight
+    canvasBaseHeight = window.innerHeight
         - toolbar.offsetHeight
         - parseFloat(containerStyle.getPropertyValue('padding-top'))
         - parseFloat(containerStyle.getPropertyValue('padding-bottom'));
+
+    resizeCanvas(canvasBaseWidth, canvasBaseHeight);
 
     redraw();
 }
@@ -15,23 +17,13 @@ function handleWindowResize(event) {
 function handleCanvasMouseDown(event) {
     isDrawing = true;
 
-    currentPath = {
-        type: 'line',
-        width: lineWidth,
-        origin: { x: event.offsetX, y: event.offsetY },
-        points: []
-    };
-    pathList.push(currentPath);
-
-    drawLineStart(currentPath);
+    drawLineStart({ x: event.offsetX, y: event.offsetY });
 }
 
 function handleCanvasMouseMove(event) {
     if (!isDrawing) return;
 
-    currentPath.points.push({ x: event.offsetX, y: event.offsetY });
-
-    drawLineContinue(event.offsetX, event.offsetY, true);
+    drawLineContinue({ x: event.offsetX, y: event.offsetY });
 }
 
 function handleCanvasMouseUp(event) {
@@ -44,6 +36,25 @@ function handleCanvasMouseOut(event) {
     handleCanvasMouseMove(event);
 
     isDrawing = false;
+}
+
+function handleCanvasMouseWheel(event) {
+    //    console.log(event.wheelDeltaY);
+    //    console.log(event.offsetX);
+    //    console.log(event.offsetY);
+    if (event.wheelDeltaY > 0) {
+        canvasZoom = Math.min(canvasZoomMax, canvasZoom + 1);
+    } else {
+        canvasZoom = Math.max(canvasZoomMin, canvasZoom - 1);
+    }
+
+    resizeCanvas(canvasBaseWidth, canvasBaseHeight);
+    redraw();
+}
+
+function handleEraseButtonClick(event) {
+    lineWidth = 10;
+    compOp = 'destination-out';
 }
 
 function handleImageButtonClick(event) {

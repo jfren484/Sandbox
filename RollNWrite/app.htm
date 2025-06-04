@@ -6,15 +6,16 @@
 	<body>
 		<div>
 			<div id="toolbar" class="toolbar">
-				<button id="bgImageButton" />
+				<button id="btnBGImage">Img</button>
+				<button id="btnErase">E</button>
 			</div>
 			<div class="canvasContainer">
+				<canvas id="bgCanvas"></canvas>
 				<canvas id="gameCanvas" />
 			</div>
 		</div>
-		<div class="hidden" style="display: none;">
+		<div style="display: none">
 			<input type="file" accept="image/*" name="image" id="bgFileInput">
-			<img id="output" width="200" />
 		</div>
 		<script type="text/javascript" src="eventHandlers.js"></script>
 		<script type="text/javascript" src="drawing.js"></script>
