@@ -1,11 +1,11 @@
 function drawBGImage() {
-    if (bgImageData === undefined) return;
+    if (!gameData.bgImageData) return;
 
     // Scale to fit the canvas without distortion
-    const ratio = Math.min(bgCanvas.width / bgImageData.naturalWidth, bgCanvas.height / bgImageData.naturalHeight);
+    const ratio = Math.min(bgCanvas.width / gameData.bgImageData.naturalWidth, bgCanvas.height / gameData.bgImageData.naturalHeight);
 
     bgCanvasContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-    bgCanvasContext.drawImage(bgImageData, 0, 0, bgImageData.naturalWidth * ratio, bgImageData.naturalHeight * ratio);
+    bgCanvasContext.drawImage(gameData.bgImageData, 0, 0, gameData.bgImageData.naturalWidth * ratio, gameData.bgImageData.naturalHeight * ratio);
 }
 
 function drawLine(lineData) {
@@ -27,7 +27,7 @@ function drawLineStart(point) {
         origin: point,
         points: []
     };
-    pathList.push(currentPath);
+    gameData.pathList.push(currentPath);
 
     drawLineStart_internal(currentPath);
     drawLineContinue(point);
@@ -56,7 +56,7 @@ function drawLineContinue_internal(point) {
 function redraw() {
     drawBGImage();
 
-    pathList.forEach(function (path) {
+    gameData.pathList.forEach(function (path) {
         switch (path.type) {
             case 'line':
                 drawLine(path);

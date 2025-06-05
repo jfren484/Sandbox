@@ -47,6 +47,7 @@ function handleCanvasMouseWheel(event) {
     } else {
         canvasZoom = Math.max(canvasZoomMin, canvasZoom - canvasZoomBy);
     }
+    //event.ctrlKey
 
     resizeCanvas(canvasBaseWidth, canvasBaseHeight);
     redraw();
@@ -57,12 +58,41 @@ function handleEraseButtonClick(event) {
     compOp = 'destination-out';
 }
 
+function handleSaveButtonClick(event) {
+    const imageData = bgCanvasContext.getImageData(0, 0, bgCanvas.width, bgCanvas.height);
+    const jsonData = JSON.stringify({
+        bgImageData: imageData.data,
+        pathList: gameData.pathList
+    });
+    const blob = new Blob([jsonData], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'savegame.dat';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function handleLoadButtonClick(event) {
+}
+
 function handleImageButtonClick(event) {
     bgFileInput.click();
 }
 
 function handleFileInputChange(event) {
-    bgImageData = new Image();
-    bgImageData.onload = redraw;
-    bgImageData.src = URL.createObjectURL(event.target.files[0]);
+    gameData.bgImageData = new Image();
+    gameData.bgImageData.onload = redraw;
+    gameData.bgImageData.src = URL.createObjectURL(event.target.files[0]);
+
+    var fileReader = new FileReader();
+    fileReader.onload = function () {
+
+        //console.log(fileReader.result);
+
+    }
+    fileReader.readAsText(event.target.files[0]);
 }

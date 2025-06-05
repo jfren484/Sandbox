@@ -3,6 +3,8 @@ const
     bgImageButton = document.getElementById('btnBGImage'),
     bgFileInput = document.getElementById('bgFileInput'),
     eraseButton = document.getElementById('btnErase'),
+    saveButton = document.getElementById('btnSave'),
+    loadButton = document.getElementById('btnLoad'),
     canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
     bgCanvasContext = bgCanvas.getContext('2d'),
@@ -10,8 +12,7 @@ const
     canvasContext = canvas.getContext('2d'),
     canvasZoomMin = 1,
     canvasZoomMax = 2,
-    canvasZoomBy = 0.2,
-    pathList = [];
+    canvasZoomBy = 0.2;
 
 let isDrawing = false,
     lineWidth = 2,
@@ -19,10 +20,13 @@ let isDrawing = false,
     fillColor = 'transparent',
     compOp = 'source-over',
     currentPath,
-    bgImageData,
     canvasBaseWidth = 0,
     canvasBaseHeight = 0,
-    canvasZoom = 1;
+    canvasZoom = 1,
+    gameData = {
+        bgImageData: null,
+        pathList: []
+    };
 
 initialize();
 
@@ -33,6 +37,8 @@ function initialize() {
     bgImageButton.addEventListener('click', handleImageButtonClick, false);
     bgFileInput.addEventListener('change', handleFileInputChange, false);
     eraseButton.addEventListener('click', handleEraseButtonClick, false);
+    saveButton.addEventListener('click', handleSaveButtonClick, false);
+    loadButton.addEventListener('click', handleLoadButtonClick, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);
