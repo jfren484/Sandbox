@@ -34,13 +34,13 @@ function drawLineStart(point) {
 }
 
 function drawLineStart_internal(lineData) {
-    canvasContext.lineWidth = lineData.width;
+    canvasContext.lineWidth = lineData.width * canvasZoom;
     canvasContext.lineCap = 'round';
     canvasContext.lineJoin = 'round';
     canvasContext.strokeStyle = lineData.color;
     canvasContext.globalCompositeOperation = lineData.op;
     canvasContext.beginPath();
-    canvasContext.moveTo(lineData.origin.x, lineData.origin.y);
+    canvasContext.moveTo(lineData.origin.x * canvasZoom, lineData.origin.y * canvasZoom);
 }
 
 function drawLineContinue(point) {
@@ -50,7 +50,7 @@ function drawLineContinue(point) {
 }
 
 function drawLineContinue_internal(point) {
-    canvasContext.lineTo(point.x, point.y);
+    canvasContext.lineTo(point.x * canvasZoom, point.y * canvasZoom);
 }
 
 function redraw() {

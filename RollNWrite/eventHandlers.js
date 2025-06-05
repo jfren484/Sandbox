@@ -1,5 +1,8 @@
 function handleWindowResize(event) {
-    containerStyle = window.getComputedStyle(canvas.parentElement);
+    canvasContainer.style.width = window.innerWidth + 'px';
+    canvasContainer.style.height = (window.innerHeight - toolbar.offsetHeight) + 'px';
+
+    containerStyle = window.getComputedStyle(canvasContainer);
 
     canvasBaseWidth = window.innerWidth
         - parseFloat(containerStyle.getPropertyValue('padding-left'))
@@ -17,13 +20,13 @@ function handleWindowResize(event) {
 function handleCanvasMouseDown(event) {
     isDrawing = true;
 
-    drawLineStart({ x: event.offsetX, y: event.offsetY });
+    drawLineStart({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
 }
 
 function handleCanvasMouseMove(event) {
     if (!isDrawing) return;
 
-    drawLineContinue({ x: event.offsetX, y: event.offsetY });
+    drawLineContinue({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
 }
 
 function handleCanvasMouseUp(event) {
@@ -39,13 +42,10 @@ function handleCanvasMouseOut(event) {
 }
 
 function handleCanvasMouseWheel(event) {
-    //    console.log(event.wheelDeltaY);
-    //    console.log(event.offsetX);
-    //    console.log(event.offsetY);
     if (event.wheelDeltaY > 0) {
-        canvasZoom = Math.min(canvasZoomMax, canvasZoom + 1);
+        canvasZoom = Math.min(canvasZoomMax, canvasZoom + canvasZoomBy);
     } else {
-        canvasZoom = Math.max(canvasZoomMin, canvasZoom - 1);
+        canvasZoom = Math.max(canvasZoomMin, canvasZoom - canvasZoomBy);
     }
 
     resizeCanvas(canvasBaseWidth, canvasBaseHeight);

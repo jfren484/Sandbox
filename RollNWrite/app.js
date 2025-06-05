@@ -3,12 +3,14 @@ const
     bgImageButton = document.getElementById('btnBGImage'),
     bgFileInput = document.getElementById('bgFileInput'),
     eraseButton = document.getElementById('btnErase'),
+    canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
     bgCanvasContext = bgCanvas.getContext('2d'),
     canvas = document.getElementById('gameCanvas'),
     canvasContext = canvas.getContext('2d'),
     canvasZoomMin = 1,
-    canvasZoomMax = 5,
+    canvasZoomMax = 2,
+    canvasZoomBy = 0.2,
     pathList = [];
 
 let isDrawing = false,
@@ -42,6 +44,8 @@ function initialize() {
 }
 
 function resizeCanvas(width, height) {
-    bgCanvas.width = canvas.width = width * canvasZoom;
-    bgCanvas.height = canvas.height = height * canvasZoom;
+    bgCanvas.width = width * canvasZoom;
+    bgCanvas.height = height * canvasZoom;
+    canvas.width = width * canvasZoom;
+    canvas.height = height * canvasZoom;
 }
