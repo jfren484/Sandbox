@@ -27,7 +27,7 @@ function drawLineStart(point) {
         origin: point,
         points: []
     };
-    gameData.pathList.push(currentPath);
+    pathListAddPath(currentPath);
 
     drawLineStart_internal(currentPath);
     drawLineContinue(point);
@@ -59,13 +59,49 @@ function loadBGImage() {
     bgImage.src = gameData.bgImageData;
 }
 
+function pathListAddPath(path, resetRedo = true) {
+    gameData.pathList.push(path);
+    if (resetRedo) {
+        gameData.redoPathList.length = 0;
+    }
+
+    undoButton.disabled = false;
+    if (gameData.redoPathList.length === 0) {
+        redoButton.disabled = true;
+    }
+}
+
+function pathListRemovePath() {
+    gameData.redoPathList.push(gameData.pathList.pop());
+
+    redoButton.disabled = false;
+    if (gameData.pathList.length === 0) {
+        undoButton.disabled = true;
+    }
+}
+
 function redraw() {
     drawBGImage();
 
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     gameData.pathList.forEach(function (path) {
         switch (path.type) {
             case 'line':
                 drawLine(path);
         }
     });
+}
+
+function undoDraw() {
+    if (gameData.pathList.length === 0) return;
+
+    pathListRemovePath();
+    redraw();
+}
+
+function redoDraw() {
+    if (gameData.redoPathList.length === 0) return;
+
+    pathListAddPath(gameData.redoPathList.pop(), resetRedo = false);
+    redraw();
 }

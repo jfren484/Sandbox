@@ -4,6 +4,8 @@ const
     eraseButton = document.getElementById('btnErase'),
     saveButton = document.getElementById('btnSave'),
     loadButton = document.getElementById('btnLoad'),
+    undoButton = document.getElementById('btnUndo'),
+    redoButton = document.getElementById('btnRedo'),
     canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
     bgCanvasContext = bgCanvas.getContext('2d'),
@@ -26,7 +28,8 @@ let isDrawing,
     bgImage,
     gameData = {
         bgImageData: null,
-        pathList: []
+        pathList: [],
+        redoPathList: []
     };
 
 initialize();
@@ -39,6 +42,8 @@ function initialize() {
     eraseButton.addEventListener('click', handleEraseButtonClick, false);
     saveButton.addEventListener('click', handleSaveButtonClick, false);
     loadButton.addEventListener('click', handleLoadButtonClick, false);
+    undoButton.addEventListener('click', handleUndoButtonClick, false);
+    redoButton.addEventListener('click', handleRedoButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
@@ -59,6 +64,9 @@ function resetToDefaults() {
     compOp = 'source-over';
 
     handleWindowResize(null);
+
+    undoButton.disabled = true;
+    redoButton.disabled = true;
 }
 
 function resizeCanvas(width, height) {

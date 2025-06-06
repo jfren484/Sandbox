@@ -84,7 +84,16 @@ function handleImageButtonClick(event) {
     fileInput.click();
 }
 
+function handleUndoButtonClick(event) {
+    undoDraw();
+}
+
+function handleRedoButtonClick(event) {
+    redoDraw();
+}
+
 function handleFileInputChange(event) {
+    console.log('fileInputChange');
     if (event.target.files.length === 0) return;
 
     switch (event.target.name) {
@@ -95,6 +104,9 @@ function handleFileInputChange(event) {
             handleSaveFileInputChange(event.target.files[0]);
             break;
     }
+
+    // Reset value so even will trigger again even when picking the same file.
+    this.value = null;
 }
 
 function handleBackgroundImageFileInputChange(file) {
@@ -112,8 +124,14 @@ function handleSaveFileInputChange(file) {
         resetToDefaults();
 
         const txt = fileReader.result;
-        gameData = JSON.parse(txt);
+        const newGameData = JSON.parse(txt);
+        console.log(1);
+        if (newGameData.pathList === undefined) newGameData.pathList = [];
+        newGameData.redoPathList = [];
+
+        gameData = newGameData;
         loadBGImage();
+        undoButton.disabled = gameData.pathList.length === 0;
     }
     fileReader.readAsText(file);
 }
