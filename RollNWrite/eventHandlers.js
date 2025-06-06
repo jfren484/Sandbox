@@ -59,16 +59,12 @@ function handleEraseButtonClick(event) {
 }
 
 function handleSaveButtonClick(event) {
-    const imageData = bgCanvasContext.getImageData(0, 0, bgCanvas.width, bgCanvas.height);
-    const jsonData = JSON.stringify({
-        bgImageData: imageData.data,
-        pathList: gameData.pathList
-    });
+    const jsonData = JSON.stringify(gameData);
     const blob = new Blob([jsonData], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'savegame.dat';
+    a.download = 'savegame.sav';
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
@@ -77,22 +73,47 @@ function handleSaveButtonClick(event) {
 }
 
 function handleLoadButtonClick(event) {
+    fileInput.name = 'savFileInput';
+    fileInput.accept = '.sav';
+    fileInput.click();
 }
 
 function handleImageButtonClick(event) {
-    bgFileInput.click();
+    fileInput.name = 'bgImageInput';
+    fileInput.accept = 'image/*';
+    fileInput.click();
 }
 
 function handleFileInputChange(event) {
-    gameData.bgImageData = new Image();
-    gameData.bgImageData.onload = redraw;
-    gameData.bgImageData.src = URL.createObjectURL(event.target.files[0]);
+    if (event.target.files.length === 0) return;
 
-    var fileReader = new FileReader();
-    fileReader.onload = function () {
-
-        //console.log(fileReader.result);
-
+    switch (event.target.name) {
+        case 'bgImageInput':
+            handleBackgroundImageFileInputChange(event.target.files[0]);
+            break;
+        case 'savFileInput':
+            handleSaveFileInputChange(event.target.files[0]);
+            break;
     }
-    fileReader.readAsText(event.target.files[0]);
+}
+
+function handleBackgroundImageFileInputChange(file) {
+    const fileReader = new FileReader();
+    fileReader.onload = function () {
+        gameData.bgImageData = fileReader.result;
+        loadBGImage();
+    }
+    fileReader.readAsDataURL(file);
+}
+
+function handleSaveFileInputChange(file) {
+    const fileReader = new FileReader();
+    fileReader.onload = function () {
+        resetToDefaults();
+
+        const txt = fileReader.result;
+        gameData = JSON.parse(txt);
+        loadBGImage();
+    }
+    fileReader.readAsText(file);
 }

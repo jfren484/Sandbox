@@ -1,7 +1,6 @@
 const
     toolbar = document.getElementById('toolbar'),
     bgImageButton = document.getElementById('btnBGImage'),
-    bgFileInput = document.getElementById('bgFileInput'),
     eraseButton = document.getElementById('btnErase'),
     saveButton = document.getElementById('btnSave'),
     loadButton = document.getElementById('btnLoad'),
@@ -10,19 +9,21 @@ const
     bgCanvasContext = bgCanvas.getContext('2d'),
     canvas = document.getElementById('gameCanvas'),
     canvasContext = canvas.getContext('2d'),
+    fileInput = document.getElementById('fileInput'),
     canvasZoomMin = 1,
     canvasZoomMax = 2,
     canvasZoomBy = 0.2;
 
-let isDrawing = false,
-    lineWidth = 2,
-    strokeColor = 'black',
-    fillColor = 'transparent',
-    compOp = 'source-over',
+let isDrawing,
+    lineWidth,
+    strokeColor,
+    fillColor,
+    compOp,
     currentPath,
     canvasBaseWidth = 0,
     canvasBaseHeight = 0,
-    canvasZoom = 1,
+    canvasZoom,
+    bgImage,
     gameData = {
         bgImageData: null,
         pathList: []
@@ -35,16 +36,27 @@ function initialize() {
 
     toolbar.classList.add('horiz');
     bgImageButton.addEventListener('click', handleImageButtonClick, false);
-    bgFileInput.addEventListener('change', handleFileInputChange, false);
     eraseButton.addEventListener('click', handleEraseButtonClick, false);
     saveButton.addEventListener('click', handleSaveButtonClick, false);
     loadButton.addEventListener('click', handleLoadButtonClick, false);
+    fileInput.addEventListener('change', handleFileInputChange, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);
     canvas.addEventListener('mouseup', handleCanvasMouseUp, false);
     canvas.addEventListener('mouseout', handleCanvasMouseOut, false);
     canvas.addEventListener('mousewheel', handleCanvasMouseWheel, false);
+
+    resetToDefaults();
+}
+
+function resetToDefaults() {
+    canvasZoom = 1;
+    isDrawing = false;
+    lineWidth = 2;
+    strokeColor = 'black';
+    fillColor = 'transparent';
+    compOp = 'source-over';
 
     handleWindowResize(null);
 }
