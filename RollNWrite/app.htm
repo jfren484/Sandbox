@@ -7,12 +7,13 @@
 	<body>
 		<div>
 			<div id="toolbar" class="toolbar">
-				<button id="btnBGImage">Img</button>
-				<button id="btnErase">Erase</button>
-				<button id="btnSave">Save</button>
-				<button id="btnLoad">Load</button>
-				<button id="btnUndo">Undo</button>
-				<button id="btnRedo">Redo</button>
+				<button type="button" id="btnBGImage">Img</button>
+				<label class="" for="btnDraw"><input type="checkbox" id="btnDraw" data-draw-params='{"id": "btnDraw"}'>Draw</label>
+				<label class="" for="btnErase"><input type="checkbox" id="btnErase" data-draw-params='{"lineWidth": 10, "compOp": "destination-out"}'>Erase</label>
+				<button type="button" id="btnSave">Save</button>
+				<button type="button" id="btnLoad">Load</button>
+				<button type="button" id="btnUndo">Undo</button>
+				<button type="button" id="btnRedo">Redo</button>
 			</div>
 			<div id="canvasCont" class="canvasContainer">
 				<canvas id="bgCanvas"></canvas>

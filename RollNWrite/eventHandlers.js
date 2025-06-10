@@ -18,22 +18,28 @@ function handleWindowResize(event) {
 }
 
 function handleCanvasMouseDown(event) {
+    if (!drawParams) return;
+
     isDrawing = true;
 
     drawLineStart({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
 }
 
 function handleCanvasMouseMove(event) {
-    if (!isDrawing) return;
+    if (!isDrawing || !drawParams) return;
 
     drawLineContinue({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
 }
 
 function handleCanvasMouseUp(event) {
+    if (!drawParams) return;
+
     isDrawing = false;
 }
 
 function handleCanvasMouseOut(event) {
+    if (!drawParams) return;
+
     // Without a handleCanvasMouseMove here, if the mouse moves quickly
     // outside the canvas, the line doesn't reach the edge of the canvas.
     handleCanvasMouseMove(event);
@@ -53,9 +59,15 @@ function handleCanvasMouseWheel(event) {
     redraw();
 }
 
-function handleEraseButtonClick(event) {
-    lineWidth = 10;
-    compOp = 'destination-out';
+function handleDrawButtonClick(event) {
+    if (this.checked) {
+        toolbar.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            if (cb !== this) cb.checked = false;
+        });
+        drawParams = jsonMerge(drawParamsDefaults, JSON.parse(this.getAttribute(dataAttrDrawParams)));
+    } else {
+        drawParams = null;
+    }
 }
 
 function handleSaveButtonClick(event) {

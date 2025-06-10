@@ -21,9 +21,9 @@ function drawLine(lineData) {
 function drawLineStart(point) {
     currentPath = {
         type: 'line',
-        width: lineWidth,
-        color: strokeColor,
-        op: compOp,
+        width: drawParams.lineWidth,
+        color: drawParams.strokeColor,
+        op: drawParams.compOp,
         origin: point,
         points: []
     };

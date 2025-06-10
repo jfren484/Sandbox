@@ -1,6 +1,7 @@
 const
     toolbar = document.getElementById('toolbar'),
     bgImageButton = document.getElementById('btnBGImage'),
+    drawButton = document.getElementById('btnDraw'),
     eraseButton = document.getElementById('btnErase'),
     saveButton = document.getElementById('btnSave'),
     loadButton = document.getElementById('btnLoad'),
@@ -12,15 +13,19 @@ const
     canvas = document.getElementById('gameCanvas'),
     canvasContext = canvas.getContext('2d'),
     fileInput = document.getElementById('fileInput'),
+    drawParamsDefaults = {
+        lineWidth: 2,
+        strokeColor: 'black',
+        fillColor: 'transparent',
+        compOp: 'source-over'
+    },
+    dataAttrDrawParams = 'data-draw-params',
     canvasZoomMin = 1,
     canvasZoomMax = 2,
     canvasZoomBy = 0.2;
 
 let isDrawing,
-    lineWidth,
-    strokeColor,
-    fillColor,
-    compOp,
+    drawParams,
     currentPath,
     canvasBaseWidth = 0,
     canvasBaseHeight = 0,
@@ -39,7 +44,8 @@ function initialize() {
 
     toolbar.classList.add('horiz');
     bgImageButton.addEventListener('click', handleImageButtonClick, false);
-    eraseButton.addEventListener('click', handleEraseButtonClick, false);
+    drawButton.addEventListener('click', handleDrawButtonClick, false);
+    eraseButton.addEventListener('click', handleDrawButtonClick, false);
     saveButton.addEventListener('click', handleSaveButtonClick, false);
     loadButton.addEventListener('click', handleLoadButtonClick, false);
     undoButton.addEventListener('click', handleUndoButtonClick, false);
@@ -58,10 +64,7 @@ function initialize() {
 function resetToDefaults() {
     canvasZoom = 1;
     isDrawing = false;
-    lineWidth = 2;
-    strokeColor = 'black';
-    fillColor = 'transparent';
-    compOp = 'source-over';
+    drawParams = null;
 
     handleWindowResize(null);
 
@@ -74,4 +77,15 @@ function resizeCanvas(width, height) {
     bgCanvas.height = height * canvasZoom;
     canvas.width = width * canvasZoom;
     canvas.height = height * canvasZoom;
+}
+
+function jsonMerge() {
+    const a = [].slice.call(arguments).filter(el => Object.keys(el).length !== 0);
+    let i = 0;
+
+    while (a[i]) {
+        a[i] = JSON.stringify(a[i++]).slice(1, -1);
+    }
+
+    return JSON.parse("{" + a.join() + "}");
 }
