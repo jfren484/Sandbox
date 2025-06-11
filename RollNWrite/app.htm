@@ -7,13 +7,26 @@
 	<body>
 		<div>
 			<div id="toolbar" class="toolbar">
-				<button type="button" id="btnBGImage">Img</button>
-				<label class="" for="btnDraw"><input type="checkbox" id="btnDraw" data-draw-params='{"id": "btnDraw"}'>Draw</label>
-				<label class="" for="btnErase"><input type="checkbox" id="btnErase" data-draw-params='{"lineWidth": 10, "compOp": "destination-out"}'>Erase</label>
-				<button type="button" id="btnSave">Save</button>
-				<button type="button" id="btnLoad">Load</button>
-				<button type="button" id="btnUndo">Undo</button>
-				<button type="button" id="btnRedo">Redo</button>
+				<button type="button" class="toolbarButton" id="btnBGImage">Img</button>
+				<button type="button" class="toolbarButton" id="btnSave">Save</button>
+				<button type="button" class="toolbarButton" id="btnLoad">Load</button>
+
+				<div class="toolbarDivider"></div>
+
+				<button type="button" class="toolbarButton" id="btnUndo">Undo</button>
+				<button type="button" class="toolbarButton" id="btnRedo">Redo</button>
+
+				<div class="toolbarDivider"></div>
+
+				<div class="toolbartoggleButtons">
+					<div class="toggleButton"><button type="button" class="toolbarButton" id="btnDraw">Draw</button><input type="checkbox" id="btnDraw_input" data-draw-params='{"id": "btnDraw"}'></div>
+					<div class="toggleButton"><button type="button" class="toolbarButton" id="btnErase">Erase</button><input type="checkbox" id="btnErase_input" data-draw-params='{"lineWidth": 10, "compOp": "destination-out"}'></div>
+				</div>
+
+				<div class="toolbarDivider"></div>
+
+				<div class="toggleButton"><button type="button" class="toolbarButton" id="btnConfig" style="font-size: 1.75em; font-weight: bold;">&#9881;</button><input type="checkbox" id="btnConfig_input"></div>
+				<button type="button" class="toolbarButton" id="btnAdd" style="font-size: 1.5em">&#10010;</button>
 			</div>
 			<div id="canvasCont" class="canvasContainer">
 				<canvas id="bgCanvas"></canvas>

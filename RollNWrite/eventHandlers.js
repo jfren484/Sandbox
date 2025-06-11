@@ -18,7 +18,7 @@ function handleWindowResize(event) {
 }
 
 function handleCanvasMouseDown(event) {
-    if (!drawParams) return;
+    if (isConfiguring || !drawParams) return;
 
     isDrawing = true;
 
@@ -26,19 +26,19 @@ function handleCanvasMouseDown(event) {
 }
 
 function handleCanvasMouseMove(event) {
-    if (!isDrawing || !drawParams) return;
+    if (isConfiguring || !isDrawing || !drawParams) return;
 
     drawLineContinue({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
 }
 
 function handleCanvasMouseUp(event) {
-    if (!drawParams) return;
+    if (isConfiguring || !drawParams) return;
 
     isDrawing = false;
 }
 
 function handleCanvasMouseOut(event) {
-    if (!drawParams) return;
+    if (isConfiguring || !drawParams) return;
 
     // Without a handleCanvasMouseMove here, if the mouse moves quickly
     // outside the canvas, the line doesn't reach the edge of the canvas.
@@ -59,7 +59,26 @@ function handleCanvasMouseWheel(event) {
     redraw();
 }
 
-function handleDrawButtonClick(event) {
+function handleToggleButtonClick(event) {
+    if (isConfiguring && this.id !== 'btnConfig') return;
+
+    document.getElementById(this.id + '_input').click();
+}
+
+function handleConfigInputChange(event) {
+    if (this.checked) {
+        isConfiguring = true;
+        isDrawing = false;
+        drawParams = null;
+
+        console.log('configging');
+    } else {
+        isConfiguring = false;
+        console.log('not configging');
+    }
+}
+
+function handleDrawInputChange(event) {
     if (this.checked) {
         toolbar.querySelectorAll('input[type="checkbox"]').forEach(cb => {
             if (cb !== this) cb.checked = false;
@@ -71,6 +90,8 @@ function handleDrawButtonClick(event) {
 }
 
 function handleSaveButtonClick(event) {
+    if (isConfiguring) return;
+
     const jsonData = JSON.stringify(gameData);
     const blob = new Blob([jsonData], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -85,12 +106,16 @@ function handleSaveButtonClick(event) {
 }
 
 function handleLoadButtonClick(event) {
+    if (isConfiguring) return;
+
     fileInput.name = 'savFileInput';
     fileInput.accept = '.sav';
     fileInput.click();
 }
 
 function handleImageButtonClick(event) {
+    if (isConfiguring) return;
+
     fileInput.name = 'bgImageInput';
     fileInput.accept = 'image/*';
     fileInput.click();

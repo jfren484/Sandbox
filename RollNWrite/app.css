@@ -7,10 +7,16 @@ canvas {
 	grid-row: 1;
 }
 
+div.toolbar, div.toolbartoggleButtons {
+	display: flex;
+}
+
 div.toolbar {
+	display: flex;
 	position: fixed;
 	top: 0;
 	left: 0;
+	padding: 0 5px;
 	background-color: gainsboro;
 }
 
@@ -19,21 +25,39 @@ div.toolbar.horiz {
 	width: 100%;
 }
 
-div.toolbar button {
+div.toolbar button.toolbarButton {
 	width: 60px;
 	height: 40px;
 }
 
-div.toolbar.horiz button {
-	margin: 10px 0 10px 5px;
+div.toolbar label {
+	text-align: center;
+	vertical-align: middle;
+	width: 58px;
+	height: 38px;
+	line-height: 38px;
+	font-family: Arial;
+	border: 1px solid black;
 }
 
-div.toolbar.horiz button:first-child {
-	margin-left: 10px;
+div.toolbar div.toggleButton {
+	display: flex;
 }
 
-div.toolbar.horiz button:last-child {
-	margin-right: 10px;
+div.toolbar input[type="checkbox"] {
+	display: none;
+}
+
+div.toolbar.horiz button.toolbarButton, div.toolbar.horiz label {
+	margin: 10px 5px 10px 5px;
+}
+
+div.toolbarDivider {
+	display: inline-block;
+	width: 1px;
+	height: 45px;
+	background-color: silver;
+	margin: auto 5px;
 }
 
 div.canvasContainer {

@@ -7,6 +7,7 @@ const
     loadButton = document.getElementById('btnLoad'),
     undoButton = document.getElementById('btnUndo'),
     redoButton = document.getElementById('btnRedo'),
+    configButton = document.getElementById('btnConfig'),
     canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
     bgCanvasContext = bgCanvas.getContext('2d'),
@@ -24,7 +25,8 @@ const
     canvasZoomMax = 2,
     canvasZoomBy = 0.2;
 
-let isDrawing,
+let isConfiguring = false,
+    isDrawing,
     drawParams,
     currentPath,
     canvasBaseWidth = 0,
@@ -44,13 +46,18 @@ function initialize() {
 
     toolbar.classList.add('horiz');
     bgImageButton.addEventListener('click', handleImageButtonClick, false);
-    drawButton.addEventListener('click', handleDrawButtonClick, false);
-    eraseButton.addEventListener('click', handleDrawButtonClick, false);
     saveButton.addEventListener('click', handleSaveButtonClick, false);
     loadButton.addEventListener('click', handleLoadButtonClick, false);
     undoButton.addEventListener('click', handleUndoButtonClick, false);
     redoButton.addEventListener('click', handleRedoButtonClick, false);
+    configButton.addEventListener('click', handleToggleButtonClick, false);
+    document.getElementById('btnConfig_input').addEventListener('change', handleConfigInputChange, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
+
+    drawButton.addEventListener('click', handleToggleButtonClick, false);
+    eraseButton.addEventListener('click', handleToggleButtonClick, false);
+    document.getElementById('btnDraw_input').addEventListener('change', handleDrawInputChange, false);
+    document.getElementById('btnErase_input').addEventListener('change', handleDrawInputChange, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);
@@ -59,6 +66,13 @@ function initialize() {
     canvas.addEventListener('mousewheel', handleCanvasMouseWheel, false);
 
     resetToDefaults();
+}
+
+function createButton() {
+    const btn = document.createElement('input');
+    btn.type = '';
+    btn.addEventListener('click', handleDrawButtonClick, false);
+    document.body.appendChild(btn);
 }
 
 function resetToDefaults() {
