@@ -65,8 +65,21 @@ function handleToggleButtonClick(event) {
     document.getElementById(this.id + '_input').click();
 }
 
+function handleToggleInputChange_Default(input, event) {
+    const btn = document.getElementById(input.id.replace('_input', ''));
+
+    if (input.checked) {
+        btn.classList.add('active');
+    } else {
+        btn.classList.remove('active');
+    }
+}
+
 function handleConfigInputChange(event) {
+    handleToggleInputChange_Default(this, event);
+
     if (this.checked) {
+        resetToggleButtons(this);
         isConfiguring = true;
         isDrawing = false;
         drawParams = null;
@@ -79,14 +92,23 @@ function handleConfigInputChange(event) {
 }
 
 function handleDrawInputChange(event) {
+    handleToggleInputChange_Default(this, event);
+
     if (this.checked) {
-        toolbar.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            if (cb !== this) cb.checked = false;
-        });
+        resetToggleButtons(this);
         drawParams = jsonMerge(drawParamsDefaults, JSON.parse(this.getAttribute(dataAttrDrawParams)));
     } else {
         drawParams = null;
     }
+}
+
+function resetToggleButtons(input) {
+    toolbar.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        if (cb !== input) {
+            cb.checked = false;
+            cb.dispatchEvent(new Event('change'));
+        }
+    });
 }
 
 function handleSaveButtonClick(event) {

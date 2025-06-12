@@ -7,7 +7,7 @@ canvas {
 	grid-row: 1;
 }
 
-div.toolbar, div.toolbartoggleButtons {
+div.toolbar, div.toolbarToggleButtons {
 	display: flex;
 }
 
@@ -42,6 +42,10 @@ div.toolbar label {
 
 div.toolbar div.toggleButton {
 	display: flex;
+}
+
+div.toolbar div.toggleButton .active {
+	background-color: aqua;
 }
 
 div.toolbar input[type="checkbox"] {
