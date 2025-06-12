@@ -14,6 +14,7 @@ const
     canvas = document.getElementById('gameCanvas'),
     canvasContext = canvas.getContext('2d'),
     fileInput = document.getElementById('fileInput'),
+    modal = document.getElementById('modal'),
     drawParamsDefaults = {
         lineWidth: 2,
         strokeColor: 'black',
@@ -25,8 +26,7 @@ const
     canvasZoomMax = 2,
     canvasZoomBy = 0.2;
 
-let isConfiguring = false,
-    isDrawing,
+let isDrawing,
     drawParams,
     currentPath,
     canvasBaseWidth = 0,
@@ -50,8 +50,7 @@ function initialize() {
     loadButton.addEventListener('click', handleLoadButtonClick, false);
     undoButton.addEventListener('click', handleUndoButtonClick, false);
     redoButton.addEventListener('click', handleRedoButtonClick, false);
-    configButton.addEventListener('click', handleToggleButtonClick, false);
-    document.getElementById('btnConfig_input').addEventListener('change', handleConfigInputChange, false);
+    configButton.addEventListener('click', handleConfigButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
     drawButton.addEventListener('click', handleToggleButtonClick, false);
@@ -62,8 +61,13 @@ function initialize() {
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);
     canvas.addEventListener('mouseup', handleCanvasMouseUp, false);
-    canvas.addEventListener('mouseout', handleCanvasMouseOut, false);
+    canvas.addEventListener('mouseleave', handleCanvasMouseOut, false);
     canvas.addEventListener('mousewheel', handleCanvasMouseWheel, false);
+
+    canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
+    canvas.addEventListener('touchend', handleCanvasTouchEnd, false);
+    canvas.addEventListener('touchmove', handleCanvasTouchMove, false);
+    canvas.addEventListener('touchcancel', handleCanvasTouchCancel, false);
 
     resetToDefaults();
 }

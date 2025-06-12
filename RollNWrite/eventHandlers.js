@@ -18,28 +18,65 @@ function handleWindowResize(event) {
 }
 
 function handleCanvasMouseDown(event) {
-    if (isConfiguring || !drawParams) return;
+    handleCanvasPointerStart(event, {
+        x: event.offsetX / canvasZoom,
+        y: event.offsetY / canvasZoom
+    });
+}
 
+function handleCanvasTouchStart(event) {
+    handleCanvasPointerStart(event, {
+        x: (event.touches[0].clientX - canvas.offsetLeft) / canvasZoom,
+        y: (event.touches[0].clientY - canvas.offsetTop) / canvasZoom
+    });
+}
+
+function handleCanvasPointerStart(event, point) {
+    if (!drawParams) return;
+
+    event.preventDefault();
     isDrawing = true;
 
-    drawLineStart({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
+    drawLineStart(point);
 }
 
 function handleCanvasMouseMove(event) {
-    if (isConfiguring || !isDrawing || !drawParams) return;
+    handleCanvasPointerMove(event, {
+        x: event.offsetX / canvasZoom,
+        y: event.offsetY / canvasZoom
+    });
+}
 
-    drawLineContinue({ x: event.offsetX / canvasZoom, y: event.offsetY / canvasZoom });
+function handleCanvasTouchMove(event) {
+    handleCanvasPointerMove(event, {
+        x: (event.touches[0].clientX - canvas.offsetLeft) / canvasZoom,
+        y: (event.touches[0].clientY - canvas.offsetTop) / canvasZoom
+    });
+}
+
+function handleCanvasPointerMove(event, point) {
+    if (!isDrawing || !drawParams) return;
+
+    event.preventDefault();
+    drawLineContinue(point);
 }
 
 function handleCanvasMouseUp(event) {
-    if (isConfiguring || !drawParams) return;
+    handleCanvasPointerEnd(event);
+}
 
+function handleCanvasTouchEnd(event) {
+    handleCanvasPointerEnd(event);
+}
+
+function handleCanvasPointerEnd(event) {
+    if (!drawParams) return;
+
+    event.preventDefault();
     isDrawing = false;
 }
 
 function handleCanvasMouseOut(event) {
-    if (isConfiguring || !drawParams) return;
-
     // Without a handleCanvasMouseMove here, if the mouse moves quickly
     // outside the canvas, the line doesn't reach the edge of the canvas.
     handleCanvasMouseMove(event);
@@ -59,45 +96,30 @@ function handleCanvasMouseWheel(event) {
     redraw();
 }
 
-function handleToggleButtonClick(event) {
-    if (isConfiguring && this.id !== 'btnConfig') return;
+function handleCanvasTouchCancel(event) {
+}
 
+function handleConfigButtonClick(event) {
+    resetToggleButtons(this);
+    isDrawing = false;
+    drawParams = null;
+
+    modal.style.display = 'block';
+}
+
+function handleToggleButtonClick(event) {
     document.getElementById(this.id + '_input').click();
 }
 
-function handleToggleInputChange_Default(input, event) {
-    const btn = document.getElementById(input.id.replace('_input', ''));
-
-    if (input.checked) {
-        btn.classList.add('active');
-    } else {
-        btn.classList.remove('active');
-    }
-}
-
-function handleConfigInputChange(event) {
-    handleToggleInputChange_Default(this, event);
-
-    if (this.checked) {
-        resetToggleButtons(this);
-        isConfiguring = true;
-        isDrawing = false;
-        drawParams = null;
-
-        console.log('configging');
-    } else {
-        isConfiguring = false;
-        console.log('not configging');
-    }
-}
-
 function handleDrawInputChange(event) {
-    handleToggleInputChange_Default(this, event);
+    const btn = document.getElementById(this.id.replace('_input', ''));
 
     if (this.checked) {
+        btn.classList.add('active');
         resetToggleButtons(this);
         drawParams = jsonMerge(drawParamsDefaults, JSON.parse(this.getAttribute(dataAttrDrawParams)));
     } else {
+        btn.classList.remove('active');
         drawParams = null;
     }
 }
@@ -112,8 +134,6 @@ function resetToggleButtons(input) {
 }
 
 function handleSaveButtonClick(event) {
-    if (isConfiguring) return;
-
     const jsonData = JSON.stringify(gameData);
     const blob = new Blob([jsonData], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -128,16 +148,12 @@ function handleSaveButtonClick(event) {
 }
 
 function handleLoadButtonClick(event) {
-    if (isConfiguring) return;
-
     fileInput.name = 'savFileInput';
     fileInput.accept = '.sav';
     fileInput.click();
 }
 
 function handleImageButtonClick(event) {
-    if (isConfiguring) return;
-
     fileInput.name = 'bgImageInput';
     fileInput.accept = 'image/*';
     fileInput.click();
