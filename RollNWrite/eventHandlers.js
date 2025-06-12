@@ -168,7 +168,6 @@ function handleRedoButtonClick(event) {
 }
 
 function handleFileInputChange(event) {
-    console.log('fileInputChange');
     if (event.target.files.length === 0) return;
 
     switch (event.target.name) {
@@ -200,12 +199,12 @@ function handleSaveFileInputChange(file) {
 
         const txt = fileReader.result;
         const newGameData = JSON.parse(txt);
-        console.log(1);
         if (newGameData.pathList === undefined) newGameData.pathList = [];
         newGameData.redoPathList = [];
 
         gameData = newGameData;
-        loadBGImage();
+        redraw();
+        resetToggleButtons();
         undoButton.disabled = gameData.pathList.length === 0;
     }
     fileReader.readAsText(file);

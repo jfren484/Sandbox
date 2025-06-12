@@ -19,7 +19,7 @@ div.modal {
 	opacity: 0.3;
 }
 
-div.toolbar, div.toolbarToggleButtons {
+div.toolbar, div.resetToolbarCustomButtons {
 	display: flex;
 }
 

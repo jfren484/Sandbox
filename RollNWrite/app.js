@@ -1,13 +1,12 @@
 const
     toolbar = document.getElementById('toolbar'),
     bgImageButton = document.getElementById('btnBGImage'),
-    drawButton = document.getElementById('btnDraw'),
-    eraseButton = document.getElementById('btnErase'),
     saveButton = document.getElementById('btnSave'),
     loadButton = document.getElementById('btnLoad'),
     undoButton = document.getElementById('btnUndo'),
     redoButton = document.getElementById('btnRedo'),
     configButton = document.getElementById('btnConfig'),
+    customButtonContainer = document.getElementById('toolbarCustomButtons'),
     canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
     bgCanvasContext = bgCanvas.getContext('2d'),
@@ -34,6 +33,13 @@ let isDrawing,
     canvasZoom,
     bgImage,
     gameData = {
+        toolbarButtons: [{
+            text: 'Draw',
+            drawParams: '{"lineWidth": 2, "strokeColor": "black", "compOp": "source-over"}'
+        },{
+            text: 'Erase',
+            drawParams: '{"lineWidth": 10, "compOp": "destination-out"}'
+        }],
         bgImageData: null,
         pathList: [],
         redoPathList: []
@@ -53,23 +59,18 @@ function initialize() {
     configButton.addEventListener('click', handleConfigButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
-    drawButton.addEventListener('click', handleToggleButtonClick, false);
-    eraseButton.addEventListener('click', handleToggleButtonClick, false);
-    document.getElementById('btnDraw_input').addEventListener('change', handleDrawInputChange, false);
-    document.getElementById('btnErase_input').addEventListener('change', handleDrawInputChange, false);
-
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
+    canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);
+    canvas.addEventListener('touchmove', handleCanvasTouchMove, false);
     canvas.addEventListener('mouseup', handleCanvasMouseUp, false);
     canvas.addEventListener('mouseleave', handleCanvasMouseOut, false);
-    canvas.addEventListener('mousewheel', handleCanvasMouseWheel, false);
-
-    canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
     canvas.addEventListener('touchend', handleCanvasTouchEnd, false);
-    canvas.addEventListener('touchmove', handleCanvasTouchMove, false);
+    canvas.addEventListener('mousewheel', handleCanvasMouseWheel, false);
     canvas.addEventListener('touchcancel', handleCanvasTouchCancel, false);
 
     resetToDefaults();
+    resetToolbarCustomButtons();
 }
 
 function createButton() {
@@ -88,6 +89,27 @@ function resetToDefaults() {
 
     undoButton.disabled = true;
     redoButton.disabled = true;
+}
+
+function resetToolbarCustomButtons() {
+    customButtonContainer.innerHTML = '';
+
+    gameData.toolbarButtons.forEach((btnData, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.classList.add('toolbarButton');
+        btn.id = 'btnCustom' + index;
+        btn.textContent = btnData.text;
+        customButtonContainer.appendChild(btn);
+        btn.addEventListener('click', handleToggleButtonClick, false);
+
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = btn.id + '_input';
+        input.setAttribute(dataAttrDrawParams, btnData.drawParams);
+        customButtonContainer.appendChild(input);
+        input.addEventListener('change', handleDrawInputChange, false);
+    });
 }
 
 function resizeCanvas(width, height) {
