@@ -59,6 +59,9 @@ function initialize() {
     configButton.addEventListener('click', handleConfigButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
+    document.getElementById('btnDialogCancel').addEventListener('click', handleDialogCancelClick, false);
+    document.getElementById('btnDialogSave').addEventListener('click', handleDialogSaveClick, false);
+
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
     canvas.addEventListener('mousemove', handleCanvasMouseMove, false);

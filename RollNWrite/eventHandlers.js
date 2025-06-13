@@ -69,6 +69,10 @@ function handleCanvasTouchEnd(event) {
     handleCanvasPointerEnd(event);
 }
 
+function handleCanvasTouchCancel(event) {
+    handleCanvasPointerEnd(event);
+}
+
 function handleCanvasPointerEnd(event) {
     if (!drawParams) return;
 
@@ -96,15 +100,12 @@ function handleCanvasMouseWheel(event) {
     redraw();
 }
 
-function handleCanvasTouchCancel(event) {
-}
-
 function handleConfigButtonClick(event) {
     resetToggleButtons(this);
     isDrawing = false;
     drawParams = null;
 
-    modal.style.display = 'block';
+    modal.classList.add('visible');
 }
 
 function handleToggleButtonClick(event) {
@@ -208,4 +209,13 @@ function handleSaveFileInputChange(file) {
         undoButton.disabled = gameData.pathList.length === 0;
     }
     fileReader.readAsText(file);
+}
+
+function handleDialogCancelClick(event) {
+    modal.classList.remove('visible');
+}
+
+function handleDialogSaveClick(event) {
+    modal.classList.remove('visible');
+    resetToolbarCustomButtons();
 }

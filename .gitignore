@@ -194,3 +194,5 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/OnlineProgrammingChallenges/ProjectEuler/UnitTests/NUnit
+/ColonizationResourceViewer/MadsPackLib/lib/Extensions.dll
