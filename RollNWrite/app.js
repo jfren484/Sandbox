@@ -43,7 +43,8 @@ let isDrawing,
         bgImageData: null,
         pathList: [],
         redoPathList: []
-    };
+    },
+    tempBGImageData;
 
 initialize();
 

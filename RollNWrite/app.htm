@@ -8,7 +8,6 @@
 	<body>
 		<div>
 			<div id="toolbar" class="toolbar">
-				<button type="button" class="toolbarButton" id="btnBGImage">Img</button>
 				<button type="button" class="toolbarButton" id="btnSave">Save</button>
 				<button type="button" class="toolbarButton" id="btnLoad">Load</button>
 
@@ -24,9 +23,6 @@
 				<div class="toolbarDivider"></div>
 
 				<button type="button" class="toolbarButton" id="btnConfig" style="font-size: 1.75em; font-weight: bold; line-height: 100%;">&#9881;</button>
-				<!--
-					<button type="button" class="toolbarButton" id="btnAdd" style="font-size: 1.5em">&#10010;</button>
-				-->
 			</div>
 			<div id="canvasCont" class="canvasContainer">
 				<canvas id="bgCanvas"></canvas>
@@ -44,8 +40,17 @@
 					<button type="button" id="btnDialogCancel">X</button>
 				</div>
 				<div class="dialogContent">
-					<div class="toolbarContent">
-
+					<div class="dialogContentImage">
+						<div class="dialogContentHeader">Game Image</div>
+						<img id="imgBG" src="bgph.png" />
+						<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
+					</div>
+					<div class="dialogContentTools">
+						<div class="dialogContentHeader">Current Tools</div>
+						<button type="button" class="toolbarButton" id="btnAdd" style="font-size: 1.5em">&#10010;</button>
+					</div>
+					<div class="dialogContentToolDef">
+						<div class="dialogContentHeader">Tool Definition</div>
 					</div>
 				</div>
 				<div class="dialogFooter">

@@ -187,8 +187,8 @@ function handleFileInputChange(event) {
 function handleBackgroundImageFileInputChange(file) {
     const fileReader = new FileReader();
     fileReader.onload = function () {
-        gameData.bgImageData = fileReader.result;
-        loadBGImage();
+        tempBGImageData = fileReader.result;
+        document.getElementById('imgBG').src = tempBGImageData;
     }
     fileReader.readAsDataURL(file);
 }
@@ -218,4 +218,7 @@ function handleDialogCancelClick(event) {
 function handleDialogSaveClick(event) {
     modal.classList.remove('visible');
     resetToolbarCustomButtons();
+
+    gameData.bgImageData = tempBGImageData;
+    loadBGImage();
 }
