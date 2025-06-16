@@ -105,6 +105,19 @@ function handleConfigButtonClick(event) {
     isDrawing = false;
     drawParams = null;
 
+    tempBGImageData = gameData.bgImageData;
+    tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
+    dialogToolsList.innerHtml = '';
+    gameData.toolbarButtons.forEach((btnData, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.classList.add('toolbarButton');
+        btn.id = 'btnCustomTool' + index;
+        btn.textContent = btnData.text;
+        dialogToolsList.appendChild(btn);
+        //btn.addEventListener('click', handleToggleButtonClick, false);
+    });
+
     modal.classList.add('visible');
 }
 
@@ -188,7 +201,7 @@ function handleBackgroundImageFileInputChange(file) {
     const fileReader = new FileReader();
     fileReader.onload = function () {
         tempBGImageData = fileReader.result;
-        document.getElementById('imgBG').src = tempBGImageData;
+        tempBGImage.src = tempBGImageData;
     }
     fileReader.readAsDataURL(file);
 }
@@ -204,6 +217,7 @@ function handleSaveFileInputChange(file) {
         newGameData.redoPathList = [];
 
         gameData = newGameData;
+        loadBGImage();
         redraw();
         resetToggleButtons();
         undoButton.disabled = gameData.pathList.length === 0;

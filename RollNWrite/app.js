@@ -1,11 +1,7 @@
 const
     toolbar = document.getElementById('toolbar'),
-    bgImageButton = document.getElementById('btnBGImage'),
-    saveButton = document.getElementById('btnSave'),
-    loadButton = document.getElementById('btnLoad'),
     undoButton = document.getElementById('btnUndo'),
     redoButton = document.getElementById('btnRedo'),
-    configButton = document.getElementById('btnConfig'),
     customButtonContainer = document.getElementById('toolbarCustomButtons'),
     canvasContainer = document.getElementById('canvasCont'),
     bgCanvas = document.getElementById('bgCanvas'),
@@ -14,6 +10,9 @@ const
     canvasContext = canvas.getContext('2d'),
     fileInput = document.getElementById('fileInput'),
     modal = document.getElementById('modal'),
+    tempBGImage = document.getElementById('imgBG'),
+    dialogToolsList = document.getElementById('dialogToolsList'),
+    defTempBGImageSrc = tempBGImage.src,
     drawParamsDefaults = {
         lineWidth: 2,
         strokeColor: 'black',
@@ -52,12 +51,12 @@ function initialize() {
     window.addEventListener('resize', handleWindowResize, false);
 
     toolbar.classList.add('horiz');
-    bgImageButton.addEventListener('click', handleImageButtonClick, false);
-    saveButton.addEventListener('click', handleSaveButtonClick, false);
-    loadButton.addEventListener('click', handleLoadButtonClick, false);
+    document.getElementById('btnBGImage').addEventListener('click', handleImageButtonClick, false);
+    document.getElementById('btnSave').addEventListener('click', handleSaveButtonClick, false);
+    document.getElementById('btnLoad').addEventListener('click', handleLoadButtonClick, false);
     undoButton.addEventListener('click', handleUndoButtonClick, false);
     redoButton.addEventListener('click', handleRedoButtonClick, false);
-    configButton.addEventListener('click', handleConfigButtonClick, false);
+    document.getElementById('btnConfig').addEventListener('click', handleConfigButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
     document.getElementById('btnDialogCancel').addEventListener('click', handleDialogCancelClick, false);

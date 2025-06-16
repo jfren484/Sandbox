@@ -7,6 +7,10 @@ canvas {
 	grid-row: 1;
 }
 
+div, img, button {
+	box-sizing: border-box;
+}
+
 div.toolbar, div.resetToolbarCustomButtons {
 	display: flex;
 }
@@ -84,8 +88,8 @@ div.modal.visible {
 div.dialog {
 	display: flex;
 	flex-direction: column;
-	width: 80%;
-	height: 80%;
+	width: 1010px;
+	height: 710px;
 	margin: auto;
 	border: solid 2px darkgray;
 	background-color: white;
@@ -97,21 +101,26 @@ div.dialog div.dialogHeader {
 	background-color: navy;
 	width: 100%;
 	height: 40px;
+	padding: 5px;
+}
+
+div.dialog div.dialogHeader > span {
+	/* Adjust for the size of the button on the right */
+	width: 30px;
 }
 
 div.dialog div.dialogHeader div.dialogHeaderTitle {
-	color: white;
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	line-height: 30px;
 	vertical-align: middle;
 	text-align: center;
 	font-family: Arial;
+	color: white;
 }
 
 div.dialog div.dialogHeader button {
 	width: 30px;
 	height: 30px;
-	margin: auto 5px auto 0;
 }
 
 div.dialog div.dialogContent {
@@ -121,16 +130,23 @@ div.dialog div.dialogContent {
 }
 
 div.dialog div.dialogContent > div {
-	box-sizing: border-box;
-	margin: 5px;
+	margin: 10px 5px;
 	padding: 10px;
 	text-align: center;
 	border: solid 1px black;
 }
 
+div.dialog div.dialogContent > div:first-child {
+	margin-left: 10px;
+}
+
+div.dialog div.dialogContent > div:last-child {
+	margin-right: 10px;
+}
+
 div.dialog div.dialogContent div.dialogContentImage {
-	width: 420px;
-	height: 660px;
+	width: 422px;
+	height: 595px;
 }
 
 div.dialog div.dialogContent div.dialogContentHeader {
@@ -141,7 +157,7 @@ div.dialog div.dialogContent div.dialogContentHeader {
 div.dialog div.dialogContent div.dialogContentImage img {
 	margin: auto;
 	max-width: 400px;
-	max-height: 565px;
+	max-height: 500px;
 	border: solid 1px black;
 }
 
@@ -155,24 +171,25 @@ div.dialog div.dialogContent div.dialogContentTools {
 	width: 120px;
 }
 
-div.dialog div.dialogContent div.dialogContentTools button {
+div.dialog div.dialogContent div.dialogContentTools .toolbarButton {
 	width: 60px;
 	height: 40px;
+	margin-bottom: 10px;
 }
 
 div.dialog div.dialogContent div.dialogContentToolDef {
-	width: 453px;
+	width: 422px;
 }
 
 div.dialog div.dialogFooter {
 	display: flex;
-	justify-content: flex-end;
 	width: 100%;
 	height: 60px;
+	padding: 0 10px 10px 10px;
 }
 
 div.dialog div.dialogFooter button {
 	width: 60px;
 	height: 40px;
-	margin: auto 10px auto 0;
+	margin: auto;
 }

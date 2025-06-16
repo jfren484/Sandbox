@@ -1,10 +1,11 @@
 function drawBGImage() {
+    bgCanvasContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
     if (!bgImage) return;
 
     // Scale to fit the canvas without distortion
     const ratio = Math.min(bgCanvas.width / bgImage.naturalWidth, bgCanvas.height / bgImage.naturalHeight);
 
-    bgCanvasContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
     bgCanvasContext.drawImage(bgImage, 0, 0, bgImage.naturalWidth * ratio, bgImage.naturalHeight * ratio);
 }
 
@@ -54,6 +55,11 @@ function drawLineContinue_internal(point) {
 }
 
 function loadBGImage() {
+    if (!gameData.bgImageData) {
+        bgImage = null;
+        return;
+    }
+
     bgImage = new Image();
     bgImage.onload = redraw;
     bgImage.src = gameData.bgImageData;
