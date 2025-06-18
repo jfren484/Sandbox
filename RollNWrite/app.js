@@ -9,7 +9,7 @@ const
     canvas = document.getElementById('gameCanvas'),
     canvasContext = canvas.getContext('2d'),
     fileInput = document.getElementById('fileInput'),
-    modal = document.getElementById('modal'),
+    modalDialog = document.getElementById('modalDialog'),
     tempBGImage = document.getElementById('imgBG'),
     dialogToolsList = document.getElementById('dialogToolsList'),
     defTempBGImageSrc = tempBGImage.src,

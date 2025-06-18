@@ -120,7 +120,7 @@ function handleConfigButtonClick(event) {
         btn.addEventListener('click', handleDialogToggleButtonClick, false);
     });
 
-    modal.classList.add('visible');
+    modalDialog.classList.add('visible');
 }
 
 function handleToggleButtonClick(event) {
@@ -238,11 +238,11 @@ function handleDialogToggleButtonClick(event) {
 }
 
 function handleDialogCancelClick(event) {
-    modal.classList.remove('visible');
+    modalDialog.classList.remove('visible');
 }
 
 function handleDialogSaveClick(event) {
-    modal.classList.remove('visible');
+    modalDialog.classList.remove('visible');
     resetToolbarCustomButtons();
 
     gameData.bgImageData = tempBGImageData;
