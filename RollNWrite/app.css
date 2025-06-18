@@ -181,6 +181,10 @@ div.dialog div.dialogContent div.dialogContentToolDef {
 	width: 422px;
 }
 
+div.dialog div.dialogContent div.dialogContentToolDef div.dialogToolTypeCont {
+	display: none;
+}
+
 div.dialog div.dialogFooter {
 	display: flex;
 	width: 100%;

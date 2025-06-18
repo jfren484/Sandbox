@@ -33,9 +33,11 @@ let isDrawing,
     bgImage,
     gameData = {
         toolbarButtons: [{
+            type: 'draw',
             text: 'Draw',
             drawParams: '{"lineWidth": 2, "strokeColor": "black", "compOp": "source-over"}'
         },{
+            type: 'erase',
             text: 'Erase',
             drawParams: '{"lineWidth": 10, "compOp": "destination-out"}'
         }],
@@ -43,7 +45,8 @@ let isDrawing,
         pathList: [],
         redoPathList: []
     },
-    tempBGImageData;
+    tempBGImageData,
+    tempToolbarButtons = [];
 
 initialize();
 

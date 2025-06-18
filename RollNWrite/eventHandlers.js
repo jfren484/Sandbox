@@ -106,16 +106,18 @@ function handleConfigButtonClick(event) {
     drawParams = null;
 
     tempBGImageData = gameData.bgImageData;
+    tempToolbarButtons = gameData.toolbarButtons.slice();
+
     tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
-    dialogToolsList.innerHtml = '';
-    gameData.toolbarButtons.forEach((btnData, index) => {
+    dialogToolsList.innerHTML = '';
+    tempToolbarButtons.forEach((btnData, index) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
         btn.id = 'btnCustomTool' + index;
         btn.textContent = btnData.text;
         dialogToolsList.appendChild(btn);
-        //btn.addEventListener('click', handleToggleButtonClick, false);
+        btn.addEventListener('click', handleDialogToggleButtonClick, false);
     });
 
     modal.classList.add('visible');
@@ -223,6 +225,16 @@ function handleSaveFileInputChange(file) {
         undoButton.disabled = gameData.pathList.length === 0;
     }
     fileReader.readAsText(file);
+}
+
+function handleDialogToggleButtonClick(event) {
+    document.querySelectorAll('div.dialogToolTypeCont').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    const index = Array.from(dialogToolsList.children).indexOf(event.target);
+    const toolType = tempToolbarButtons[index].type;
+    document.getElementById('dialogToolTypeCont_' + toolType).style.display = 'block';
 }
 
 function handleDialogCancelClick(event) {
