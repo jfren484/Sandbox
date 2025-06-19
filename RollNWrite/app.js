@@ -22,9 +22,22 @@ const
     dataAttrDrawParams = 'data-draw-params',
     canvasZoomMin = 1,
     canvasZoomMax = 2,
-    canvasZoomBy = 0.2;
+    canvasZoomBy = 0.2,
+    toolEditConfig = {
+        line: {
+            formFields: ['lineWidth', 'strokeColor'],
+            staticValues: [{name: 'compOp', value: 'source-over'}],
+            eventHandler: handleDrawInputChange
+        },
+        erase: {
+            formFields: ['lineWidth'],
+            staticValues: [{name: 'compOp', value: 'destination-out'}],
+            eventHandler: handleDrawInputChange
+        }
+    };
 
 let isDrawing,
+    editingToolIndex = -1,
     drawParams,
     currentPath,
     canvasBaseWidth = 0,
@@ -33,13 +46,20 @@ let isDrawing,
     bgImage,
     gameData = {
         toolbarButtons: [{
-            type: 'draw',
+            type: 'line',
             text: 'Draw',
-            drawParams: '{"lineWidth": 2, "strokeColor": "black", "compOp": "source-over"}'
+            drawParams: {
+                lineWidth: 2,
+                strokeColor: 'black',
+                compOp: 'source-over'
+            }
         },{
             type: 'erase',
             text: 'Erase',
-            drawParams: '{"lineWidth": 10, "compOp": "destination-out"}'
+            drawParams: {
+                lineWidth: 10,
+                compOp: 'destination-out'
+            }
         }],
         bgImageData: null,
         pathList: [],
@@ -64,6 +84,9 @@ function initialize() {
 
     document.getElementById('btnDialogCancel').addEventListener('click', handleDialogCancelClick, false);
     document.getElementById('btnDialogSave').addEventListener('click', handleDialogSaveClick, false);
+    document.getElementById('dialogToolType').addEventListener('change', handleDialogToolTypeChange, false);
+    document.getElementById('btnDialogToolCancel').addEventListener('click', handleDialogToolCancelClick, false);
+    document.getElementById('btnDialogToolSave').addEventListener('click', handleDialogToolSaveClick, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
@@ -112,7 +135,7 @@ function resetToolbarCustomButtons() {
         const input = document.createElement('input');
         input.type = 'checkbox';
         input.id = btn.id + '_input';
-        input.setAttribute(dataAttrDrawParams, btnData.drawParams);
+        input.setAttribute(dataAttrDrawParams, JSON.stringify(btnData.drawParams));
         customButtonContainer.appendChild(input);
         input.addEventListener('change', handleDrawInputChange, false);
     });
@@ -134,4 +157,55 @@ function jsonMerge() {
     }
 
     return JSON.parse("{" + a.join() + "}");
+}
+
+function toggleDialogModalSections() {
+    document.querySelectorAll('.modalSection').forEach(el => {
+        if (el.classList.contains('modalSectionTool') === (editingToolIndex >= 0)) {
+            el.classList.remove('visible');
+        } else {
+            el.classList.add('visible');
+        }
+    });
+}
+
+function resetToolEdit() {
+    document.getElementById('toolEditForm').reset();
+    document.getElementById('toolEditForm').style.display = 'none';
+}
+
+function setupToolEdit(toolDef) {
+    document.getElementById('dialogToolType').value = toolDef.type;
+
+    const toolContainer = activateToolEditType(toolDef);
+
+    toolEditConfig[toolDef.type].formFields.forEach(field => {
+        toolContainer.querySelector('[name="' + field + '"]').value = toolDef.drawParams[field];
+    });    
+
+    document.getElementById('toolEditForm').style.display = 'block';
+}
+
+function activateToolEditType(toolDef) {
+    document.querySelectorAll('div.dialogToolTypeCont').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    const toolContainer = document.getElementById('dialogToolTypeCont_' + toolDef.type);
+
+    toolContainer.style.display = 'block';
+
+    return toolContainer;
+}
+
+function saveToolEdit(toolDef) {
+    const toolContainer = document.getElementById('dialogToolTypeCont_' + toolDef.type);
+
+    toolEditConfig[toolDef.type].formFields.forEach(field => {
+        toolDef.drawParams[field] = toolContainer.querySelector('[name="' + field + '"]').value;
+    });    
+
+    toolEditConfig[toolDef.type].staticValues.forEach(field => {
+        toolDef.drawParams[field.name] = field.value;
+    });    
 }

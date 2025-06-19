@@ -103,10 +103,11 @@ function handleCanvasMouseWheel(event) {
 function handleConfigButtonClick(event) {
     resetToggleButtons(this);
     isDrawing = false;
+    editingToolIndex = -1;
     drawParams = null;
 
     tempBGImageData = gameData.bgImageData;
-    tempToolbarButtons = gameData.toolbarButtons.slice();
+    tempToolbarButtons = structuredClone(gameData.toolbarButtons);
 
     tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
     dialogToolsList.innerHTML = '';
@@ -117,9 +118,11 @@ function handleConfigButtonClick(event) {
         btn.id = 'btnCustomTool' + index;
         btn.textContent = btnData.text;
         dialogToolsList.appendChild(btn);
-        btn.addEventListener('click', handleDialogToggleButtonClick, false);
+        btn.addEventListener('click', handleDialogCustomToolButtonClick, false);
     });
 
+    resetToolEdit();
+    toggleDialogModalSections();
     modalDialog.classList.add('visible');
 }
 
@@ -227,14 +230,12 @@ function handleSaveFileInputChange(file) {
     fileReader.readAsText(file);
 }
 
-function handleDialogToggleButtonClick(event) {
-    document.querySelectorAll('div.dialogToolTypeCont').forEach(el => {
-        el.style.display = 'none';
-    });
-
+function handleDialogCustomToolButtonClick(event) {
     const index = Array.from(dialogToolsList.children).indexOf(event.target);
-    const toolType = tempToolbarButtons[index].type;
-    document.getElementById('dialogToolTypeCont_' + toolType).style.display = 'block';
+    editingToolIndex = index;
+
+    setupToolEdit(tempToolbarButtons[editingToolIndex]);
+    toggleDialogModalSections();
 }
 
 function handleDialogCancelClick(event) {
@@ -243,8 +244,28 @@ function handleDialogCancelClick(event) {
 
 function handleDialogSaveClick(event) {
     modalDialog.classList.remove('visible');
+    gameData.toolbarButtons = tempToolbarButtons;
     resetToolbarCustomButtons();
 
     gameData.bgImageData = tempBGImageData;
     loadBGImage();
+}
+
+function handleDialogToolTypeChange(event) {
+    tempToolbarButtons[editingToolIndex].type = document.getElementById('dialogToolType').value;
+    activateToolEditType(tempToolbarButtons[editingToolIndex]);
+}
+
+function handleDialogToolCancelClick(event) {
+    editingToolIndex = -1;
+    resetToolEdit();
+    toggleDialogModalSections();
+}
+
+function handleDialogToolSaveClick(event) {
+    saveToolEdit(tempToolbarButtons[editingToolIndex]);
+
+    editingToolIndex = -1;
+    resetToolEdit();
+    toggleDialogModalSections();
 }

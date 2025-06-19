@@ -40,28 +40,46 @@
 					<button type="button" id="btnDialogCancel">X</button>
 				</div>
 				<div class="dialogContent">
-					<div class="dialogContentImage">
-						<div id="" class="modal modalSection"></div>
-						<div class="dialogContentHeader">Game Image</div>
-						<img id="imgBG" src="bgph.png" />
-						<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
+					<div class="dialogContentSection">
+						<div class="dialogContentImage">
+							<div class="dialogContentHeader">Game Image</div>
+							<img id="imgBG" src="bgph.png" />
+							<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
+						</div>
+						<div class="modal modalSection"></div>
 					</div>
-					<div class="dialogContentTools">
-						<div class="dialogContentHeader">Tools</div>
-						<div id="dialogToolsList"></div>
-						<button type="button" class="toolbarButton" id="btnAdd" style="font-size: 1.5em">&#10010;</button>
+					<div class="dialogContentSection">
+						<div class="dialogContentTools">
+							<div class="dialogContentHeader">Tools</div>
+							<div id="dialogToolsList"></div>
+							<button type="button" class="toolbarButton" id="btnAdd" style="font-size: 1.5em">&#10010;</button>
+						</div>
+						<div class="modal modalSection"></div>
 					</div>
-					<div class="dialogContentToolDef">
-						<div class="dialogContentHeader">Tool Definition</div>
-						<label for="dialogToolType">
-							Tool Type:
-							<select id="dialogToolType">
-								<option>Draw</option>
-								<option>Erase</option>
-							</select>
-						</label>
-						<div class="dialogToolTypeCont" id="dialogToolTypeCont_draw">Draw Stuff</div>
-						<div class="dialogToolTypeCont" id="dialogToolTypeCont_erase">Erase Stuff</div>
+					<div class="dialogContentSection">
+						<div class="dialogContentToolDef">
+							<div class="dialogContentHeader">Tool Definition</div>
+							<form id="toolEditForm">
+								<label for="dialogToolType">
+									Tool Type:
+									<select id="dialogToolType">
+										<option></option>
+										<option value="line">Line Drawing</option>
+										<option value="erase">Erase</option>
+									</select>
+								</label>
+								<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
+									<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="2" /></label>
+									<label>Color: <input type="text" name="strokeColor" value="black" /></label>
+								</div>
+								<div class="dialogToolTypeCont" id="dialogToolTypeCont_erase">
+									<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="10" /></label>
+								</div>
+								<button type="button" id="btnDialogToolCancel">Cancel</button>
+								<button type="button" id="btnDialogToolSave">Save</button>
+							</form>
+						</div>
+						<div class="modal modalSection modalSectionTool"></div>
 					</div>
 				</div>
 				<div class="dialogFooter">
@@ -69,8 +87,8 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="eventHandlers.js?x=1"></script>
-		<script type="text/javascript" src="drawing.js?x=1"></script>
-		<script type="text/javascript" src="app.js?x=1"></script>
+		<script type="text/javascript" src="eventHandlers.js?x=2"></script>
+		<script type="text/javascript" src="drawing.js?x=2"></script>
+		<script type="text/javascript" src="app.js?x=2"></script>
 	</body>
 </html>
