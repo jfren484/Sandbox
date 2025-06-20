@@ -25,11 +25,15 @@ const
     canvasZoomBy = 0.2,
     toolEditConfig = {
         line: {
+            text: '&#9660;',
+            textStyle: {valueType: 'drawParam', value: 'strokeColor', size: '1.5em'},
             formFields: ['lineWidth', 'strokeColor'],
             staticValues: [{name: 'compOp', value: 'source-over'}],
             eventHandler: handleDrawInputChange
         },
         erase: {
+            text: '&#9724;',
+            textStyle: {valueType: 'static', value: 'white', size: '1.5em'},
             formFields: ['lineWidth'],
             staticValues: [{name: 'compOp', value: 'destination-out'}],
             eventHandler: handleDrawInputChange
@@ -66,7 +70,8 @@ let isDrawing,
         redoPathList: []
     },
     tempBGImageData,
-    tempToolbarButtons = [];
+    tempToolbarButtons = [],
+    tempToolbarDefType;
 
 initialize();
 
@@ -85,6 +90,7 @@ function initialize() {
     document.getElementById('btnDialogCancel').addEventListener('click', handleDialogCancelClick, false);
     document.getElementById('btnDialogSave').addEventListener('click', handleDialogSaveClick, false);
     document.getElementById('dialogToolType').addEventListener('change', handleDialogToolTypeChange, false);
+    document.getElementById('btnDialogToolAdd').addEventListener('click', handleDialogToolAddClick, false);
     document.getElementById('btnDialogToolCancel').addEventListener('click', handleDialogToolCancelClick, false);
     document.getElementById('btnDialogToolSave').addEventListener('click', handleDialogToolSaveClick, false);
 
@@ -124,11 +130,14 @@ function resetToolbarCustomButtons() {
     customButtonContainer.innerHTML = '';
 
     gameData.toolbarButtons.forEach((btnData, index) => {
+        const cfg = toolEditConfig[btnData.type];
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
         btn.id = 'btnCustom' + index;
-        btn.textContent = btnData.text;
+        btn.innerHTML = cfg.text;
+        btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData.drawParams[cfg.textStyle.value] : 'black'; 
+        btn.style.fontSize = cfg.textStyle.size;
         customButtonContainer.appendChild(btn);
         btn.addEventListener('click', handleToggleButtonClick, false);
 
@@ -169,43 +178,74 @@ function toggleDialogModalSections() {
     });
 }
 
+function resetDialogToolList() {
+    dialogToolsList.innerHTML = '';
+    tempToolbarButtons.forEach((btnData, index) => {
+        const cfg = toolEditConfig[btnData.type];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.classList.add('toolbarButton');
+        btn.id = 'btnCustomTool' + index;
+        btn.innerHTML = cfg.text;
+        btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData.drawParams[cfg.textStyle.value] : 'black'; 
+        btn.style.fontSize = cfg.textStyle.size;
+        dialogToolsList.appendChild(btn);
+        btn.addEventListener('click', handleDialogCustomToolButtonClick, false);
+    });
+}
+
 function resetToolEdit() {
     document.getElementById('toolEditForm').reset();
     document.getElementById('toolEditForm').style.display = 'none';
 }
 
 function setupToolEdit(toolDef) {
-    document.getElementById('dialogToolType').value = toolDef.type;
+    const toolContainer = activateToolEditType();
 
-    const toolContainer = activateToolEditType(toolDef);
+    if (toolDef) {
+        document.getElementById('dialogToolType').value = tempToolbarDefType;
 
-    toolEditConfig[toolDef.type].formFields.forEach(field => {
-        toolContainer.querySelector('[name="' + field + '"]').value = toolDef.drawParams[field];
-    });    
+        toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
+            toolContainer.querySelector('[name="' + field + '"]').value = toolDef.drawParams[field];
+        });
+    }
 
     document.getElementById('toolEditForm').style.display = 'block';
 }
 
-function activateToolEditType(toolDef) {
+function activateToolEditType() {
     document.querySelectorAll('div.dialogToolTypeCont').forEach(el => {
         el.style.display = 'none';
     });
 
-    const toolContainer = document.getElementById('dialogToolTypeCont_' + toolDef.type);
+    const toolContainer = document.getElementById('dialogToolTypeCont_' + tempToolbarDefType);
 
-    toolContainer.style.display = 'block';
+    if (tempToolbarDefType) {
+        toolContainer.style.display = 'block';
+    }
 
     return toolContainer;
 }
 
-function saveToolEdit(toolDef) {
-    const toolContainer = document.getElementById('dialogToolTypeCont_' + toolDef.type);
+function saveToolEdit() {
+    const toolContainer = document.getElementById('dialogToolTypeCont_' + tempToolbarDefType);
 
-    toolEditConfig[toolDef.type].formFields.forEach(field => {
+    const toolDef = {};
+
+    toolDef.type = tempToolbarDefType;
+    toolDef.text = toolEditConfig[tempToolbarDefType].text;
+
+    toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
+        if (!toolDef.drawParams) toolDef.drawParams = {};
+
         toolDef.drawParams[field] = toolContainer.querySelector('[name="' + field + '"]').value;
-    });    
+    });
 
-    toolEditConfig[toolDef.type].staticValues.forEach(field => {
+    toolEditConfig[tempToolbarDefType].staticValues.forEach(field => {
+        if (!toolDef.drawParams) toolDef.drawParams = {};
+
         toolDef.drawParams[field.name] = field.value;
-    });    
+    });
+
+    return toolDef;
 }

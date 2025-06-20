@@ -110,16 +110,7 @@ function handleConfigButtonClick(event) {
     tempToolbarButtons = structuredClone(gameData.toolbarButtons);
 
     tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
-    dialogToolsList.innerHTML = '';
-    tempToolbarButtons.forEach((btnData, index) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.classList.add('toolbarButton');
-        btn.id = 'btnCustomTool' + index;
-        btn.textContent = btnData.text;
-        dialogToolsList.appendChild(btn);
-        btn.addEventListener('click', handleDialogCustomToolButtonClick, false);
-    });
+    resetDialogToolList();
 
     resetToolEdit();
     toggleDialogModalSections();
@@ -233,6 +224,7 @@ function handleSaveFileInputChange(file) {
 function handleDialogCustomToolButtonClick(event) {
     const index = Array.from(dialogToolsList.children).indexOf(event.target);
     editingToolIndex = index;
+    tempToolbarDefType = tempToolbarButtons[editingToolIndex].type;
 
     setupToolEdit(tempToolbarButtons[editingToolIndex]);
     toggleDialogModalSections();
@@ -252,8 +244,17 @@ function handleDialogSaveClick(event) {
 }
 
 function handleDialogToolTypeChange(event) {
-    tempToolbarButtons[editingToolIndex].type = document.getElementById('dialogToolType').value;
+    tempToolbarDefType = document.getElementById('dialogToolType').value;
     activateToolEditType(tempToolbarButtons[editingToolIndex]);
+}
+
+function handleDialogToolAddClick(event) {
+    const index = dialogToolsList.children.length;
+    editingToolIndex = index;
+    tempToolbarDefType = '';
+
+    setupToolEdit();
+    toggleDialogModalSections();
 }
 
 function handleDialogToolCancelClick(event) {
@@ -263,9 +264,11 @@ function handleDialogToolCancelClick(event) {
 }
 
 function handleDialogToolSaveClick(event) {
-    saveToolEdit(tempToolbarButtons[editingToolIndex]);
+    const toolDef = saveToolEdit();
+    tempToolbarButtons[editingToolIndex] = toolDef;
 
     editingToolIndex = -1;
     resetToolEdit();
+    resetDialogToolList();
     toggleDialogModalSections();
 }
