@@ -12,6 +12,9 @@ const
     modalDialog = document.getElementById('modalDialog'),
     tempBGImage = document.getElementById('imgBG'),
     dialogToolsList = document.getElementById('dialogToolsList'),
+    dialogToolMoveUpButton = document.getElementById('btnDialogToolMoveUp'),
+    dialogToolMoveDownButton = document.getElementById('btnDialogToolMoveDown'),
+    dialogToolDeleteButton = document.getElementById('btnDialogToolDelete'),
     defTempBGImageSrc = tempBGImage.src,
     drawParamsDefaults = {
         lineWidth: 2,
@@ -93,6 +96,9 @@ function initialize() {
     document.getElementById('btnDialogToolAdd').addEventListener('click', handleDialogToolAddClick, false);
     document.getElementById('btnDialogToolCancel').addEventListener('click', handleDialogToolCancelClick, false);
     document.getElementById('btnDialogToolSave').addEventListener('click', handleDialogToolSaveClick, false);
+    dialogToolMoveUpButton.addEventListener('click', handleDialogToolMoveUpClick, false);
+    dialogToolMoveDownButton.addEventListener('click', handleDialogToolMoveDownClick, false);
+    dialogToolDeleteButton.addEventListener('click', handleDialogToolDeleteClick, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
@@ -194,6 +200,12 @@ function resetDialogToolList() {
     });
 }
 
+function resetDialogToolMoveButtons() {
+    dialogToolMoveUpButton.disabled = (editingToolIndex === 0) || (editingToolIndex === tempToolbarButtons.length);
+    dialogToolMoveDownButton.disabled = (editingToolIndex >= tempToolbarButtons.length - 1);
+    dialogToolDeleteButton.disabled = (editingToolIndex === tempToolbarButtons.length);
+}
+
 function resetToolEdit() {
     document.getElementById('toolEditForm').reset();
     document.getElementById('toolEditForm').style.display = 'none';
@@ -211,6 +223,7 @@ function setupToolEdit(toolDef) {
     }
 
     document.getElementById('toolEditForm').style.display = 'block';
+    resetDialogToolMoveButtons();
 }
 
 function activateToolEditType() {

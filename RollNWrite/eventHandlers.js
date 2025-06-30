@@ -272,3 +272,30 @@ function handleDialogToolSaveClick(event) {
     resetDialogToolList();
     toggleDialogModalSections();
 }
+
+function handleDialogToolMoveUpClick(event) {
+    const currItem = tempToolbarButtons[editingToolIndex];
+    tempToolbarButtons.splice(editingToolIndex, 1);
+    editingToolIndex--;
+    tempToolbarButtons.splice(editingToolIndex, 0, currItem);
+    resetDialogToolList();
+    resetDialogToolMoveButtons();
+}
+
+function handleDialogToolMoveDownClick(event) {
+    const currItem = tempToolbarButtons[editingToolIndex];
+    tempToolbarButtons.splice(editingToolIndex, 1);
+    editingToolIndex++;
+    tempToolbarButtons.splice(editingToolIndex, 0, currItem);
+    resetDialogToolList();
+    resetDialogToolMoveButtons();
+}
+
+function handleDialogToolDeleteClick(event) {
+    tempToolbarButtons.splice(editingToolIndex, 1);
+
+    editingToolIndex = -1;
+    resetToolEdit();
+    resetDialogToolList();
+    toggleDialogModalSections();
+}
