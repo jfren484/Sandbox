@@ -40,53 +40,61 @@
 					<div class="dialogHeaderTitle">Game Settings</div>
 					<button type="button" id="btnDialogCancel">X</button>
 				</div>
-				<div class="dialogContent">
-					<div class="dialogContentSection">
-						<div class="dialogContentImage">
-							<div class="dialogContentHeader">Game Image</div>
-							<img id="imgBG" src="bgph.png" />
-							<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
-						</div>
-						<div class="modal modalSection"></div>
+				<div class="dialogContentSection dialogContentSectionImage">
+					<div class="dialogContentImage">
+						<div class="dialogContentHeader">Game Image</div>
+						<img id="imgBG" src="bgph.png" />
+						<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
 					</div>
-					<div class="dialogContentSection">
-						<div class="dialogContentTools">
-							<div class="dialogContentHeader">Tools</div>
-							<div id="dialogToolsList"></div>
-							<button type="button" class="toolbarButton" id="btnDialogToolAdd" style="font-size: 1.5em">&#10010;</button>
-						</div>
-						<div class="modal modalSection"></div>
+					<div class="modal modalSection"></div>
+				</div>
+				<div class="dialogContentSection dialogContentSectionToolList">
+					<div class="dialogContentTools">
+						<div class="dialogContentHeader">Tools</div>
+						<div id="dialogToolsList"></div>
+						<button type="button" class="toolbarButton" id="btnDialogToolAdd" style="font-size: 1.5em">&#10010;</button>
 					</div>
-					<div class="dialogContentSection">
-						<div class="dialogContentToolDef">
-							<div class="dialogContentHeader">Tool Definition</div>
-							<form id="toolEditForm">
-								<div class="dialogContentToolDefManage">
-									<button type="button" id="btnDialogToolMoveUp">Move Up</button>
-									<button type="button" id="btnDialogToolDelete">Delete</button>
-									<button type="button" id="btnDialogToolMoveDown">Move Down</button>
-								</div>
-								<label for="dialogToolType">
-									Tool Type:
-									<select id="dialogToolType">
-										<option></option>
-										<option value="line">Line Drawing</option>
-										<option value="erase">Erase</option>
-									</select>
-								</label>
-								<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
-									<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="2" /></label>
-									<label>Color: <input type="text" name="strokeColor" value="black" /></label>
-								</div>
-								<div class="dialogToolTypeCont" id="dialogToolTypeCont_erase">
-									<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="10" /></label>
-								</div>
-								<button type="button" id="btnDialogToolCancel">Cancel</button>
-								<button type="button" id="btnDialogToolSave">Save</button>
-							</form>
+					<div class="modal modalSection"></div>
+				</div>
+				<div class="dialogContentSection dialogContentSectionToolPosition">
+					<div class="dialogContentToolDefManage">
+						<div class="dialogContentHeader">Tool Position</div>
+						<div class="dialogContentToolSpecific">
+							<button type="button" id="btnDialogToolMoveUp">Move Up</button>
+							<button type="button" id="btnDialogToolDelete">Delete</button>
+							<button type="button" id="btnDialogToolMoveDown">Move Down</button>
 						</div>
-						<div class="modal modalSection modalSectionTool"></div>
 					</div>
+					<div class="modal modalSection modalSectionTool"></div>
+				</div>
+				<div class="dialogContentSection dialogContentSectionToolDefinition">
+					<div class="dialogContentToolDef">
+						<div class="dialogContentHeader">Tool Definition</div>
+						<form id="toolEditForm" class="dialogContentToolSpecific">
+							<label for="dialogToolType">
+								Tool Type:
+								<select id="dialogToolType">
+									<option></option>
+									<option value="line">Line Drawing</option>
+									<option value="text">Static Text</option>
+									<option value="erase">Erase</option>
+								</select>
+							</label>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
+								<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="2" /></label>
+								<label>Color: <input type="text" name="strokeColor" value="black" /></label>
+							</div>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_text">
+								<label>Text: <input type="text" name="textValue" value="" /></label>
+							</div>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_erase">
+								<label>Size: <input type="number" name="lineWidth" min="1" max="100" value="10" /></label>
+							</div>
+							<button type="button" id="btnDialogToolCancel">Cancel</button>
+							<button type="button" id="btnDialogToolSave">Save</button>
+						</form>
+					</div>
+					<div class="modal modalSection modalSectionTool"></div>
 				</div>
 				<div class="dialogFooter">
 					<button type="button" id="btnDialogSave">Save</button>

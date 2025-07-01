@@ -15,8 +15,11 @@ const
     dialogToolMoveUpButton = document.getElementById('btnDialogToolMoveUp'),
     dialogToolMoveDownButton = document.getElementById('btnDialogToolMoveDown'),
     dialogToolDeleteButton = document.getElementById('btnDialogToolDelete'),
+    dialogToolDefinitionForm = document.getElementById('toolEditForm'),
     defTempBGImageSrc = tempBGImage.src,
     drawParamsDefaults = {
+        type: 'line',
+        text: '',
         lineWidth: 2,
         strokeColor: 'black',
         fillColor: 'transparent',
@@ -31,15 +34,19 @@ const
             text: '&#9660;',
             textStyle: {valueType: 'drawParam', value: 'strokeColor', size: '1.5em'},
             formFields: ['lineWidth', 'strokeColor'],
-            staticValues: [{name: 'compOp', value: 'source-over'}],
-            eventHandler: handleDrawInputChange
+            staticValues: [{name: 'compOp', value: 'source-over'}]
+        },
+        text: {
+            text: 'field',
+            textStyle: {},
+            formFields: ['textValue'],
+            staticValues: [{name: 'compOp', value: 'source-over'}]
         },
         erase: {
             text: '&#9724;',
             textStyle: {valueType: 'static', value: 'white', size: '1.5em'},
             formFields: ['lineWidth'],
-            staticValues: [{name: 'compOp', value: 'destination-out'}],
-            eventHandler: handleDrawInputChange
+            staticValues: [{name: 'compOp', value: 'destination-out'}]
         }
     };
 
@@ -53,19 +60,23 @@ let isDrawing,
     bgImage,
     gameData = {
         toolbarButtons: [{
-            type: 'line',
-            text: 'Draw',
             drawParams: {
+                type: 'line',
                 lineWidth: 2,
                 strokeColor: 'black',
                 compOp: 'source-over'
             }
         },{
-            type: 'erase',
-            text: 'Erase',
             drawParams: {
+                type: 'erase',
                 lineWidth: 10,
                 compOp: 'destination-out'
+            }
+        },{
+            drawParams: {
+                type: 'text',
+                textValue: 'x',
+                compOp: 'source-over'
             }
         }],
         bgImageData: null,
@@ -114,13 +125,6 @@ function initialize() {
     resetToolbarCustomButtons();
 }
 
-function createButton() {
-    const btn = document.createElement('input');
-    btn.type = '';
-    btn.addEventListener('click', handleDrawButtonClick, false);
-    document.body.appendChild(btn);
-}
-
 function resetToDefaults() {
     canvasZoom = 1;
     isDrawing = false;
@@ -136,12 +140,12 @@ function resetToolbarCustomButtons() {
     customButtonContainer.innerHTML = '';
 
     gameData.toolbarButtons.forEach((btnData, index) => {
-        const cfg = toolEditConfig[btnData.type];
+        const cfg = toolEditConfig[btnData.drawParams.type];
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
         btn.id = 'btnCustom' + index;
-        btn.innerHTML = cfg.text;
+        btn.innerHTML = cfg.text === 'field' ? btnData.drawParams.textValue : cfg.text;
         btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData.drawParams[cfg.textStyle.value] : 'black'; 
         btn.style.fontSize = cfg.textStyle.size;
         customButtonContainer.appendChild(btn);
@@ -187,12 +191,12 @@ function toggleDialogModalSections() {
 function resetDialogToolList() {
     dialogToolsList.innerHTML = '';
     tempToolbarButtons.forEach((btnData, index) => {
-        const cfg = toolEditConfig[btnData.type];
+        const cfg = toolEditConfig[btnData.drawParams.type];
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
         btn.id = 'btnCustomTool' + index;
-        btn.innerHTML = cfg.text;
+        btn.innerHTML = cfg.text === 'field' ? btnData.drawParams.textValue : cfg.text;
         btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData.drawParams[cfg.textStyle.value] : 'black'; 
         btn.style.fontSize = cfg.textStyle.size;
         dialogToolsList.appendChild(btn);
@@ -207,23 +211,44 @@ function resetDialogToolMoveButtons() {
 }
 
 function resetToolEdit() {
-    document.getElementById('toolEditForm').reset();
-    document.getElementById('toolEditForm').style.display = 'none';
+    dialogToolDefinitionForm.reset();
+    Array.from(document.getElementsByClassName('dialogContentToolSpecific')).forEach(el => {
+        el.style.display = 'none';
+    });
 }
 
 function setupToolEdit(toolDef) {
-    const toolContainer = activateToolEditType();
-
     if (toolDef) {
         document.getElementById('dialogToolType').value = tempToolbarDefType;
-
-        toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
-            toolContainer.querySelector('[name="' + field + '"]').value = toolDef.drawParams[field];
-        });
+        switch (tempToolbarDefType) {
+            case 'line':
+            case 'erase':
+                setupToolEditLineErase(toolDef);
+                break;
+            case 'text':
+                setupToolEditText(toolDef);
+                break;
+        }
     }
 
-    document.getElementById('toolEditForm').style.display = 'block';
+    Array.from(document.getElementsByClassName('dialogContentToolSpecific')).forEach(el => {
+        el.style.display = 'block';
+    });
     resetDialogToolMoveButtons();
+}
+
+function setupToolEditLineErase(toolDef) {
+    const toolContainer = activateToolEditType();
+
+    toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
+        toolContainer.querySelector('[name="' + field + '"]').value = toolDef.drawParams[field];
+    });
+}
+
+function setupToolEditText(toolDef) {
+    const toolContainer = activateToolEditType();
+
+    toolContainer.querySelector('[name="textValue"]').value = toolDef.text;
 }
 
 function activateToolEditType() {
@@ -242,11 +267,9 @@ function activateToolEditType() {
 
 function saveToolEdit() {
     const toolContainer = document.getElementById('dialogToolTypeCont_' + tempToolbarDefType);
+    const toolDef = {drawParams: {}};
 
-    const toolDef = {};
-
-    toolDef.type = tempToolbarDefType;
-    toolDef.text = toolEditConfig[tempToolbarDefType].text;
+    toolDef.drawParams.type = tempToolbarDefType;
 
     toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
         if (!toolDef.drawParams) toolDef.drawParams = {};

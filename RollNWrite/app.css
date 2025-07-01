@@ -102,16 +102,17 @@ div.modalSection {
 }
 
 div.dialog {
-	display: flex;
-	flex-direction: column;
-	width: 980px;
-	height: 710px;
+	display: grid;
+	grid-template-rows: auto minmax(auto, 75px) auto auto;
+	gap: 10px;
 	margin: auto;
 	border: solid 2px darkgray;
 	background-color: white;
 }
 
 div.dialog div.dialogHeader {
+	grid-row: 1;
+	grid-column: 1 / span 5;
 	display: flex;
     justify-content: space-between;
 	background-color: navy;
@@ -139,33 +140,38 @@ div.dialog div.dialogHeader button {
 	height: 30px;
 }
 
-div.dialog div.dialogContent {
-	width: 100%;
-	height: 100%;
-	display: flex;
-}
-
-div.dialog div.dialogContent div.dialogContentSection {
+div.dialog div.dialogContentSection {
 	position: relative;
-	margin: 10px 5px;
 	padding: 10px;
 	text-align: center;
 	border: solid 1px black;
 }
 
-div.dialog div.dialogContent > div:first-child {
-	margin-left: 10px;
+div.dialog div.dialogContentSection.dialogContentSectionImage {
+	grid-column: 2;
+	grid-row: 2 / span 2;
 }
 
-div.dialog div.dialogContent > div:last-child {
-	margin-right: 10px;
+div.dialog div.dialogContentSection.dialogContentSectionToolList {
+	grid-column: 3;
+	grid-row: 2 / span 2;
 }
 
-div.dialog div.dialogContent div.dialogContentImage {
+div.dialog div.dialogContentSection.dialogContentSectionToolPosition {
+	grid-column: 4;
+	grid-row: 2;
+}
+
+div.dialog div.dialogContentSection.dialogContentSectionToolDefinition {
+	grid-column: 4;
+	grid-row: 3;
+}
+
+div.dialog div.dialogContentImage {
 	width: 400px;
 }
 
-div.dialog div.dialogContent div.dialogContentHeader {
+div.dialog div.dialogContentHeader {
 	text-align: center;
 	margin-bottom: 10px;
     font-size: 1.2em;
@@ -173,38 +179,40 @@ div.dialog div.dialogContent div.dialogContentHeader {
     font-family: sans-serif;
 }
 
-div.dialog div.dialogContent div.dialogContentImage img {
+div.dialog div.dialogContentImage img {
 	margin: auto;
 	max-width: 400px;
 	max-height: 500px;
 	border: solid 1px black;
 }
 
-div.dialog div.dialogContent div.dialogContentImage button {
+div.dialog div.dialogContentImage button {
 	width: 100%;
 	height: 30px;
 	margin: 10px 0 0 0;
 }
 
-div.dialog div.dialogContent div.dialogContentTools {
+div.dialog div.dialogContentTools {
 	width: 70px;
 }
 
-div.dialog div.dialogContent div.dialogContentTools .toolbarButton {
+div.dialog div.dialogContentTools .toolbarButton {
 	width: 60px;
 	height: 40px;
 	margin-bottom: 10px;
 }
 
-div.dialog div.dialogContent div.dialogContentToolDef {
+div.dialog div.dialogContentToolDef {
 	width: 400px;
 }
 
-div.dialog div.dialogContent div.dialogContentToolDef div.dialogToolTypeCont {
+div.dialog div.dialogContentToolDef div.dialogToolTypeCont {
 	display: none;
 }
 
 div.dialog div.dialogFooter {
+	grid-row: 4;
+	grid-column: 1 / span 5;
 	display: flex;
 	width: 100%;
 	height: 60px;

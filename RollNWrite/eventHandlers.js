@@ -35,9 +35,25 @@ function handleCanvasPointerStart(event, point) {
     if (!drawParams) return;
 
     event.preventDefault();
+    switch (drawParams.type) {
+        case 'line':
+        case 'erase':
+            handleCanvasPointerStartDraw(event, point);
+            break;
+        case 'text':
+            handleCanvasPointerStartText(event, point);
+            break;
+    }
+}
+
+function handleCanvasPointerStartDraw(event, point) {
     isDrawing = true;
 
     drawLineStart(point);
+}
+
+function handleCanvasPointerStartText(event, point) {
+    drawText(point);
 }
 
 function handleCanvasMouseMove(event) {
@@ -224,7 +240,7 @@ function handleSaveFileInputChange(file) {
 function handleDialogCustomToolButtonClick(event) {
     const index = Array.from(dialogToolsList.children).indexOf(event.target);
     editingToolIndex = index;
-    tempToolbarDefType = tempToolbarButtons[editingToolIndex].type;
+    tempToolbarDefType = tempToolbarButtons[editingToolIndex].drawParams.type;
 
     setupToolEdit(tempToolbarButtons[editingToolIndex]);
     toggleDialogModalSections();

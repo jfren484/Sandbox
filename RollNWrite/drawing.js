@@ -54,6 +54,25 @@ function drawLineContinue_internal(point) {
     canvasContext.lineTo(point.x * canvasZoom, point.y * canvasZoom);
 }
 
+function drawText(point) {
+    currentPath = {
+        type: 'text',
+        textValue: drawParams.textValue,
+        color: drawParams.strokeColor,
+        op: drawParams.compOp,
+        origin: point
+    };
+    pathListAddPath(currentPath);
+
+    drawText_internal(currentPath);
+}
+
+function drawText_internal(pathData) {
+    canvasContext.strokeStyle = pathData.color;
+    canvasContext.globalCompositeOperation = pathData.op;
+    canvasContext.fillText(pathData.textValue, pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
+}
+
 function loadBGImage() {
     if (!gameData.bgImageData) {
         bgImage = null;
@@ -94,6 +113,8 @@ function redraw() {
         switch (path.type) {
             case 'line':
                 drawLine(path);
+            case 'text':
+                drawText_internal(path);
         }
     });
 }
