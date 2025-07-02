@@ -18,6 +18,7 @@ const
     dialogToolDefinitionForm = document.getElementById('toolEditForm'),
     defTempBGImageSrc = tempBGImage.src,
     dataAttrToolIndex = 'data-tool-index',
+    dataAttrPoint = 'data-point',
     canvasZoomMin = 1,
     canvasZoomMax = 2,
     canvasZoomBy = 0.2,
@@ -35,7 +36,7 @@ const
             staticValues: []
         },
         dyntext: {
-            text: 'T',
+            text: '[ T ]',
             textStyle: {valueType: 'drawParam', value: 'fillColor', size: '1.25em'},
             formFields: ['fontSize', 'isBold', 'fillColor'],
             staticValues: []

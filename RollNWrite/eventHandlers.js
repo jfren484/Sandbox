@@ -33,6 +33,7 @@ function handleCanvasTouchStart(event) {
 
 function handleCanvasPointerStart(event, point) {
     if (currentToolIndex < 0) return;
+    console.log(point);
 
     event.preventDefault();
     switch (gameData.toolbarButtons[currentToolIndex].type) {
@@ -64,10 +65,13 @@ function handleCanvasPointerStartDynamicText(event, point) {
     input.type = 'text';
     input.name = 'dynamic-text-input';
     input.style.position = 'absolute';
-    input.style.left = (canvas.offsetLeft + point.x) + 'px';
-    input.style.top = (canvas.offsetTop + point.y - gameData.toolbarButtons[currentToolIndex].fontSize / 2) + 'px';
-    input.style.fontSize = gameData.toolbarButtons[currentToolIndex].fontSize;
+    input.style.left = (canvas.offsetLeft + point.x * canvasZoom - gameData.toolbarButtons[currentToolIndex].fontSize * canvasZoom * 0.9) + 'px';
+    input.style.top = (canvas.offsetTop + point.y * canvasZoom - gameData.toolbarButtons[currentToolIndex].fontSize * canvasZoom * 0.7) + 'px';
+    input.style.width = '2em';
+    input.style.fontSize = gameData.toolbarButtons[currentToolIndex].fontSize * canvasZoom + 'px';
     input.style.color = gameData.toolbarButtons[currentToolIndex].fillColor;
+    input.style.border = 'none';
+    input.setAttribute(dataAttrPoint, JSON.stringify(point));
     document.body.appendChild(input);
 
     input.addEventListener('blur', handleDynamicTextInputBlur, false);
@@ -77,7 +81,10 @@ function handleCanvasPointerStartDynamicText(event, point) {
 }
 
 function handleDynamicTextInputBlur(event) {
-    if (!handlingButtonPress) this.remove();
+    if (!handlingButtonPress) {
+        drawDynamicText(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
+        this.remove()
+    };
 }
 
 function handleDynamicTextInputKeydown(event) {
@@ -85,8 +92,7 @@ function handleDynamicTextInputKeydown(event) {
         case 'Enter':
             handlingButtonPress = true;
             event.preventDefault();
-            // get point
-            drawDynamicText(point, textValue);
+            drawDynamicText(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
             this.remove();
             break;
         case 'Escape':
