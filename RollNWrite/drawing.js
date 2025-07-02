@@ -22,9 +22,9 @@ function drawLine(lineData) {
 function drawLineStart(point) {
     currentPath = {
         type: 'line',
-        width: drawParams.lineWidth,
-        color: drawParams.strokeColor,
-        op: drawParams.compOp,
+        width: gameData.toolbarButtons[currentToolIndex].lineWidth,
+        color: gameData.toolbarButtons[currentToolIndex].strokeColor,
+        op: gameData.toolbarButtons[currentToolIndex].compOp,
         origin: point,
         points: []
     };
@@ -57,9 +57,24 @@ function drawLineContinue_internal(point) {
 function drawText(point) {
     currentPath = {
         type: 'text',
-        textValue: drawParams.textValue,
-        color: drawParams.strokeColor,
-        op: drawParams.compOp,
+        textValue: gameData.toolbarButtons[currentToolIndex].textValue,
+        fontSize: gameData.toolbarButtons[currentToolIndex].fontSize,
+        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        op: gameData.toolbarButtons[currentToolIndex].compOp,
+        origin: point
+    };
+    pathListAddPath(currentPath);
+
+    drawText_internal(currentPath);
+}
+
+function drawDynamicText(point, textValue) {
+    currentPath = {
+        type: 'text',
+        textValue: textValue,
+        fontSize: gameData.toolbarButtons[currentToolIndex].fontSize,
+        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        op: gameData.toolbarButtons[currentToolIndex].compOp,
         origin: point
     };
     pathListAddPath(currentPath);
@@ -68,8 +83,11 @@ function drawText(point) {
 }
 
 function drawText_internal(pathData) {
-    canvasContext.strokeStyle = pathData.color;
-    canvasContext.globalCompositeOperation = pathData.op;
+    canvasContext.font = (pathData.fontSize * canvasZoom) + 'px sans-serif';
+    canvasContext.textAlign = 'center';
+    canvasContext.textBaseline = 'middle';
+    canvasContext.fillStyle = pathData.color;
+    canvasContext.globalCompositeOperation = 'source-over';
     canvasContext.fillText(pathData.textValue, pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
 }
 
@@ -113,8 +131,10 @@ function redraw() {
         switch (path.type) {
             case 'line':
                 drawLine(path);
+                break;
             case 'text':
                 drawText_internal(path);
+                break;
         }
     });
 }

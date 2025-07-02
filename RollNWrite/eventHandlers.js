@@ -32,16 +32,19 @@ function handleCanvasTouchStart(event) {
 }
 
 function handleCanvasPointerStart(event, point) {
-    if (!drawParams) return;
+    if (currentToolIndex < 0) return;
 
     event.preventDefault();
-    switch (drawParams.type) {
+    switch (gameData.toolbarButtons[currentToolIndex].type) {
         case 'line':
         case 'erase':
             handleCanvasPointerStartDraw(event, point);
             break;
         case 'text':
             handleCanvasPointerStartText(event, point);
+            break;
+        case 'dyntext':
+            handleCanvasPointerStartDynamicText(event, point);
             break;
     }
 }
@@ -54,6 +57,45 @@ function handleCanvasPointerStartDraw(event, point) {
 
 function handleCanvasPointerStartText(event, point) {
     drawText(point);
+}
+
+function handleCanvasPointerStartDynamicText(event, point) {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'dynamic-text-input';
+    input.style.position = 'absolute';
+    input.style.left = (canvas.offsetLeft + point.x) + 'px';
+    input.style.top = (canvas.offsetTop + point.y - gameData.toolbarButtons[currentToolIndex].fontSize / 2) + 'px';
+    input.style.fontSize = gameData.toolbarButtons[currentToolIndex].fontSize;
+    input.style.color = gameData.toolbarButtons[currentToolIndex].fillColor;
+    document.body.appendChild(input);
+
+    input.addEventListener('blur', handleDynamicTextInputBlur, false);
+    input.addEventListener('keydown', handleDynamicTextInputKeydown, false);
+
+    input.focus();
+}
+
+function handleDynamicTextInputBlur(event) {
+    if (!handlingButtonPress) this.remove();
+}
+
+function handleDynamicTextInputKeydown(event) {
+    switch (event.key) {
+        case 'Enter':
+            handlingButtonPress = true;
+            event.preventDefault();
+            // get point
+            drawDynamicText(point, textValue);
+            this.remove();
+            break;
+        case 'Escape':
+            handlingButtonPress = true;
+            event.preventDefault();
+            this.remove();
+            break;
+    }
+    handlingButtonPress = false;
 }
 
 function handleCanvasMouseMove(event) {
@@ -71,7 +113,7 @@ function handleCanvasTouchMove(event) {
 }
 
 function handleCanvasPointerMove(event, point) {
-    if (!isDrawing || !drawParams) return;
+    if (!isDrawing || currentToolIndex < 0) return;
 
     event.preventDefault();
     drawLineContinue(point);
@@ -90,7 +132,7 @@ function handleCanvasTouchCancel(event) {
 }
 
 function handleCanvasPointerEnd(event) {
-    if (!drawParams) return;
+    if (currentToolIndex < 0) return;
 
     event.preventDefault();
     isDrawing = false;
@@ -120,7 +162,7 @@ function handleConfigButtonClick(event) {
     resetToggleButtons(this);
     isDrawing = false;
     editingToolIndex = -1;
-    drawParams = null;
+    currentToolIndex = -1;
 
     tempBGImageData = gameData.bgImageData;
     tempToolbarButtons = structuredClone(gameData.toolbarButtons);
@@ -143,10 +185,10 @@ function handleDrawInputChange(event) {
     if (this.checked) {
         btn.classList.add('active');
         resetToggleButtons(this);
-        drawParams = jsonMerge(drawParamsDefaults, JSON.parse(this.getAttribute(dataAttrDrawParams)));
+        currentToolIndex = parseInt(this.getAttribute(dataAttrToolIndex));
     } else {
         btn.classList.remove('active');
-        drawParams = null;
+        currentToolIndex = -1;
     }
 }
 
@@ -240,7 +282,7 @@ function handleSaveFileInputChange(file) {
 function handleDialogCustomToolButtonClick(event) {
     const index = Array.from(dialogToolsList.children).indexOf(event.target);
     editingToolIndex = index;
-    tempToolbarDefType = tempToolbarButtons[editingToolIndex].drawParams.type;
+    tempToolbarDefType = tempToolbarButtons[editingToolIndex].type;
 
     setupToolEdit(tempToolbarButtons[editingToolIndex]);
     toggleDialogModalSections();
