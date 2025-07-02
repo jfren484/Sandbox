@@ -27,25 +27,48 @@ const
             text: '&#9660;',
             textStyle: {valueType: 'drawParam', value: 'strokeColor', size: '1.5em'},
             formFields: ['lineWidth', 'strokeColor'],
-            staticValues: [{name: 'compOp', value: 'source-over'}]
+            staticValues: [{name: 'compOp', value: 'source-over'}],
+            eventHandler: handleDrawButtonClick,
+            isDrawingTool: true,
+            buttonClass: 'drawButton'
         },
         text: {
             text: 'field',
+            textField: 'textValue',
             textStyle: {valueType: 'drawParam', value: 'fillColor', size: '1.25em'},
             formFields: ['textValue', 'fontSize', 'isBold', 'fillColor'],
-            staticValues: []
+            staticValues: [],
+            eventHandler: handleDrawButtonClick,
+            isDrawingTool: true,
+            buttonClass: 'drawButton'
         },
         dyntext: {
             text: '[ T ]',
             textStyle: {valueType: 'drawParam', value: 'fillColor', size: '1.25em'},
             formFields: ['fontSize', 'isBold', 'fillColor'],
-            staticValues: []
+            staticValues: [],
+            eventHandler: handleDrawButtonClick,
+            isDrawingTool: true,
+            buttonClass: 'drawButton'
         },
         erase: {
             text: '&#9724;',
             textStyle: {valueType: 'static', value: 'white', size: '1.5em'},
             formFields: ['lineWidth'],
-            staticValues: [{name: 'compOp', value: 'destination-out'}]
+            staticValues: [{name: 'compOp', value: 'destination-out'}],
+            eventHandler: handleDrawButtonClick,
+            isDrawingTool: true,
+            buttonClass: 'drawButton'
+        },
+        rng: {
+            text: 'field',
+            textField: 'faceCount',
+            textStyle: {valueType: 'static', value: 'black', size: '1.25em'},
+            formFields: ['faceCount'],
+            staticValues: [],
+            eventHandler: handleRngButtonClick,
+            isDrawingTool: false,
+            buttonClass: 'rngButton'
         }
     };
 
@@ -81,6 +104,9 @@ let isDrawing,
             isBold: true,
             fillColor: 'blue',
             compOp: 'source-over'
+        },{
+            type: 'rng',
+            faceCount: 6
         }],
         bgImageData: null,
         pathList: [],
@@ -147,23 +173,27 @@ function resetToolbarCustomButtons() {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
+        btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustom' + index;
-        btn.innerHTML = cfg.text === 'field' ? btnData.textValue : cfg.text;
+        btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
         btn.style.color = cfg.textStyle.valueType === 'static'
             ? cfg.textStyle.value
             : cfg.textStyle.valueType === 'drawParam'
                 ? btnData[cfg.textStyle.value]
                 : 'black'; 
         btn.style.fontSize = cfg.textStyle.size;
+        btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);
-        btn.addEventListener('click', handleToggleButtonClick, false);
+        btn.addEventListener('click', cfg.eventHandler, false);
 
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = btn.id + '_input';
-        input.setAttribute(dataAttrToolIndex, index);
-        customButtonContainer.appendChild(input);
-        input.addEventListener('change', handleDrawInputChange, false);
+        if (cfg.isDrawingTool) {
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = btn.id + '_input';
+            input.setAttribute(dataAttrToolIndex, index);
+            customButtonContainer.appendChild(input);
+            input.addEventListener('change', handleDrawInputChange, false);
+        }
     });
 }
 
@@ -203,7 +233,7 @@ function resetDialogToolList() {
         btn.type = 'button';
         btn.classList.add('toolbarButton');
         btn.id = 'btnCustomTool' + index;
-        btn.innerHTML = cfg.text === 'field' ? btnData.textValue : cfg.text;
+        btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
         btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData[cfg.textStyle.value] : 'black'; 
         btn.style.fontSize = cfg.textStyle.size;
         dialogToolsList.appendChild(btn);
@@ -270,7 +300,9 @@ function saveToolEdit() {
         const input = toolContainer.querySelector('[name="' + field + '"]');
         const val = input.type === 'checkbox'
             ? input.checked
-            : input.value;
+            : input.type === 'number'
+                ? parseFloat(input.value)
+                : input.value;
 
         toolDef[field] = val;
     });

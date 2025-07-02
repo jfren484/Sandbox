@@ -34,6 +34,13 @@ div.toolbar button.toolbarButton {
 	height: 40px;
 }
 
+div.toolbar button.toolbarButton.rngButton {
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	background-color: white;
+}
+
 div.toolbar label {
 	text-align: center;
 	vertical-align: middle;
