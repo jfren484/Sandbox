@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\app.htm" />
+    <None Include="wwwroot\css\app.css" />
+    <None Include="wwwroot\img\bgph.png" />
+    <None Include="wwwroot\js\app.js" />
+    <None Include="wwwroot\js\drawing.js" />
+    <None Include="wwwroot\js\eventHandlers.js" />
+  </ItemGroup>
+
+</Project>
