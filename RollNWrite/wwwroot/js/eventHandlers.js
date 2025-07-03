@@ -288,7 +288,7 @@ function handleSaveFileInputChange(file) {
         gameData = newGameData;
         loadBGImage();
         redraw();
-        resetToggleButtons();
+        resetToolbarCustomButtons();
         undoButton.disabled = gameData.pathList.length === 0;
     }
     fileReader.readAsText(file);
