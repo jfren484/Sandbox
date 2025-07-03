@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\dialog.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\app.htm" />
+    <None Include="wwwroot\css\dialog.css" />
     <None Include="wwwroot\css\app.css" />
     <None Include="wwwroot\img\bgph.png" />
     <None Include="wwwroot\js\app.js" />

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Roll &amp; Write</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="./css/app.css">
-	</head>
+<head>
+	<title>Roll &amp; Write</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="./css/app.css">
+	<link rel="stylesheet" href="./css/dialog.css">
+</head>
 
 	<body>
 		<div>
@@ -19,11 +20,12 @@
 
 				<div class="toolbarDivider"></div>
 
-				<div id="toolbarCustomButtons" class="toolbarCustomButtons"></div>
+				<button type="button" class="toolbarButton" id="btnConfig" style="font-size: 1.75em; font-weight: bold; line-height: 100%;">&#9881;</button>
+				<!--<button type="button" class="toolbarButton" id="btnMarker">Redo</button>-->
 
 				<div class="toolbarDivider"></div>
 
-				<button type="button" class="toolbarButton" id="btnConfig" style="font-size: 1.75em; font-weight: bold; line-height: 100%;">&#9881;</button>
+				<div id="toolbarCustomButtons" class="toolbarCustomButtons"></div>
 			</div>
 			<div id="canvasCont" class="canvasContainer">
 				<canvas id="bgCanvas"></canvas>
@@ -34,7 +36,7 @@
 			<input type="file" id="fileInput">
 		</div>
 		<div id="modalDialog" class="modal modalDialog">
-			<div class="dialog">
+			<div class="mainDialog">
 				<div class="dialogHeader">
 					<span></span>
 					<div class="dialogHeaderTitle">Game Settings</div>
@@ -80,6 +82,7 @@
 									<option value="dyntext">Dynamic Text</option>
 									<option value="erase">Erase</option>
 									<option value="rng">Random / Die</option>
+									<option value="marker">Marker</option>
 								</select>
 							</label>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
@@ -103,6 +106,13 @@
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_rng">
 								<label>Faces: <input type="number" name="faceCount" min="1" value="6" /></label>
 							</div>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_marker">
+								<select name="markerType">
+									<option value="disc">Disc</option>
+									<option value="cube">Cube</option>
+								</select>
+								<label>Size: <input type="number" name="markerSize" min="0.01" value="1" /></label>
+							</div>
 							<button type="button" id="btnDialogToolCancel">Cancel</button>
 							<button type="button" id="btnDialogToolSave">Save</button>
 						</form>
@@ -115,6 +125,7 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="./js/eventHandlers.js?x=2"></script>
+		<script type="text/javascript" src="./js/mainDialogHandlers.js?x=2"></script>
 		<script type="text/javascript" src="./js/drawing.js?x=2"></script>
 		<script type="text/javascript" src="./js/app.js?x=2"></script>
 	</body>

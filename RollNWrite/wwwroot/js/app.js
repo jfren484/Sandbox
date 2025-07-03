@@ -130,15 +130,15 @@ function initialize() {
     document.getElementById('btnConfig').addEventListener('click', handleConfigButtonClick, false);
     fileInput.addEventListener('change', handleFileInputChange, false);
 
-    document.getElementById('btnDialogCancel').addEventListener('click', handleDialogCancelClick, false);
-    document.getElementById('btnDialogSave').addEventListener('click', handleDialogSaveClick, false);
-    document.getElementById('dialogToolType').addEventListener('change', handleDialogToolTypeChange, false);
-    document.getElementById('btnDialogToolAdd').addEventListener('click', handleDialogToolAddClick, false);
-    document.getElementById('btnDialogToolCancel').addEventListener('click', handleDialogToolCancelClick, false);
-    document.getElementById('btnDialogToolSave').addEventListener('click', handleDialogToolSaveClick, false);
-    dialogToolMoveUpButton.addEventListener('click', handleDialogToolMoveUpClick, false);
-    dialogToolMoveDownButton.addEventListener('click', handleDialogToolMoveDownClick, false);
-    dialogToolDeleteButton.addEventListener('click', handleDialogToolDeleteClick, false);
+    document.getElementById('btnDialogCancel').addEventListener('click', mainDialogHandleCancelClick, false);
+    document.getElementById('btnDialogSave').addEventListener('click', mainDialogHandleSaveClick, false);
+    document.getElementById('dialogToolType').addEventListener('change', mainDialogHandleToolTypeChange, false);
+    document.getElementById('btnDialogToolAdd').addEventListener('click', mainDialogHandleToolAddClick, false);
+    document.getElementById('btnDialogToolCancel').addEventListener('click', mainDialogHandleToolCancelClick, false);
+    document.getElementById('btnDialogToolSave').addEventListener('click', mainDialogHandleToolSaveClick, false);
+    dialogToolMoveUpButton.addEventListener('click', mainDialogHandleToolMoveUpClick, false);
+    dialogToolMoveDownButton.addEventListener('click', mainDialogHandleToolMoveDownClick, false);
+    dialogToolDeleteButton.addEventListener('click', mainDialogHandleToolDeleteClick, false);
 
     canvas.addEventListener('mousedown', handleCanvasMouseDown, false);
     canvas.addEventListener('touchstart', handleCanvasTouchStart, false);
@@ -237,7 +237,7 @@ function resetDialogToolList() {
         btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData[cfg.textStyle.value] : 'black'; 
         btn.style.fontSize = cfg.textStyle.size;
         dialogToolsList.appendChild(btn);
-        btn.addEventListener('click', handleDialogCustomToolButtonClick, false);
+        btn.addEventListener('click', mainDialogHandleCustomToolButtonClick, false);
     });
 }
 
