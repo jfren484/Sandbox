@@ -41,33 +41,24 @@ function handleCanvasPointerStart(event, point) {
                 handleCanvasPointerStartDraw(event, point);
                 break;
             case 'circ':
-                drawCircle(point);
+                addNewCircleAndDraw(point);
                 break;
             case 'text':
-                drawText(point);
+                addNewTextAndDraw(point);
                 break;
             case 'dyntext':
                 handleCanvasPointerStartDynamicText(event, point);
                 break;
         }
     } else {
-        // TODO: implement drag
-        /*
-        for (let i = gameData.pathList.length - 1; i >= 0; i--) {
-            if (canvasContext.isPointInPath() )
-        }
-        */
+        dragObject = dragStart(point);
     }
 }
 
-function handleCanvasPointerStartDraw(event, point, stop = false) {
+function handleCanvasPointerStartDraw(event, point) {
     isDrawing = true;
 
-    drawLineStart(point);
-
-    if (stop) {
-        isDrawing = false;
-    }
+    addNewLineAndDraw(point);
 }
 
 function handleCanvasPointerStartDynamicText(event, point) {
@@ -92,7 +83,7 @@ function handleCanvasPointerStartDynamicText(event, point) {
 
 function handleDynamicTextInputBlur(event) {
     if (!handlingButtonPress) {
-        drawDynamicText(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
+        addNewDynamicTextAndDraw(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
         this.remove()
     };
 }
@@ -102,7 +93,7 @@ function handleDynamicTextInputKeydown(event) {
         case 'Enter':
             handlingButtonPress = true;
             event.preventDefault();
-            drawDynamicText(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
+            addNewDynamicTextAndDraw(JSON.parse(this.getAttribute(dataAttrPoint)), this.value);
             this.remove();
             break;
         case 'Escape':
@@ -129,10 +120,13 @@ function handleCanvasTouchMove(event) {
 }
 
 function handleCanvasPointerMove(event, point) {
-    if (!isDrawing || currentToolIndex < 0) return;
-
-    event.preventDefault();
-    drawLineContinue(point);
+    if (isDrawing && currentToolIndex >= 0) {
+        event.preventDefault();
+        addPointToLineAndDraw(point);
+    } else if (dragObject) {
+        event.preventDefault();
+        dragMove(point);
+    }
 }
 
 function handleCanvasMouseUp(event) {
@@ -148,10 +142,13 @@ function handleCanvasTouchCancel(event) {
 }
 
 function handleCanvasPointerEnd(event) {
-    if (currentToolIndex < 0) return;
-
-    event.preventDefault();
-    isDrawing = false;
+    if (currentToolIndex >= 0) {
+        event.preventDefault();
+        isDrawing = false;
+    } else if (dragObject) {
+        event.preventDefault();
+        dragStop();
+    }
 }
 
 function handleCanvasMouseOut(event) {

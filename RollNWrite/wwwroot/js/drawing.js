@@ -9,17 +9,36 @@
     bgCanvasContext.drawImage(bgImage, 0, 0, bgImage.naturalWidth * ratio, bgImage.naturalHeight * ratio);
 }
 
-function drawLine(lineData) {
-    drawLineStart_internal(lineData);
+function drawLine(pathData) {
+    pathLine(pathData);
 
-    lineData.points.forEach(function (value, index) {
-        drawLineContinue_internal(value);
-    });
-
+    canvasContext.lineWidth = pathData.width * canvasZoom;
+    canvasContext.lineCap = 'round';
+    canvasContext.lineJoin = 'round';
+    canvasContext.strokeStyle = pathData.color;
+    canvasContext.globalCompositeOperation = pathData.op;
     canvasContext.stroke();
 }
 
-function drawLineStart(point) {
+function drawCircle(pathData) {
+    pathCircle(pathData);
+
+    canvasContext.fillStyle = pathData.color;
+    canvasContext.globalCompositeOperation = pathData.op;
+    canvasContext.fill();
+}
+
+function drawText(pathData) {
+    canvasContext.font = (pathData.fontSize * canvasZoom) + 'px sans-serif';
+    canvasContext.textAlign = 'center';
+    canvasContext.textBaseline = 'middle';
+    canvasContext.fillStyle = pathData.color;
+    canvasContext.globalCompositeOperation = 'source-over';
+
+    pathText(pathData);
+}
+
+function addNewLineAndDraw(point) {
     currentPath = {
         type: 'line',
         width: gameData.toolbarButtons[currentToolIndex].lineWidth,
@@ -30,31 +49,18 @@ function drawLineStart(point) {
     };
     pathListAddPath(currentPath);
 
-    drawLineStart_internal(currentPath);
-    drawLineContinue(point);
+    drawLine(currentPath);
 }
 
-function drawLineStart_internal(lineData) {
-    canvasContext.lineWidth = lineData.width * canvasZoom;
-    canvasContext.lineCap = 'round';
-    canvasContext.lineJoin = 'round';
-    canvasContext.strokeStyle = lineData.color;
-    canvasContext.globalCompositeOperation = lineData.op;
-    canvasContext.beginPath();
-    canvasContext.moveTo(lineData.origin.x * canvasZoom, lineData.origin.y * canvasZoom);
-}
-
-function drawLineContinue(point) {
+function addPointToLineAndDraw(point) {
     currentPath.points.push(point);
-    drawLineContinue_internal(point);
+
+    pathLineContinue(point);
+
     canvasContext.stroke();
 }
 
-function drawLineContinue_internal(point) {
-    canvasContext.lineTo(point.x * canvasZoom, point.y * canvasZoom);
-}
-
-function drawCircle(point) {
+function addNewCircleAndDraw(point) {
     currentPath = {
         type: 'circ',
         diameter: gameData.toolbarButtons[currentToolIndex].diameter,
@@ -64,18 +70,10 @@ function drawCircle(point) {
     };
     pathListAddPath(currentPath);
 
-    drawCircle_internal(currentPath);
-    canvasContext.fill();
+    drawCircle(currentPath);
 }
 
-function drawCircle_internal(lineData) {
-    canvasContext.fillStyle = lineData.color;
-    canvasContext.globalCompositeOperation = lineData.op;
-    canvasContext.beginPath();
-    canvasContext.arc(lineData.origin.x * canvasZoom, lineData.origin.y * canvasZoom, (lineData.diameter / 2.0) * canvasZoom, 0, 2 * Math.PI);
-}
-
-function drawText(point) {
+function addNewTextAndDraw(point) {
     currentPath = {
         type: 'text',
         textValue: gameData.toolbarButtons[currentToolIndex].textValue,
@@ -86,10 +84,10 @@ function drawText(point) {
     };
     pathListAddPath(currentPath);
 
-    drawText_internal(currentPath);
+    drawText(currentPath);
 }
 
-function drawDynamicText(point, textValue) {
+function addNewDynamicTextAndDraw(point, textValue) {
     currentPath = {
         type: 'text',
         textValue: textValue,
@@ -100,15 +98,47 @@ function drawDynamicText(point, textValue) {
     };
     pathListAddPath(currentPath);
 
-    drawText_internal(currentPath);
+    drawText(currentPath);
 }
 
-function drawText_internal(pathData) {
-    canvasContext.font = (pathData.fontSize * canvasZoom) + 'px sans-serif';
-    canvasContext.textAlign = 'center';
-    canvasContext.textBaseline = 'middle';
-    canvasContext.fillStyle = pathData.color;
-    canvasContext.globalCompositeOperation = 'source-over';
+function pathShape(pathData) {
+    switch (pathData.type) {
+        case 'line':
+            pathLine(pathData);
+            break;
+        case 'circ':
+            pathCircle(pathData);
+            break;
+        case 'text':
+            pathText(pathData);
+            break;
+    }
+}
+
+function pathLine(pathData) {
+    pathLineStart(pathData);
+
+    pathData.points.forEach(function (value, index) {
+        pathLineContinue(value);
+    });
+}
+
+function pathLineStart(pathData) {
+    canvasContext.beginPath();
+    canvasContext.moveTo(pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
+    canvasContext.lineTo(pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
+}
+
+function pathLineContinue(point) {
+    canvasContext.lineTo(point.x * canvasZoom, point.y * canvasZoom);
+}
+
+function pathCircle(pathData) {
+    canvasContext.beginPath();
+    canvasContext.arc(pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom, (pathData.diameter / 2.0) * canvasZoom, 0, 2 * Math.PI);
+}
+
+function pathText(pathData) {
     canvasContext.fillText(pathData.textValue, pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
 }
 
@@ -144,8 +174,8 @@ function pathListRemovePath() {
     }
 }
 
-function redraw() {
-    drawBGImage();
+function redraw(redrawBG = true) {
+    if (redrawBG) drawBGImage();
 
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     gameData.pathList.forEach(function (path) {
@@ -153,8 +183,11 @@ function redraw() {
             case 'line':
                 drawLine(path);
                 break;
+            case 'circ':
+                drawCircle(path);
+                break;
             case 'text':
-                drawText_internal(path);
+                drawText(path);
                 break;
         }
     });

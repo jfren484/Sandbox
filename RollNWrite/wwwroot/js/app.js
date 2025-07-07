@@ -96,6 +96,7 @@ let isDrawing,
     canvasBaseHeight = 0,
     canvasZoom,
     bgImage,
+    dragObject,
     gameData = {
         toolbarButtons: [{
             type: 'line',
