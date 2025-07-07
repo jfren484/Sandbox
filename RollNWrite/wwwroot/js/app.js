@@ -28,6 +28,7 @@ const
             textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'strokeColor', size: '1.5em' },
             formFields: ['lineWidth', 'strokeColor'],
             staticValues: [{ name: 'compOp', value: 'source-over' }],
+            dynamicValues: [],
             clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
@@ -38,6 +39,7 @@ const
             textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
             formFields: ['textValue', 'fontSize', 'isBold', 'fillColor'],
             staticValues: [],
+            dynamicValues: [],
             clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
@@ -47,6 +49,7 @@ const
             textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
             formFields: ['fontSize', 'isBold', 'fillColor'],
             staticValues: [],
+            dynamicValues: [],
             clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
@@ -56,16 +59,19 @@ const
             textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'white', size: '1.5em' },
             formFields: ['lineWidth'],
             staticValues: [{ name: 'compOp', value: 'destination-out' }],
+            dynamicValues: [],
             clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
         },
         rng: {
             text: 'field',
-            textField: 'faceCount',
+            textField: 'currentValue',
             textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.25em' },
             formFields: ['faceCount'],
             staticValues: [],
+            dynamicValues: [],
+            dynamicValues: [{ source: 'faceCount', dest: 'currentValue' }],
             clickEventHandler: handleRngButtonClick,
             buttonClass: 'rngButton'
         },
@@ -113,7 +119,8 @@ let isDrawing,
             compOp: 'source-over'
         },{
             type: 'rng',
-            faceCount: 6
+            faceCount: 6,
+            currentValue: 6
         }],
         bgImageData: null,
         pathList: [],
@@ -322,5 +329,28 @@ function saveToolEdit() {
         toolDef[field.name] = field.value;
     });
 
+    toolEditConfig[tempToolbarDefType].dynamicValues.forEach(field => {
+        toolDef[field.dest] = toolDef[field.source];
+    });
+
     return toolDef;
+}
+
+function randomize(btn, iteration = 0) {
+    btn.disabled = true;
+    const index = parseInt(btn.getAttribute(dataAttrToolIndex));
+
+    let newValue = -1;
+    do {
+        newValue = Math.floor(Math.random() * gameData.toolbarButtons[index].faceCount) + 1;
+    } while (newValue == gameData.toolbarButtons[index].currentValue);
+
+    btn.innerHTML = newValue;
+    gameData.toolbarButtons[index].currentValue = newValue;
+
+    if (Math.random() > iteration / 10.0) {
+        setTimeout(function () { randomize(btn, iteration + 1) }, 200);
+    } else {
+        btn.disabled = false;
+    }
 }
