@@ -45,7 +45,7 @@ function addNewLineAndDraw(point) {
         color: gameData.toolbarButtons[currentToolIndex].strokeColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         origin: point,
-        points: []
+        pointOffsets: []
     };
     pathListAddPath(currentPath);
 
@@ -53,7 +53,10 @@ function addNewLineAndDraw(point) {
 }
 
 function addPointToLineAndDraw(point) {
-    currentPath.points.push(point);
+    currentPath.pointOffsets.push({
+        offsetX: point.x - currentPath.origin.x,
+        offsetY: point.y - currentPath.origin.y
+    });
 
     pathLineContinue(point);
 
@@ -118,8 +121,11 @@ function pathShape(pathData) {
 function pathLine(pathData) {
     pathLineStart(pathData);
 
-    pathData.points.forEach(function (value, index) {
-        pathLineContinue(value);
+    pathData.pointOffsets.forEach(function (value, index) {
+        pathLineContinue({
+            x: pathData.origin.x + value.offsetX,
+            y: pathData.origin.y + value.offsetY
+        });
     });
 }
 
