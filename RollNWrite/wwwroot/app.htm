@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Roll &amp; Write</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="./css/app.css">
-	<link rel="stylesheet" href="./css/dialog.css">
-</head>
+	<head>
+		<title>Roll &amp; Write</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" href="./css/dialog.css">
+	</head>
 
 	<body>
 		<div>
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div style="display: none">
-			<input type="file" id="fileInput">
+			<input type="file" id="fileInput" />
 		</div>
 		<div id="modalDialog" class="modal modalDialog">
 			<div class="mainDialog">
@@ -78,11 +78,12 @@
 								<select id="dialogToolType">
 									<option></option>
 									<option value="line">Line Drawing</option>
+									<option value="circ">Circle</option>
 									<option value="text">Static Text</option>
 									<option value="dyntext">Dynamic Text</option>
 									<option value="erase">Erase</option>
 									<option value="rng">Random / Die</option>
-									<option value="marker">Marker</option>
+									<option value="mkrcirc">Marker (circular)</option>
 								</select>
 							</label>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
@@ -106,12 +107,9 @@
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_rng">
 								<label>Faces: <input type="number" name="faceCount" min="1" value="6" /></label>
 							</div>
-							<div class="dialogToolTypeCont" id="dialogToolTypeCont_marker">
-								<select name="markerType">
-									<option value="disc">Disc</option>
-									<option value="cube">Cube</option>
-								</select>
-								<label>Size: <input type="number" name="markerSize" min="0.01" value="1" /></label>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_mkrcirc">
+								<label>Diameter: <input type="number" name="diameter" min="0.01" value="1" /></label>
+								<label>Color: <input type="text" name="fillColor" value="black" /></label>
 							</div>
 							<button type="button" id="btnDialogToolCancel">Cancel</button>
 							<button type="button" id="btnDialogToolSave">Save</button>

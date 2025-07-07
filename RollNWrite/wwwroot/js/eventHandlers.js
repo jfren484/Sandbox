@@ -32,21 +32,28 @@ function handleCanvasTouchStart(event) {
 }
 
 function handleCanvasPointerStart(event, point) {
-    if (currentToolIndex < 0) return;
-    console.log(point);
-
     event.preventDefault();
-    switch (gameData.toolbarButtons[currentToolIndex].type) {
-        case 'line':
-        case 'erase':
-            handleCanvasPointerStartDraw(event, point);
-            break;
-        case 'text':
-            handleCanvasPointerStartText(event, point);
-            break;
-        case 'dyntext':
-            handleCanvasPointerStartDynamicText(event, point);
-            break;
+
+    if (currentToolIndex >= 0) {
+        switch (gameData.toolbarButtons[currentToolIndex].type) {
+            case 'line':
+            case 'erase':
+                handleCanvasPointerStartDraw(event, point);
+                break;
+            case 'text':
+                handleCanvasPointerStartText(event, point);
+                break;
+            case 'dyntext':
+                handleCanvasPointerStartDynamicText(event, point);
+                break;
+        }
+    } else {
+        // TODO: implement drag
+        /*
+        for (let i = gameData.pathList.length - 1; i >= 0; i--) {
+            if (canvasContext.isPointInPath() )
+        }
+        */
     }
 }
 
@@ -205,6 +212,22 @@ function handleRngButtonClick(event) {
     const newValue = Math.floor(Math.random() * gameData.toolbarButtons[index].faceCount) + 1;
     gameData.toolbarButtons[index].currentValue = newValue;
     setTimeout(function() {btn.innerHTML = gameData.toolbarButtons[index].currentValue}, 200);
+}
+
+function handleMarkerButtonClick(event) {
+    const index = parseInt(this.getAttribute(dataAttrToolIndex));
+    const toolDef = gameData.toolbarButtons[index];
+    const div = document.createElement('div');
+    div.style.position = 'absolute';
+    div.style.width = (toolDef.diameter * canvasZoom) + 'px';
+    div.style.height = (toolDef.diameter * canvasZoom) + 'px';
+    div.style.borderRadius = (toolDef.diameter * canvasZoom / 2) + 'px';
+    div.style.backgroundColor = toolDef.fillColor;
+    div.style.boxShadow = '0px 0px 5px rgba(0,0,0,0.75)';
+    div.draggable = true;
+    div.setAttribute(dataAttrToolIndex, index);
+    canvasContainer.appendChild(div);
+    //btn.addEventListener('click', cfg.clickEventHandler, false);
 }
 
 function resetToggleButtons(input) {

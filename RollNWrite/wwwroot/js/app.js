@@ -25,50 +25,57 @@ const
     toolEditConfig = {
         line: {
             text: '&#9660;',
-            textStyle: {valueType: 'drawParam', value: 'strokeColor', size: '1.5em'},
+            textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'strokeColor', size: '1.5em' },
             formFields: ['lineWidth', 'strokeColor'],
-            staticValues: [{name: 'compOp', value: 'source-over'}],
-            eventHandler: handleDrawButtonClick,
+            staticValues: [{ name: 'compOp', value: 'source-over' }],
+            clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
         },
         text: {
             text: 'field',
             textField: 'textValue',
-            textStyle: {valueType: 'drawParam', value: 'fillColor', size: '1.25em'},
+            textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
             formFields: ['textValue', 'fontSize', 'isBold', 'fillColor'],
             staticValues: [],
-            eventHandler: handleDrawButtonClick,
+            clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
         },
         dyntext: {
             text: '[ T ]',
-            textStyle: {valueType: 'drawParam', value: 'fillColor', size: '1.25em'},
+            textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
             formFields: ['fontSize', 'isBold', 'fillColor'],
             staticValues: [],
-            eventHandler: handleDrawButtonClick,
+            clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
         },
         erase: {
             text: '&#9724;',
-            textStyle: {valueType: 'static', value: 'white', size: '1.5em'},
+            textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'white', size: '1.5em' },
             formFields: ['lineWidth'],
-            staticValues: [{name: 'compOp', value: 'destination-out'}],
-            eventHandler: handleDrawButtonClick,
+            staticValues: [{ name: 'compOp', value: 'destination-out' }],
+            clickEventHandler: handleDrawButtonClick,
             isDrawingTool: true,
             buttonClass: 'drawButton'
         },
         rng: {
             text: 'field',
             textField: 'faceCount',
-            textStyle: {valueType: 'static', value: 'black', size: '1.25em'},
+            textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.25em' },
             formFields: ['faceCount'],
             staticValues: [],
-            eventHandler: handleRngButtonClick,
-            isDrawingTool: false,
+            clickEventHandler: handleRngButtonClick,
             buttonClass: 'rngButton'
+        },
+        mkrcirc: {
+            text: '',
+            textStyle: { colorProperty: 'background-color', colorValueType: 'drawParam', colorValue: 'fillColor' },
+            formFields: ['diameter', 'fillColor'],
+            staticValues: [],
+            clickEventHandler: handleMarkerButtonClick,
+            buttonClass: 'circleMarkerButton'
         }
     };
 
@@ -176,15 +183,15 @@ function resetToolbarCustomButtons() {
         btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustom' + index;
         btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
-        btn.style.color = cfg.textStyle.valueType === 'static'
-            ? cfg.textStyle.value
-            : cfg.textStyle.valueType === 'drawParam'
-                ? btnData[cfg.textStyle.value]
+        btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
+            ? cfg.textStyle.colorValue
+            : cfg.textStyle.colorValueType === 'drawParam'
+                ? btnData[cfg.textStyle.colorValue]
                 : 'black'; 
-        btn.style.fontSize = cfg.textStyle.size;
+        if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
         btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);
-        btn.addEventListener('click', cfg.eventHandler, false);
+        btn.addEventListener('click', cfg.clickEventHandler, false);
 
         if (cfg.isDrawingTool) {
             const input = document.createElement('input');
@@ -232,10 +239,14 @@ function resetDialogToolList() {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
+        btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustomTool' + index;
         btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
-        btn.style.color = cfg.textStyle.valueType === 'static' ? cfg.textStyle.value : cfg.textStyle.valueType === 'drawParam' ? btnData[cfg.textStyle.value] : 'black'; 
-        btn.style.fontSize = cfg.textStyle.size;
+        btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
+            ? cfg.textStyle.colorValue
+            : cfg.textStyle.colorValueType === 'drawParam'
+                ? btnData[cfg.textStyle.colorValue] : 'black'; 
+        if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
         dialogToolsList.appendChild(btn);
         btn.addEventListener('click', mainDialogHandleCustomToolButtonClick, false);
     });

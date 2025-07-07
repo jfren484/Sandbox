@@ -1,4 +1,4 @@
-function drawBGImage() {
+  function drawBGImage() {
     bgCanvasContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
     if (!bgImage) return;
