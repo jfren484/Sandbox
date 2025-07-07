@@ -1,5 +1,5 @@
 ﻿function mainDialogHandleCustomToolButtonClick(event) {
-    const index = Array.from(dialogToolsList.children).indexOf(event.target);
+    const index = Array.from(dialogToolsList.children).indexOf(this);
     editingToolIndex = index;
     tempToolbarDefType = tempToolbarButtons[editingToolIndex].type;
 

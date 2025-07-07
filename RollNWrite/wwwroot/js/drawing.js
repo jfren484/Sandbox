@@ -54,6 +54,27 @@ function drawLineContinue_internal(point) {
     canvasContext.lineTo(point.x * canvasZoom, point.y * canvasZoom);
 }
 
+function drawCircle(point) {
+    currentPath = {
+        type: 'circ',
+        diameter: gameData.toolbarButtons[currentToolIndex].diameter,
+        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        op: gameData.toolbarButtons[currentToolIndex].compOp,
+        origin: point
+    };
+    pathListAddPath(currentPath);
+
+    drawCircle_internal(currentPath);
+    canvasContext.fill();
+}
+
+function drawCircle_internal(lineData) {
+    canvasContext.fillStyle = lineData.color;
+    canvasContext.globalCompositeOperation = lineData.op;
+    canvasContext.beginPath();
+    canvasContext.arc(lineData.origin.x * canvasZoom, lineData.origin.y * canvasZoom, (lineData.diameter / 2.0) * canvasZoom, 0, 2 * Math.PI);
+}
+
 function drawText(point) {
     currentPath = {
         type: 'text',

@@ -41,19 +41,6 @@ div.toolbar button.toolbarButton {
 	background-color: white;
 }
 
-.circleMarkerButton {
-	width: 30px !important;
-	height: 30px !important;
-	margin: auto;
-	border-radius: 15px;
-	border: none;
-	box-shadow: 0px 0px 5px rgba(0,0,0,0.75)
-}
-
-.circleMarkerButton:hover {
-	filter: opacity(70%);
-}
-
 div.toolbar label {
 	text-align: center;
 	vertical-align: middle;

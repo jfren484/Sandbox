@@ -20,7 +20,7 @@
 
 				<div class="toolbarDivider"></div>
 
-				<button type="button" class="toolbarButton" id="btnConfig" style="font-size: 1.75em; font-weight: bold; line-height: 100%;">&#9881;</button>
+				<button type="button" class="toolbarButton" id="btnConfig"><span style="font-size: 2.5em; font-weight: bold; position: relative; bottom: 0.2em;">&#9881;</span></button>
 				<!--<button type="button" class="toolbarButton" id="btnMarker">Redo</button>-->
 
 				<div class="toolbarDivider"></div>
@@ -83,12 +83,15 @@
 									<option value="dyntext">Dynamic Text</option>
 									<option value="erase">Erase</option>
 									<option value="rng">Random / Die</option>
-									<option value="mkrcirc">Marker (circular)</option>
 								</select>
 							</label>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_line">
 								<label>Size: <input type="number" name="lineWidth" min="1" value="2" /></label>
 								<label>Color: <input type="text" name="strokeColor" value="black" /></label>
+							</div>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_circ">
+								<label>Diameter: <input type="number" name="diameter" min="0.01" value="10" /></label>
+								<label>Color: <input type="text" name="fillColor" value="black" /></label>
 							</div>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_text">
 								<label>Text: <input type="text" name="textValue" value="" /></label>
@@ -106,10 +109,6 @@
 							</div>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_rng">
 								<label>Faces: <input type="number" name="faceCount" min="1" value="6" /></label>
-							</div>
-							<div class="dialogToolTypeCont" id="dialogToolTypeCont_mkrcirc">
-								<label>Diameter: <input type="number" name="diameter" min="0.01" value="1" /></label>
-								<label>Color: <input type="text" name="fillColor" value="black" /></label>
 							</div>
 							<button type="button" id="btnDialogToolCancel">Cancel</button>
 							<button type="button" id="btnDialogToolSave">Save</button>

@@ -40,8 +40,11 @@ function handleCanvasPointerStart(event, point) {
             case 'erase':
                 handleCanvasPointerStartDraw(event, point);
                 break;
+            case 'circ':
+                drawCircle(point);
+                break;
             case 'text':
-                handleCanvasPointerStartText(event, point);
+                drawText(point);
                 break;
             case 'dyntext':
                 handleCanvasPointerStartDynamicText(event, point);
@@ -57,14 +60,14 @@ function handleCanvasPointerStart(event, point) {
     }
 }
 
-function handleCanvasPointerStartDraw(event, point) {
+function handleCanvasPointerStartDraw(event, point, stop = false) {
     isDrawing = true;
 
     drawLineStart(point);
-}
 
-function handleCanvasPointerStartText(event, point) {
-    drawText(point);
+    if (stop) {
+        isDrawing = false;
+    }
 }
 
 function handleCanvasPointerStartDynamicText(event, point) {
@@ -208,22 +211,6 @@ function handleDrawInputChange(event) {
 function handleRngButtonClick(event) {
     const btn = this;
     randomize(btn);
-}
-
-function handleMarkerButtonClick(event) {
-    const index = parseInt(this.getAttribute(dataAttrToolIndex));
-    const toolDef = gameData.toolbarButtons[index];
-    const div = document.createElement('div');
-    div.style.position = 'absolute';
-    div.style.width = (toolDef.diameter * canvasZoom) + 'px';
-    div.style.height = (toolDef.diameter * canvasZoom) + 'px';
-    div.style.borderRadius = (toolDef.diameter * canvasZoom / 2) + 'px';
-    div.style.backgroundColor = toolDef.fillColor;
-    div.style.boxShadow = '0px 0px 5px rgba(0,0,0,0.75)';
-    div.draggable = true;
-    div.setAttribute(dataAttrToolIndex, index);
-    canvasContainer.appendChild(div);
-    //btn.addEventListener('click', cfg.clickEventHandler, false);
 }
 
 function resetToggleButtons(input) {
