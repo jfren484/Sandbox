@@ -24,4 +24,6 @@ function dragMove(point) {
 
 function dragStop() {
     dragObject = null;
+
+    redraw(redrawBG = false);
 }

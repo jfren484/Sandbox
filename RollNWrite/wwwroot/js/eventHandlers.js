@@ -52,6 +52,8 @@ function handleCanvasPointerStart(event, point) {
         }
     } else {
         dragObject = dragStart(point);
+
+        redraw(redrawBG = false);
     }
 }
 
@@ -157,6 +159,7 @@ function handleCanvasMouseOut(event) {
     handleCanvasMouseMove(event);
 
     isDrawing = false;
+    dragStop();
 }
 
 function handleCanvasMouseWheel(event) {

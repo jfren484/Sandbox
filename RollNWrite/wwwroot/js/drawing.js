@@ -185,6 +185,10 @@ function redraw(redrawBG = true) {
 
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     gameData.pathList.forEach(function (path) {
+        if (dragObject && path === gameData.pathList[dragObject.pathIndex]) {
+            addShadow();
+        }
+
         switch (path.type) {
             case 'line':
                 drawLine(path);
@@ -196,6 +200,8 @@ function redraw(redrawBG = true) {
                 drawText(path);
                 break;
         }
+
+        resetShadow();
     });
 }
 
@@ -211,4 +217,17 @@ function redoDraw() {
 
     pathListAddPath(gameData.redoPathList.pop(), resetRedo = false);
     redraw();
+}
+
+function addShadow() {
+    canvasContext.shadowColor = "black";
+    canvasContext.shadowBlur = 10;
+    canvasContext.shadowOffsetX = 0;
+    canvasContext.shadowOffsetY = 0;
+}
+function resetShadow() {
+    canvasContext.shadowColor = "transparent";
+    canvasContext.shadowBlur = 0;
+    canvasContext.shadowOffsetX = 0;
+    canvasContext.shadowOffsetY = 0;
 }
