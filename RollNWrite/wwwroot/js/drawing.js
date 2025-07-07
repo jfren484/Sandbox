@@ -29,13 +29,13 @@ function drawCircle(pathData) {
 }
 
 function drawText(pathData) {
-    canvasContext.font = (pathData.fontSize * canvasZoom) + 'px sans-serif';
-    canvasContext.textAlign = 'center';
-    canvasContext.textBaseline = 'middle';
+    pathTextBox(pathData);
+    // todo: fill
+
+    setTextAttributes(pathData);
     canvasContext.fillStyle = pathData.color;
     canvasContext.globalCompositeOperation = 'source-over';
-
-    pathText(pathData);
+    canvasContext.fillText(pathData.textValue, pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
 }
 
 function addNewLineAndDraw(point) {
@@ -85,6 +85,7 @@ function addNewTextAndDraw(point) {
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         origin: point
     };
+    addBoundingBoxForText(currentPath);
     pathListAddPath(currentPath);
 
     drawText(currentPath);
@@ -99,6 +100,7 @@ function addNewDynamicTextAndDraw(point, textValue) {
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         origin: point
     };
+    addBoundingBoxForText(currentPath);
     pathListAddPath(currentPath);
 
     drawText(currentPath);
@@ -113,7 +115,7 @@ function pathShape(pathData) {
             pathCircle(pathData);
             break;
         case 'text':
-            pathText(pathData);
+            pathTextBox(pathData);
             break;
     }
 }
@@ -144,8 +146,22 @@ function pathCircle(pathData) {
     canvasContext.arc(pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom, (pathData.diameter / 2.0) * canvasZoom, 0, 2 * Math.PI);
 }
 
-function pathText(pathData) {
-    canvasContext.fillText(pathData.textValue, pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom);
+function pathTextBox(pathData) {
+    canvasContext.beginPath();
+    // todo: transparent box
+}
+
+function addBoundingBoxForText(pathData) {
+    setTextAttributes(currentPath);
+    let meas = canvasContext.measureText(currentPath.textValue);
+    // TODO: setup box
+    console.log(meas);
+}
+
+function setTextAttributes(pathData) {
+    canvasContext.font = (pathData.fontSize * canvasZoom) + 'px sans-serif';
+    canvasContext.textAlign = 'center';
+    canvasContext.textBaseline = 'middle';
 }
 
 function loadBGImage() {
