@@ -24,6 +24,13 @@ function dragMove(point) {
 
 function dragStop() {
     if (dragObject) {
+        pathListAddPath({
+            type: 'move',
+            objectIndex: dragObject.pathIndex,
+            fromPoint: dragObject.pathOrigin,
+            toPoint: gameData.pathList[dragObject.pathIndex].origin
+        });
+
         dragObject = null;
 
         redraw(redrawBG = false);

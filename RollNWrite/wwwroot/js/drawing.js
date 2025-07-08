@@ -162,7 +162,6 @@ function addBoundingBoxForText(pathData) {
         left: -meas.actualBoundingBoxLeft,
         top: -meas.actualBoundingBoxAscent
     }
-    console.log(currentPath.boundingBox);
 }
 
 function setTextAttributes(pathData) {
@@ -195,12 +194,15 @@ function pathListAddPath(path, resetRedo = true) {
 }
 
 function pathListRemovePath() {
-    gameData.redoPathList.push(gameData.pathList.pop());
+    const pathToMove = gameData.pathList.pop();
+    gameData.redoPathList.push(pathToMove);
 
     redoButton.disabled = false;
     if (gameData.pathList.length === 0) {
         undoButton.disabled = true;
     }
+
+    return pathToMove;
 }
 
 function redraw(redrawBG = true) {
@@ -231,14 +233,21 @@ function redraw(redrawBG = true) {
 function undoDraw() {
     if (gameData.pathList.length === 0) return;
 
-    pathListRemovePath();
+    const pathToMove = pathListRemovePath();
+    if (pathToMove.type === 'move') {
+        gameData.pathList[pathToMove.objectIndex].origin = pathToMove.fromPoint;
+    }
     redraw();
 }
 
 function redoDraw() {
     if (gameData.redoPathList.length === 0) return;
 
-    pathListAddPath(gameData.redoPathList.pop(), resetRedo = false);
+    const pathToMove = gameData.redoPathList.pop();
+    pathListAddPath(pathToMove, resetRedo = false);
+    if (pathToMove.type === 'move') {
+        gameData.pathList[pathToMove.objectIndex].origin = pathToMove.toPoint;
+    }
     redraw();
 }
 
