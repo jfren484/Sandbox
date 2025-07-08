@@ -23,7 +23,9 @@ function dragMove(point) {
 }
 
 function dragStop() {
-    dragObject = null;
+    if (dragObject) {
+        dragObject = null;
 
-    redraw(redrawBG = false);
+        redraw(redrawBG = false);
+    }
 }

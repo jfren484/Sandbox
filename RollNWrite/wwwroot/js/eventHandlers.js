@@ -144,12 +144,9 @@ function handleCanvasTouchCancel(event) {
 }
 
 function handleCanvasPointerEnd(event) {
-    if (currentToolIndex >= 0) {
+    if (currentToolIndex >= 0 || dragObject) {
         event.preventDefault();
-        isDrawing = false;
-    } else if (dragObject) {
-        event.preventDefault();
-        dragStop();
+        cancelCanvasOperations();
     }
 }
 
@@ -158,8 +155,7 @@ function handleCanvasMouseOut(event) {
     // outside the canvas, the line doesn't reach the edge of the canvas.
     handleCanvasMouseMove(event);
 
-    isDrawing = false;
-    dragStop();
+    cancelCanvasOperations();
 }
 
 function handleCanvasMouseWheel(event) {
@@ -176,7 +172,7 @@ function handleCanvasMouseWheel(event) {
 
 function handleConfigButtonClick(event) {
     resetToggleButtons(this);
-    isDrawing = false;
+    cancelCanvasOperations();
     editingToolIndex = -1;
     currentToolIndex = -1;
 
@@ -282,6 +278,8 @@ function handleBackgroundImageFileInputChange(file) {
 }
 
 function handleSaveFileInputChange(file) {
+    cancelCanvasOperations();
+
     const fileReader = new FileReader();
     fileReader.onload = function () {
         resetToDefaults();

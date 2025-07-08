@@ -30,7 +30,8 @@ function drawCircle(pathData) {
 
 function drawText(pathData) {
     pathTextBox(pathData);
-    // todo: fill
+    canvasContext.fillStyle = 'transparent';
+    canvasContext.fill();
 
     setTextAttributes(pathData);
     canvasContext.fillStyle = pathData.color;
@@ -148,14 +149,20 @@ function pathCircle(pathData) {
 
 function pathTextBox(pathData) {
     canvasContext.beginPath();
-    // todo: transparent box
+    canvasContext.rect(pathData.origin.x + pathData.boundingBox.left, pathData.origin.y + pathData.boundingBox.top, pathData.boundingBox.width, pathData.boundingBox.height);
 }
 
 function addBoundingBoxForText(pathData) {
     setTextAttributes(currentPath);
     let meas = canvasContext.measureText(currentPath.textValue);
-    // TODO: setup box
-    console.log(meas);
+
+    currentPath.boundingBox = {
+        width: meas.width,
+        height: meas.actualBoundingBoxAscent + meas.actualBoundingBoxDescent,
+        left: -meas.actualBoundingBoxLeft,
+        top: -meas.actualBoundingBoxAscent
+    }
+    console.log(currentPath.boundingBox);
 }
 
 function setTextAttributes(pathData) {
@@ -241,6 +248,7 @@ function addShadow() {
     canvasContext.shadowOffsetX = 0;
     canvasContext.shadowOffsetY = 0;
 }
+
 function resetShadow() {
     canvasContext.shadowColor = "transparent";
     canvasContext.shadowBlur = 0;
