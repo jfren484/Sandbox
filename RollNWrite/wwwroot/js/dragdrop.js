@@ -1,19 +1,37 @@
 ﻿function dragStart(point) {
-    for (var i = gameData.pathList.length - 1; i >= 0; i--) {
-        var pathData = gameData.pathList[i];
+    const mappedList = gameData.pathList.map((p, i) => { p.index = i; return p; });
+    const sortedByZIndex = mappedList.toSorted((a, b) => b.zIndex - a.zIndex);
+    sortedByZIndex.some(pathData => {
         pathShape(pathData);
 
-        if (canvasContext.isPointInPath(point.x, point.y)) {
-            return {
-                dragOrigin: point,
-                pathOrigin: gameData.pathList[i].origin,
-                pathIndex: i
-            };
+        switch (pathData.type) {
+            case 'line':
+                if (!canvasContext.isPointInStroke(point.x, point.y)) return false;
+                break;
+            case 'circ':
+            case 'text':
+                if (!canvasContext.isPointInPath(point.x, point.y)) return false;
+                break;
+            default:
+                return false;
         }
-    }
+
+        dragObject =  {
+            dragOrigin: point,
+            pathOrigin: pathData.origin,
+            pathIndex: pathData.index
+        };
+
+        // modify the original path's zIndex to be largest to move it to the top
+        gameData.pathList[pathData.index].zIndex = sortedByZIndex[0].zIndex + 1;
+
+        return true;
+    });
 }
 
 function dragMove(point) {
+    if (!dragObject) return;
+
     gameData.pathList[dragObject.pathIndex].origin = {
         x: dragObject.pathOrigin.x + point.x - dragObject.dragOrigin.x,
         y: dragObject.pathOrigin.y + point.y - dragObject.dragOrigin.y

@@ -51,7 +51,7 @@ function handleCanvasPointerStart(event, point) {
                 break;
         }
     } else {
-        dragObject = dragStart(point);
+        dragStart(point);
 
         redraw(redrawBG = false);
     }

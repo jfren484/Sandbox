@@ -182,6 +182,11 @@ function loadBGImage() {
 }
 
 function pathListAddPath(path, resetRedo = true) {
+    if (path.type !== 'move') {
+        const zIndexMax = gameData.pathList.length === 0 ? -1 : gameData.pathList.toSorted((a, b) => b.zIndex - a.zIndex)[0].zIndex;
+        path.zIndex = zIndexMax + 1;
+    }
+
     gameData.pathList.push(path);
     if (resetRedo) {
         gameData.redoPathList.length = 0;
@@ -209,7 +214,7 @@ function redraw(redrawBG = true) {
     if (redrawBG) drawBGImage();
 
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    gameData.pathList.forEach(function (path) {
+    gameData.pathList.toSorted((a, b) => a.zIndex - b.zIndex).forEach(function (path) {
         if (dragObject && path === gameData.pathList[dragObject.pathIndex]) {
             addShadow();
         }
