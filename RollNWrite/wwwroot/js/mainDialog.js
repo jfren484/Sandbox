@@ -94,7 +94,7 @@ function mainDialogHandleToolDeleteClick(event) {
 function resetDialogToolList() {
     dialogToolsList.innerHTML = '';
     tempToolbarButtons.forEach((btnData, index) => {
-        const cfg = toolEditConfig[btnData.type];
+        const cfg = toolConfig[btnData.type];
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.classList.add('toolbarButton');
@@ -130,7 +130,7 @@ function setupToolEdit(toolDef) {
     if (toolDef) {
         document.getElementById('dialogToolType').value = tempToolbarDefType;
 
-        toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
+        toolConfig[tempToolbarDefType].formFields.forEach(field => {
             const input = toolContainer.querySelector('[name="' + field + '"]');
             if (input.type === 'checkbox') {
                 input.checked = toolDef[field];
@@ -166,7 +166,7 @@ function saveToolEdit() {
 
     toolDef.type = tempToolbarDefType;
 
-    toolEditConfig[tempToolbarDefType].formFields.forEach(field => {
+    toolConfig[tempToolbarDefType].formFields.forEach(field => {
         const input = toolContainer.querySelector('[name="' + field + '"]');
         const val = input.type === 'checkbox'
             ? input.checked
@@ -177,11 +177,11 @@ function saveToolEdit() {
         toolDef[field] = val;
     });
 
-    toolEditConfig[tempToolbarDefType].staticValues.forEach(field => {
+    toolConfig[tempToolbarDefType].staticValues.forEach(field => {
         toolDef[field.name] = field.value;
     });
 
-    toolEditConfig[tempToolbarDefType].dynamicValues.forEach(field => {
+    toolConfig[tempToolbarDefType].dynamicValues.forEach(field => {
         toolDef[field.dest] = toolDef[field.source];
     });
 

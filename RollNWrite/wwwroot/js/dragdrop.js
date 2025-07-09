@@ -9,6 +9,7 @@
                 if (!canvasContext.isPointInStroke(point.x, point.y)) return false;
                 break;
             case 'circ':
+            case 'rect':
             case 'text':
                 if (!canvasContext.isPointInPath(point.x, point.y)) return false;
                 break;

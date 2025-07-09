@@ -28,9 +28,17 @@ function drawCircle(pathData) {
     canvasContext.fill();
 }
 
+function drawRectangle(pathData) {
+    pathRectangle(pathData);
+
+    canvasContext.fillStyle = pathData.color;
+    canvasContext.globalCompositeOperation = pathData.op;
+    canvasContext.fill();
+}
+
 function drawText(pathData) {
     pathTextBox(pathData);
-    canvasContext.fillStyle = 'transparent';
+    canvasContext.fillStyle = '#ccc';// 'transparent';
     canvasContext.fill();
 
     setTextAttributes(pathData);
@@ -77,6 +85,20 @@ function addNewCircleAndDraw(point) {
     drawCircle(currentPath);
 }
 
+function addNewRectangleAndDraw(point) {
+    currentPath = {
+        type: 'rect',
+        width: gameData.toolbarButtons[currentToolIndex].width,
+        height: gameData.toolbarButtons[currentToolIndex].height,
+        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        op: gameData.toolbarButtons[currentToolIndex].compOp,
+        origin: point
+    };
+    pathListAddPath(currentPath);
+
+    drawRectangle(currentPath);
+}
+
 function addNewTextAndDraw(point) {
     currentPath = {
         type: 'text',
@@ -115,6 +137,9 @@ function pathShape(pathData) {
         case 'circ':
             pathCircle(pathData);
             break;
+        case 'rect':
+            pathRectangle(pathData);
+            break;
         case 'text':
             pathTextBox(pathData);
             break;
@@ -147,9 +172,24 @@ function pathCircle(pathData) {
     canvasContext.arc(pathData.origin.x * canvasZoom, pathData.origin.y * canvasZoom, (pathData.diameter / 2.0) * canvasZoom, 0, 2 * Math.PI);
 }
 
+function pathRectangle(pathData) {
+    canvasContext.beginPath();
+    canvasContext.rect(
+        (pathData.origin.x - pathData.width / 2) * canvasZoom,
+        (pathData.origin.y - pathData.height / 2) * canvasZoom,
+        pathData.width * canvasZoom,
+        pathData.height * canvasZoom
+    );
+}
+
 function pathTextBox(pathData) {
     canvasContext.beginPath();
-    canvasContext.rect(pathData.origin.x + pathData.boundingBox.left, pathData.origin.y + pathData.boundingBox.top, pathData.boundingBox.width, pathData.boundingBox.height);
+    canvasContext.rect(
+        pathData.origin.x + pathData.boundingBox.left,
+        pathData.origin.y + pathData.boundingBox.top,
+        pathData.boundingBox.width,
+        pathData.boundingBox.height
+    );
 }
 
 function addBoundingBoxForText(pathData) {
@@ -225,6 +265,9 @@ function redraw(redrawBG = true) {
                 break;
             case 'circ':
                 drawCircle(path);
+                break;
+            case 'rect':
+                drawRectangle(path);
                 break;
             case 'text':
                 drawText(path);

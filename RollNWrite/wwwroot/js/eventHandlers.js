@@ -43,6 +43,9 @@ function handleCanvasPointerStart(event, point) {
             case 'circ':
                 addNewCircleAndDraw(point);
                 break;
+            case 'rect':
+                addNewRectangleAndDraw(point);
+                break;
             case 'text':
                 addNewTextAndDraw(point);
                 break;
