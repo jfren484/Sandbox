@@ -182,7 +182,15 @@ function saveToolEdit() {
     });
 
     toolConfig[tempToolbarDefType].dynamicValues.forEach(field => {
-        toolDef[field.dest] = toolDef[field.source];
+        switch (field.type) {
+            case 'copy':
+                toolDef[field.dest] = toolDef[field.source];
+                break;
+            case 'func':
+                // TODO: make func generic and store in tool config
+                toolDef[field.dest] = toolDef['fillColor'] === 'transparent' ? 'stroke' : 'fill';
+                break;
+        }
     });
 
     return toolDef;

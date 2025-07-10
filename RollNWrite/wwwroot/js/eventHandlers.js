@@ -161,7 +161,9 @@ function handleCanvasMouseOut(event) {
     // outside the canvas, the line doesn't reach the edge of the canvas.
     handleCanvasMouseMove(event);
 
-    cancelCanvasOperations();
+    if (isDrawing && currentToolIndex >= 0 || dragObject) {
+        cancelCanvasOperations();
+    }
 }
 
 function handleCanvasMouseWheel(event) {

@@ -4,13 +4,12 @@
     sortedByZIndex.some(pathData => {
         pathShape(pathData);
 
-        switch (pathData.type) {
-            case 'line':
+        console.log(pathData);
+        switch (pathData.dragTest) {
+            case 'stroke':
                 if (!canvasContext.isPointInStroke(point.x * canvasZoom, point.y * canvasZoom)) return false;
                 break;
-            case 'circ':
-            case 'rect':
-            case 'text':
+            case 'fill':
                 if (!canvasContext.isPointInPath(point.x * canvasZoom, point.y * canvasZoom)) return false;
                 break;
             default:

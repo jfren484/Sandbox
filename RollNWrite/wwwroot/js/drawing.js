@@ -23,17 +23,21 @@ function drawLine(pathData) {
 function drawCircle(pathData) {
     pathCircle(pathData);
 
-    canvasContext.fillStyle = pathData.color;
+    canvasContext.fillStyle = pathData.fillColor;
+    canvasContext.stokeStyle = pathData.strokeColor;
     canvasContext.globalCompositeOperation = pathData.op;
     canvasContext.fill();
+    canvasContext.stroke();
 }
 
 function drawRectangle(pathData) {
     pathRectangle(pathData);
 
-    canvasContext.fillStyle = pathData.color;
+    canvasContext.fillStyle = pathData.fillColor;
+    canvasContext.stokeStyle = pathData.strokeColor;
     canvasContext.globalCompositeOperation = pathData.op;
     canvasContext.fill();
+    canvasContext.stroke();
 }
 
 function drawText(pathData) {
@@ -53,6 +57,7 @@ function addNewLineAndDraw(point) {
         width: gameData.toolbarButtons[currentToolIndex].lineWidth,
         color: gameData.toolbarButtons[currentToolIndex].strokeColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
+        dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point,
         pointOffsets: []
     };
@@ -76,8 +81,10 @@ function addNewCircleAndDraw(point) {
     currentPath = {
         type: 'circ',
         diameter: gameData.toolbarButtons[currentToolIndex].diameter,
-        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
+        strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
+        dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point
     };
     pathListAddPath(currentPath);
@@ -90,8 +97,10 @@ function addNewRectangleAndDraw(point) {
         type: 'rect',
         width: gameData.toolbarButtons[currentToolIndex].width,
         height: gameData.toolbarButtons[currentToolIndex].height,
-        color: gameData.toolbarButtons[currentToolIndex].fillColor,
+        fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
+        strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
+        dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point
     };
     pathListAddPath(currentPath);
@@ -106,6 +115,7 @@ function addNewTextAndDraw(point) {
         fontSize: gameData.toolbarButtons[currentToolIndex].fontSize,
         color: gameData.toolbarButtons[currentToolIndex].fillColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
+        dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point
     };
     addBoundingBoxForText(currentPath);
@@ -121,6 +131,7 @@ function addNewDynamicTextAndDraw(point, toolIndex, textValue) {
         fontSize: gameData.toolbarButtons[toolIndex].fontSize,
         color: gameData.toolbarButtons[toolIndex].fillColor,
         op: gameData.toolbarButtons[toolIndex].compOp,
+        dragTest: gameData.toolbarButtons[toolIndex].dragTest,
         origin: point
     };
     addBoundingBoxForText(currentPath);
