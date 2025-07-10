@@ -38,7 +38,7 @@ function drawRectangle(pathData) {
 
 function drawText(pathData) {
     pathTextBox(pathData);
-    canvasContext.fillStyle = '#ccc';// 'transparent';
+    canvasContext.fillStyle = 'transparent';
     canvasContext.fill();
 
     setTextAttributes(pathData);
@@ -114,13 +114,13 @@ function addNewTextAndDraw(point) {
     drawText(currentPath);
 }
 
-function addNewDynamicTextAndDraw(point, textValue) {
+function addNewDynamicTextAndDraw(point, toolIndex, textValue) {
     currentPath = {
         type: 'text',
         textValue: textValue,
-        fontSize: gameData.toolbarButtons[currentToolIndex].fontSize,
-        color: gameData.toolbarButtons[currentToolIndex].fillColor,
-        op: gameData.toolbarButtons[currentToolIndex].compOp,
+        fontSize: gameData.toolbarButtons[toolIndex].fontSize,
+        color: gameData.toolbarButtons[toolIndex].fillColor,
+        op: gameData.toolbarButtons[toolIndex].compOp,
         origin: point
     };
     addBoundingBoxForText(currentPath);

@@ -26,6 +26,7 @@ const
 let isDrawing,
     editingToolIndex = -1,
     currentToolIndex = -1,
+    currentToolLockOn = false,
     handlingButtonPress = false,
     currentPath,
     canvasBaseWidth = 0,
@@ -129,15 +130,6 @@ function resetToolbarCustomButtons() {
         btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);
         btn.addEventListener('click', cfg.clickEventHandler, false);
-
-        if (cfg.isDrawingTool) {
-            const input = document.createElement('input');
-            input.type = 'checkbox';
-            input.id = btn.id + '_input';
-            input.setAttribute(dataAttrToolIndex, index);
-            customButtonContainer.appendChild(input);
-            input.addEventListener('change', handleDrawInputChange, false);
-        }
     });
 }
 
@@ -193,4 +185,9 @@ function randomize(btn, iteration = 0) {
 function cancelCanvasOperations() {
     isDrawing = false;
     dragStop();
+
+    if (currentToolIndex >= 0 && !currentToolLockOn) {
+        currentToolIndex = -1;
+        resetToggleButtons();
+    }
 }

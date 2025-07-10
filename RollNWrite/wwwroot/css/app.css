@@ -34,6 +34,14 @@ div.toolbar button.toolbarButton {
 	height: 40px;
 }
 
+div.toolbar button.toolbarButton.active {
+	background-color: aqua;
+}
+
+div.toolbar button.toolbarButton.lock {
+	border-width: 5px;
+}
+
 .rngButton {
 	width: 40px !important;
 	height: 40px !important;
@@ -49,10 +57,6 @@ div.toolbar label {
 	line-height: 38px;
 	font-family: Arial;
 	border: 1px solid black;
-}
-
-div.toolbar .active {
-	background-color: aqua;
 }
 
 div.toolbar input[type="checkbox"] {
