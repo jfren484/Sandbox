@@ -185,10 +185,10 @@ function pathRectangle(pathData) {
 function pathTextBox(pathData) {
     canvasContext.beginPath();
     canvasContext.rect(
-        pathData.origin.x + pathData.boundingBox.left,
-        pathData.origin.y + pathData.boundingBox.top,
-        pathData.boundingBox.width,
-        pathData.boundingBox.height
+        (pathData.origin.x + pathData.boundingBox.left) * canvasZoom,
+        (pathData.origin.y + pathData.boundingBox.top) * canvasZoom,
+        (pathData.boundingBox.width) * canvasZoom,
+        (pathData.boundingBox.height) * canvasZoom
     );
 }
 

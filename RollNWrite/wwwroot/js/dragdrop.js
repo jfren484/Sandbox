@@ -6,12 +6,12 @@
 
         switch (pathData.type) {
             case 'line':
-                if (!canvasContext.isPointInStroke(point.x, point.y)) return false;
+                if (!canvasContext.isPointInStroke(point.x * canvasZoom, point.y * canvasZoom)) return false;
                 break;
             case 'circ':
             case 'rect':
             case 'text':
-                if (!canvasContext.isPointInPath(point.x, point.y)) return false;
+                if (!canvasContext.isPointInPath(point.x * canvasZoom, point.y * canvasZoom)) return false;
                 break;
             default:
                 return false;
