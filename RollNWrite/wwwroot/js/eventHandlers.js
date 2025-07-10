@@ -165,15 +165,27 @@ function handleCanvasMouseOut(event) {
 }
 
 function handleCanvasMouseWheel(event) {
-    if (event.wheelDeltaY > 0) {
-        canvasZoom = Math.min(canvasZoomMax, canvasZoom + canvasZoomBy);
-    } else {
-        canvasZoom = Math.max(canvasZoomMin, canvasZoom - canvasZoomBy);
-    }
-    //event.ctrlKey
+    if (event.ctrlKey) {
+        event.preventDefault();
 
-    resizeCanvas(canvasBaseWidth, canvasBaseHeight);
-    redraw();
+        const newZoomIndex = canvasZoomIndex + (event.wheelDeltaY > 0 ? 1 : -1);
+
+        if (newZoomIndex !== canvasZoomIndex && newZoomIndex >= 0 && newZoomIndex < canvasZoomLevels.length) {
+            const realX = event.offsetX / canvasZoom,
+                realY = event.offsetY / canvasZoom;
+
+            canvasZoomIndex = newZoomIndex;
+            canvasZoom = canvasZoomLevels[canvasZoomIndex];
+
+            const scrollX = realX * canvasZoom - event.offsetX + canvasContainer.scrollLeft,
+                scrollY = realY * canvasZoom - event.offsetY + canvasContainer.scrollTop;
+
+            resizeCanvas(canvasBaseWidth, canvasBaseHeight);
+            redraw();
+
+            canvasContainer.scrollTo(scrollX, scrollY);
+        }
+    }
 }
 
 function handleConfigButtonClick(event) {

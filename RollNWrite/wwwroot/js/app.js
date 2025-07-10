@@ -19,9 +19,7 @@ const
     defTempBGImageSrc = tempBGImage.src,
     dataAttrToolIndex = 'data-tool-index',
     dataAttrPoint = 'data-point',
-    canvasZoomMin = 1,
-    canvasZoomMax = 2,
-    canvasZoomBy = 0.2;
+    canvasZoomLevels = [1, 1.3, 1.8, 2.5, 4.0];
 
 let isDrawing,
     editingToolIndex = -1,
@@ -32,6 +30,7 @@ let isDrawing,
     canvasBaseWidth = 0,
     canvasBaseHeight = 0,
     canvasZoom,
+    canvasZoomIndex = 0,
     bgImage,
     dragObject,
     gameData = {
