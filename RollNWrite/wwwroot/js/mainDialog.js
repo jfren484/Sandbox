@@ -100,11 +100,19 @@ function resetDialogToolList() {
         btn.classList.add('toolbarButton');
         btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustomTool' + index;
-        btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
-        btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
-            ? cfg.textStyle.colorValue
-            : cfg.textStyle.colorValueType === 'drawParam'
-                ? btnData[cfg.textStyle.colorValue] : 'black';
+        if (typeof cfg.text === 'function') {
+            btn.appendChild(cfg.text(btnData));
+        } else {
+            btn.innerHTML = cfg.text === 'field'
+                ? btnData[cfg.textField]
+                : cfg.text;
+        }
+        if (cfg.textStyle.colorProperty) {
+            btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
+                ? cfg.textStyle.colorValue
+                : cfg.textStyle.colorValueType === 'drawParam'
+                    ? btnData[cfg.textStyle.colorValue] : 'black';
+        }
         if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
         dialogToolsList.appendChild(btn);
         btn.addEventListener('click', mainDialogHandleCustomToolButtonClick, false);
@@ -182,15 +190,9 @@ function saveToolEdit() {
     });
 
     toolConfig[tempToolbarDefType].dynamicValues.forEach(field => {
-        switch (field.type) {
-            case 'copy':
-                toolDef[field.dest] = toolDef[field.source];
-                break;
-            case 'func':
-                // TODO: make func generic and store in tool config
-                toolDef[field.dest] = toolDef['fillColor'] === 'transparent' ? 'stroke' : 'fill';
-                break;
-        }
+        toolDef[field.dest] = typeof field.source === 'function'
+            ? field.source(toolDef)
+            : toolDef[field.source];
     });
 
     return toolDef;

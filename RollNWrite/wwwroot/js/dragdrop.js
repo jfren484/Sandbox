@@ -4,17 +4,21 @@
     sortedByZIndex.some(pathData => {
         pathShape(pathData);
 
-        console.log(pathData);
+        const x = point.x * canvasZoom,
+            y = point.y * canvasZoom;
+
         switch (pathData.dragTest) {
             case 'stroke':
-                if (!canvasContext.isPointInStroke(point.x * canvasZoom, point.y * canvasZoom)) return false;
+                if (!canvasContext.isPointInStroke(x, y)) return false;
                 break;
             case 'fill':
-                if (!canvasContext.isPointInPath(point.x * canvasZoom, point.y * canvasZoom)) return false;
+                if (!canvasContext.isPointInPath(x, y)) return false;
                 break;
             default:
                 return false;
         }
+
+        // If we got here, the point is in the path/stroke.
 
         dragObject =  {
             dragOrigin: point,

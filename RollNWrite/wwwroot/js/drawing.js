@@ -23,21 +23,35 @@ function drawLine(pathData) {
 function drawCircle(pathData) {
     pathCircle(pathData);
 
-    canvasContext.fillStyle = pathData.fillColor;
-    canvasContext.stokeStyle = pathData.strokeColor;
     canvasContext.globalCompositeOperation = pathData.op;
-    canvasContext.fill();
-    canvasContext.stroke();
+
+    if (pathData.fillColor !== 'transparent') {
+        canvasContext.fillStyle = pathData.fillColor;
+        canvasContext.fill();
+    }
+
+    if (pathData.strokeColor !== 'transparent') {
+        canvasContext.lineWidth = pathData.strokeWidth * canvasZoom;
+        canvasContext.strokeStyle = pathData.strokeColor;
+        canvasContext.stroke();
+    }
 }
 
 function drawRectangle(pathData) {
     pathRectangle(pathData);
 
-    canvasContext.fillStyle = pathData.fillColor;
-    canvasContext.stokeStyle = pathData.strokeColor;
     canvasContext.globalCompositeOperation = pathData.op;
-    canvasContext.fill();
-    canvasContext.stroke();
+
+    if (pathData.fillColor !== 'transparent') {
+        canvasContext.fillStyle = pathData.fillColor;
+        canvasContext.fill();
+    }
+
+    if (pathData.strokeColor !== 'transparent') {
+        canvasContext.lineWidth = pathData.strokeWidth * canvasZoom;
+        canvasContext.strokeStyle = pathData.strokeColor;
+        canvasContext.stroke();
+    }
 }
 
 function drawText(pathData) {
@@ -83,6 +97,7 @@ function addNewCircleAndDraw(point) {
         diameter: gameData.toolbarButtons[currentToolIndex].diameter,
         fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
         strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
+        strokeWidth: gameData.toolbarButtons[currentToolIndex].strokeWidth,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point
@@ -99,6 +114,7 @@ function addNewRectangleAndDraw(point) {
         height: gameData.toolbarButtons[currentToolIndex].height,
         fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
         strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
+        strokeWidth: gameData.toolbarButtons[currentToolIndex].strokeWidth,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point

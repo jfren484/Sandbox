@@ -38,22 +38,36 @@ let isDrawing,
             type: 'line',
             lineWidth: 2,
             strokeColor: 'black',
+            dragTest: 'stroke',
             compOp: 'source-over'
         },{
             type: 'erase',
             lineWidth: 10,
+            dragTest: 'stroke',
             compOp: 'destination-out'
         },{
-            type: 'rect',
-            width: 25,
-            height: 50,
+            type: 'circ',
+            diameter: 40,
             fillColor: 'red',
+            strokeColor: 'blue',
+            strokeWidth: 5,
+            dragTest: 'stroke',
+            compOp: 'source-over'
+        },{
+            type: 'rect',
+            width: 40,
+            height: 35,
+            fillColor: 'yellow',
+            strokeColor: 'purple',
+            strokeWidth: 5,
+            dragTest: 'stroke',
             compOp: 'source-over'
         },{
             type: 'dyntext',
             fontSize: 25,
             isBold: true,
             fillColor: 'blue',
+            dragTest: 'fill',
             compOp: 'source-over'
         },{
             type: 'rng',
@@ -119,12 +133,19 @@ function resetToolbarCustomButtons() {
         btn.classList.add('toolbarButton');
         btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustom' + index;
-        btn.innerHTML = cfg.text === 'field' ? btnData[cfg.textField] : cfg.text;
-        btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
-            ? cfg.textStyle.colorValue
-            : cfg.textStyle.colorValueType === 'drawParam'
-                ? btnData[cfg.textStyle.colorValue]
-                : 'black'; 
+        if (typeof cfg.text === 'function') {
+            btn.appendChild(cfg.text(btnData));
+        } else {
+            btn.innerHTML = cfg.text === 'field'
+                ? btnData[cfg.textField]
+                : cfg.text;
+        }
+        if (cfg.textStyle.colorProperty) {
+            btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
+                ? cfg.textStyle.colorValue
+                : cfg.textStyle.colorValueType === 'drawParam'
+                    ? btnData[cfg.textStyle.colorValue] : 'black';
+        }
         if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
         btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);
