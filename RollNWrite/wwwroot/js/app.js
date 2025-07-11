@@ -133,6 +133,7 @@ function resetToolbarCustomButtons() {
         btn.classList.add('toolbarButton');
         btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustom' + index;
+
         if (typeof cfg.text === 'function') {
             btn.appendChild(cfg.text(btnData));
         } else {
@@ -140,6 +141,11 @@ function resetToolbarCustomButtons() {
                 ? btnData[cfg.textField]
                 : cfg.text;
         }
+
+        btn.title = typeof cfg.altText === 'function'
+            ? cfg.altText(btnData)
+            : cfg.altText;
+
         if (cfg.textStyle.colorProperty) {
             btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
                 ? cfg.textStyle.colorValue
@@ -147,6 +153,7 @@ function resetToolbarCustomButtons() {
                     ? btnData[cfg.textStyle.colorValue] : 'black';
         }
         if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
+
         btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);
         btn.addEventListener('click', cfg.clickEventHandler, false);

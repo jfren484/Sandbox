@@ -1,7 +1,8 @@
 ﻿const toolConfig = {
     line: {
-        text: '<span style="font-size: 2em;">&#9660;</span>',
-        textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'strokeColor' },
+        text: determinLineText,
+        altText: function (toolDef) { return `draw ${toolDef.lineWidth}px ${toolDef.strokeColor} line`; },
+        textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'strokeColor', size: '1.6em' },
         formFields: ['lineWidth', 'strokeColor'],
         staticValues: [{ name: 'compOp', value: 'source-over' }, { name: 'dragTest', value: 'stroke' }],
         dynamicValues: [],
@@ -11,6 +12,7 @@
     },
     circ: {
         text: determineCircleText,
+        altText: function (toolDef) { return `draw ${toolDef.diameter}px diameter circle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.strokeWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
         textStyle: {},
         formFields: ['diameter', 'fillColor', 'strokeColor', 'strokeWidth'],
         staticValues: [{ name: 'compOp', value: 'source-over' }],
@@ -21,6 +23,7 @@
     },
     rect: {
         text: determineRectangleText,
+        altText: function (toolDef) { return `draw ${toolDef.width}px x ${toolDef.height}px rectangle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.strokeWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
         textStyle: {},
         formFields: ['width', 'height', 'fillColor', 'strokeColor', 'strokeWidth'],
         staticValues: [{ name: 'compOp', value: 'source-over' }],
@@ -31,6 +34,7 @@
     },
     text: {
         text: 'field',
+        altText: function (toolDef) { return `draw ${toolDef.textValue}`; },
         textField: 'textValue',
         textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
         formFields: ['textValue', 'fontSize', 'isBold', 'fillColor'],
@@ -42,6 +46,7 @@
     },
     dyntext: {
         text: '[ T ]',
+        altText: 'draw specified text',
         textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'fillColor', size: '1.25em' },
         formFields: ['fontSize', 'isBold', 'fillColor'],
         staticValues: [{ name: 'compOp', value: 'source-over' }, { name: 'dragTest', value: 'fill' }],
@@ -52,6 +57,7 @@
     },
     erase: {
         text: '<span style="font-size: 2em;">&#9648;</span>',
+        altText: function (toolDef) { return `erase ${toolDef.lineWidth}px line`; },
         textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'pink' },
         formFields: ['lineWidth'],
         staticValues: [{ name: 'compOp', value: 'destination-out' }, { name: 'dragTest', value: 'stroke' }],
@@ -62,6 +68,7 @@
     },
     rng: {
         text: 'field',
+        altText: function (toolDef) { return `roll ${toolDef.faceCount}-sided die`; },
         textField: 'currentValue',
         textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.25em' },
         formFields: ['faceCount'],
@@ -76,8 +83,14 @@ function determineDragTest(toolDef) {
     return toolDef.fillColor === 'transparent' ? 'stroke' : 'fill';
 }
 
-function determineCircleTextx(toolDef) {
-    return '<span style="font-size: 2.5em; position: relative; bottom: 0.1em;">' + (toolDef.fillColor === 'transparent' ? '&#9675;' : '&#9679;') + '</span>';
+function determinLineText(toolDef) {
+    const span = document.createElement('span');
+    span.style.display = 'inline-block';
+    span.style.position = 'relative';
+    span.style.bottom = '0.08em';
+    span.innerHTML = '&#9998;';
+
+    return span;
 }
 
 function determineCircleText(toolDef) {
