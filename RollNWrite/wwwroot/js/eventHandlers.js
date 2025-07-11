@@ -193,18 +193,9 @@ function handleCanvasMouseWheel(event) {
 function handleConfigButtonClick(event) {
     resetToggleButtons(this);
     cancelCanvasOperations();
-    editingToolIndex = -1;
     currentToolIndex = -1;
 
-    tempBGImageData = gameData.bgImageData;
-    tempToolbarButtons = structuredClone(gameData.toolbarButtons);
-
-    tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
-    resetDialogToolList();
-
-    resetToolEdit();
-    toggleDialogModalSections();
-    modalDialog.classList.add('visible');
+    mainDialogLoad();
 }
 
 function handleDrawButtonClick(event) {

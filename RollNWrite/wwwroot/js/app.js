@@ -22,7 +22,6 @@ const
     canvasZoomLevels = [1, 1.3, 1.8, 2.5, 4.0];
 
 let isDrawing,
-    editingToolIndex = -1,
     currentToolIndex = -1,
     currentToolLockOn = false,
     handlingButtonPress = false,
@@ -40,12 +39,12 @@ let isDrawing,
             strokeColor: 'black',
             dragTest: 'stroke',
             compOp: 'source-over'
-        },{
+        }, {
             type: 'erase',
             lineWidth: 10,
             dragTest: 'stroke',
             compOp: 'destination-out'
-        },{
+        }, {
             type: 'circ',
             diameter: 40,
             fillColor: 'red',
@@ -53,7 +52,7 @@ let isDrawing,
             strokeWidth: 5,
             dragTest: 'stroke',
             compOp: 'source-over'
-        },{
+        }, {
             type: 'rect',
             width: 40,
             height: 35,
@@ -62,14 +61,14 @@ let isDrawing,
             strokeWidth: 5,
             dragTest: 'stroke',
             compOp: 'source-over'
-        },{
+        }, {
             type: 'dyntext',
             fontSize: 25,
             isBold: true,
             fillColor: 'blue',
             dragTest: 'fill',
             compOp: 'source-over'
-        },{
+        }, {
             type: 'rng',
             faceCount: 6,
             currentValue: 6
@@ -78,6 +77,8 @@ let isDrawing,
         pathList: [],
         redoPathList: []
     },
+    editingToolIndex = -1,
+    toolEditChanged = false,
     tempBGImageData,
     tempToolbarButtons = [],
     tempToolbarDefType;
@@ -179,16 +180,6 @@ function jsonMerge() {
     return JSON.parse("{" + a.join() + "}");
 }
 */
-
-function toggleDialogModalSections() {
-    document.querySelectorAll('.modalSection').forEach(el => {
-        if (el.classList.contains('modalSectionTool') === (editingToolIndex >= 0)) {
-            el.classList.remove('visible');
-        } else {
-            el.classList.add('visible');
-        }
-    });
-}
 
 function randomize(btn, iteration = 0) {
     btn.disabled = true;

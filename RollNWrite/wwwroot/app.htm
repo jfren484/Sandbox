@@ -49,7 +49,7 @@
 						<img id="imgBG" src="./img/bgph.png" />
 						<button type="button" class="toolbarButton" id="btnBGImage">Choose Background Image</button>
 					</div>
-					<div class="modal modalSection"></div>
+					<div class="modal modalSection hideOnFormChanges"></div>
 				</div>
 				<div class="dialogContentSection dialogContentSectionToolList">
 					<div class="dialogContentTools">
@@ -57,7 +57,7 @@
 						<div id="dialogToolsList"></div>
 						<button type="button" class="toolbarButton" id="btnDialogToolAdd" style="font-size: 1.5em">&#10010;</button>
 					</div>
-					<div class="modal modalSection"></div>
+					<div class="modal modalSection hideOnFormChanges"></div>
 				</div>
 				<div class="dialogContentSection dialogContentSectionToolPosition">
 					<div class="dialogContentToolDefManage">
@@ -92,14 +92,14 @@
 								<label>Color: <input type="text" name="strokeColor" value="black" /></label>
 							</div>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_circ">
-								<label>Diameter: <input type="number" name="diameter" min="0.01" value="10" /></label>
+								<label>Diameter: <input type="number" name="diameter" min="1" value="10" /></label>
 								<label>Outline Width: <input type="number" name="strokeWidth" min="1" value="2" /></label>
 								<label>Outline Color: <input type="text" name="strokeColor" value="transparant" /></label>
 								<label>Fill Color: <input type="text" name="fillColor" value="transparent" /></label>
 							</div>
 							<div class="dialogToolTypeCont" id="dialogToolTypeCont_rect">
-								<label>Width: <input type="number" name="width" min="0.01" value="10" /></label>
-								<label>Height: <input type="number" name="height" min="0.01" value="10" /></label>
+								<label>Width: <input type="number" name="width" min="1" value="10" /></label>
+								<label>Height: <input type="number" name="height" min="1" value="10" /></label>
 								<label>Outline Width: <input type="number" name="strokeWidth" min="1" value="2" /></label>
 								<label>Outline Color: <input type="text" name="strokeColor" value="transparant" /></label>
 								<label>Fill Color: <input type="text" name="fillColor" value="transparent" /></label>

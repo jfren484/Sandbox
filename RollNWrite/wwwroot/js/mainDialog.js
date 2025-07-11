@@ -8,15 +8,35 @@
     dialogToolMoveUpButton.addEventListener('click', mainDialogHandleToolMoveUpClick, false);
     dialogToolMoveDownButton.addEventListener('click', mainDialogHandleToolMoveDownClick, false);
     dialogToolDeleteButton.addEventListener('click', mainDialogHandleToolDeleteClick, false);
+
+    Array.from(dialogToolDefinitionForm).forEach(el => {
+        console.log(el);
+        el.addEventListener('change', mainDialogHandlInputChange, false);
+    });
 }
 
+function mainDialogLoad() {
+    toolEditChanged = false;
+    tempBGImageData = gameData.bgImageData;
+    tempToolbarButtons = structuredClone(gameData.toolbarButtons);
+
+    tempBGImage.src = tempBGImageData ? tempBGImageData : defTempBGImageSrc;
+    resetDialogToolList();
+
+    resetToolEdit();
+    mainDialogToggleModalSections();
+
+    modalDialog.classList.add('visible');
+}
+
+/* Event Handlers */
+
 function mainDialogHandleCustomToolButtonClick(event) {
-    const index = Array.from(dialogToolsList.children).indexOf(this);
-    editingToolIndex = index;
+    editingToolIndex = Array.from(dialogToolsList.children).indexOf(this);
     tempToolbarDefType = tempToolbarButtons[editingToolIndex].type;
 
     setupToolEdit(tempToolbarButtons[editingToolIndex]);
-    toggleDialogModalSections();
+    mainDialogToggleModalSections(resetToolIndex = false);
 }
 
 function mainDialogHandleCancelClick(event) {
@@ -32,34 +52,37 @@ function mainDialogHandleSaveClick(event) {
     loadBGImage();
 }
 
+function mainDialogHandlInputChange(event) {
+    console.log('change');
+    toolEditChanged = true;
+    mainDialogToggleModalSections(resetToolIndex = false, resetFormChanges = false);
+}
+
 function mainDialogHandleToolTypeChange(event) {
     tempToolbarDefType = document.getElementById('dialogToolType').value;
     activateToolEditType(tempToolbarButtons[editingToolIndex]);
 }
 
 function mainDialogHandleToolAddClick(event) {
-    const index = dialogToolsList.children.length;
-    editingToolIndex = index;
+    editingToolIndex = dialogToolsList.children.length;
     tempToolbarDefType = '';
 
     setupToolEdit();
-    toggleDialogModalSections();
+    mainDialogToggleModalSections(resetToolIndex = false);
 }
 
 function mainDialogHandleToolCancelClick(event) {
-    editingToolIndex = -1;
     resetToolEdit();
-    toggleDialogModalSections();
+    mainDialogToggleModalSections();
 }
 
 function mainDialogHandleToolSaveClick(event) {
     const toolDef = saveToolEdit();
     tempToolbarButtons[editingToolIndex] = toolDef;
 
-    editingToolIndex = -1;
     resetToolEdit();
     resetDialogToolList();
-    toggleDialogModalSections();
+    mainDialogToggleModalSections();
 }
 
 function mainDialogHandleToolMoveUpClick(event) {
@@ -67,6 +90,7 @@ function mainDialogHandleToolMoveUpClick(event) {
     tempToolbarButtons.splice(editingToolIndex, 1);
     editingToolIndex--;
     tempToolbarButtons.splice(editingToolIndex, 0, currItem);
+
     resetDialogToolList();
     resetDialogToolMoveButtons();
 }
@@ -76,6 +100,7 @@ function mainDialogHandleToolMoveDownClick(event) {
     tempToolbarButtons.splice(editingToolIndex, 1);
     editingToolIndex++;
     tempToolbarButtons.splice(editingToolIndex, 0, currItem);
+
     resetDialogToolList();
     resetDialogToolMoveButtons();
 }
@@ -83,13 +108,33 @@ function mainDialogHandleToolMoveDownClick(event) {
 function mainDialogHandleToolDeleteClick(event) {
     tempToolbarButtons.splice(editingToolIndex, 1);
 
-    editingToolIndex = -1;
     resetToolEdit();
     resetDialogToolList();
-    toggleDialogModalSections();
+    mainDialogToggleModalSections();
 }
 
 /* functions called by above handlers */
+
+function mainDialogToggleModalSections(resetToolIndex = true, resetFormChanges = true) {
+    if (resetToolIndex) editingToolIndex = -1;
+    if (resetFormChanges) toolEditChanged = false;
+
+    document.querySelectorAll('.modalSectionTool').forEach(el => {
+        if (editingToolIndex < 0) {
+            el.classList.add('visible');
+        } else {
+            el.classList.remove('visible');
+        }
+    });
+
+    document.querySelectorAll('.hideOnFormChanges').forEach(el => {
+        if (toolEditChanged) {
+            el.classList.add('visible');
+        } else {
+            el.classList.remove('visible');
+        }
+    });
+}
 
 function resetDialogToolList() {
     dialogToolsList.innerHTML = '';
