@@ -10,7 +10,6 @@
     dialogToolDeleteButton.addEventListener('click', mainDialogHandleToolDeleteClick, false);
 
     Array.from(dialogToolDefinitionForm).forEach(el => {
-        console.log(el);
         el.addEventListener('change', mainDialogHandlInputChange, false);
     });
 }
@@ -53,7 +52,6 @@ function mainDialogHandleSaveClick(event) {
 }
 
 function mainDialogHandlInputChange(event) {
-    console.log('change');
     toolEditChanged = true;
     mainDialogToggleModalSections(resetToolIndex = false, resetFormChanges = false);
 }
