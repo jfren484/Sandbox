@@ -134,6 +134,30 @@ div.mainDialog div.dialogContentToolDef div.dialogToolTypeCont {
 	display: none;
 }
 
+div.mainDialog div.dialogContentToolDef div.toolEditRow {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldName {
+	width: 200px;
+	text-align: right;
+	padding-right: 5px;
+	font-weight: bold;
+}
+
+div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput {
+	width: 150px;
+	text-align: left;
+}
+
+div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput select, 
+div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput input:not([type=checkbox]) {
+	width: 100px;
+	box-sizing: border-box;
+}
+
 div.mainDialog div.dialogFooter {
 	grid-row: 4;
 	grid-column: 1 / span 5;
