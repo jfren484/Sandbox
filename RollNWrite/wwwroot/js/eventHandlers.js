@@ -38,7 +38,7 @@ function handleCanvasPointerStart(event, point) {
         switch (gameData.toolbarButtons[currentToolIndex].type) {
             case 'line':
             case 'erase':
-                handleCanvasPointerStartDraw(event, point);
+                handleCanvasPointerStartDraw(point);
                 break;
             case 'circ':
                 addNewCircleAndDraw(point);
@@ -50,7 +50,7 @@ function handleCanvasPointerStart(event, point) {
                 addNewTextAndDraw(point);
                 break;
             case 'dyntext':
-                handleCanvasPointerStartDynamicText(event, point);
+                handleCanvasPointerStartDynamicText(point);
                 break;
         }
     } else {
@@ -60,21 +60,21 @@ function handleCanvasPointerStart(event, point) {
     }
 }
 
-function handleCanvasPointerStartDraw(event, point) {
+function handleCanvasPointerStartDraw(point) {
     isDrawing = true;
 
     addNewLineAndDraw(point);
 }
 
-function handleCanvasPointerStartDynamicText(event, point) {
+function handleCanvasPointerStartDynamicText(point) {
     const input = document.createElement('input');
     const fontSize = gameData.toolbarButtons[currentToolIndex].fontSize * canvasZoom;
 
     input.type = 'text';
     input.name = 'dynamic-text-input';
     input.style.position = 'absolute';
-    input.style.left = (event.pageX - fontSize * 0.4) + 'px';
-    input.style.top = (event.pageY - fontSize * 0.6) + 'px';
+    input.style.left = (point.x * canvasZoom + canvas.offsetLeft - canvasContainer.scrollLeft - fontSize * 0.8) + 'px';
+    input.style.top = (point.y * canvasZoom + canvas.offsetTop - canvasContainer.scrollTop - fontSize * 0.6) + 'px';
     input.style.width = '2em';
     input.style.fontSize = fontSize + 'px';
     input.style.color = gameData.toolbarButtons[currentToolIndex].fillColor;
