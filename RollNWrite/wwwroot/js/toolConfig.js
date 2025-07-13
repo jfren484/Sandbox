@@ -12,9 +12,9 @@
     },
     circ: {
         text: determineCircleText,
-        altText: function (toolDef) { return `draw ${toolDef.diameter}px diameter circle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.strokeWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
+        altText: function (toolDef) { return `draw ${toolDef.diameter}px diameter circle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.lineWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
         textStyle: {},
-        formFields: ['diameter', 'fillColor', 'strokeColor', 'strokeWidth'],
+        formFields: ['diameter', 'fillColor', 'strokeColor', 'lineWidth'],
         staticValues: [{ name: 'compOp', value: 'source-over' }],
         dynamicValues: [{ source: determineDragTest, dest: 'dragTest' }],
         clickEventHandler: handleDrawButtonClick,
@@ -23,9 +23,9 @@
     },
     rect: {
         text: determineRectangleText,
-        altText: function (toolDef) { return `draw ${toolDef.width}px x ${toolDef.height}px rectangle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.strokeWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
+        altText: function (toolDef) { return `draw ${toolDef.width}px x ${toolDef.height}px rectangle${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.lineWidth + 'px ' + toolDef.strokeColor + ' stroke'}${toolDef.strokeColor === 'transparent' ? '' : ', ' + toolDef.fillColor + ' fill'}`; },
         textStyle: {},
-        formFields: ['width', 'height', 'fillColor', 'strokeColor', 'strokeWidth'],
+        formFields: ['width', 'height', 'fillColor', 'strokeColor', 'lineWidth'],
         staticValues: [{ name: 'compOp', value: 'source-over' }],
         dynamicValues: [{ source: determineDragTest, dest: 'dragTest' }],
         clickEventHandler: handleDrawButtonClick,
@@ -71,7 +71,7 @@
         altText: function (toolDef) { return `roll ${toolDef.faceCount}-sided die`; },
         textField: 'currentValue',
         textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.25em' },
-        formFields: ['faceCount'],
+        formFields: ['faceCount', 'fontColor', 'fillColor', 'strokeColor', 'lineWidth'],
         staticValues: [],
         dynamicValues: [{ type: 'copy', source: 'faceCount', dest: 'currentValue' }],
         clickEventHandler: handleRngButtonClick,
@@ -94,11 +94,11 @@ function determinLineText(toolDef) {
 }
 
 function determineCircleText(toolDef) {
-    const strokeAdjust = toolDef.strokeColor === 'transparent' ? 0 : toolDef.strokeWidth * 2,
+    const strokeAdjust = toolDef.strokeColor === 'transparent' ? 0 : toolDef.lineWidth * 2,
         fullDiameter = toolDef.diameter + strokeAdjust,
         scale = 30.0 / fullDiameter,
         diameter = parseFloat((toolDef.diameter * scale).toFixed(4)),
-        borderWidth = parseFloat((toolDef.strokeWidth * scale).toFixed(4));
+        borderWidth = parseFloat((toolDef.lineWidth * scale).toFixed(4));
 
     const span = document.createElement('span');
     span.style.display = 'inline-block';
@@ -122,13 +122,13 @@ function determineCircleText(toolDef) {
 }
 
 function determineRectangleText(toolDef) {
-    const strokeAdjust = toolDef.strokeColor === 'transparent' ? 0 : toolDef.strokeWidth * 2,
+    const strokeAdjust = toolDef.strokeColor === 'transparent' ? 0 : toolDef.lineWidth * 2,
         fullWidth = toolDef.width + strokeAdjust,
         fullHeight = toolDef.height + strokeAdjust,
         scale = Math.min(38.0 / fullWidth, 30.0 / fullHeight),
         width = parseFloat((toolDef.width * scale).toFixed(4)),
         height = parseFloat((toolDef.height * scale).toFixed(4)),
-        borderWidth = parseFloat((toolDef.strokeWidth * scale).toFixed(4));
+        borderWidth = parseFloat((toolDef.lineWidth * scale).toFixed(4));
 
     const span = document.createElement('span');
     span.style.display = 'inline-block';

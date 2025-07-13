@@ -12,7 +12,7 @@
 function drawLine(pathData) {
     pathLine(pathData);
 
-    canvasContext.lineWidth = pathData.width * canvasZoom;
+    canvasContext.lineWidth = pathData.lineWidth * canvasZoom;
     canvasContext.lineCap = 'round';
     canvasContext.lineJoin = 'round';
     canvasContext.strokeStyle = pathData.color;
@@ -31,7 +31,7 @@ function drawCircle(pathData) {
     }
 
     if (pathData.strokeColor !== 'transparent') {
-        canvasContext.lineWidth = pathData.strokeWidth * canvasZoom;
+        canvasContext.lineWidth = pathData.lineWidth * canvasZoom;
         canvasContext.strokeStyle = pathData.strokeColor;
         canvasContext.stroke();
     }
@@ -48,7 +48,7 @@ function drawRectangle(pathData) {
     }
 
     if (pathData.strokeColor !== 'transparent') {
-        canvasContext.lineWidth = pathData.strokeWidth * canvasZoom;
+        canvasContext.lineWidth = pathData.lineWidth * canvasZoom;
         canvasContext.strokeStyle = pathData.strokeColor;
         canvasContext.stroke();
     }
@@ -68,7 +68,7 @@ function drawText(pathData) {
 function addNewLineAndDraw(point) {
     currentPath = {
         type: 'line',
-        width: gameData.toolbarButtons[currentToolIndex].lineWidth,
+        lineWidth: gameData.toolbarButtons[currentToolIndex].lineWidth,
         color: gameData.toolbarButtons[currentToolIndex].strokeColor,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
@@ -97,7 +97,7 @@ function addNewCircleAndDraw(point) {
         diameter: gameData.toolbarButtons[currentToolIndex].diameter,
         fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
         strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
-        strokeWidth: gameData.toolbarButtons[currentToolIndex].strokeWidth,
+        lineWidth: gameData.toolbarButtons[currentToolIndex].lineWidth,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point
@@ -114,7 +114,7 @@ function addNewRectangleAndDraw(point) {
         height: gameData.toolbarButtons[currentToolIndex].height,
         fillColor: gameData.toolbarButtons[currentToolIndex].fillColor,
         strokeColor: gameData.toolbarButtons[currentToolIndex].strokeColor,
-        strokeWidth: gameData.toolbarButtons[currentToolIndex].strokeWidth,
+        lineWidth: gameData.toolbarButtons[currentToolIndex].lineWidth,
         op: gameData.toolbarButtons[currentToolIndex].compOp,
         dragTest: gameData.toolbarButtons[currentToolIndex].dragTest,
         origin: point

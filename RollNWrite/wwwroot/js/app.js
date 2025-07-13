@@ -35,7 +35,7 @@ let isDrawing,
     gameData = {
         toolbarButtons: [{
             type: 'line',
-            lineWidth: 2,
+            lineWidth: 8,
             strokeColor: 'black',
             dragTest: 'stroke',
             compOp: 'source-over'
@@ -49,7 +49,7 @@ let isDrawing,
             diameter: 40,
             fillColor: 'red',
             strokeColor: 'blue',
-            strokeWidth: 5,
+            lineWidth: 5,
             dragTest: 'stroke',
             compOp: 'source-over'
         }, {
@@ -58,7 +58,7 @@ let isDrawing,
             height: 35,
             fillColor: 'yellow',
             strokeColor: 'purple',
-            strokeWidth: 5,
+            lineWidth: 5,
             dragTest: 'stroke',
             compOp: 'source-over'
         }, {
@@ -71,7 +71,11 @@ let isDrawing,
         }, {
             type: 'rng',
             faceCount: 6,
-            currentValue: 6
+            currentValue: 6,
+            fillColor: 'white',
+            fontColor: 'black',
+            strokeColor: 'black',
+            lineWidth: 3
         }],
         bgImageData: null,
         pathList: [],
@@ -154,6 +158,13 @@ function resetToolbarCustomButtons() {
                     ? btnData[cfg.textStyle.colorValue] : 'black';
         }
         if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
+
+        if (btnData.type === 'rng') {
+            btn.style.backgroundColor = btnData.fillColor;
+            btn.style.color = btnData.fontColor;
+            btn.style.borderColor = btnData.strokeColor;
+            btn.style.borderWidth = btnData.lineWidth + 'px';
+        }
 
         btn.setAttribute(dataAttrToolIndex, index);
         customButtonContainer.appendChild(btn);

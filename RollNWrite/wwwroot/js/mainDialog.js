@@ -157,6 +157,14 @@ function resetDialogToolList() {
                     ? btnData[cfg.textStyle.colorValue] : 'black';
         }
         if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
+
+        if (btnData.type === 'rng') {
+            btn.style.backgroundColor = btnData.fillColor;
+            btn.style.color = btnData.fontColor;
+            btn.style.borderColor = btnData.strokeColor;
+            btn.style.borderWidth = btnData.lineWidth + 'px';
+        }
+
         dialogToolsList.appendChild(btn);
         btn.addEventListener('click', mainDialogHandleCustomToolButtonClick, false);
     });
