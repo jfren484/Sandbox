@@ -107,9 +107,13 @@ function resetToDefaults() {
 }
 
 function resetToolbarCustomButtons() {
-    customButtonContainer.innerHTML = '';
+    resetCustomButtonListControls(customButtonContainer, gameData.toolbarButtons, (cfg) => cfg.clickEventHandler);
+}
 
-    gameData.toolbarButtons.forEach((btnData, index) => {
+function resetCustomButtonListControls(container, buttonList, getEventListenerFunc) {
+    container.innerHTML = '';
+
+    buttonList.forEach((btnData, index) => {
         const cfg = toolConfig[btnData.type];
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -145,8 +149,9 @@ function resetToolbarCustomButtons() {
         }
 
         btn.setAttribute(dataAttrToolIndex, index);
-        customButtonContainer.appendChild(btn);
-        btn.addEventListener('click', cfg.clickEventHandler, false);
+        container.appendChild(btn);
+
+        btn.addEventListener('click', getEventListenerFunc(cfg), false);
     });
 }
 

@@ -215,6 +215,8 @@ function handleDrawButtonClick(event) {
 }
 
 function handleRngButtonClick(event) {
+    if (event.target.tagName.toLowerCase() === 'span' && event.target.classList.contains('rngType')) return;
+
     const btn = this;
     randomize(btn);
 }

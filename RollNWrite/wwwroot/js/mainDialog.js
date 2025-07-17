@@ -135,39 +135,7 @@ function mainDialogToggleModalSections(resetToolIndex = true, resetFormChanges =
 }
 
 function resetDialogToolList() {
-    dialogToolsList.innerHTML = '';
-    tempToolbarButtons.forEach((btnData, index) => {
-        const cfg = toolConfig[btnData.type];
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.classList.add('toolbarButton');
-        btn.classList.add(cfg.buttonClass);
-        btn.id = 'btnCustomTool' + index;
-        if (typeof cfg.text === 'function') {
-            cfg.text(btnData).forEach(el => btn.append(el));
-        } else {
-            btn.innerHTML = cfg.text === 'field'
-                ? btnData[cfg.textField]
-                : cfg.text;
-        }
-        if (cfg.textStyle.colorProperty) {
-            btn.style[cfg.textStyle.colorProperty] = cfg.textStyle.colorValueType === 'static'
-                ? cfg.textStyle.colorValue
-                : cfg.textStyle.colorValueType === 'drawParam'
-                    ? btnData[cfg.textStyle.colorValue] : 'black';
-        }
-        if (cfg.textStyle.size) btn.style.fontSize = cfg.textStyle.size;
-
-        if (btnData.type === 'rng') {
-            btn.style.backgroundColor = btnData.fillColor;
-            btn.style.color = btnData.fontColor;
-            btn.style.borderColor = btnData.strokeColor;
-            btn.style.borderWidth = btnData.lineWidth + 'px';
-        }
-
-        dialogToolsList.appendChild(btn);
-        btn.addEventListener('click', mainDialogHandleCustomToolButtonClick, false);
-    });
+    resetCustomButtonListControls(dialogToolsList, tempToolbarButtons, (cfg) => mainDialogHandleCustomToolButtonClick);
 }
 
 function resetDialogToolMoveButtons() {
