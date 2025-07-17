@@ -52,11 +52,11 @@ div, img, button {
 .rngButton .rngType {
     display: inline-block;
     position: absolute;
-    right: -1em;
+    right: -0.9em;
     top: -0.9em;
-    font-size: 0.4em;
+    font-size: 0.5em;
     color: black;
-    padding: 0 0.1em;
+    padding: 0.1em 0.2em;
     background-color: white;
     border: solid black 1px;
     border-radius: 25%;

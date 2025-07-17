@@ -51,7 +51,7 @@ let isDrawing,
             fillColor: 'white',
             fontColor: 'black',
             strokeColor: 'black',
-            lineWidth: 3
+            lineWidth: 2
         }, {
             type: 'roll'
         }],
