@@ -10,13 +10,13 @@
 	<body>
 		<div>
 			<div id="toolbar" class="toolbar">
-				<button type="button" class="toolbarButton" id="btnSave" title="Save current game state">Save</button>
-				<button type="button" class="toolbarButton" id="btnLoad" title="Load saved game state">Load</button>
+				<button type="button" class="toolbarButton" id="btnSave" title="Save current game state"><span style="font-size: 2em;">&#x1F5AB;</span></button>
+				<button type="button" class="toolbarButton" id="btnLoad" title="Load saved game state"><span style="font-size: 1.75em;">&#x1F4C1;</span></button>
 
 				<div class="toolbarDivider"></div>
 
-				<button type="button" class="toolbarButton" id="btnUndo" title="Undo last action">Undo</button>
-				<button type="button" class="toolbarButton" id="btnRedo" title="Redo last action">Redo</button>
+				<button type="button" class="toolbarButton" id="btnUndo" title="Undo last action"><span style="font-size: 2em;">&#8634;</span></button>
+				<button type="button" class="toolbarButton" id="btnRedo" title="Redo last action"><span style="font-size: 2em;">&#8635;</span></button>
 
 				<div class="toolbarDivider"></div>
 
@@ -86,6 +86,7 @@
 										<option value="dyntext">Dynamic Text</option>
 										<option value="erase">Erase</option>
 										<option value="rng">Random / Die</option>
+										<option value="roll">Reroll All</option>
 									</select>
 								</div>
 							</div>
@@ -198,6 +199,9 @@
 									<div class="toolEditFieldName">Outline Color: </div>
 									<div class="toolEditFieldInput"><input type="text" name="strokeColor" value="black" /></div>
 								</div>
+							</div>
+							<div class="dialogToolTypeCont" id="dialogToolTypeCont_roll">
+								<div>Nothing to configure for this tool.</div>
 							</div>
 							<div>
 								<button type="button" id="btnDialogToolCancel">Cancel</button>

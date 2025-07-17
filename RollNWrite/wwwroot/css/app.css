@@ -11,11 +11,11 @@ div, img, button {
 	box-sizing: border-box;
 }
 
-div.toolbar, div.resetToolbarCustomButtons {
+.toolbar, .resetToolbarCustomButtons {
 	display: flex;
 }
 
-div.toolbar {
+.toolbar {
 	display: flex;
 	position: fixed;
 	top: 0;
@@ -24,31 +24,45 @@ div.toolbar {
 	background-color: gainsboro;
 }
 
-div.toolbar.horiz {
+.toolbar.horiz {
 	height: 60px;
 	width: 100%;
 }
 
-div.toolbar button.toolbarButton {
+.toolbar .toolbarButton {
 	width: 60px;
 	height: 40px;
 }
 
-div.toolbar button.toolbarButton.active {
+.toolbar .toolbarButton.active {
 	background-color: aqua;
 }
 
-div.toolbar button.toolbarButton.lock {
+.toolbar .toolbarButton.lock {
 	border-width: 5px;
 }
 
-.rngButton {
-	width: 40px !important;
-	height: 40px !important;
+.toolbar .toolbarButton.rngButton {
+	position: relative;
+	width: 40px;
 	border-radius: 10px;
+	border-style: solid;
 }
 
-div.toolbar label {
+.rngButton .rngType {
+    display: inline-block;
+    position: absolute;
+    right: -1em;
+    top: -0.9em;
+    font-size: 0.4em;
+    color: black;
+    padding: 0 0.1em;
+    background-color: white;
+    border: solid black 1px;
+    border-radius: 25%;
+}
+
+.toolbar label {
 	text-align: center;
 	vertical-align: middle;
 	width: 58px;
@@ -58,19 +72,19 @@ div.toolbar label {
 	border: 1px solid black;
 }
 
-div.toolbar input[type="checkbox"] {
+.toolbar input[type="checkbox"] {
 	display: none;
 }
 
-div.toolbar.horiz button.toolbarButton, div.toolbar.horiz label {
+.toolbar.horiz .toolbarButton, .toolbar.horiz label {
 	margin: auto 5px;
 }
 
-div.toolbar div.toolbarCustomButtons {
+.toolbar .toolbarCustomButtons {
 	display: flex;
 }
 
-div.toolbarDivider {
+.toolbarDivider {
 	display: inline-block;
 	width: 1px;
 	height: 45px;
@@ -78,7 +92,7 @@ div.toolbarDivider {
 	margin: auto 5px;
 }
 
-div.canvasContainer {
+.canvasContainer {
 	margin-top: 60px;
 	display: grid;
 	overflow: auto;

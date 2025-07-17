@@ -1,6 +1,6 @@
 ﻿const toolConfig = {
     line: {
-        text: determinLineText,
+        text: determineLineText,
         altText: function (toolDef) { return `draw ${toolDef.lineWidth}px ${toolDef.strokeColor} line`; },
         textStyle: { colorProperty: 'color', colorValueType: 'drawParam', colorValue: 'strokeColor', size: '1.6em' },
         formFields: ['lineWidth', 'strokeColor'],
@@ -67,7 +67,7 @@
         buttonClass: 'drawButton'
     },
     rng: {
-        text: 'field',
+        text: determineRngText,
         altText: function (toolDef) { return `roll ${toolDef.faceCount}-sided die`; },
         textField: 'currentValue',
         textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.25em' },
@@ -76,6 +76,16 @@
         dynamicValues: [{ type: 'copy', source: 'faceCount', dest: 'currentValue' }],
         clickEventHandler: handleRngButtonClick,
         buttonClass: 'rngButton'
+    },
+    roll: {
+        text: '&#10227;',
+        altText: 'Reroll all dice',
+        textStyle: { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.75em' },
+        formFields: [],
+        staticValues: [],
+        dynamicValues: [],
+        clickEventHandler: handleRerollButtonClick,
+        buttonClass: 'rollButton'
     }
 };
 
@@ -83,14 +93,14 @@ function determineDragTest(toolDef) {
     return toolDef.fillColor === 'transparent' ? 'stroke' : 'fill';
 }
 
-function determinLineText(toolDef) {
+function determineLineText(toolDef) {
     const span = document.createElement('span');
     span.style.display = 'inline-block';
     span.style.position = 'relative';
     span.style.bottom = '0.08em';
     span.innerHTML = '&#9998;';
 
-    return span;
+    return [span];
 }
 
 function determineCircleText(toolDef) {
@@ -118,7 +128,7 @@ function determineCircleText(toolDef) {
         span.style.borderColor = toolDef.strokeColor;
     }
 
-    return span;
+    return [span];
 }
 
 function determineRectangleText(toolDef) {
@@ -147,5 +157,17 @@ function determineRectangleText(toolDef) {
         span.style.borderColor = toolDef.strokeColor;
     }
 
-    return span;
+    return [span];
+}
+
+function determineRngText(toolDef) {
+    const spanType = document.createElement('span');
+    spanType.classList.add('rngType');
+    spanType.innerHTML = 'd' + toolDef.faceCount;
+
+    const spanValue = document.createElement('span');
+    spanValue.classList.add('rngValue');
+    spanValue.innerHTML = toolDef.faceCount;
+
+    return [spanType, spanValue];
 }

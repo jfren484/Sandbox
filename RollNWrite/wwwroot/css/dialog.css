@@ -1,13 +1,13 @@
-div.modal {
+.modal {
 	display: none;
 	z-index: 1000;
 }
 
-div.modal.visible {
+.modal.visible {
 	display: flex;
 }
 
-div.modalDialog {
+.modalDialog {
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -16,7 +16,7 @@ div.modalDialog {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-div.modalSection {
+.modalSection {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -25,7 +25,7 @@ div.modalSection {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-div.mainDialog {
+.mainDialog {
 	display: grid;
 	grid-template-rows: auto minmax(auto, 75px) auto auto;
 	gap: 10px;
@@ -34,7 +34,7 @@ div.mainDialog {
 	background-color: white;
 }
 
-div.mainDialog div.dialogHeader {
+.mainDialog .dialogHeader {
 	grid-row: 1;
 	grid-column: 1 / span 5;
 	display: flex;
@@ -45,12 +45,12 @@ div.mainDialog div.dialogHeader {
 	padding: 5px;
 }
 
-div.mainDialog div.dialogHeader > span {
+.mainDialog .dialogHeader > span {
 	/* Adjust for the size of the button on the right */
 	width: 30px;
 }
 
-div.mainDialog div.dialogHeader div.dialogHeaderTitle {
+.mainDialog .dialogHeader .dialogHeaderTitle {
 	height: 30px;
 	line-height: 30px;
 	vertical-align: middle;
@@ -59,43 +59,43 @@ div.mainDialog div.dialogHeader div.dialogHeaderTitle {
 	color: white;
 }
 
-div.mainDialog div.dialogHeader button {
+.mainDialog .dialogHeader button {
 	width: 30px;
 	height: 30px;
 }
 
-div.mainDialog div.dialogContentSection {
+.mainDialog .dialogContentSection {
 	position: relative;
 	padding: 10px;
 	text-align: center;
 	border: solid 1px black;
 }
 
-div.mainDialog div.dialogContentSection.dialogContentSectionImage {
+.mainDialog .dialogContentSection.dialogContentSectionImage {
 	grid-column: 2;
 	grid-row: 2 / span 2;
 }
 
-div.mainDialog div.dialogContentSection.dialogContentSectionToolList {
+.mainDialog .dialogContentSection.dialogContentSectionToolList {
 	grid-column: 3;
 	grid-row: 2 / span 2;
 }
 
-div.mainDialog div.dialogContentSection.dialogContentSectionToolPosition {
+.mainDialog .dialogContentSection.dialogContentSectionToolPosition {
 	grid-column: 4;
 	grid-row: 2;
 }
 
-div.mainDialog div.dialogContentSection.dialogContentSectionToolDefinition {
+.mainDialog .dialogContentSection.dialogContentSectionToolDefinition {
 	grid-column: 4;
 	grid-row: 3;
 }
 
-div.mainDialog div.dialogContentImage {
+.mainDialog .dialogContentImage {
 	width: 400px;
 }
 
-div.mainDialog div.dialogContentHeader {
+.mainDialog .dialogContentHeader {
 	text-align: center;
 	margin-bottom: 10px;
     font-size: 1.2em;
@@ -103,62 +103,69 @@ div.mainDialog div.dialogContentHeader {
     font-family: sans-serif;
 }
 
-div.mainDialog div.dialogContentImage img {
+.mainDialog .dialogContentImage img {
 	margin: auto;
 	max-width: 400px;
 	max-height: 500px;
 	border: solid 1px black;
 }
 
-div.mainDialog div.dialogContentImage button {
+.mainDialog .dialogContentImage button {
 	width: 100%;
 	height: 30px;
 	margin: 10px 0 0 0;
 }
 
-div.mainDialog div.dialogContentTools {
+.mainDialog .dialogContentTools {
 	width: 70px;
 }
 
-div.mainDialog div.dialogContentTools .toolbarButton {
+.mainDialog .dialogContentTools .toolbarButton {
 	width: 60px;
 	height: 40px;
 	margin-bottom: 10px;
 }
 
-div.mainDialog div.dialogContentToolDef {
+.mainDialog .dialogContentTools .toolbarButton.rngButton {
+	position: relative;
+	width: 40px;
+	border-radius: 10px;
+	border-style: solid;
+}
+
+.mainDialog .dialogContentToolDef {
 	width: 400px;
 }
 
-div.mainDialog div.dialogContentToolDef div.dialogToolTypeCont {
+.mainDialog .dialogContentToolDef .dialogToolTypeCont {
 	display: none;
 }
 
-div.mainDialog div.dialogContentToolDef div.toolEditRow {
+.mainDialog .dialogContentToolDef .toolEditRow {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 }
 
-div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldName {
+.mainDialog .dialogContentToolDef .toolEditRow .toolEditFieldName {
 	width: 200px;
 	text-align: right;
 	padding-right: 5px;
 	font-weight: bold;
 }
 
-div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput {
+.mainDialog .dialogContentToolDef .toolEditRow .toolEditFieldInput {
 	width: 150px;
 	text-align: left;
 }
 
-div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput select, 
-div.mainDialog div.dialogContentToolDef div.toolEditRow div.toolEditFieldInput input:not([type=checkbox]) {
+.mainDialog .dialogContentToolDef .toolEditRow .toolEditFieldInput select, 
+.mainDialog .dialogContentToolDef .toolEditRow .toolEditFieldInput input:not([type=checkbox]) {
 	width: 100px;
 	box-sizing: border-box;
 }
 
-div.mainDialog div.dialogFooter {
+.mainDialog .dialogFooter {
 	grid-row: 4;
 	grid-column: 1 / span 5;
 	display: flex;
@@ -167,7 +174,7 @@ div.mainDialog div.dialogFooter {
 	padding: 0 10px 10px 10px;
 }
 
-div.mainDialog div.dialogFooter button {
+.mainDialog .dialogFooter button {
 	width: 60px;
 	height: 40px;
 	margin: auto;

@@ -45,30 +45,6 @@ let isDrawing,
             dragTest: 'stroke',
             compOp: 'destination-out'
         }, {
-            type: 'circ',
-            diameter: 40,
-            fillColor: 'red',
-            strokeColor: 'blue',
-            lineWidth: 5,
-            dragTest: 'stroke',
-            compOp: 'source-over'
-        }, {
-            type: 'rect',
-            width: 40,
-            height: 35,
-            fillColor: 'yellow',
-            strokeColor: 'purple',
-            lineWidth: 5,
-            dragTest: 'stroke',
-            compOp: 'source-over'
-        }, {
-            type: 'dyntext',
-            fontSize: 25,
-            isBold: true,
-            fillColor: 'blue',
-            dragTest: 'fill',
-            compOp: 'source-over'
-        }, {
             type: 'rng',
             faceCount: 6,
             currentValue: 6,
@@ -76,6 +52,8 @@ let isDrawing,
             fontColor: 'black',
             strokeColor: 'black',
             lineWidth: 3
+        }, {
+            type: 'roll'
         }],
         bgImageData: null,
         pathList: [],
@@ -140,7 +118,7 @@ function resetToolbarCustomButtons() {
         btn.id = 'btnCustom' + index;
 
         if (typeof cfg.text === 'function') {
-            btn.appendChild(cfg.text(btnData));
+            cfg.text(btnData).forEach(el => btn.append(el));
         } else {
             btn.innerHTML = cfg.text === 'field'
                 ? btnData[cfg.textField]
@@ -201,7 +179,8 @@ function randomize(btn, iteration = 0) {
         newValue = Math.floor(Math.random() * gameData.toolbarButtons[index].faceCount) + 1;
     } while (newValue == gameData.toolbarButtons[index].currentValue);
 
-    btn.innerHTML = newValue;
+    const spanValue = btn.getElementsByClassName('rngValue')[0];
+    spanValue.innerHTML = newValue;
     gameData.toolbarButtons[index].currentValue = newValue;
 
     if (Math.random() > iteration / 10.0) {

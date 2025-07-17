@@ -219,6 +219,12 @@ function handleRngButtonClick(event) {
     randomize(btn);
 }
 
+function handleRerollButtonClick(event) {
+    toolbar.querySelectorAll('.rngButton').forEach(btn => {
+        randomize(btn);
+    });
+}
+
 function resetToggleButtons() {
     toolbar.querySelectorAll('.drawButton').forEach(btn => {
         btn.classList.remove('lock');

@@ -144,7 +144,7 @@ function resetDialogToolList() {
         btn.classList.add(cfg.buttonClass);
         btn.id = 'btnCustomTool' + index;
         if (typeof cfg.text === 'function') {
-            btn.appendChild(cfg.text(btnData));
+            cfg.text(btnData).forEach(el => btn.append(el));
         } else {
             btn.innerHTML = cfg.text === 'field'
                 ? btnData[cfg.textField]
