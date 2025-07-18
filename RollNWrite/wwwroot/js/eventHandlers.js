@@ -234,6 +234,24 @@ function resetToggleButtons() {
     });
 }
 
+function handleNewGameButtonClick(event) {
+    cancelCanvasOperations();
+
+    if (!gameDataChanged || confirm("Are you sure you want to proceed? Your existing game will be abandoned and any changes since your last save lost.")) {
+        gameData = gameData = {
+            toolbarButtons: [],
+            bgImageData: null,
+            pathList: [],
+            redoPathList: []
+        };
+
+        resetToDefaults();
+        loadBGImage();
+        redraw();
+        resetToolbarCustomButtons();
+    }
+}
+
 function handleSaveButtonClick(event) {
     const jsonData = JSON.stringify(gameData);
     const blob = new Blob([jsonData], { type: 'text/plain' });
@@ -246,14 +264,18 @@ function handleSaveButtonClick(event) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    gameDataChanged = false;
 }
 
 function handleLoadButtonClick(event) {
     cancelCanvasOperations();
 
-    fileInput.name = 'savFileInput';
-    fileInput.accept = '.sav';
-    fileInput.click();
+    if (!gameDataChanged || confirm("Are you sure you want to proceed? Your existing game will be abandoned and any changes since your last save lost.")) {
+        fileInput.name = 'savFileInput';
+        fileInput.accept = '.sav';
+        fileInput.click();
+    }
 }
 
 function handleImageButtonClick(event) {

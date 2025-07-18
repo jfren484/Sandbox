@@ -249,6 +249,8 @@ function loadBGImage() {
 }
 
 function pathListAddPath(path, resetRedo = true) {
+    gameDataChanged = true;
+
     if (path.type !== 'move') {
         const zIndexMax = gameData.pathList.length === 0 ? -1 : gameData.pathList.toSorted((a, b) => b.zIndex - a.zIndex)[0].zIndex;
         path.zIndex = zIndexMax + 1;
@@ -266,6 +268,8 @@ function pathListAddPath(path, resetRedo = true) {
 }
 
 function pathListRemovePath() {
+    gameDataChanged = true;
+
     const pathToMove = gameData.pathList.pop();
     gameData.redoPathList.push(pathToMove);
 

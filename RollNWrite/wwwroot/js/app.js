@@ -59,6 +59,7 @@ let isDrawing,
         pathList: [],
         redoPathList: []
     },
+    gameDataChanged = false,
     editingToolIndex = -1,
     toolEditChanged = false,
     tempBGImageData,
@@ -72,6 +73,7 @@ function initialize() {
 
     toolbar.classList.add('horiz');
     document.getElementById('btnBGImage').addEventListener('click', handleImageButtonClick, false);
+    document.getElementById('btnNew').addEventListener('click', handleNewGameButtonClick, false);
     document.getElementById('btnSave').addEventListener('click', handleSaveButtonClick, false);
     document.getElementById('btnLoad').addEventListener('click', handleLoadButtonClick, false);
     undoButton.addEventListener('click', handleUndoButtonClick, false);
@@ -102,6 +104,7 @@ function resetToDefaults() {
 
     handleWindowResize(null);
 
+    gameDataChanged = false;
     undoButton.disabled = true;
     redoButton.disabled = true;
 }

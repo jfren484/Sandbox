@@ -44,11 +44,18 @@ function mainDialogHandleCancelClick(event) {
 
 function mainDialogHandleSaveClick(event) {
     modalDialog.classList.remove('visible');
-    gameData.toolbarButtons = tempToolbarButtons;
-    resetToolbarCustomButtons();
 
-    gameData.bgImageData = tempBGImageData;
-    loadBGImage();
+    if (JSON.stringify(tempToolbarButtons) != JSON.stringify(gameData.toolbarButtons)) {
+        gameDataChanged = true;
+        gameData.toolbarButtons = tempToolbarButtons;
+        resetToolbarCustomButtons();
+    }
+
+    if (tempBGImageData != gameData.bgImageData) {
+        gameDataChanged = true;
+        gameData.bgImageData = tempBGImageData;
+        loadBGImage();
+    }
 }
 
 function mainDialogHandlInputChange(event) {
