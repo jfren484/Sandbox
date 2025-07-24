@@ -207,3 +207,10 @@ function cancelCanvasOperations() {
         resetToggleButtons();
     }
 }
+
+function resetToggleButtons() {
+    toolbar.querySelectorAll('.drawButton').forEach(btn => {
+        btn.classList.remove('lock');
+        btn.classList.remove('active');
+    });
+}

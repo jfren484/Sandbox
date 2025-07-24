@@ -191,9 +191,8 @@ function handleCanvasMouseWheel(event) {
 }
 
 function handleConfigButtonClick(event) {
-    resetToggleButtons(this);
+    currentToolLockOn = false;
     cancelCanvasOperations();
-    currentToolIndex = -1;
 
     mainDialogLoad();
 }
@@ -224,13 +223,6 @@ function handleRngButtonClick(event) {
 function handleRerollButtonClick(event) {
     toolbar.querySelectorAll('.rngButton').forEach(btn => {
         randomize(btn);
-    });
-}
-
-function resetToggleButtons() {
-    toolbar.querySelectorAll('.drawButton').forEach(btn => {
-        btn.classList.remove('lock');
-        btn.classList.remove('active');
     });
 }
 
