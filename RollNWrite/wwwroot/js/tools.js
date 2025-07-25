@@ -6,39 +6,55 @@
     isDrawingTool = false;
     buttonClass = '';
 
-    constructor(toolConfig) {
-        this.currentToolConfig = toolConfig;
+    constructor(btn) {
+        this.btn = btn;
     }
 
     getText() { throw new Error('getText not defined'); }
     getAltText() { throw new Error('getAltText not defined'); }
-    handleClick() { throw new Error('handleClick not defined'); }
 }
 
 class DrawTool extends Tool {
     isDrawingTool = true;
     buttonClass = 'drawButton';
 
-    constructor(toolConfig) {
-        super(toolConfig);
+    constructor(btn, toolConfig) {
+        super(btn);
+
+        this.btn.addEventListener('click', this.handleClick, false);
+        this.currentToolConfig = toolConfig;
     }
 
     handleClick(event) {
         const btn = event.currentTarget;
 
+        // Defaults for all of the detail properties
+        let toolIndex = parseInt(btn.getAttribute(dataAttrToolIndex)),
+            toolLock = false,
+            toolReset = false,
+            toolClass = '';
+
         if (btn.classList.contains('lock')) {
-            toolConfig.toolIndex = -1;
-            toolConfig.toolLockOn = false;
-            toolConfig.toolReset();
+            toolIndex = -1;
+            toolReset = true;
         } else if (btn.classList.contains('active')) {
-            toolConfig.toolLockOn = true;
-            btn.classList.add('lock');
+            toolLockOn = true;
+            toolClass = 'lock';
         } else {
-            toolConfig.toolIndex = parseInt(btn.getAttribute(dataAttrToolIndex));
-            toolConfig.toolLockOn = false;
-            toolConfig.toolReset();
-            btn.classList.add('active');
+            toolReset = true;
+            toolClass = 'active';
         }
+
+        this.dispatchEvent(
+            new CustomEvent('toolChange', {
+                detail: {
+                    toolIndex: toolIndex,
+                    toolLock: toolLock,
+                    toolReset: toolReset,
+                    toolClass: toolClass
+                },
+            }),
+        );
     }
 }
 
@@ -226,8 +242,8 @@ class RngTool extends Tool {
     dynamicValues = [{ type: 'copy', source: 'faceCount', dest: 'currentValue' }];
     buttonClass = 'rngButton';
 
-    constructor(toolConfig) {
-        super(toolConfig);
+    constructor() {
+        super();
     }
 
     getText() {
@@ -258,8 +274,8 @@ class RollAllTool extends Tool {
     textStyle = { colorProperty: 'color', colorValueType: 'static', colorValue: 'black', size: '1.75em' };
     buttonClass = 'rollButton';
 
-    constructor(toolConfig) {
-        super(toolConfig);
+    constructor() {
+        super();
     }
 
     getText() {
