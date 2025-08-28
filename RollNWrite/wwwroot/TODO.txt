@@ -1,0 +1,13 @@
+An easy to use zoom and pan toolset
+Multi-image importing
+Importing of any file type
+A rotate option when importing an image
+Choosing a color from a clickable pallet rather than typing it in
+Roll history window - some games have this already on their sheet but it is still a nice tool to have
+When defining images and tools, having a scale so the user understands size choice
+Square erase tool shape
+Entity erase
+Readme file
+Define a table from which to roll from
+Draw cards from a deck
+Zoom on tablet

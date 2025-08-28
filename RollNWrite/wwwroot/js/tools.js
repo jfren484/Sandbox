@@ -228,7 +228,7 @@ class DynamicTextTool extends TextTool {
     }
 
     getText() {
-        return ['[ T ]'1];
+        return ['[ T ]'];
     }
 
     getAltText() {
